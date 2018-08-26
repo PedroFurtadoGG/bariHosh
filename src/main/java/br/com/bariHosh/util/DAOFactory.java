@@ -1,7 +1,7 @@
 package br.com.bariHosh.util;
 
-import br.com.bariHosh.usuario.UsuarioDAO;
-import br.com.bariHosh.usuario.UsuarioDAOHibernate;
+import br.com.bariHosh.dao.UsuarioDAO;
+import br.com.bariHosh.dao.UsuarioDAOHibernate;
 
 public class DAOFactory {
 
