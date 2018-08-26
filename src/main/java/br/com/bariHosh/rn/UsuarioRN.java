@@ -1,7 +1,9 @@
-package br.com.bariHosh.usuario;
+package br.com.bariHosh.rn;
 
 import java.util.List;
 
+import br.com.bariHosh.dao.UsuarioDAO;
+import br.com.bariHosh.entity.Usuario;
 import br.com.bariHosh.util.DAOFactory;
 
 public class UsuarioRN {

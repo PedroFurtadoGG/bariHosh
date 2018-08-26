@@ -1,4 +1,4 @@
-package br.com.bariHosh.usuario;
+package br.com.bariHosh.entity;
 
 import java.io.Serializable;
 import java.util.Date;

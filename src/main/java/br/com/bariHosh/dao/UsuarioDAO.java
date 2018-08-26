@@ -1,6 +1,8 @@
-package br.com.bariHosh.usuario;
+package br.com.bariHosh.dao;
 
 import java.util.List;
+
+import br.com.bariHosh.entity.Usuario;
 
 public interface UsuarioDAO {
 	public void salvar(Usuario usuario);

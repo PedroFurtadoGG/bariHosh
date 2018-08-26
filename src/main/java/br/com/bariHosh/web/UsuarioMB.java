@@ -7,12 +7,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import br.com.bariHosh.usuario.Usuario;
-import br.com.bariHosh.usuario.UsuarioRN;
+import br.com.bariHosh.entity.Usuario;
+import br.com.bariHosh.rn.UsuarioRN;
 
-@ManagedBean(name = "usuarioBean")
+@ManagedBean(name = "usuarioMB")
 @RequestScoped
-public class UsuarioBean {
+public class UsuarioMB {
 	private Usuario usuario = new Usuario();
 	private String confirmarSenha;
 	private List<Usuario> lista;

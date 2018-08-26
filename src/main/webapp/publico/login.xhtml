@@ -4,13 +4,15 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 	<h:outputStylesheet name="assets/css/bootstrap.min.css" />
-	<h:outputStylesheet library="webjars" name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
 	<h:outputStylesheet name="assets/css/fonts.googleapis.com.css" />
 	<h:outputStylesheet name="assets/css/ace.min.css" />
 	<h:outputStylesheet name="assets/css/ace-rtl.min.css" />
 	<h:outputScript name="assets/js/jquery-2.1.4.min.js" />
 	<title>Login</title>
 </h:head>
+
 <h:body class="login-layout">
 	<h:panelGroup rendered="#{!empty param.login_error}">
 		<div class="alert alert-danger">Erro ao efetuar o login. Motivo:
@@ -34,23 +36,21 @@
 								<div class="widget-body">
 									<div class="widget-main">
 										<h4 class="header blue lighter bigger">
-											<i class="ace-icon fa fa-coffee green"></i> Please Enter Your
-											Information
+											<i class="ace-icon fa fa-coffee green"></i> Insira suas
+											informações de acesso.
 										</h4>
 										<div class="space-6"></div>
-										<form id="login" method="post"
-											action="#{request.contextPath}/j_spring_security_check">
+										<form id="login" method="post" action="#{request.contextPath}/j_spring_security_check">
 											<fieldset>
 												<label class="block clearfix"> <span
 													class="block input-icon input-icon-right"> <input
-														type="text" class="form-control" placeholder="login"
+														type="text" class="form-control" placeholder="Email"
 														name='j_username' /> <i class="ace-icon fa fa-user"></i>
 												</span>
 												</label> <label class="block clearfix"> <span
 													class="block input-icon input-icon-right"> <input
-														type="password" class="form-control"
-														placeholder="Password" name="j_password" /> <i
-														class="ace-icon fa fa-lock"></i>
+														type="password" class="form-control" placeholder="Senha"
+														name="j_password" /> <i class="ace-icon fa fa-lock"></i>
 												</span>
 												</label>
 												<div class="space"></div>
@@ -63,31 +63,17 @@
 										</form>
 										<div class="space-6"></div>
 									</div>
-									<!-- /.widget-main -->
 								</div>
-								<!-- /.widget-body -->
 							</div>
-							<!-- /.login-box -->
 						</div>
 					</div>
 				</div>
-				<!-- /.col -->
 			</div>
-			<!-- /.row -->
 		</div>
-		<!-- /.main-content -->
 	</div>
-	<!-- /.main-container -->
-	<!-- basic scripts -->
-	<!--[if !IE]> -->
 	<script src="assets/js/jquery-2.1.4.min.js"></script>
-	<!-- <![endif]-->
-	<!--[if IE]>
-      <script src="assets/js/jquery-1.11.3.min.js"></script>
-      <![endif]-->
-	<!-- inline scripts related to this page -->
 	<script>
-         document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}"; 
-      </script>
+		document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
+	</script>
 </h:body>
 </html>

@@ -1,9 +1,11 @@
-package br.com.bariHosh.usuario;
+package br.com.bariHosh.dao;
 
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+
+import br.com.bariHosh.entity.Usuario;
 
 public class UsuarioDAOHibernate implements UsuarioDAO {
 	private Session session;
