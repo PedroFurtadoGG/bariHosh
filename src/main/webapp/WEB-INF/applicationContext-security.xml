@@ -17,9 +17,8 @@
 	<authentication-manager>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="bariHoshDataSource"
-				authorities-by-username-query="SELECT u.login, p.permissao 
-																	FROM Usuario u, usuario_permissao p 
-																	WHERE u.id = p.usuario AND u.login = ?"
+				authorities-by-username-query="SELECT u.login, u.permissao FROM Usuario u
+																	WHERE u.login = ?"
 				users-by-username-query="SELECT login, senha, ativo FROM Usuario WHERE login = ?" />
 		</authentication-provider>
 	</authentication-manager>
