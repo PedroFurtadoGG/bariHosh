@@ -6,15 +6,12 @@ import javax.persistence.Enumerated;
 
 @Entity
 public class Usuario extends Pessoa {
-	
-	/**
-	 * 
-	 */
-	
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 8629146593763257431L;
+
 	@Enumerated(EnumType.STRING)
 	private EnumPermissao permissao;
-	
+
 	private String login;
 	private String senha;
 
@@ -37,7 +34,7 @@ public class Usuario extends Pessoa {
 	public EnumPermissao getPermissao() {
 		return permissao;
 	}
-	
+
 	public void setPermissao(EnumPermissao permissao) {
 		this.permissao = permissao;
 	}
@@ -78,6 +75,5 @@ public class Usuario extends Pessoa {
 			return false;
 		return true;
 	}
-	
-	 
+
 }

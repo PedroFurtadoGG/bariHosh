@@ -12,78 +12,97 @@ public class Endereco {
 	@GeneratedValue(generator = "endereco_seq", strategy = GenerationType.IDENTITY)
 	@SequenceGenerator(name = "endereco_seq", sequenceName = "endereco_seq", allocationSize = 1, initialValue = 1)
 	private Long id;
-	
+
 	private String cep;
 	private String tipoLogadouro;
 	private String endereco;
-	private String numero ;
-	private String complemento ;
+	private String numero;
+	private String complemento;
 	private String bairro;
 	private String cidade;
 	private String estado;
 	private String pais;
-	
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getCep() {
 		return cep;
 	}
+
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+
 	public String getTipoLogadouro() {
 		return tipoLogadouro;
 	}
+
 	public void setTipoLogadouro(String tipoLogadouro) {
 		this.tipoLogadouro = tipoLogadouro;
 	}
+
 	public String getEndereco() {
 		return endereco;
 	}
+
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
+
 	public String getNumero() {
 		return numero;
 	}
+
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+
 	public String getComplemento() {
 		return complemento;
 	}
+
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
+
 	public String getBairro() {
 		return bairro;
 	}
+
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
+
 	public String getCidade() {
 		return cidade;
 	}
+
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
+
 	public String getEstado() {
 		return estado;
 	}
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
 	public String getPais() {
 		return pais;
 	}
+
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,6 +118,7 @@ public class Endereco {
 		result = prime * result + ((tipoLogadouro == null) ? 0 : tipoLogadouro.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -155,7 +175,5 @@ public class Endereco {
 			return false;
 		return true;
 	}
-	
-	
 
 }

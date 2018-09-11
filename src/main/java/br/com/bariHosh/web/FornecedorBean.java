@@ -7,7 +7,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.Fornecedor;
-import br.com.bariHoshnegocio.FornecedorRN;
+import br.com.bariHosh.negocio.FornecedorRN;
 
 
 @ManagedBean(name = "fornecedorBean")

@@ -1,4 +1,4 @@
-package br.com.bariHoshnegocio;
+package br.com.bariHosh.negocio;
 
 import java.util.List;
 

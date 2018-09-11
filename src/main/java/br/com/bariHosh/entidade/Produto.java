@@ -29,29 +29,28 @@ public class Produto {
 	private Float valorSaida;
 	private boolean isAtivo;
 
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="usuario_produto_id", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario_produto_id", nullable = false)
 	private Usuario usuario_criador;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="tipo_produto", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tipo_produto", nullable = false)
 	private TipoProduto tipoProduto;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="categoria_produto", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "categoria_produto", nullable = false)
 	private CategoriaProduto categoria;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="marca_produto", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "marca_produto", nullable = false)
 	private Marca marca_produto;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false, precision=10, scale=2)
+	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
 	private Date data_criacao;
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false, precision=10, scale=2)
+	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
 	private Date data_alteracao;
 
