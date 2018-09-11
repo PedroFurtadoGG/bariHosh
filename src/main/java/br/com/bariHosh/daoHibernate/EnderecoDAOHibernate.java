@@ -8,42 +8,37 @@ import br.com.bariHosh.dao.GenericDAO;
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.util.DAOFactory;
 
-public class EnderecoDAOHibernate  implements GenericDAO<Endereco>{
+public class EnderecoDAOHibernate implements GenericDAO<Endereco> {
 
-	
-    private Session session  = DAOFactory.PegarSession();     
-	
-	
+	private Session session = DAOFactory.PegarSession();
+
 	@Override
 	public void salvar(Endereco model) {
 		this.session.save(model);
-		
+
 	}
 
 	@Override
 	public void atualizar(Endereco model) {
 		this.session.save(model);
-		
+
 	}
 
 	@Override
 	public void excluir(Endereco model) {
 		this.session.delete(model);
-		
+
 	}
 
 	@Override
-	public Endereco carregar(Long id) {		
+	public Endereco carregar(Integer id) {
 		return (Endereco) this.session.get(Endereco.class, id);
 	}
 
-
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Endereco> listar() {
 		return this.session.createCriteria(Endereco.class).list();
 	}
-
-	
 
 }

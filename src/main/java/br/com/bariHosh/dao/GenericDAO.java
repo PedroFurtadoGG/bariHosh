@@ -9,7 +9,7 @@ public interface GenericDAO<T> {
 
 	public void excluir(T model);
 
-	public T carregar(Long id);
+	public T carregar(Integer id);
 
 	public List<T> listar();
 }

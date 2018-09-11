@@ -22,7 +22,7 @@ public abstract class Pessoa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@SequenceGenerator(name = "pessoa_seq", sequenceName = "pessoa_seq", allocationSize = 1, initialValue = 1)
-	private Integer id_pessoa;
+	private Integer idPessoa;
 	private String nome;
 	private String rg;
 	private String cpf;
@@ -42,12 +42,12 @@ public abstract class Pessoa implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dt_alteracao;
 
-	public Integer getId_pessoa() {
-		return id_pessoa;
+	public Integer getIdPessoa() {
+		return idPessoa;
 	}
 
-	public void setId_pessoa(Integer id_pessoa) {
-		this.id_pessoa = id_pessoa;
+	public void setIdPessoa(Integer idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 	public String getNome() {
@@ -165,7 +165,7 @@ public abstract class Pessoa implements Serializable {
 		result = prime * result + ((dt_nascimento == null) ? 0 : dt_nascimento.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
-		result = prime * result + ((id_pessoa == null) ? 0 : id_pessoa.hashCode());
+		result = prime * result + ((idPessoa == null) ? 0 : idPessoa.hashCode());
 		result = prime * result + ((id_usuario_criacao == null) ? 0 : id_usuario_criacao.hashCode());
 		result = prime * result + ((idioma == null) ? 0 : idioma.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -216,10 +216,10 @@ public abstract class Pessoa implements Serializable {
 				return false;
 		} else if (!endereco.equals(other.endereco))
 			return false;
-		if (id_pessoa == null) {
-			if (other.id_pessoa != null)
+		if (idPessoa == null) {
+			if (other.idPessoa != null)
 				return false;
-		} else if (!id_pessoa.equals(other.id_pessoa))
+		} else if (!idPessoa.equals(other.idPessoa))
 			return false;
 		if (id_usuario_criacao == null) {
 			if (other.id_usuario_criacao != null)

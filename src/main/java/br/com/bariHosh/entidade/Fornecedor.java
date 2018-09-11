@@ -1,65 +1,120 @@
 package br.com.bariHosh.entidade;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 
 @Entity
-public class Fornecedor extends  Pessoa {
-	
-	/**
-	 * 
-	 */
+public class Fornecedor implements Serializable {
+
 	private static final long serialVersionUID = 3109287710600314331L;
-	private String ramoAtividade ;
+
+	private Integer idFornecedor;
+	private Pessoa id_pessoa;
+	private String ramoAtividade;
 	private String cnpj;
 	private String razao;
 	private String numInscricao;
+	private Boolean ativo;
+
+	public Integer getIdFornecedor() {
+		return idFornecedor;
+	}
+
+	public void setIdFornecedor(Integer idFornecedor) {
+		this.idFornecedor = idFornecedor;
+	}
+
+	public Pessoa getId_pessoa() {
+		return id_pessoa;
+	}
+
+	public void setId_pessoa(Pessoa id_pessoa) {
+		this.id_pessoa = id_pessoa;
+	}
+
 	public String getRamoAtividade() {
 		return ramoAtividade;
 	}
+
 	public void setRamoAtividade(String ramoAtividade) {
 		this.ramoAtividade = ramoAtividade;
 	}
+
 	public String getCnpj() {
 		return cnpj;
 	}
+
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
+
 	public String getRazao() {
 		return razao;
 	}
+
 	public void setRazao(String razao) {
 		this.razao = razao;
 	}
+
 	public String getNumInscricao() {
 		return numInscricao;
 	}
+
 	public void setNumInscricao(String numInscricao) {
 		this.numInscricao = numInscricao;
 	}
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
+		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
 		result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
+		result = prime * result + ((idFornecedor == null) ? 0 : idFornecedor.hashCode());
+		result = prime * result + ((id_pessoa == null) ? 0 : id_pessoa.hashCode());
 		result = prime * result + ((numInscricao == null) ? 0 : numInscricao.hashCode());
 		result = prime * result + ((ramoAtividade == null) ? 0 : ramoAtividade.hashCode());
 		result = prime * result + ((razao == null) ? 0 : razao.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Fornecedor other = (Fornecedor) obj;
+		if (ativo == null) {
+			if (other.ativo != null)
+				return false;
+		} else if (!ativo.equals(other.ativo))
+			return false;
 		if (cnpj == null) {
 			if (other.cnpj != null)
 				return false;
 		} else if (!cnpj.equals(other.cnpj))
+			return false;
+		if (idFornecedor == null) {
+			if (other.idFornecedor != null)
+				return false;
+		} else if (!idFornecedor.equals(other.idFornecedor))
+			return false;
+		if (id_pessoa == null) {
+			if (other.id_pessoa != null)
+				return false;
+		} else if (!id_pessoa.equals(other.id_pessoa))
 			return false;
 		if (numInscricao == null) {
 			if (other.numInscricao != null)
@@ -78,8 +133,5 @@ public class Fornecedor extends  Pessoa {
 			return false;
 		return true;
 	}
-	
-	
-	
 
 }

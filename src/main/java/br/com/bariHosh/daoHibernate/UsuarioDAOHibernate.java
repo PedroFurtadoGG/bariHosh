@@ -10,18 +10,16 @@ import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.util.DAOFactory;
 
 public class UsuarioDAOHibernate implements GenericDAO<Usuario> {
-	
-	private Session session  = DAOFactory.PegarSession();
-	
 
+	private Session session = DAOFactory.PegarSession();
 
 	public void salvar(Usuario usuario) {
 		this.session.save(usuario);
 	}
 
 	public void atualizar(Usuario usuario) {
-		if (usuario.getPermissao() == null ) {
-			Usuario usuarioPermissao = this.carregar(usuario.getId());
+		if (usuario.getPermissao() == null) {
+			Usuario usuarioPermissao = this.carregar(usuario.getIdUsuario());
 			usuario.setPermissao(usuarioPermissao.getPermissao());
 			this.session.evict(usuarioPermissao);
 		}
@@ -32,10 +30,11 @@ public class UsuarioDAOHibernate implements GenericDAO<Usuario> {
 		this.session.delete(usuario);
 	}
 
-	public Usuario carregar(Long id) {
-		return (Usuario) this.session.get(Usuario.class, id);
+	public Usuario carregar(Integer idUsuario) {
+		return (Usuario) this.session.get(Usuario.class, idUsuario);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Usuario> listar() {
 		return this.session.createCriteria(Usuario.class).list();
 	}

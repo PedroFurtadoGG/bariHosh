@@ -11,8 +11,9 @@ public class Endereco {
 	@Id
 	@GeneratedValue(generator = "endereco_seq", strategy = GenerationType.IDENTITY)
 	@SequenceGenerator(name = "endereco_seq", sequenceName = "endereco_seq", allocationSize = 1, initialValue = 1)
-	private Long id;
+	private Integer idEndereco;
 
+	private Pessoa idPessoa;
 	private String cep;
 	private String tipoLogadouro;
 	private String endereco;
@@ -23,12 +24,20 @@ public class Endereco {
 	private String estado;
 	private String pais;
 
-	public Long getId() {
-		return id;
+	public Integer getIdEndereco() {
+		return idEndereco;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdEndereco(Integer idEndereco) {
+		this.idEndereco = idEndereco;
+	}
+
+	public Pessoa getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Pessoa idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 	public String getCep() {
@@ -113,6 +122,8 @@ public class Endereco {
 		result = prime * result + ((complemento == null) ? 0 : complemento.hashCode());
 		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result + ((idEndereco == null) ? 0 : idEndereco.hashCode());
+		result = prime * result + ((idPessoa == null) ? 0 : idPessoa.hashCode());
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		result = prime * result + ((pais == null) ? 0 : pais.hashCode());
 		result = prime * result + ((tipoLogadouro == null) ? 0 : tipoLogadouro.hashCode());
@@ -157,6 +168,16 @@ public class Endereco {
 			if (other.estado != null)
 				return false;
 		} else if (!estado.equals(other.estado))
+			return false;
+		if (idEndereco == null) {
+			if (other.idEndereco != null)
+				return false;
+		} else if (!idEndereco.equals(other.idEndereco))
+			return false;
+		if (idPessoa == null) {
+			if (other.idPessoa != null)
+				return false;
+		} else if (!idPessoa.equals(other.idPessoa))
 			return false;
 		if (numero == null) {
 			if (other.numero != null)

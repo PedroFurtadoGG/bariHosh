@@ -2,6 +2,8 @@ package br.com.bariHosh.util;
 
 public class DAOException extends Exception {
 
+	private static final long serialVersionUID = 1197809705745905452L;
+
 	public DAOException() {
 		// TODO Auto-generated constructor stub
 	}

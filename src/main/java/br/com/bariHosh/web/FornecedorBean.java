@@ -49,7 +49,7 @@ public class FornecedorBean {
 	}
 
 	public String ativar() {
-		if (this.fornecedor.isAtivo())
+		if (this.fornecedor.getAtivo())
 			this.fornecedor.setAtivo(false);
 		else
 			this.fornecedor.setAtivo(true);
