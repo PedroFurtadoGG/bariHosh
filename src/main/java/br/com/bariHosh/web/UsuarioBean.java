@@ -15,7 +15,7 @@ import br.com.bariHosh.negocio.UsuarioRN;
 @ManagedBean(name = "usuarioBean")
 @RequestScoped
 public class UsuarioBean {
-	private Usuario usuario = new Usuario();
+	private Usuario usuario;
 	private Pessoa pessoa;
 	private String confirmarSenha;
 	private List<Usuario> lista;

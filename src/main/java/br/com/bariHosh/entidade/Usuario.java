@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -19,7 +20,9 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1, initialValue = 1)
 	private Integer idUsuario;
-	private Pessoa idPessoa;
+	
+	@OneToOne
+	private Pessoa pessoa;
 
 	@Enumerated(EnumType.STRING)
 	private EnumPermissao permissao;
@@ -35,12 +38,12 @@ public class Usuario implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
-	public Pessoa getIdPessoa() {
-		return idPessoa;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setIdPessoa(Pessoa idPessoa) {
-		this.idPessoa = idPessoa;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public EnumPermissao getPermissao() {
@@ -80,10 +83,10 @@ public class Usuario implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
-		result = prime * result + ((idPessoa == null) ? 0 : idPessoa.hashCode());
 		result = prime * result + ((idUsuario == null) ? 0 : idUsuario.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((permissao == null) ? 0 : permissao.hashCode());
+		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
@@ -102,11 +105,6 @@ public class Usuario implements Serializable {
 				return false;
 		} else if (!ativo.equals(other.ativo))
 			return false;
-		if (idPessoa == null) {
-			if (other.idPessoa != null)
-				return false;
-		} else if (!idPessoa.equals(other.idPessoa))
-			return false;
 		if (idUsuario == null) {
 			if (other.idUsuario != null)
 				return false;
@@ -118,6 +116,11 @@ public class Usuario implements Serializable {
 		} else if (!login.equals(other.login))
 			return false;
 		if (permissao != other.permissao)
+			return false;
+		if (pessoa == null) {
+			if (other.pessoa != null)
+				return false;
+		} else if (!pessoa.equals(other.pessoa))
 			return false;
 		if (senha == null) {
 			if (other.senha != null)

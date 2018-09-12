@@ -16,7 +16,7 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Pessoa implements Serializable {
+public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = -5423548586449275468L;
 	@Id

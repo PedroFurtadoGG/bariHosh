@@ -6,6 +6,37 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Cadastro de Usuários</title>
 </h:head>
+<h:outputStylesheet name="assets/css/bootstrap.min.css" />
+<h:outputStylesheet library="webjars"
+	name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+<h:outputStylesheet name="assets/css/jquery-ui.custom.min.css" />
+<h:outputStylesheet name="assets/css/chosen.min.css" />
+<h:outputStylesheet name="assets/css/bootstrap-datepicker3.min.css" />
+<h:outputStylesheet name="assets/css/bootstrap-timepicker.min.css" />
+<h:outputStylesheet name="assets/css/daterangepicker.min.css" />
+<h:outputStylesheet name="assets/css/bootstrap-datetimepicker.min.css" />
+<h:outputStylesheet name="assets/css/bootstrap-colorpicker.min.css" />
+<!-- text fonts -->
+<h:outputStylesheet name="assets/css/fonts.googleapis.com.css" />
+<!-- ace styles -->
+<h:outputStylesheet name="assets/css/ace.min.css"
+	class="ace-main-stylesheet" id="main-ace-style" />
+<!--[if lte IE 9]>
+   <h:outputStylesheet name="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
+   <![endif]-->
+<h:outputStylesheet name="assets/css/ace-skins.min.css" />
+<h:outputStylesheet name="assets/css/ace-rtl.min.css" />
+<!--[if lte IE 9]>
+   <h:outputStylesheet name="assets/css/ace-ie.min.css" />
+   <![endif]-->
+<h:outputScript name="assets/js/ace-extra.min.js" />
+<!--[if lte IE 8]>
+   <h:outputScript name="assets/js/html5shiv.min.js">
+   </script>
+   <h:outputScript name="assets/js/respond.min.js">
+   </script>
+   <![endif]-->
+<h:outputScript name="assets/js/jquery-2.1.4.min.js" />
 <h:body>
 	<h1>Cadastro de Usuários</h1>
 	<h:form id="cadastro">
@@ -13,7 +44,6 @@
 		<h:inputHidden value="#{usuarioBean.usuario.idUsuario}" />
 		<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
 		<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
-
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" for="nome" />
 			<h:inputText id="nome" label="Nome"
@@ -21,18 +51,15 @@
 				required="true" requiredMessage="Você não tem nome?">
 				<f:validateLength minimum="10" maximum="30" />
 			</h:inputText>
-
 			<h:outputLabel value="Data Nascimento:" for="data" />
 			<h:inputText id="data" label="Data Nascimento"
-				value="#{usuarioBean.usuario.dt_nascimento}" size="10" maxlength="10"
-				required="true">
+				value="#{usuarioBean.usuario.dt_nascimento}" size="10"
+				maxlength="10" required="true">
 				<f:convertDateTime dateStyle="medium" />
 			</h:inputText>
-
 			<h:outputLabel value="Telefone:" for="telefone" />
 			<h:inputText id="telefone" label="Telefone"
 				value="#{usuarioBean.usuario.telefone}" size="10" />
-
 			<h:outputLabel value="e-Mail:" for="email" />
 			<h:panelGroup>
 				<h:inputText id="email" label="e-Mail"
@@ -42,14 +69,6 @@
 				</h:inputText>
 				<h:message for="email" />
 			</h:panelGroup>
-
-			<h:outputLabel value="Idioma:" for="idioma" />
-			<h:selectOneMenu id="idioma" value="#{usuarioBean.usuario.idioma}">
-				<f:selectItem itemValue="pt_BR" itemLabel="Português" />
-				<f:selectItem itemValue="en_US" itemLabel="English" />
-				<f:selectItem itemValue="es_ES" itemLabel="Espanol" />
-			</h:selectOneMenu>
-
 			<h:outputLabel value="Login:" for="login" />
 			<h:inputText id="login" label="Login"
 				value="#{usuarioBean.usuario.login}" size="15" maxlength="15"
@@ -57,18 +76,15 @@
 				validatorMessage="Login deve ter no mínimo 5 e no máximo 15 caracteres e só pode ter os símbolos '.' e '_'.">
 				<f:validateRegex pattern="([a-z]|[0-9]|[.]|[_]){5,15}" />
 			</h:inputText>
-
 			<h:outputLabel value="Senha:" for="senha" />
 			<h:inputSecret id="senha" label="Senha"
 				value="#{usuarioBean.usuario.senha}" size="10" maxlength="10"
 				required="true" redisplay="true" />
-
 			<h:outputLabel value="Confirmar Senha:" for="confirmarsenha" />
 			<h:inputSecret id="confirmarsenha" label="Confirmar Senha"
 				value="#{usuarioBean.confirmarSenha}" size="10" maxlength="10"
 				required="true" redisplay="true" />
 		</h:panelGrid>
-
 		<h:commandButton action="#{usuarioBean.salvar}" value="Salvar" />
 	</h:form>
 </h:body>
