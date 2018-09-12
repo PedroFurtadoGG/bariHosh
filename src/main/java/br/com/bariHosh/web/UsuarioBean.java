@@ -8,6 +8,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.EnumPermissao;
+import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.UsuarioRN;
 
@@ -15,6 +16,7 @@ import br.com.bariHosh.negocio.UsuarioRN;
 @RequestScoped
 public class UsuarioBean {
 	private Usuario usuario = new Usuario();
+	private Pessoa pessoa;
 	private String confirmarSenha;
 	private List<Usuario> lista;
 	private String destinoSalvar;
@@ -29,7 +31,7 @@ public class UsuarioBean {
 	public String editar() {
 		this.confirmarSenha = this.usuario.getSenha();
 		return "/publico/usuario";
-		
+
 	}
 
 	public String salvar() {
@@ -78,7 +80,7 @@ public class UsuarioBean {
 		this.usuario = usuario;
 		EnumPermissao permissoes = this.usuario.getPermissao();
 		if (permissoes.name().contains(permissao)) {
-			
+
 		} else {
 			permissoes.chave = permissao;
 			this.usuario.setPermissao(permissoes);
@@ -108,6 +110,14 @@ public class UsuarioBean {
 
 	public void setDestinoSalvar(String destinoSalvar) {
 		this.destinoSalvar = destinoSalvar;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 }

@@ -3,12 +3,19 @@ package br.com.bariHosh.entidade;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Fornecedor implements Serializable {
 
 	private static final long serialVersionUID = 3109287710600314331L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@SequenceGenerator(name = "fornecedor_seq", sequenceName = "fornecedor_seq", allocationSize = 1, initialValue = 1)
 	private Integer idFornecedor;
 	private Pessoa id_pessoa;
 	private String ramoAtividade;

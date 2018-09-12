@@ -10,14 +10,14 @@
 	<h1>Cadastro de Usuários</h1>
 	<h:form id="cadastro">
 		<h:messages />
-		<h:inputHidden value="#{usuarioBean.usuario.id}" />
+		<h:inputHidden value="#{usuarioBean.usuario.idUsuario}" />
 		<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
 		<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
 
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" for="nome" />
 			<h:inputText id="nome" label="Nome"
-				value="#{usuarioBean.usuario.nome}" size="30" maxlength="30"
+				value="#{usuarioBean.usuario.pessoa.nome}" size="30" maxlength="30"
 				required="true" requiredMessage="Você não tem nome?">
 				<f:validateLength minimum="10" maximum="30" />
 			</h:inputText>

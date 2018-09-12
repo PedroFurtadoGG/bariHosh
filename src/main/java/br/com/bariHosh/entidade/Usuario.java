@@ -5,17 +5,24 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 8629146593763257431L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	@SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1, initialValue = 1)
 	private Integer idUsuario;
+	private Pessoa idPessoa;
 
 	@Enumerated(EnumType.STRING)
 	private EnumPermissao permissao;
-	private Pessoa id_pessoa;
 	private String login;
 	private String senha;
 	private Boolean ativo;
@@ -28,20 +35,20 @@ public class Usuario implements Serializable {
 		this.idUsuario = idUsuario;
 	}
 
+	public Pessoa getIdPessoa() {
+		return idPessoa;
+	}
+
+	public void setIdPessoa(Pessoa idPessoa) {
+		this.idPessoa = idPessoa;
+	}
+
 	public EnumPermissao getPermissao() {
 		return permissao;
 	}
 
 	public void setPermissao(EnumPermissao permissao) {
 		this.permissao = permissao;
-	}
-
-	public Pessoa getId_pessoa() {
-		return id_pessoa;
-	}
-
-	public void setId_pessoa(Pessoa id_pessoa) {
-		this.id_pessoa = id_pessoa;
 	}
 
 	public String getLogin() {
@@ -73,8 +80,8 @@ public class Usuario implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
+		result = prime * result + ((idPessoa == null) ? 0 : idPessoa.hashCode());
 		result = prime * result + ((idUsuario == null) ? 0 : idUsuario.hashCode());
-		result = prime * result + ((id_pessoa == null) ? 0 : id_pessoa.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((permissao == null) ? 0 : permissao.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
@@ -95,15 +102,15 @@ public class Usuario implements Serializable {
 				return false;
 		} else if (!ativo.equals(other.ativo))
 			return false;
+		if (idPessoa == null) {
+			if (other.idPessoa != null)
+				return false;
+		} else if (!idPessoa.equals(other.idPessoa))
+			return false;
 		if (idUsuario == null) {
 			if (other.idUsuario != null)
 				return false;
 		} else if (!idUsuario.equals(other.idUsuario))
-			return false;
-		if (id_pessoa == null) {
-			if (other.id_pessoa != null)
-				return false;
-		} else if (!id_pessoa.equals(other.id_pessoa))
 			return false;
 		if (login == null) {
 			if (other.login != null)

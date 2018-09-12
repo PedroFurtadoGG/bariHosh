@@ -3,40 +3,77 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
+	<h:outputStylesheet name="assets/css/bootstrap.min.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+	<h:outputStylesheet name="assets/css/fonts.googleapis.com.css" />
+	<h:outputStylesheet name="assets/css/ace.min.css" />
+	<h:outputStylesheet name="assets/css/ace-rtl.min.css" />
+	<h:outputScript name="assets/js/jquery-2.1.4.min.js" />
 	<title>Login</title>
 </h:head>
-<h:body>
-	<h:panelGroup rendered="#{!empty param.login_error}">
-		<span style="color: red"> Erro ao efetuar o login.</span>
-		<br />
-		<br />
-		Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
-	</h:panelGroup>
 
-	<form id="login" method="post"
-		action="#{request.contextPath}/j_spring_security_check">
-		<table>
-			<tr>
-				<td>Login</td>
-				<td><input type='text' name='j_username' /></td>
-			</tr>
-			<tr>
-				<td>Senha</td>
-				<td><input type='password' name='j_password' /></td>
-			</tr>
-			<tr>
-				<td align="right"><input type="checkbox"
-					name="_spring_security_remember_me" /></td>
-				<td>Logar automaticamente</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" value="Logar" /></td>
-			</tr>
-		</table>
-		<script>
-		document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}"; 
+<h:body class="login-layout">
+	<h:panelGroup rendered="#{!empty param.login_error}">
+		<div class="alert alert-danger">Erro ao efetuar o login. Motivo:
+			#{SPRING_SECURITY_LAST_EXCEPTION.message}</div>
+	</h:panelGroup>
+	<div class="main-container">
+		<div class="main-content">
+			<div class="row">
+				<div class="col-sm-10 col-sm-offset-1">
+					<div class="login-container">
+						<div class="center">
+							<h1>
+								<i class="ace-icon fa fa-leaf green"></i> <span class="red">barI</span>
+								<span class="white" id="id-text2">Hosh</span>
+							</h1>
+						</div>
+						<div class="space-6"></div>
+						<div class="position-relative">
+							<div id="login-box"
+								class="login-box visible widget-box no-border">
+								<div class="widget-body">
+									<div class="widget-main">
+										<h4 class="header blue lighter bigger">
+											<i class="ace-icon fa fa-coffee green"></i> Insira suas
+											informações de acesso.
+										</h4>
+										<div class="space-6"></div>
+										<form id="login" method="post" action="#{request.contextPath}/j_spring_security_check">
+											<fieldset>
+												<label class="block clearfix"> <span
+													class="block input-icon input-icon-right"> <input
+														type="text" class="form-control" placeholder="Email"
+														name='j_username' /> <i class="ace-icon fa fa-user"></i>
+												</span>
+												</label> <label class="block clearfix"> <span
+													class="block input-icon input-icon-right"> <input
+														type="password" class="form-control" placeholder="Senha"
+														name="j_password" /> <i class="ace-icon fa fa-lock"></i>
+												</span>
+												</label>
+												<div class="space"></div>
+												<div class="clearfix">
+													<input type="submit" value="Logar"
+														class="width-35 pull-right btn btn-sm btn-primary" />
+												</div>
+												<div class="space-4"></div>
+											</fieldset>
+										</form>
+										<div class="space-6"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="assets/js/jquery-2.1.4.min.js"></script>
+	<script>
+		document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
 	</script>
-	</form>
 </h:body>
 </html>
