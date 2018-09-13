@@ -1,102 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-	<h:outputStylesheet name="assets/css/bootstrap.min.css" />
-	<h:outputStylesheet library="webjars"
-		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
-	<h:outputStylesheet name="assets/css/jquery-ui.custom.min.css" />
-	<h:outputStylesheet name="assets/css/chosen.min.css" />
-	<h:outputStylesheet name="assets/css/bootstrap-datepicker3.min.css" />
-	<h:outputStylesheet name="assets/css/bootstrap-timepicker.min.css" />
-	<h:outputStylesheet name="assets/css/daterangepicker.min.css" />
-	<h:outputStylesheet name="assets/css/bootstrap-datetimepicker.min.css" />
-	<h:outputStylesheet name="assets/css/bootstrap-colorpicker.min.css" />
-	<!-- text fonts -->
-	<h:outputStylesheet name="assets/css/fonts.googleapis.com.css" />
-	<!-- ace styles -->
-	<h:outputStylesheet name="assets/css/ace.min.css"
-		class="ace-main-stylesheet" id="main-ace-style" />
-	<!--[if lte IE 9]>
-      <h:outputStylesheet name="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
-      <![endif]-->
-	<h:outputStylesheet name="assets/css/ace-skins.min.css" />
-	<h:outputStylesheet name="assets/css/ace-rtl.min.css" />
-	<!--[if lte IE 9]>
-      <h:outputStylesheet name="assets/css/ace-ie.min.css" />
-      <![endif]-->
-	<h:outputScript name="assets/js/ace-extra.min.js" />
-	<!--[if lte IE 8]>
-      <h:outputScript name="assets/js/html5shiv.min.js">
-      </script>
-      <h:outputScript name="assets/js/respond.min.js">
-      </script>
-      <![endif]-->
-	<h:outputScript name="assets/js/jquery-2.1.4.min.js" />
-	<title>Login</title>
-</h:head>
-<h:body class="login-layout">
-	<h:panelGroup rendered="#{!empty param.login_error}">
-		<div class="alert alert-danger">Erro ao efetuar o login. Motivo:
-			#{SPRING_SECURITY_LAST_EXCEPTION.message}</div>
-	</h:panelGroup>
-	<div class="main-container">
-		<div class="main-content">
-			<div class="row">
-				<div class="col-sm-10 col-sm-offset-1">
-					<div class="login-container">
-						<div class="center">
-							<h1>
-								<i class="ace-icon fa fa-leaf green"></i> <span class="red">barI</span>
-								<span class="white" id="id-text2">Hosh</span>
-							</h1>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="title">
+        Cadastro Default
+    </ui:define>
+
+	<ui:define name="body">
+		<f:metadata>
+		</f:metadata>
+
+		<adm:breadcrumb title="Cadastro Default"
+			link="cadastro-default.xhtml?id=" />
+		<h:form id="form" prependId="false">
+			<p:focus />
+
+
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<div id="main-buttons" class="hidden-sm hidden-xs">
+						<p:commandButton value="Salvar" update="@form" icon="fa fa-check"
+							styleClass="btn-primary" />
+						<p:spacer width="5" />
+
+						<p:commandButton value="Excluir" process="@this"
+							icon="fa fa-trash" styleClass="btn-danger">
+						</p:commandButton>
+						<p:spacer width="5" />
+						<p:commandButton value="Voltar" immediate="true"
+							action="lista-default?faces-redirect=true" process="@this"
+							icon="fa fa-close" />
+
+					</div>
+
+					<p:splitButton value="Salvar" update="@form" icon="fa fa-check"
+						styleClass="hidden-md hidden-lg btn-primary">
+						<p:menuitem value="Excluir" process="@this" icon="fa fa-trash" />
+						<p:separator />
+						<p:menuitem value="Voltar"
+							action="lista-default?faces-redirect=true" process="@this"
+							icon="fa fa-close" />
+					</p:splitButton>
+
+
+
+					<p:separator />
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-12">
+							<p:outputLabel for="id" value="ID" />
 						</div>
-						<div class="space-6"></div>
-						<div class="position-relative">
-							<div id="login-box"
-								class="login-box visible widget-box no-border">
-								<div class="widget-body">
-									<div class="widget-main">
-										<h4 class="header blue lighter bigger">
-											<i class="ace-icon fa fa-coffee green"></i> Insira suas
-											informações de acesso.
-										</h4>
-										<div class="space-6"></div>
-										<form id="login" method="post"
-											action="#{request.contextPath}/j_spring_security_check">
-											<fieldset>
-												<label class="block clearfix"> <span
-													class="block input-icon input-icon-right"> <input
-														type="text" class="form-control" placeholder="Email"
-														name='j_username' /> <i class="ace-icon fa fa-user"></i>
-												</span>
-												</label> <label class="block clearfix"> <span
-													class="block input-icon input-icon-right"> <input
-														type="password" class="form-control" placeholder="Senha"
-														name="j_password" /> <i class="ace-icon fa fa-lock"></i>
-												</span>
-												</label>
-												<div class="space"></div>
-												<div class="clearfix">
-													<input type="submit" value="Logar"
-														class="width-35 pull-right btn btn-sm btn-primary" />
-												</div>
-												<div class="space-4"></div>
-											</fieldset>
-										</form>
-										<div class="space-6"></div>
-									</div>
-								</div>
-							</div>
+						<div class="ui-g-12">
+							<p:inputText id="id" value="" size="4" readonly="true"
+								styleClass="form-control" />
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<script>
-		document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}";
-	</script>
-</h:body>
-</html>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
