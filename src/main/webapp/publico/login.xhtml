@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 	<link rel="shortcut icon" href="favicon_16.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
@@ -15,20 +14,21 @@
 	<h:outputScript name="js/site.min.js" />
 	<title>Login</title>
 </h:head>
-<h:body	style="padding-top: 40px;padding-bottom: 40px;background-color: #303641;color: #C1C3C6">
+<h:body
+	style="padding-top: 40px;padding-bottom: 40px;background-color: #303641;color: #C1C3C6">
 	<div class="container">
 		<h:panelGroup rendered="#{!empty param.login_error}">
-			<div class="panel panel-danger">
-				<div class="panel-heading">
-					<h3 class="panel-title">Erro ao efetuar o login. Motivo:</h3>
-				</div>
-				<div class="panel-body">
-					#{SPRING_SECURITY_LAST_EXCEPTION.message}</div>
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">×</button>
+				<strong>Erro ao efetuar o login. Motivo: </strong>
+				#{SPRING_SECURITY_LAST_EXCEPTION.message}
 			</div>
 		</h:panelGroup>
+
 		<form id="login" method="post" class="form-signin"
 			action="#{request.contextPath}/j_spring_security_check">
-			<h3 class="form-signin-heading">Entre com suas informações</h3>
+			<h3 class="form-signin-heading">ACESSE.</h3>
 			<div class="form-group">
 				<div class="input-group">
 					<div class="input-group-addon">
