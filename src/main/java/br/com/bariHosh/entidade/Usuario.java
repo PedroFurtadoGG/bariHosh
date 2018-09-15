@@ -1,57 +1,60 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 public class Usuario implements Serializable {
-
-	private static final long serialVersionUID = 8629146593763257431L;
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@SequenceGenerator(name = "usuario_seq", sequenceName = "usuario_seq", allocationSize = 1, initialValue = 1)
-	private Integer idUsuario;
-	
-	@OneToOne
-	private Pessoa pessoa;
-
-	@Enumerated(EnumType.STRING)
-	private EnumPermissao permissao;
+	@GeneratedValue
+	private Integer codigo;
+	private String nome;
+	private String email;
+	@org.hibernate.annotations.NaturalId
 	private String login;
 	private String senha;
+	private Date nascimento;
+	private String celular;
 	private Boolean ativo;
+	@ElementCollection(targetClass = String.class)
+	@JoinTable(name = "usuario_permissao", uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "usuario", "permissao" }) }, joinColumns = @JoinColumn(name = "usuario"))
+	@Column(name = "permissao", length = 50)
+	private Set<String> permissao = new HashSet<String>();
 
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public Integer getCodigo() {
+		return codigo;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
 	}
 
-	public Pessoa getPessoa() {
-		return pessoa;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public EnumPermissao getPermissao() {
-		return permissao;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setPermissao(EnumPermissao permissao) {
-		this.permissao = permissao;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getLogin() {
@@ -70,6 +73,22 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
+	public Date getNascimento() {
+		return nascimento;
+	}
+
+	public void setNascimento(Date nascimento) {
+		this.nascimento = nascimento;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
 	public Boolean getAtivo() {
 		return ativo;
 	}
@@ -78,15 +97,26 @@ public class Usuario implements Serializable {
 		this.ativo = ativo;
 	}
 
+	public Set<String> getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(Set<String> permissao) {
+		this.permissao = permissao;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
-		result = prime * result + ((idUsuario == null) ? 0 : idUsuario.hashCode());
+		result = prime * result + ((celular == null) ? 0 : celular.hashCode());
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + ((nascimento == null) ? 0 : nascimento.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((permissao == null) ? 0 : permissao.hashCode());
-		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
@@ -105,22 +135,40 @@ public class Usuario implements Serializable {
 				return false;
 		} else if (!ativo.equals(other.ativo))
 			return false;
-		if (idUsuario == null) {
-			if (other.idUsuario != null)
+		if (celular == null) {
+			if (other.celular != null)
 				return false;
-		} else if (!idUsuario.equals(other.idUsuario))
+		} else if (!celular.equals(other.celular))
+			return false;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
 			return false;
 		if (login == null) {
 			if (other.login != null)
 				return false;
 		} else if (!login.equals(other.login))
 			return false;
-		if (permissao != other.permissao)
-			return false;
-		if (pessoa == null) {
-			if (other.pessoa != null)
+		if (nascimento == null) {
+			if (other.nascimento != null)
 				return false;
-		} else if (!pessoa.equals(other.pessoa))
+		} else if (!nascimento.equals(other.nascimento))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (permissao == null) {
+			if (other.permissao != null)
+				return false;
+		} else if (!permissao.equals(other.permissao))
 			return false;
 		if (senha == null) {
 			if (other.senha != null)

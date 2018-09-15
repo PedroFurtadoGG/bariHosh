@@ -5,21 +5,23 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import br.com.bariHosh.dao.GenericDAO;
+import br.com.bariHosh.dao.UsuarioDAO;
 import br.com.bariHosh.entidade.Usuario;
-import br.com.bariHosh.util.DAOFactory;
 
-public class UsuarioDAOHibernate implements GenericDAO<Usuario> {
+public class UsuarioDAOHibernate implements UsuarioDAO {
+	private Session session;
 
-	private Session session = DAOFactory.PegarSession();
+	public void setSession(Session session) {
+		this.session = session;
+	}
 
 	public void salvar(Usuario usuario) {
 		this.session.save(usuario);
 	}
 
 	public void atualizar(Usuario usuario) {
-		if (usuario.getPermissao() == null) {
-			Usuario usuarioPermissao = this.carregar(usuario.getIdUsuario());
+		if (usuario.getPermissao() == null || usuario.getPermissao().size() == 0) {
+			Usuario usuarioPermissao = this.carregar(usuario.getCodigo());
 			usuario.setPermissao(usuarioPermissao.getPermissao());
 			this.session.evict(usuarioPermissao);
 		}
@@ -30,11 +32,10 @@ public class UsuarioDAOHibernate implements GenericDAO<Usuario> {
 		this.session.delete(usuario);
 	}
 
-	public Usuario carregar(Integer idUsuario) {
-		return (Usuario) this.session.get(Usuario.class, idUsuario);
+	public Usuario carregar(Integer codigo) {
+		return (Usuario) this.session.get(Usuario.class, codigo);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Usuario> listar() {
 		return this.session.createCriteria(Usuario.class).list();
 	}
@@ -45,4 +46,6 @@ public class UsuarioDAOHibernate implements GenericDAO<Usuario> {
 		consulta.setString("login", login);
 		return (Usuario) consulta.uniqueResult();
 	}
+
+	
 }

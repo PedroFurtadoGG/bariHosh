@@ -2,23 +2,19 @@ package br.com.bariHosh.negocio;
 
 import java.util.List;
 
-import br.com.bariHosh.daoHibernate.GenericDAOHibernate;
-import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
-import br.com.bariHosh.entidade.EnumPermissao;
+import br.com.bariHosh.dao.UsuarioDAO;
 import br.com.bariHosh.entidade.Usuario;
+import br.com.bariHosh.util.DAOFactory;
 
 public class UsuarioRN {
-	private GenericDAOHibernate<Usuario> dao;
-
-	private UsuarioDAOHibernate usuarioDAO;
+	private UsuarioDAO usuarioDAO;
 
 	public UsuarioRN() {
-		this.usuarioDAO = new UsuarioDAOHibernate();
-		this.dao = new GenericDAOHibernate<Usuario>();
+		this.usuarioDAO = DAOFactory.criarUsuarioDAO();
 	}
 
-	public Usuario carregar(Integer id) {
-		return this.dao.carregar(id);
+	public Usuario carregar(Integer codigo) {
+		return this.usuarioDAO.carregar(codigo);
 	}
 
 	public Usuario buscarPorLogin(String login) {
@@ -26,12 +22,12 @@ public class UsuarioRN {
 	}
 
 	public void salvar(Usuario usuario) {
-		Integer usuarioId = usuario.getIdUsuario();
-		if (usuarioId == null || usuarioId == 0) {
-			usuario.setPermissao(EnumPermissao.ROLE_ADMINISTRADOR);
-			this.dao.salvar(usuario);
+		Integer codigo = usuario.getCodigo();
+		if (codigo == null || codigo == 0) {
+			usuario.getPermissao().add("ROLE_USUARIO");
+			this.usuarioDAO.salvar(usuario);
 		} else {
-			this.dao.atualizar(usuario);
+			this.usuarioDAO.atualizar(usuario);
 		}
 	}
 

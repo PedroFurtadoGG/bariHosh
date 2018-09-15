@@ -7,16 +7,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import br.com.bariHosh.entidade.EnumPermissao;
-import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.UsuarioRN;
 
 @ManagedBean(name = "usuarioBean")
 @RequestScoped
 public class UsuarioBean {
-	private Usuario usuario;
-	private Pessoa pessoa;
+	private Usuario usuario = new Usuario();
 	private String confirmarSenha;
 	private List<Usuario> lista;
 	private String destinoSalvar;
@@ -31,7 +28,6 @@ public class UsuarioBean {
 	public String editar() {
 		this.confirmarSenha = this.usuario.getSenha();
 		return "/publico/usuario";
-
 	}
 
 	public String salvar() {
@@ -57,17 +53,6 @@ public class UsuarioBean {
 		return null;
 	}
 
-	public String ativar() {
-		if (this.usuario.getAtivo())
-			this.usuario.setAtivo(false);
-		else
-			this.usuario.setAtivo(true);
-
-		UsuarioRN usuarioRN = new UsuarioRN();
-		usuarioRN.salvar(this.usuario);
-		return null;
-	}
-
 	public List<Usuario> getLista() {
 		if (this.lista == null) {
 			UsuarioRN usuarioRN = new UsuarioRN();
@@ -78,12 +63,11 @@ public class UsuarioBean {
 
 	public String atribuiPermissao(Usuario usuario, String permissao) {
 		this.usuario = usuario;
-		EnumPermissao permissoes = this.usuario.getPermissao();
-		if (permissoes.name().contains(permissao)) {
-
+		java.util.Set<String> permissoes = this.usuario.getPermissao();
+		if (permissoes.contains(permissao)) {
+			permissoes.remove(permissao);
 		} else {
-			permissoes.chave = permissao;
-			this.usuario.setPermissao(permissoes);
+			permissoes.add(permissao);
 		}
 		return null;
 	}
@@ -110,14 +94,6 @@ public class UsuarioBean {
 
 	public void setDestinoSalvar(String destinoSalvar) {
 		this.destinoSalvar = destinoSalvar;
-	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
 	}
 
 }

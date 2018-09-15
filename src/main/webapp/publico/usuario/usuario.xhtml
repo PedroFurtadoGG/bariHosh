@@ -1,60 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Cadastro de Usuários</title>
-</h:head>
-<h:body>
-	<h1>Cadastro de Usuários</h1>
-	<h:form id="cadastro">
-		<h:messages />
-		<h:inputHidden value="#{usuarioBean.usuario.idUsuario}" />
-		<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
-		<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
-		<h:panelGrid columns="2">
-			<h:outputLabel value="Nome:" for="nome" />
-			<h:inputText id="nome" label="Nome"
-				value="#{usuarioBean.usuario.pessoa.nome}" size="30" maxlength="30"
-				required="true" requiredMessage="Você não tem nome?">
-				<f:validateLength minimum="10" maximum="30" />
-			</h:inputText>
-			<h:outputLabel value="Data Nascimento:" for="data" />
-			<h:inputText id="data" label="Data Nascimento"
-				value="#{usuarioBean.usuario.dt_nascimento}" size="10"
-				maxlength="10" required="true">
-				<f:convertDateTime dateStyle="medium" />
-			</h:inputText>
-			<h:outputLabel value="Telefone:" for="telefone" />
-			<h:inputText id="telefone" label="Telefone"
-				value="#{usuarioBean.usuario.telefone}" size="10" />
-			<h:outputLabel value="e-Mail:" for="email" />
-			<h:panelGroup>
-				<h:inputText id="email" label="e-Mail"
-					value="#{usuarioBean.usuario.email}" size="50" maxlength="50"
-					required="true" validatorMessage="e-mail inválido">
-					<f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
-				</h:inputText>
-				<h:message for="email" />
-			</h:panelGroup>
-			<h:outputLabel value="Login:" for="login" />
-			<h:inputText id="login" label="Login"
-				value="#{usuarioBean.usuario.login}" size="15" maxlength="15"
-				required="true"
-				validatorMessage="Login deve ter no mínimo 5 e no máximo 15 caracteres e só pode ter os símbolos '.' e '_'.">
-				<f:validateRegex pattern="([a-z]|[0-9]|[.]|[_]){5,15}" />
-			</h:inputText>
-			<h:outputLabel value="Senha:" for="senha" />
-			<h:inputSecret id="senha" label="Senha"
-				value="#{usuarioBean.usuario.senha}" size="10" maxlength="10"
-				required="true" redisplay="true" />
-			<h:outputLabel value="Confirmar Senha:" for="confirmarsenha" />
-			<h:inputSecret id="confirmarsenha" label="Confirmar Senha"
-				value="#{usuarioBean.confirmarSenha}" size="10" maxlength="10"
-				required="true" redisplay="true" />
-		</h:panelGrid>
-		<h:commandButton action="#{usuarioBean.salvar}" value="Salvar" />
-	</h:form>
-</h:body>
+   xmlns:h="http://xmlns.jcp.org/jsf/html"
+   xmlns:f="http://xmlns.jcp.org/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+   <h:head>
+      <link rel="shortcut icon" href="favicon_16.ico" />
+      <link rel="bookmark" href="favicon_16.ico" />
+      <h:outputStylesheet name="css/site.min.css" />
+      <h:outputStylesheet library="webjars"
+         name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+      <link
+         href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
+         rel='stylesheet' type='text/css' />
+      <h:outputScript name="js/site.min.js" />
+      <title>Usuários</title>
+   </h:head>
+   <h:body>
+      <ui:insert name="header">
+         <ui:include src="/template/common/top-menu.xhtml" />
+      </ui:insert>
+      <div class="container-fluid">
+         <div class="row row-offcanvas row-offcanvas-left">
+            <ui:insert name="sidebar-menu">
+               <ui:include src="/template/common/sidebar-menu.xhtml" />
+            </ui:insert>
+            <div class="col-xs-12 col-sm-9 content">
+               <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <h3 class="panel-title"> Usuários </h3>
+                  </div>
+                  <div class="panel-body">
+                     <div class="content-row">
+                        <div class="panel panel-default">
+                           <div class="panel-heading">
+                              <div class="panel-title">
+                                 <b>Cadastro de Usuário</b>
+                              </div>
+                              <div class="panel-options">
+                                 <a class="bg" data-target="#sample-modal-dialog-1"
+                                    data-toggle="modal" href="#sample-modal"><i
+                                    class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
+                                    class="entypo-down-open"></i></a> <a data-rel="close"
+                                    href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
+                              </div>
+                           </div>
+                           <div class="panel-body">
+                              <h:form id="cadastro" class="form-horizontal">
+                                 <h:messages />
+                                <h:inputHidden value="#{usuarioBean.usuario.codigo}" />
+                                 <h:inputHidden value="#{usuarioBean.usuario.ativo}" />
+                                 <h:inputHidden value="#{usuarioBean.destinoSalvar}" />
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Nome:</label>
+                                    <div class="col-md-10">
+                                       <h:inputText id="nome"
+                                          value="#{usuarioBean.usuario.nome}" size="30"
+                                          maxlength="30" required="true"
+                                          requiredMessage="Por Favor informe seu nome"
+                                          class="form-control">
+                                          <f:validateLength minimum="10" maximum="30" />
+                                       </h:inputText>
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Telefone </label>
+                                    <div class="col-md-10">
+                                       <h:inputText id="telefone" value="#{usuarioBean.usuario.celular}"	size="12" required="true" class="form-control">
+                                      
+                                       </h:inputText>
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <h:panelGroup>
+                                       <label class="col-md-2 control-label">Email </label>
+                                       <div class="col-md-10">
+                                          <h:inputText id="email" class="form-control" value="#{usuarioBean.usuario.email}" size="50" maxlength="50"
+                                             required="true" validatorMessage="e-mail inválido"	 >
+                                             <f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
+                                             <h:message for="email" />
+                                          </h:inputText>
+                                       </div>
+                                    </h:panelGroup>
+                                 </div>
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Senha </label>
+                                    <div class="col-md-10">
+                                       <h:inputSecret id="senha" value="#{usuarioBean.usuario.senha}" size="10" maxlength="10"
+                                          required="true" redisplay="true" class="form-control" />
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Confirmar Senha: </label>
+                                    <div class="col-md-10">
+                                       <h:inputSecret id="confirmarsenha" value="#{usuarioBean.confirmarSenha}" size="10" maxlength="10"
+                                          required="true" redisplay="true" class="form-control" />
+                                    </div>
+                                 </div>
+                                 <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                       <h:commandButton action="#{usuarioBean.salvar}" class="btn btn-info" value="Salvar" />
+                                    </div>
+                                 </div>
+                              </h:form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </h:body>
+   <ui:insert name="footer">
+      <br />
+      <ui:include src="/template/common/footer.xhtml" />
+   </ui:insert>
 </html>
