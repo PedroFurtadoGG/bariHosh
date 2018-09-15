@@ -1,69 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:adm="http://github.com/adminfaces"
-	template="/WEB-INF/templates/template.xhtml">
-
-	<ui:define name="title">
-        Cadastro Default
-    </ui:define>
-
-	<ui:define name="body">
-		<f:metadata>
-		</f:metadata>
-
-		<adm:breadcrumb title="Cadastro Default"
-			link="cadastro-default.xhtml?id=" />
-		<h:form id="form" prependId="false">
-			<p:focus />
-
-
-			<div class="box box-primary">
-				<div class="box-header with-border">
-					<div id="main-buttons" class="hidden-sm hidden-xs">
-						<p:commandButton value="Salvar" update="@form" icon="fa fa-check"
-							styleClass="btn-primary" />
-						<p:spacer width="5" />
-
-						<p:commandButton value="Excluir" process="@this"
-							icon="fa fa-trash" styleClass="btn-danger">
-						</p:commandButton>
-						<p:spacer width="5" />
-						<p:commandButton value="Voltar" immediate="true"
-							action="lista-default?faces-redirect=true" process="@this"
-							icon="fa fa-close" />
-
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<link rel="shortcut icon" href="favicon_16.ico" />
+	<link rel="bookmark" href="favicon_16.ico" />
+	<h:outputStylesheet name="css/site.min.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
+		rel='stylesheet' type='text/css' />
+	<h:outputScript name="js/site.min.js" />
+	<title>Login</title>
+</h:head>
+<h:body	style="padding-top: 40px;padding-bottom: 40px;background-color: #303641;color: #C1C3C6">
+	<div class="container">
+		<h:panelGroup rendered="#{!empty param.login_error}">
+			<div class="panel panel-danger">
+				<div class="panel-heading">
+					<h3 class="panel-title">Erro ao efetuar o login. Motivo:</h3>
+				</div>
+				<div class="panel-body">
+					#{SPRING_SECURITY_LAST_EXCEPTION.message}</div>
+			</div>
+		</h:panelGroup>
+		<form id="login" method="post" class="form-signin"
+			action="#{request.contextPath}/j_spring_security_check">
+			<h3 class="form-signin-heading">Entre com suas informações</h3>
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon">
+						<i class="ace-icon fa fa-user"></i>
 					</div>
 
-					<p:splitButton value="Salvar" update="@form" icon="fa fa-check"
-						styleClass="hidden-md hidden-lg btn-primary">
-						<p:menuitem value="Excluir" process="@this" icon="fa fa-trash" />
-						<p:separator />
-						<p:menuitem value="Voltar"
-							action="lista-default?faces-redirect=true" process="@this"
-							icon="fa fa-close" />
-					</p:splitButton>
-
-
-
-					<p:separator />
-
-					<div class="ui-g ui-fluid">
-						<div class="ui-g-12">
-							<p:outputLabel for="id" value="ID" />
-						</div>
-						<div class="ui-g-12">
-							<p:inputText id="id" value="" size="4" readonly="true"
-								styleClass="form-control" />
-						</div>
-					</div>
+					<input type="text" class="form-control" placeholder="LOGIN"
+						name='j_username' />
 				</div>
 			</div>
-		</h:form>
 
-	</ui:define>
-
-</ui:composition>
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon">
+						<i class="ace-icon fa fa-lock"></i>
+					</div>
+					<input type="password" class="form-control" placeholder="SENHA"
+						name="j_password" />
+				</div>
+			</div>
+			<input type="submit" value="LOGAR"
+				class="btn btn-lg btn-primary btn-block" />
+		</form>
+	</div>
+	<div class="clearfix" />
+</h:body>
+<footer class="site-footer login-footer">
+	<div class="container">
+		<div class="copyright clearfix text-center">
+			<p>
+				<b>BariHosh</b>
+			</p>
+			<p>Bruno Dantas, Edson Alves, Pedro Furtado. TCC - SENAI FATESG
+				2018.</p>
+		</div>
+	</div>
+</footer>
+</html>
