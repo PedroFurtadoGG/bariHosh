@@ -4,22 +4,22 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import br.com.bariHosh.dao.EnderecoDAO;
-import br.com.bariHosh.entidade.Endereco;
+import br.com.bariHosh.dao.ItemPedidoDAO;
+import br.com.bariHosh.entidade.*;
 import br.com.bariHosh.util.DAOFactory;
 
-public class EnderecoDAOHibernate extends GenericoDAOHibernate<Endereco> implements EnderecoDAO {
+public class ItemPedidoDAOHibernate extends GenericoDAOHibernate<ItemDoPedido> implements ItemPedidoDAO {
 
 	private Session session = DAOFactory.PegarSession();
 
 	@Override
-	public Endereco pegaEnderecoPeloCodPessoa(Long id) {
+	public ItemDoPedido pegaItemPeloPedido(Pedido pedido) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Endereco> listaEnderecoPorBairro(String bairro) {
+	public List<ItemDoPedido> listaItemsDevolvidos() {
 		// TODO Auto-generated method stub
 		return null;
 	}

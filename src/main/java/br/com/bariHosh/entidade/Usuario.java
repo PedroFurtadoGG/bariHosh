@@ -1,60 +1,63 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "usuario")
 public class Usuario implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue
-	private Integer codigo;
-	private String nome;
-	private String email;
-	@org.hibernate.annotations.NaturalId
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_usuario;
+
+	@Enumerated(EnumType.STRING)
+	private EnumPermissao permissao;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pessoa", nullable = false)
+	@NotNull
+	private Pessoa pessoa;
+
 	private String login;
 	private String senha;
-	private Date nascimento;
-	private String celular;
-	private Boolean ativo;
-	@ElementCollection(targetClass = String.class)
-	@JoinTable(name = "usuario_permissao", uniqueConstraints = {
-			@UniqueConstraint(columnNames = { "usuario", "permissao" }) }, joinColumns = @JoinColumn(name = "usuario"))
-	@Column(name = "permissao", length = 50)
-	private Set<String> permissao = new HashSet<String>();
+	private boolean ativo;
 
-	public Integer getCodigo() {
-		return codigo;
+	public Long getId_usuario() {
+		return id_usuario;
 	}
 
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	public void setId_usuario(Long id_usuario) {
+		this.id_usuario = id_usuario;
 	}
 
-	public String getNome() {
-		return nome;
+	public EnumPermissao getPermissao() {
+		return permissao;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setPermissao(EnumPermissao permissao) {
+		this.permissao = permissao;
 	}
 
-	public String getEmail() {
-		return email;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public String getLogin() {
@@ -73,50 +76,22 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public Date getNascimento() {
-		return nascimento;
-	}
-
-	public void setNascimento(Date nascimento) {
-		this.nascimento = nascimento;
-	}
-
-	public String getCelular() {
-		return celular;
-	}
-
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
-
-	public Boolean getAtivo() {
+	public boolean isAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(Boolean ativo) {
+	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
-	}
-
-	public Set<String> getPermissao() {
-		return permissao;
-	}
-
-	public void setPermissao(Set<String> permissao) {
-		this.permissao = permissao;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
-		result = prime * result + ((celular == null) ? 0 : celular.hashCode());
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((id_usuario == null) ? 0 : id_usuario.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + ((nascimento == null) ? 0 : nascimento.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((permissao == null) ? 0 : permissao.hashCode());
+		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
@@ -130,45 +105,22 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		if (ativo == null) {
-			if (other.ativo != null)
+		if (id_usuario == null) {
+			if (other.id_usuario != null)
 				return false;
-		} else if (!ativo.equals(other.ativo))
-			return false;
-		if (celular == null) {
-			if (other.celular != null)
-				return false;
-		} else if (!celular.equals(other.celular))
-			return false;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
+		} else if (!id_usuario.equals(other.id_usuario))
 			return false;
 		if (login == null) {
 			if (other.login != null)
 				return false;
 		} else if (!login.equals(other.login))
 			return false;
-		if (nascimento == null) {
-			if (other.nascimento != null)
-				return false;
-		} else if (!nascimento.equals(other.nascimento))
+		if (permissao != other.permissao)
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
+		if (pessoa == null) {
+			if (other.pessoa != null)
 				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (permissao == null) {
-			if (other.permissao != null)
-				return false;
-		} else if (!permissao.equals(other.permissao))
+		} else if (!pessoa.equals(other.pessoa))
 			return false;
 		if (senha == null) {
 			if (other.senha != null)

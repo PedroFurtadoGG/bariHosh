@@ -3,41 +3,49 @@ package br.com.bariHosh.entidade;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "fornecedor")
 public class Fornecedor implements Serializable {
 
-	private static final long serialVersionUID = 3109287710600314331L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
-	@SequenceGenerator(name = "fornecedor_seq", sequenceName = "fornecedor_seq", allocationSize = 1, initialValue = 1)
-	private Integer idFornecedor;
-	private Pessoa id_pessoa;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_fornecedor;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pessoa", nullable = false)
+	@NotNull
+	private Pessoa pessoa;
+    private boolean ativo;
 	private String ramoAtividade;
 	private String cnpj;
 	private String razao;
 	private String numInscricao;
-	private Boolean ativo;
 
-	public Integer getIdFornecedor() {
-		return idFornecedor;
+	public Long getId_fornecedor() {
+		return id_fornecedor;
 	}
 
-	public void setIdFornecedor(Integer idFornecedor) {
-		this.idFornecedor = idFornecedor;
+	public void setId_fornecedor(Long id_fornecedor) {
+		this.id_fornecedor = id_fornecedor;
 	}
 
-	public Pessoa getId_pessoa() {
-		return id_pessoa;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setId_pessoa(Pessoa id_pessoa) {
-		this.id_pessoa = id_pessoa;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public String getRamoAtividade() {
@@ -72,23 +80,22 @@ public class Fornecedor implements Serializable {
 		this.numInscricao = numInscricao;
 	}
 
-	public Boolean getAtivo() {
+	public boolean isAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(Boolean ativo) {
+	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((ativo == null) ? 0 : ativo.hashCode());
+		int result = super.hashCode();
 		result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
-		result = prime * result + ((idFornecedor == null) ? 0 : idFornecedor.hashCode());
-		result = prime * result + ((id_pessoa == null) ? 0 : id_pessoa.hashCode());
+		result = prime * result + ((id_fornecedor == null) ? 0 : id_fornecedor.hashCode());
 		result = prime * result + ((numInscricao == null) ? 0 : numInscricao.hashCode());
+		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
 		result = prime * result + ((ramoAtividade == null) ? 0 : ramoAtividade.hashCode());
 		result = prime * result + ((razao == null) ? 0 : razao.hashCode());
 		return result;
@@ -98,35 +105,30 @@ public class Fornecedor implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Fornecedor other = (Fornecedor) obj;
-		if (ativo == null) {
-			if (other.ativo != null)
-				return false;
-		} else if (!ativo.equals(other.ativo))
-			return false;
 		if (cnpj == null) {
 			if (other.cnpj != null)
 				return false;
 		} else if (!cnpj.equals(other.cnpj))
 			return false;
-		if (idFornecedor == null) {
-			if (other.idFornecedor != null)
+		if (id_fornecedor == null) {
+			if (other.id_fornecedor != null)
 				return false;
-		} else if (!idFornecedor.equals(other.idFornecedor))
-			return false;
-		if (id_pessoa == null) {
-			if (other.id_pessoa != null)
-				return false;
-		} else if (!id_pessoa.equals(other.id_pessoa))
+		} else if (!id_fornecedor.equals(other.id_fornecedor))
 			return false;
 		if (numInscricao == null) {
 			if (other.numInscricao != null)
 				return false;
 		} else if (!numInscricao.equals(other.numInscricao))
+			return false;
+		if (pessoa == null) {
+			if (other.pessoa != null)
+				return false;
+		} else if (!pessoa.equals(other.pessoa))
 			return false;
 		if (ramoAtividade == null) {
 			if (other.ramoAtividade != null)

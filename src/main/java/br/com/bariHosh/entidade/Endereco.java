@@ -1,19 +1,23 @@
 package br.com.bariHosh.entidade;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
-public class Endereco {
-	@Id
-	@GeneratedValue(generator = "endereco_seq", strategy = GenerationType.IDENTITY)
-	@SequenceGenerator(name = "endereco_seq", sequenceName = "endereco_seq", allocationSize = 1, initialValue = 1)
-	private Integer idEndereco;
+@Table(name = "endereco")
+public class Endereco implements Serializable  {
 
-	private Pessoa idPessoa;
+	
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_endereco;
+
 	private String cep;
 	private String tipoLogadouro;
 	private String endereco;
@@ -24,20 +28,12 @@ public class Endereco {
 	private String estado;
 	private String pais;
 
-	public Integer getIdEndereco() {
-		return idEndereco;
+	public Long getId_endereco() {
+		return id_endereco;
 	}
 
-	public void setIdEndereco(Integer idEndereco) {
-		this.idEndereco = idEndereco;
-	}
-
-	public Pessoa getIdPessoa() {
-		return idPessoa;
-	}
-
-	public void setIdPessoa(Pessoa idPessoa) {
-		this.idPessoa = idPessoa;
+	public void setId_endereco(Long id_endereco) {
+		this.id_endereco = id_endereco;
 	}
 
 	public String getCep() {
@@ -122,8 +118,7 @@ public class Endereco {
 		result = prime * result + ((complemento == null) ? 0 : complemento.hashCode());
 		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-		result = prime * result + ((idEndereco == null) ? 0 : idEndereco.hashCode());
-		result = prime * result + ((idPessoa == null) ? 0 : idPessoa.hashCode());
+		result = prime * result + ((id_endereco == null) ? 0 : id_endereco.hashCode());
 		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		result = prime * result + ((pais == null) ? 0 : pais.hashCode());
 		result = prime * result + ((tipoLogadouro == null) ? 0 : tipoLogadouro.hashCode());
@@ -169,15 +164,10 @@ public class Endereco {
 				return false;
 		} else if (!estado.equals(other.estado))
 			return false;
-		if (idEndereco == null) {
-			if (other.idEndereco != null)
+		if (id_endereco == null) {
+			if (other.id_endereco != null)
 				return false;
-		} else if (!idEndereco.equals(other.idEndereco))
-			return false;
-		if (idPessoa == null) {
-			if (other.idPessoa != null)
-				return false;
-		} else if (!idPessoa.equals(other.idPessoa))
+		} else if (!id_endereco.equals(other.id_endereco))
 			return false;
 		if (numero == null) {
 			if (other.numero != null)

@@ -2,8 +2,6 @@ package br.com.bariHosh.util;
 
 public class RNException extends Exception {
 
-	private static final long serialVersionUID = 3369187441961143603L;
-
 	public RNException() {
 		// TODO Auto-generated constructor stub
 	}
