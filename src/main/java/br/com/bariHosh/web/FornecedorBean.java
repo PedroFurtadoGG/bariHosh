@@ -7,7 +7,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.Fornecedor;
-import br.com.bariHoshnegocio.FornecedorRN;
+import br.com.bariHosh.entidade.Pessoa;
+import br.com.bariHosh.negocio.FornecedorRN;
 
 
 @ManagedBean(name = "fornecedorBean")
@@ -17,12 +18,14 @@ public class FornecedorBean {
 
 
 	private Fornecedor fornecedor = new Fornecedor();
+	private Pessoa pessoa = new Pessoa();
 
 	private List<Fornecedor> lista;
 	private String destinoSalvar;
 
 	public String novo() {
 		this.destinoSalvar = "fornecedorsucesso";
+		this.setPessoa(new Pessoa());
 		this.fornecedor = new Fornecedor();
 		this.fornecedor.setAtivo(true);
 		return "/publico/fornecedor";
@@ -34,9 +37,9 @@ public class FornecedorBean {
 	}
 
 	public String salvar() {
-		FacesContext context = FacesContext.getCurrentInstance();		
-
+		FacesContext context = FacesContext.getCurrentInstance();	
 		FornecedorRN forneedoroRN = new FornecedorRN();
+		this.fornecedor.setPessoa(pessoa);
 		forneedoroRN.salvar(this.fornecedor);
 		return this.destinoSalvar;
 	}
@@ -74,6 +77,14 @@ public class FornecedorBean {
 
 	public void setDestinoSalvar(String destinoSalvar) {
 		this.destinoSalvar = destinoSalvar;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 }

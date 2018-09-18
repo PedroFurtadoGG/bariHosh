@@ -1,22 +1,64 @@
 package br.com.bariHosh.entidade;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class Usuario extends Pessoa {
-	
-	/**
-	 * 
-	 */
-	
+@Table(name = "usuario")
+public class Usuario implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_usuario;
+
 	@Enumerated(EnumType.STRING)
 	private EnumPermissao permissao;
-	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pessoa", nullable = false)
+	@NotNull
+	private Pessoa pessoa;
+
 	private String login;
 	private String senha;
+	private boolean ativo;
+
+	public Long getId_usuario() {
+		return id_usuario;
+	}
+
+	public void setId_usuario(Long id_usuario) {
+		this.id_usuario = id_usuario;
+	}
+
+	public EnumPermissao getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(EnumPermissao permissao) {
+		this.permissao = permissao;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
 
 	public String getLogin() {
 		return login;
@@ -34,20 +76,22 @@ public class Usuario extends Pessoa {
 		this.senha = senha;
 	}
 
-	public EnumPermissao getPermissao() {
-		return permissao;
+	public boolean isAtivo() {
+		return ativo;
 	}
-	
-	public void setPermissao(EnumPermissao permissao) {
-		this.permissao = permissao;
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
+		result = prime * result + ((id_usuario == null) ? 0 : id_usuario.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((permissao == null) ? 0 : permissao.hashCode());
+		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
 		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 		return result;
 	}
@@ -56,20 +100,27 @@ public class Usuario extends Pessoa {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
+		if (id_usuario == null) {
+			if (other.id_usuario != null)
+				return false;
+		} else if (!id_usuario.equals(other.id_usuario))
+			return false;
 		if (login == null) {
 			if (other.login != null)
 				return false;
 		} else if (!login.equals(other.login))
 			return false;
-		if (permissao == null) {
-			if (other.permissao != null)
+		if (permissao != other.permissao)
+			return false;
+		if (pessoa == null) {
+			if (other.pessoa != null)
 				return false;
-		} else if (!permissao.equals(other.permissao))
+		} else if (!pessoa.equals(other.pessoa))
 			return false;
 		if (senha == null) {
 			if (other.senha != null)
@@ -78,6 +129,5 @@ public class Usuario extends Pessoa {
 			return false;
 		return true;
 	}
-	
-	 
+
 }

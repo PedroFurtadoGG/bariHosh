@@ -8,6 +8,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.EnumPermissao;
+import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.UsuarioRN;
 
@@ -15,6 +16,7 @@ import br.com.bariHosh.negocio.UsuarioRN;
 @RequestScoped
 public class UsuarioBean {
 	private Usuario usuario = new Usuario();
+	private Pessoa pessoa = new Pessoa();
 	private String confirmarSenha;
 	private List<Usuario> lista;
 	private String destinoSalvar;
@@ -22,10 +24,18 @@ public class UsuarioBean {
 	public String novo() {
 		this.destinoSalvar = "usuariosucesso";
 		this.usuario = new Usuario();
+		this.pessoa = new Pessoa();
 		this.usuario.setAtivo(true);
 		return "/publico/usuario";
 	}
-
+	
+	public String entrar() {		
+		return "/index";
+	}
+	
+	public String cadastraFornecedor() {		
+		return "/fornecedor";
+	}
 	public String editar() {
 		this.confirmarSenha = this.usuario.getSenha();
 		return "/publico/usuario";

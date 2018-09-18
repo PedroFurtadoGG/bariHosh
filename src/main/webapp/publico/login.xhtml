@@ -3,40 +3,67 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
+	<link rel="shortcut icon" href="favicon_16.ico" />
+	<link rel="bookmark" href="favicon_16.ico" />
+	<h:outputStylesheet name="css/site.min.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
+		rel='stylesheet' type='text/css' />
+	<h:outputScript name="js/site.min.js" />
 	<title>Login</title>
 </h:head>
-<h:body>
-	<h:panelGroup rendered="#{!empty param.login_error}">
-		<span style="color: red"> Erro ao efetuar o login.</span>
-		<br />
-		<br />
-		Motivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}
-	</h:panelGroup>
+<h:body
+	style="padding-top: 40px;padding-bottom: 40px;background-color: #303641;color: #C1C3C6">
+	<div class="container">
+		<h:panelGroup rendered="#{!empty param.login_error}">
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">×</button>
+				<strong>Erro ao efetuar o login. Motivo: </strong>
+				#{SPRING_SECURITY_LAST_EXCEPTION.message}
+			</div>
+		</h:panelGroup>
 
-	<form id="login" method="post"
-		action="#{request.contextPath}/j_spring_security_check">
-		<table>
-			<tr>
-				<td>Login</td>
-				<td><input type='text' name='j_username' /></td>
-			</tr>
-			<tr>
-				<td>Senha</td>
-				<td><input type='password' name='j_password' /></td>
-			</tr>
-			<tr>
-				<td align="right"><input type="checkbox"
-					name="_spring_security_remember_me" /></td>
-				<td>Logar automaticamente</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" value="Logar" /></td>
-			</tr>
-		</table>
-		<script>
-		document.getElementById("login").j_username.value = "#{SPRING_SECURITY_LAST_USERNAME}"; 
-	</script>
-	</form>
+		<form id="login" method="post" class="form-signin"
+			action="#{request.contextPath}/j_spring_security_check">
+			<h3 class="form-signin-heading">ACESSE.</h3>
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon">
+						<i class="ace-icon fa fa-user"></i>
+					</div>
+
+					<input type="text" class="form-control" placeholder="LOGIN"
+						name='j_username' />
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="input-group">
+					<div class="input-group-addon">
+						<i class="ace-icon fa fa-lock"></i>
+					</div>
+					<input type="password" class="form-control" placeholder="SENHA"
+						name="j_password" />
+				</div>
+			</div>
+			<input type="submit" value="LOGAR"
+				class="btn btn-lg btn-primary btn-block" />
+		</form>
+	</div>
+	<div class="clearfix" />
 </h:body>
+<footer class="site-footer login-footer">
+	<div class="container">
+		<div class="copyright clearfix text-center">
+			<p>
+				<b>BariHosh</b>
+			</p>
+			<p>Bruno Dantas, Edson Alves, Pedro Furtado. TCC - SENAI FATESG
+				2018.</p>
+		</div>
+	</div>
+</footer>
 </html>

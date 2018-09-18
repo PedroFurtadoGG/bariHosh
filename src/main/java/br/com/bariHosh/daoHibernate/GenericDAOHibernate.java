@@ -31,10 +31,11 @@ public class GenericDAOHibernate<T>   implements GenericDAO<T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public T carregar(Long id) {
+	public T carregar(Integer id) {
 		return (T) this.session.get(Object.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> listar() {
 		return (List<T>) this.session.createCriteria(Object.class).list();
