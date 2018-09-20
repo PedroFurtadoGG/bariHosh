@@ -47,43 +47,44 @@
 									</div>
 								</div>
 								<div class="panel-body">
-									<h:form id="cadastro" class="form-horizontal">
+									<h:form id="formCadastro" class="form-horizontal">
 										<h:messages />
 										<h:inputHidden value="#{usuarioBean.usuario.id_usuario}" />
 										<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
 										<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
 
 										<div class="form-group">
-											<label class="col-md-2 control-label">Nome:</label>
+											<label class="col-md-2 control-label"></label>
 											<div class="col-md-10">
 												<h:inputText id="nome"
 													value="#{usuarioBean.usuario.pessoa.nome}" size="30"
 													maxlength="30" required="true"
 													requiredMessage="Por Favor informe seu nome"
-													class="form-control">
+													class="form-control" a:placeholder="NOME">
 													<f:validateLength minimum="10" maximum="30" />
 												</h:inputText>
 											</div>
 										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Cpf </label>
-											<div class="col-md-10">
+										<div class="row">
+											<label class="col-md-2 control-label"></label>
+											<div class="col-md-5">
 												<h:inputText id="cpf"
 													value="#{usuarioBean.usuario.pessoa.cpf}" size="12"
-													required="true" class="form-control">
-
+													required="true" class="form-control" a:placeholder="C.P.F"
+													>
 												</h:inputText>
+												
 											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Rg </label>
-											<div class="col-md-10">
+											
+											<div class="col-md-5">
 												<h:inputText id="rg"
 													value="#{usuarioBean.usuario.pessoa.rg}" size="12"
-													required="true" class="form-control">
+													required="true" class="form-control" a:placeholder="R.G">
 												</h:inputText>
 											</div>
-										</div>
+											
+											</div>
+									
 										<div class="form-group">
 											<label class="col-md-2 control-label">Nascimento </label>
 											<div class="col-md-10">
