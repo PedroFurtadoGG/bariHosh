@@ -1,12 +1,15 @@
 package br.com.bariHosh.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.entidade.EnumPermissao;
 import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
@@ -17,17 +20,36 @@ import br.com.bariHosh.negocio.UsuarioRN;
 public class UsuarioBean {
 	private Usuario usuario = new Usuario();
 	private Pessoa pessoa = new Pessoa();
+	private Endereco endereco = new Endereco();
 	private String confirmarSenha;
 	private List<Usuario> lista;
 	private String destinoSalvar;
-
+	
+    private EnumPermissao enumpemrmissao;
 	public String novo() {
 		this.destinoSalvar = "usuariosucesso";
-		this.usuario = new Usuario();
 		this.pessoa = new Pessoa();
+		this.usuario = new Usuario();
+		this.endereco = new Endereco();
+		this.pessoa.setEndereco(endereco);
+		this.usuario.setPessoa(pessoa);
+		
+		
 		this.usuario.setAtivo(true);
 		return "/publico/usuario";
 	}
+	
+	@PostConstruct
+	public void init() {
+		this.destinoSalvar = "usuariosucesso";
+		this.pessoa = new Pessoa();
+		this.usuario = new Usuario();
+		this.endereco = new Endereco();
+		this.pessoa.setEndereco(endereco);
+		this.usuario.setPessoa(pessoa);
+    }
+	
+	
 	
 	public String entrar() {		
 		return "/index";
@@ -54,6 +76,12 @@ public class UsuarioBean {
 
 		UsuarioRN usuarioRN = new UsuarioRN();
 		usuarioRN.salvar(this.usuario);
+
+		return this.destinoSalvar;
+	}
+	
+	public String limpar() {
+		
 
 		return this.destinoSalvar;
 	}
@@ -119,5 +147,23 @@ public class UsuarioBean {
 	public void setDestinoSalvar(String destinoSalvar) {
 		this.destinoSalvar = destinoSalvar;
 	}
+
+	
+
+	
+
+	public EnumPermissao[] getEnumpemrmissao() {
+		return enumpemrmissao.values();
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	
 
 }
