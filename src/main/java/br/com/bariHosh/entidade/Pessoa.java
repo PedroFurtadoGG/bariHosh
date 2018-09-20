@@ -38,7 +38,7 @@ public class Pessoa implements Serializable {
 	@JoinColumn(name = "endereco", nullable = false)
 	private Endereco endereco;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date dt_nascimento;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dt_criacao;

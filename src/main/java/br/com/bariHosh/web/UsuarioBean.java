@@ -1,6 +1,5 @@
 package br.com.bariHosh.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,8 +23,9 @@ public class UsuarioBean {
 	private String confirmarSenha;
 	private List<Usuario> lista;
 	private String destinoSalvar;
-	
-    private EnumPermissao enumpemrmissao;
+
+	private EnumPermissao enumpemrmissao;
+
 	public String novo() {
 		this.destinoSalvar = "usuariosucesso";
 		this.pessoa = new Pessoa();
@@ -33,12 +33,11 @@ public class UsuarioBean {
 		this.endereco = new Endereco();
 		this.pessoa.setEndereco(endereco);
 		this.usuario.setPessoa(pessoa);
-		
-		
+
 		this.usuario.setAtivo(true);
 		return "/publico/usuario";
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		this.destinoSalvar = "usuariosucesso";
@@ -47,21 +46,20 @@ public class UsuarioBean {
 		this.endereco = new Endereco();
 		this.pessoa.setEndereco(endereco);
 		this.usuario.setPessoa(pessoa);
-    }
-	
-	
-	
-	public String entrar() {		
+	}
+
+	public String entrar() {
 		return "/index";
 	}
-	
-	public String cadastraFornecedor() {		
+
+	public String cadastraFornecedor() {
 		return "/fornecedor";
 	}
+
 	public String editar() {
 		this.confirmarSenha = this.usuario.getSenha();
 		return "/publico/usuario";
-		
+
 	}
 
 	public String salvar() {
@@ -79,9 +77,8 @@ public class UsuarioBean {
 
 		return this.destinoSalvar;
 	}
-	
+
 	public String limpar() {
-		
 
 		return this.destinoSalvar;
 	}
@@ -116,7 +113,7 @@ public class UsuarioBean {
 		this.usuario = usuario;
 		EnumPermissao permissoes = this.usuario.getPermissao();
 		if (permissoes.name().contains(permissao)) {
-			
+
 		} else {
 			permissoes.chave = permissao;
 			this.usuario.setPermissao(permissoes);
@@ -148,10 +145,6 @@ public class UsuarioBean {
 		this.destinoSalvar = destinoSalvar;
 	}
 
-	
-
-	
-
 	public EnumPermissao[] getEnumpemrmissao() {
 		return enumpemrmissao.values();
 	}
@@ -163,7 +156,5 @@ public class UsuarioBean {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-
-	
 
 }
