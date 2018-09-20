@@ -19,7 +19,7 @@ public class GenericoDAOHibernate<T> implements AbstratoModeloDAO<T> {
 
 	@Override
 	public void atualizar(T model) {
-		this.session.save(model);
+		this.session.update(model);
 
 	}
 
@@ -36,8 +36,11 @@ public class GenericoDAOHibernate<T> implements AbstratoModeloDAO<T> {
 	}
 
 	@Override
-	public List<T> listar() {
-		return (List<T>) this.session.createCriteria(Object.class).list();
+	public List<T> listar(Class clazz) {
+		return  this.session.createQuery("FROM"+ clazz.getName()).list();
+		
 	}
+
+	
 
 }

@@ -15,7 +15,7 @@
 		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
 		rel='stylesheet' type='text/css' />
 	<h:outputScript name="js/site.min.js" />
-	<title>Usuários</title>
+	<title>Fornecedor</title>
 </h:head>
 <h:body>
 	<ui:insert name="header">
@@ -29,14 +29,14 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Usuários</h3>
+						<h3 class="panel-title">Fornecedores</h3>
 					</div>
 					<div class="panel-body">
 						<div class="content-row">
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<div class="panel-title">
-										<b>Cadastro de Usuário</b>
+										<b>Cadastro de Fornecedor</b>
 									</div>
 									<div class="panel-options">
 										<a class="bg" data-target="#sample-modal-dialog-1"
@@ -49,15 +49,15 @@
 								<div class="panel-body">
 									<h:form id="cadastro" class="form-horizontal">
 										<h:messages />
-										<h:inputHidden value="#{usuarioBean.usuario.id_usuario}" />
-										<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
-										<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
+										<h:inputHidden value="#{fornecedorBean.fornecedor.id_fornecedor}" />
+										<h:inputHidden value="#{fornecedorBean.fornecedor.ativo}" />
+										<h:inputHidden value="#{fornecedorBean.destinoSalvar}" />
 
 										<div class="form-group">
 											<label class="col-md-2 control-label">Nome:</label>
 											<div class="col-md-10">
 												<h:inputText id="nome"
-													value="#{usuarioBean.usuario.pessoa.nome}" size="30"
+													value="#{fornecedorBean.fornecedor.pessoa.nome}" size="30"
 													maxlength="30" required="true"
 													requiredMessage="Por Favor informe seu nome"
 													class="form-control">
@@ -69,7 +69,7 @@
 											<label class="col-md-2 control-label">Cpf </label>
 											<div class="col-md-10">
 												<h:inputText id="cpf"
-													value="#{usuarioBean.usuario.pessoa.cpf}" size="12"
+													value="#{fornecedorBean.fornecedor.pessoa.cpf}" size="12"
 													required="true" class="form-control">
 
 												</h:inputText>
@@ -79,7 +79,7 @@
 											<label class="col-md-2 control-label">Rg </label>
 											<div class="col-md-10">
 												<h:inputText id="rg"
-													value="#{usuarioBean.usuario.pessoa.rg}" size="12"
+													value="#{fornecedorBean.fornecedor.pessoa.rg}" size="12"
 													required="true" class="form-control">
 												</h:inputText>
 											</div>
@@ -88,7 +88,7 @@
 											<label class="col-md-2 control-label">Nascimento </label>
 											<div class="col-md-10">
 												<h:inputText id="nascimento" a:type="date"
-													value="#{usuarioBean.usuario.pessoa.dt_nascimento}"
+													value="#{fornecedorBean.fornecedor.pessoa.dt_nascimento}"
 													size="12" required="true" class="form-control">
 													<f:convertDateTime pattern="yyyy-mm-dd" dateStyle="short"
 														type="date">
@@ -100,7 +100,7 @@
 											<label class="col-md-2 control-label">Sexo </label>
 											<div class="col-md-10">
 												<h:inputText id="sexo"
-													value="#{usuarioBean.usuario.pessoa.sexo}" size="12"
+													value="#{fornecedorBean.fornecedor.pessoa.sexo}" size="12"
 													required="true" class="form-control">
 
 												</h:inputText>
@@ -111,7 +111,7 @@
 												<label class="col-md-2 control-label">Email </label>
 												<div class="col-md-10">
 													<h:inputText id="email" class="form-control"
-														value="#{usuarioBean.usuario.pessoa.email}" size="50"
+														value="#{fornecedorBean.fornecedor.pessoa.email}" size="50"
 														maxlength="50" required="true"
 														validatorMessage="e-mail inválido">
 														<f:validateRegex
@@ -121,31 +121,14 @@
 												</div>
 											</h:panelGroup>
 										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Senha </label>
-											<div class="col-md-10">
-												<h:inputSecret id="senha"
-													value="#{usuarioBean.usuario.senha}" size="10"
-													maxlength="10" required="true" redisplay="true"
-													class="form-control" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Confirmar
-												Senha: </label>
-											<div class="col-md-10">
-												<h:inputSecret id="confirmarsenha"
-													value="#{usuarioBean.confirmarSenha}" size="10"
-													maxlength="10" required="true" redisplay="true"
-													class="form-control" />
-											</div>
-										</div>
+										
+										
 
 										<div class="form-group">
 											<label class="col-md-2 control-label">Rua: </label>
 											<div class="col-md-10">
 												<h:inputText id="rua"
-													value="#{usuarioBean.usuario.pessoa.endereco.endereco}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.endereco}"
 													size="12" required="true" class="form-control">
 
 												</h:inputText>
@@ -155,7 +138,7 @@
 											<label class="col-md-2 control-label">Complemento: </label>
 											<div class="col-md-10">
 												<h:inputText id="comple"
-													value="#{usuarioBean.usuario.pessoa.endereco.complemento}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.complemento}"
 													size="12" required="true" class="form-control">
 
 												</h:inputText>
@@ -165,7 +148,7 @@
 											<label class="col-md-2 control-label">Bairro: </label>
 											<div class="col-md-10">
 												<h:inputText id="endereco"
-													value="#{usuarioBean.usuario.pessoa.endereco.bairro}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.bairro}"
 													size="12" required="true" class="form-control">
 
 												</h:inputText>
@@ -175,7 +158,7 @@
 											<label class="col-md-2 control-label">Cep: </label>
 											<div class="col-md-10">
 												<h:inputText id="cep"
-													value="#{usuarioBean.usuario.pessoa.endereco.cep}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.cep}"
 													size="12" required="true" class="form-control">
 
 												</h:inputText>
@@ -185,7 +168,7 @@
 											<label class="col-md-2 control-label">Cidade: </label>
 											<div class="col-md-10">
 												<h:inputText id="ciade"
-													value="#{usuarioBean.usuario.pessoa.endereco.cidade}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.cidade}"
 													size="12" required="true" class="form-control">
 
 												</h:inputText>
@@ -195,7 +178,7 @@
 											<label class="col-md-2 control-label">Estado: </label>
 											<div class="col-md-10">
 												<h:inputText id="estado"
-													value="#{usuarioBean.usuario.pessoa.endereco.estado}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.estado}"
 													size="12" required="true" class="form-control">
 
 												</h:inputText>
@@ -205,34 +188,60 @@
 											<label class="col-md-2 control-label">Pais </label>
 											<div class="col-md-10">
 												<h:inputText id="pais"
-													value="#{usuarioBean.usuario.pessoa.endereco.pais}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.pais}"
 													size="12" required="true" class="form-control">
 
 												</h:inputText>
 											</div>
 										</div>
-
 										<div class="form-group">
-											<label class="col-md-2 control-label">Ativo </label>
+											<label class="col-md-2 control-label">Numero Inscrição </label>
 											<div class="col-md-10">
-												<h:selectOneMenu class="form-control" id="tipoMedida"
-													requiredMessage="Valor é obrigatório">
-													<f:selectItem itemLabel="Selecione..." itemValue=""
-														noSelectionOption="true" />
-													<f:selectItems value="#{usuarioBean.enumpemrmissao}"
-														itemValue="#{permissao}" var="permissao"
-														itemLabel="#{permissao.chave}" />
-												</h:selectOneMenu>
+												<h:inputText id="numinc"
+													value="#{fornecedorBean.fornecedor.numInscricao}"
+													size="12" required="true" class="form-control">
 
+												</h:inputText>
 											</div>
 										</div>
 										<div class="form-group">
+											<label class="col-md-2 control-label">Cnpj </label>
+											<div class="col-md-10">
+												<h:inputText id="cnpj"
+													value="#{fornecedorBean.fornecedor.cnpj}"
+													size="12" required="true" class="form-control">
+
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Ramo/Atividade </label>
+											<div class="col-md-10">
+												<h:inputText id="ramo"
+													value="#{fornecedorBean.fornecedor.ramoAtividade}"
+													size="12" required="true" class="form-control">
+
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Razao </label>
+											<div class="col-md-10">
+												<h:inputText id="razao"
+													value="#{fornecedorBean.fornecedor.razao}"
+													size="12" required="true" class="form-control">
+
+												</h:inputText>
+											</div>
+										</div>								
+
+										<div class="form-group">
 											<div class="col-md-offset-2 col-md-1">
-												<h:commandButton action="#{usuarioBean.salvar}"
+												<h:commandButton action="#{fornecedorBean.salvar}"
 													class="btn btn-info" value="Salvar" />
 											</div>
 											<div class="col-md-offset-2 col-md-1">
-												<h:commandButton action="#{usuarioBean.limpar}"
+												<h:commandButton action="#{fornecedorBean.novo()}" update="cadastro"
 													class="btn btn-warning" value="Limpar" />
 											</div>
 										</div>

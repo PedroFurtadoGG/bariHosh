@@ -35,7 +35,7 @@ public class Log_Estoque  implements Serializable  {
 	@JoinColumn(name = "id_usuariomovimentador", nullable = false)
 	private Usuario usuario_movimentador;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
 	private Date dt_movimentacao;

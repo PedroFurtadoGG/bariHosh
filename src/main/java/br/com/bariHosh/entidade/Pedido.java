@@ -48,7 +48,7 @@ public class Pedido implements Serializable {
 	@JoinColumn(name = "id_pagamento", nullable = false)
 	private Pagamento pagamento;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
 	private Date data;
