@@ -88,12 +88,8 @@
 											<label class="col-md-2 control-label">Nascimento </label>
 											<div class="col-md-10">
 												<h:inputText id="nascimento" a:type="date"
-												value="#{usuarioBean.usuario.pessoa.dt_nascimento}"
-													size="12" required="true" class="form-control">													
-													<f:convertDateTime pattern="dd/mm/yyyy" dateStyle="short"
-													
-														type="date">
-													</f:convertDateTime>
+												value="#{usuarioBean.usuario.pessoa.dt_nascimento}"	required="true" class="form-control">													
+													<f:convertDateTime pattern="YYYY-MM-dd" />
 												</h:inputText>
 											</div>
 										</div>
@@ -107,17 +103,8 @@
 												</h:inputText>
 											</div>
 										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Idioma </label>
-											<div class="col-md-10">
-												<h:inputText id="idioma"
-													value="#{usuarioBean.usuario.pessoa.idioma}" size="12"
-													required="true" class="form-control">
-
-												</h:inputText>
-											</div>
-										</div>
-
+									
+	
 										<div class="form-group">
 											<h:panelGroup>
 												<label class="col-md-2 control-label">Email </label>

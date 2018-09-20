@@ -65,8 +65,7 @@ public class UsuarioBean {
 	public String salvar() {
 		FacesContext context = FacesContext.getCurrentInstance();
 
-		String senha = this.usuario.getSenha();
-		if (!senha.equals(this.confirmarSenha)) {
+		if (!usuario.getSenha().equals(this.confirmarSenha)) {
 			FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
 			context.addMessage(null, facesMessage);
 			return null;

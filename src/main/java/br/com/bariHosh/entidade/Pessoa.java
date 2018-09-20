@@ -30,7 +30,6 @@ public class Pessoa implements Serializable {
 	private String sexo;
 	private String telefone;
 	private String email;
-	private String idioma;
 	private Long id_usuario_criacao;
 	
 
@@ -101,14 +100,6 @@ public class Pessoa implements Serializable {
 		this.email = email;
 	}
 
-	public String getIdioma() {
-		return idioma;
-	}
-
-	public void setIdioma(String idioma) {
-		this.idioma = idioma;
-	}
-
 	public Long getId_usuario_criacao() {
 		return id_usuario_criacao;
 	}
@@ -166,7 +157,6 @@ public class Pessoa implements Serializable {
 		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result + ((id_pessoa == null) ? 0 : id_pessoa.hashCode());
 		result = prime * result + ((id_usuario_criacao == null) ? 0 : id_usuario_criacao.hashCode());
-		result = prime * result + ((idioma == null) ? 0 : idioma.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((rg == null) ? 0 : rg.hashCode());
 		result = prime * result + ((sexo == null) ? 0 : sexo.hashCode());
@@ -222,11 +212,6 @@ public class Pessoa implements Serializable {
 			if (other.id_usuario_criacao != null)
 				return false;
 		} else if (!id_usuario_criacao.equals(other.id_usuario_criacao))
-			return false;
-		if (idioma == null) {
-			if (other.idioma != null)
-				return false;
-		} else if (!idioma.equals(other.idioma))
 			return false;
 		if (nome == null) {
 			if (other.nome != null)
