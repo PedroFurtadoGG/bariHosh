@@ -52,169 +52,143 @@
 										<h:inputHidden value="#{usuarioBean.usuario.id_usuario}" />
 										<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
 										<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
-
 										<div class="form-group">
-											<label class="col-md-2 control-label">Nome:</label>
-											<div class="col-md-10">
+											<div class="col-md-8">
+												<label><span style="color: red"> * </span>Nome</label>
 												<h:inputText id="nome"
 													value="#{usuarioBean.usuario.pessoa.nome}" size="30"
-													maxlength="30" required="true"
+													maxlength="30" a:required="true"
 													requiredMessage="Por Favor informe seu nome"
-													class="form-control">
+													class="form-control"
+													a:placeholder="Informe seu Nome Completo">
 													<f:validateLength minimum="10" maximum="30" />
 												</h:inputText>
 											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Cpf </label>
-											<div class="col-md-10">
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Sexo</label>
+												<h:selectOneMenu value="#{usuarioBean.usuario.pessoa.sexo}"
+													class="form-control" a:required="true">
+													<f:selectItem itemValue="masculino" itemLabel="Masculino" />
+													<f:selectItem itemValue="feminino" itemLabel="Feminino" />
+												</h:selectOneMenu>
+											</div>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>CPF</label>
 												<h:inputText id="cpf"
 													value="#{usuarioBean.usuario.pessoa.cpf}" size="12"
-													required="true" class="form-control">
-
-												</h:inputText>
+													a:required="true" class="form-control"
+													a:placeholder="Insira seu CPF" />
 											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Rg </label>
-											<div class="col-md-10">
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>RG</label>
 												<h:inputText id="rg"
 													value="#{usuarioBean.usuario.pessoa.rg}" size="12"
-													required="true" class="form-control">
-												</h:inputText>
+													required="true" class="form-control"
+													a:placeholder="Insira seu RG" />
 											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Nascimento </label>
-											<div class="col-md-10">
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Data de
+													Nascimento </label>
 												<h:inputText id="nascimento" a:type="date"
 													value="#{usuarioBean.usuario.pessoa.dt_nascimento}"
-													size="12" required="true" class="form-control">
-													<f:convertDateTime pattern="yyyy-mm-dd" dateStyle="short"
-														type="date">
-													</f:convertDateTime>
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Sexo </label>
-											<div class="col-md-10">
-												<h:inputText id="sexo"
-													value="#{usuarioBean.usuario.pessoa.sexo}" size="12"
 													required="true" class="form-control">
-
+													<f:convertDateTime pattern="YYYY-MM-dd" />
 												</h:inputText>
 											</div>
 										</div>
 										<div class="form-group">
 											<h:panelGroup>
-												<label class="col-md-2 control-label">Email </label>
-												<div class="col-md-10">
+												<div class="col-md-6">
+													<label><span style="color: red"> * </span>Email
+														(Login) </label>
 													<h:inputText id="email" class="form-control"
 														value="#{usuarioBean.usuario.pessoa.email}" size="50"
 														maxlength="50" required="true"
-														validatorMessage="e-mail inválido">
+														validatorMessage="e-mail inválido"
+														a:placeholder="Por Favor, informe seu email. Ele servirá para acesso ao Sistema!!!">
 														<f:validateRegex
 															pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
 														<h:message for="email" />
 													</h:inputText>
 												</div>
 											</h:panelGroup>
+											<div class="col-md-6">
+												<label><span style="color: red"> * </span>Rua </label>
+												<h:inputText id="rua"
+													value="#{usuarioBean.usuario.pessoa.endereco.endereco}"
+													size="12" required="true" class="form-control"
+													a:placeholder="Por Favor, informe sua rua.">
+												</h:inputText>
+											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-2 control-label">Senha </label>
-											<div class="col-md-10">
+											<div class="col-md-6">
+												<label><span style="color: red"> * </span>Complemento
+												</label>
+												<h:inputText id="complemento"
+													value="#{usuarioBean.usuario.pessoa.endereco.complemento}"
+													size="12" required="true" class="form-control"
+													a:placeholder="Por Favor, informe o complemento de sua residência.">
+												</h:inputText>
+											</div>
+											<div class="col-md-6">
+												<label><span style="color: red"> * </span>Bairro </label>
+												<h:inputText id="endereco"
+													value="#{usuarioBean.usuario.pessoa.endereco.bairro}"
+													size="12" required="true" class="form-control"
+													a:placeholder="Por Favor, informe seu bairro.">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-md-3">
+												<label><span style="color: red"> * </span>Cep </label>
+												<h:inputText id="cep"
+													value="#{usuarioBean.usuario.pessoa.endereco.cep}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+											<div class="col-md-3">
+												<label><span style="color: red"> * </span>Cidade </label>
+												<h:inputText id="ciade"
+													value="#{usuarioBean.usuario.pessoa.endereco.cidade}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+											<div class="col-md-3">
+												<label><span style="color: red"> * </span>Estado </label>
+												<h:inputText id="estado"
+													value="#{usuarioBean.usuario.pessoa.endereco.estado}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+											<div class="col-md-3">
+												<label><span style="color: red"> * </span>Pais </label>
+												<h:inputText id="pais"
+													value="#{usuarioBean.usuario.pessoa.endereco.pais}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Senha </label>
 												<h:inputSecret id="senha"
 													value="#{usuarioBean.usuario.senha}" size="10"
 													maxlength="10" required="true" redisplay="true"
 													class="form-control" />
 											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Confirmar
-												Senha: </label>
-											<div class="col-md-10">
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Confirmar
+													Senha </label>
 												<h:inputSecret id="confirmarsenha"
 													value="#{usuarioBean.confirmarSenha}" size="10"
 													maxlength="10" required="true" redisplay="true"
 													class="form-control" />
 											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="col-md-2 control-label">Rua: </label>
-											<div class="col-md-10">
-												<h:inputText id="rua"
-													value="#{usuarioBean.usuario.pessoa.endereco.endereco}"
-													size="12" required="true" class="form-control">
-
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Complemento: </label>
-											<div class="col-md-10">
-												<h:inputText id="comple"
-													value="#{usuarioBean.usuario.pessoa.endereco.complemento}"
-													size="12" required="true" class="form-control">
-
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Bairro: </label>
-											<div class="col-md-10">
-												<h:inputText id="endereco"
-													value="#{usuarioBean.usuario.pessoa.endereco.bairro}"
-													size="12" required="true" class="form-control">
-
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Cep: </label>
-											<div class="col-md-10">
-												<h:inputText id="cep"
-													value="#{usuarioBean.usuario.pessoa.endereco.cep}"
-													size="12" required="true" class="form-control">
-
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Cidade: </label>
-											<div class="col-md-10">
-												<h:inputText id="ciade"
-													value="#{usuarioBean.usuario.pessoa.endereco.cidade}"
-													size="12" required="true" class="form-control">
-
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Estado: </label>
-											<div class="col-md-10">
-												<h:inputText id="estado"
-													value="#{usuarioBean.usuario.pessoa.endereco.estado}"
-													size="12" required="true" class="form-control">
-
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Pais </label>
-											<div class="col-md-10">
-												<h:inputText id="pais"
-													value="#{usuarioBean.usuario.pessoa.endereco.pais}"
-													size="12" required="true" class="form-control">
-
-												</h:inputText>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="col-md-2 control-label">Ativo </label>
-											<div class="col-md-10">
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Permissão
+													do Usuário </label>
 												<h:selectOneMenu class="form-control" id="tipoMedida"
 													requiredMessage="Valor é obrigatório">
 													<f:selectItem itemLabel="Selecione..." itemValue=""
@@ -223,17 +197,17 @@
 														itemValue="#{permissao}" var="permissao"
 														itemLabel="#{permissao.chave}" />
 												</h:selectOneMenu>
-
 											</div>
 										</div>
-										<div class="form-group">
-											<div class="col-md-offset-2 col-md-1">
+										<div class="row">
+											<div class="col-md-3">
 												<h:commandButton action="#{usuarioBean.salvar}"
-													class="btn btn-info" value="Salvar" />
+													class="btn btn-info btn-block" a:type="submit"
+													value="Salvar" />
 											</div>
-											<div class="col-md-offset-2 col-md-1">
+											<div class="col-md-3">
 												<h:commandButton action="#{usuarioBean.limpar}"
-													class="btn btn-warning" value="Limpar" />
+													class="btn btn-warning btn-block" value="Limpar" />
 											</div>
 										</div>
 									</h:form>

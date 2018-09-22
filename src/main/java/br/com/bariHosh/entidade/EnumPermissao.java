@@ -1,10 +1,10 @@
 package br.com.bariHosh.entidade;
 
 public enum EnumPermissao {
-	ROLE_ADMINISTRADOR("administrador"),
-	ROLE_USUARIO_CAIXA("caixa"), 
-	ROLE_USUARIO_GARCON("garçon"),
-	ROLE_USUARIO_VIP("usuariovip");
+	ROLE_ADMINISTRADOR("Administrador"),
+	ROLE_USUARIO_CAIXA("Caixa"), 
+	ROLE_USUARIO_GARCON("Garçon"),
+	ROLE_USUARIO_VIP("VIP");
 
 	public String chave;
 

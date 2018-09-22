@@ -10,9 +10,14 @@ import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.util.DAOFactory;
 
-public class UsuarioRN {
-    private GenericoDAOHibernate<Usuario> dao ;
+public class UsuarioRN extends ManuseioPublico {
+	private GenericoDAOHibernate<Usuario> dao;
 	private UsuarioDAOHibernate usuarioDAO;
+
+	public void validaDados() {
+//		ManuseioPublico.isCPF(Usuario);
+	}
+
 	public UsuarioRN() {
 		this.usuarioDAO = new UsuarioDAOHibernate();
 		this.dao = new GenericoDAOHibernate<Usuario>();
@@ -26,8 +31,6 @@ public class UsuarioRN {
 		return this.usuarioDAO.buscarPorLogin(login);
 	}
 
-	
-	
 	public void salvar(Usuario usuario) {
 		Long usuarioId = usuario.getId_usuario();
 		if (usuarioId == null || usuarioId == 0) {

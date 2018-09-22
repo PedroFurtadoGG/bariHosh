@@ -34,8 +34,8 @@ public class Pessoa implements Serializable {
 	
 
 	@OneToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-	@JoinColumn(name = "endereco", nullable = false)
-	private Endereco endereco;
+	@JoinColumn(name = "id_endereco", nullable = false)
+	private Endereco id_endereco;
 
 	@Temporal(TemporalType.DATE)
 	private Date dt_nascimento;
@@ -112,11 +112,11 @@ public class Pessoa implements Serializable {
 
 
 	public Endereco getEndereco() {
-		return endereco;
+		return id_endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setEndereco(Endereco id_endereco) {
+		this.id_endereco = id_endereco;
 	}
 
 	public Date getDt_nascimento() {
@@ -156,7 +156,7 @@ public class Pessoa implements Serializable {
 		result = prime * result + ((dt_criacao == null) ? 0 : dt_criacao.hashCode());
 		result = prime * result + ((dt_nascimento == null) ? 0 : dt_nascimento.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
+		result = prime * result + ((id_endereco == null) ? 0 : id_endereco.hashCode());
 		result = prime * result + ((id_pessoa == null) ? 0 : id_pessoa.hashCode());
 		result = prime * result + ((id_usuario_criacao == null) ? 0 : id_usuario_criacao.hashCode());		
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -200,10 +200,10 @@ public class Pessoa implements Serializable {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (endereco == null) {
-			if (other.endereco != null)
+		if (id_endereco == null) {
+			if (other.id_endereco != null)
 				return false;
-		} else if (!endereco.equals(other.endereco))
+		} else if (!id_endereco.equals(other.id_endereco))
 			return false;
 		if (id_pessoa == null) {
 			if (other.id_pessoa != null)
