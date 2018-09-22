@@ -20,14 +20,16 @@
 				class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a data-toggle="dropdown"
-						class="dropdown-toggle" href="#">Silverbux <b class="caret"></b></a>
+						class="dropdown-toggle" href="#">Login do Usuário <b
+							class="caret"></b></a>
 						<ul role="menu" class="dropdown-menu">
-							<li class="dropdown-header">Setting</li>
-							<li><a href="#">Action</a></li>
+							<li class="dropdown-header">Configurações</li>
+							<li><a href="#">Conta</a></li>
 							<li class="divider"></li>
-							<li class="active"><a href="#">Separated link</a></li>
-							<li class="divider"></li>
-							<li class="disabled"><a href="#">Signout</a></li>
+							<li class="disabled"><a
+								onclick="document.location='#{request.contextPath}/j_spring_security_logout'"
+								title="Sair">Sair</a></li>
+
 						</ul></li>
 				</ul>
 			</div>

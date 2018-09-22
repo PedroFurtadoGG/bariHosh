@@ -2,6 +2,8 @@ package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,19 +30,18 @@ public class Pessoa implements Serializable {
 	private String sexo;
 	private String telefone;
 	private String email;
-	private String idioma;
 	private Long id_usuario_criacao;
 	
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "endereco", nullable = false)
-	private Endereco endereco;
+	@OneToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+	@JoinColumn(name = "id_endereco", nullable = false)
+	private Endereco id_endereco;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date dt_nascimento;
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date dt_criacao;
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date dt_alteracao;
 
 	public Long getId_pessoa() {
@@ -99,13 +100,7 @@ public class Pessoa implements Serializable {
 		this.email = email;
 	}
 
-	public String getIdioma() {
-		return idioma;
-	}
 
-	public void setIdioma(String idioma) {
-		this.idioma = idioma;
-	}
 
 	public Long getId_usuario_criacao() {
 		return id_usuario_criacao;
@@ -117,11 +112,11 @@ public class Pessoa implements Serializable {
 
 
 	public Endereco getEndereco() {
-		return endereco;
+		return id_endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setEndereco(Endereco id_endereco) {
+		this.id_endereco = id_endereco;
 	}
 
 	public Date getDt_nascimento() {
@@ -161,10 +156,9 @@ public class Pessoa implements Serializable {
 		result = prime * result + ((dt_criacao == null) ? 0 : dt_criacao.hashCode());
 		result = prime * result + ((dt_nascimento == null) ? 0 : dt_nascimento.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
+		result = prime * result + ((id_endereco == null) ? 0 : id_endereco.hashCode());
 		result = prime * result + ((id_pessoa == null) ? 0 : id_pessoa.hashCode());
-		result = prime * result + ((id_usuario_criacao == null) ? 0 : id_usuario_criacao.hashCode());
-		result = prime * result + ((idioma == null) ? 0 : idioma.hashCode());
+		result = prime * result + ((id_usuario_criacao == null) ? 0 : id_usuario_criacao.hashCode());		
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((rg == null) ? 0 : rg.hashCode());
 		result = prime * result + ((sexo == null) ? 0 : sexo.hashCode());
@@ -206,10 +200,10 @@ public class Pessoa implements Serializable {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (endereco == null) {
-			if (other.endereco != null)
+		if (id_endereco == null) {
+			if (other.id_endereco != null)
 				return false;
-		} else if (!endereco.equals(other.endereco))
+		} else if (!id_endereco.equals(other.id_endereco))
 			return false;
 		if (id_pessoa == null) {
 			if (other.id_pessoa != null)
@@ -220,12 +214,7 @@ public class Pessoa implements Serializable {
 			if (other.id_usuario_criacao != null)
 				return false;
 		} else if (!id_usuario_criacao.equals(other.id_usuario_criacao))
-			return false;
-		if (idioma == null) {
-			if (other.idioma != null)
-				return false;
-		} else if (!idioma.equals(other.idioma))
-			return false;
+			return false;		
 		if (nome == null) {
 			if (other.nome != null)
 				return false;

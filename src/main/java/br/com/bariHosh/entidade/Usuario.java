@@ -2,6 +2,7 @@ package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "usuario")
@@ -27,9 +27,8 @@ public class Usuario implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private EnumPermissao permissao;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_pessoa", nullable = false)
-	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+	@JoinColumn(name = "id_pessoa", nullable = false)	
 	private Pessoa pessoa;
 
 	private String login;
@@ -88,6 +87,7 @@ public class Usuario implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((id_usuario == null) ? 0 : id_usuario.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((permissao == null) ? 0 : permissao.hashCode());
@@ -105,6 +105,8 @@ public class Usuario implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
+		if (ativo != other.ativo)
+			return false;
 		if (id_usuario == null) {
 			if (other.id_usuario != null)
 				return false;
@@ -130,4 +132,5 @@ public class Usuario implements Serializable {
 		return true;
 	}
 
+	
 }
