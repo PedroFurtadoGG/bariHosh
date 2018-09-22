@@ -9,7 +9,10 @@ public interface AbstratoModeloDAO<T> {
 
 	public void excluir(T model);
 
-	public T carregar(Long id);
+	public T carregar(Long id);	
 	
-	public List<T> listar();
+
+	public List<T> listar(Class<?> clazz);
+
+	
 }

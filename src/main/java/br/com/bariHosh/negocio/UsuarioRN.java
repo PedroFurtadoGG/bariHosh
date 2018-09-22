@@ -46,6 +46,6 @@ public class UsuarioRN extends ManuseioPublico {
 	}
 
 	public List<Usuario> listar() {
-		return this.usuarioDAO.listar();
+		return this.usuarioDAO.listar(Usuario.class);
 	}
 }

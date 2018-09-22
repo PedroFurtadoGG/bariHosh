@@ -33,11 +33,15 @@ public class FornecedorRN {
 	}
 
 	public void excluir(Fornecedor fornecedor) {
-		this.fornecedorDAO.excluir(fornecedor);
+		Long forncedorID = fornecedor.getId_fornecedor();
+		if (forncedorID == null || forncedorID == 0) {			
+			this.fornecedorDAO.excluir(fornecedor);
+		} 
+		
 	}
 
 	public List<Fornecedor> listar() {
-		return this.fornecedorDAO.listar();
+		return this.fornecedorDAO.listaFornecedores();
 	}
 }
 

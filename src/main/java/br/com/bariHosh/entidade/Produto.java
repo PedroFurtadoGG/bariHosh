@@ -48,11 +48,11 @@ public class Produto implements Serializable  {
 	@JoinColumn(name="marca_produto", nullable=false)
 	private Marca marca_produto;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(nullable=false, precision=10, scale=2)
 	@NotNull
 	private Date data_criacao;
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	@Column(nullable=false, precision=10, scale=2)
 	@NotNull
 	private Date data_alteracao;
