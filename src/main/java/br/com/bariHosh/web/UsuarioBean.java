@@ -10,6 +10,7 @@ import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.entidade.EnumPermissao;
+import br.com.bariHosh.entidade.Fornecedor;
 import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.UsuarioRN;
@@ -40,7 +41,7 @@ public class UsuarioBean {
 
 	@PostConstruct
 	public void init() {
-		this.destinoSalvar = "usuariosucesso";
+		this.destinoSalvar = "usuarios";
 		this.pessoa = new Pessoa();
 		this.usuario = new Usuario();
 		this.endereco = new Endereco();
@@ -106,6 +107,10 @@ public class UsuarioBean {
 			this.lista = usuarioRN.listar();
 		}
 		return this.lista;
+	}
+
+	public void setLista(List<Usuario> lista) {
+		this.lista = lista;
 	}
 
 	public String atribuiPermissao(Usuario usuario, String permissao) {

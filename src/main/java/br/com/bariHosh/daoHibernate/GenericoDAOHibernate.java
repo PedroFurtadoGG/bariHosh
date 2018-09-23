@@ -35,12 +35,11 @@ public class GenericoDAOHibernate<T> implements AbstratoModeloDAO<T> {
 		return (T) this.session.get(Object.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<T> listar(Class clazz) {
-		return  this.session.createQuery("FROM"+ clazz.getName()).list();
-		
-	}
+		return this.session.createQuery(" FROM " + clazz.getName()).list();
 
-	
+	}
 
 }

@@ -12,16 +12,13 @@ import br.com.bariHosh.entidade.Fornecedor;
 import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.negocio.FornecedorRN;
 
-
 @ManagedBean(name = "fornecedorBean")
 @RequestScoped
-public class fornecedorBean {
-
-
+public class FornecedorBean {
 
 	private Fornecedor fornecedor = new Fornecedor();
 	private Pessoa pessoa = new Pessoa();
-    private Endereco endereco = new Endereco();
+	private Endereco endereco = new Endereco();
 	private List<Fornecedor> lista;
 	private String destinoSalvar;
 
@@ -35,7 +32,7 @@ public class fornecedorBean {
 		this.fornecedor.setAtivo(true);
 		return "/publico/fornecedor";
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		this.destinoSalvar = "fornecedores";
@@ -45,14 +42,13 @@ public class fornecedorBean {
 		this.pessoa.setEndereco(endereco);
 		this.fornecedor.setPessoa(pessoa);
 		this.fornecedor.setAtivo(true);
-		
+
 	}
 
-	public String editar() {		
+	public String editar() {
 		return "/publico/fornecedor";
-		
+
 	}
-	
 
 	public Endereco getEndereco() {
 		return endereco;
@@ -67,8 +63,8 @@ public class fornecedorBean {
 	}
 
 	public String salvar() {
-		FacesContext context = FacesContext.getCurrentInstance();	
-		FornecedorRN forneedoroRN = new FornecedorRN();	
+		FacesContext context = FacesContext.getCurrentInstance();
+		FornecedorRN forneedoroRN = new FornecedorRN();
 		forneedoroRN.salvar(this.fornecedor);
 		return this.destinoSalvar;
 	}
@@ -93,13 +89,12 @@ public class fornecedorBean {
 
 	public List<Fornecedor> getLista() {
 		if (this.lista == null) {
-			FornecedorRN forneedoroRN = new FornecedorRN();
-			this.lista = forneedoroRN.listar();
+			FornecedorRN fornecedorRN = new FornecedorRN();
+			this.lista = fornecedorRN.listar();
 		}
 		return this.lista;
 	}
 
-	
 	public String getDestinoSalvar() {
 		return destinoSalvar;
 	}

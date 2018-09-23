@@ -77,7 +77,11 @@
 												<h:inputText id="cpf"
 													value="#{usuarioBean.usuario.pessoa.cpf}" size="12"
 													a:required="true" class="form-control"
-													a:placeholder="Insira seu CPF" />
+													a:placeholder="Insira seu CPF">
+													<f:validateRegex
+														pattern="[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}" />
+												</h:inputText>
+
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>RG</label>
