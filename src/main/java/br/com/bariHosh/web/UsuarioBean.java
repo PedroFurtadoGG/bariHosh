@@ -1,6 +1,7 @@
 package br.com.bariHosh.web;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;

@@ -53,23 +53,20 @@
                                        <h:dataTable class="table table-hover"
                                           value="#{usuarioBean.lista}" var="usuario" rules="row"
                                           cellpadding="5">
-                                          <h:column>
-                                             <f:facet name="header">Código</f:facet>
-                                             #{usuario.codigo}
-                                          </h:column>
+                                         
                                           <h:column>
                                              <f:facet name="header">Nome</f:facet>
-                                             #{usuario.nome}
+                                             #{usuario.pessoa.nome}
                                           </h:column>
                                           <h:column>
                                              <f:facet name="header">E-Mail</f:facet>
-                                             <a href="mailto:#{usuario.email}">#{usuario.email}</a>
+                                             <a href="mailto:#{usuario.pessoa.email}">#{usuario.pessoa.email}</a>
                                           </h:column>
                                           <h:column>
                                              <f:facet name="header">Excluir</f:facet>
                                              <h:commandLink action="#{usuarioBean.excluir}"
-                                                onclick="if (!confirm('Confirma a exclusão do usuário #{usuario.nome}?')) return false;">
-                                                <i class="fa fa-trash-o fa-2"></i>
+                                                onclick="if (!confirm('Confirma a exclusão do usuário #{usuario.pessoa.nome}?')) return false;">
+                                                <i class="fa fa-trash-o fa-4"></i>
                                                 <f:setPropertyActionListener
                                                    target="#{usuarioBean.usuario}" value="#{usuario}" />
                                              </h:commandLink>

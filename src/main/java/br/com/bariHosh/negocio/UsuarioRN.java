@@ -1,22 +1,15 @@
 package br.com.bariHosh.negocio;
 
 import java.util.List;
+import java.util.Objects;
 
-import br.com.bariHosh.dao.AbstratoModeloDAO;
 import br.com.bariHosh.daoHibernate.GenericoDAOHibernate;
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
-import br.com.bariHosh.entidade.EnumPermissao;
-import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
-import br.com.bariHosh.util.DAOFactory;
 
 public class UsuarioRN extends ManuseioPublico {
 	private GenericoDAOHibernate<Usuario> dao;
 	private UsuarioDAOHibernate usuarioDAO;
-
-	public void validaDados() {
-//		ManuseioPublico.isCPF(Usuario);
-	}
 
 	public UsuarioRN() {
 		this.usuarioDAO = new UsuarioDAOHibernate();
@@ -32,13 +25,16 @@ public class UsuarioRN extends ManuseioPublico {
 	}
 
 	public void salvar(Usuario usuario) {
-		Long usuarioId = usuario.getId_usuario();
-		if (usuarioId == null || usuarioId == 0) {
-			usuario.setPermissao(EnumPermissao.ROLE_ADMINISTRADOR);
+
+		if (Objects.isNull(usuario.getLogin())) {
+			usuario.setLogin(usuario.getPessoa().getEmail());
 			this.dao.salvar(usuario);
-		} else {
+		}
+		
+		if (!Objects.isNull(usuario.getId_usuario())) {
 			this.dao.atualizar(usuario);
 		}
+		
 	}
 
 	public void excluir(Usuario usuario) {
