@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<link rel="shortcut icon" href="favicon_16.ico" />
+	<link rel="bookmark" href="favicon_16.ico" />
+	<h:outputStylesheet name="css/site.min.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
+		rel='stylesheet' type='text/css' />
+	<h:outputScript name="js/site.min.js" />
+	<title>Fabricantes</title>
+</h:head>
+<h:body>
+	<ui:insert name="header">
+		<ui:include src="/template/common/top-menu.xhtml" />
+	</ui:insert>
+	<div class="container-fluid">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<ui:insert name="sidebar-menu">
+				<ui:include src="/template/common/sidebar-menu.xhtml" />
+			</ui:insert>
+			
+			
+			<div class="col-xs-12 col-sm-9 content">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Fabricantes</h3>
+					</div>
+					<div class="panel-body">
+						<div class="content-row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title">
+										<b>Cadastro de Fabricante</b>
+									</div>
+									<div class="panel-options">
+										<a class="bg" data-target="#sample-modal-dialog-1"
+											data-toggle="modal" href="#sample-modal"><i
+											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
+											class="entypo-down-open"></i></a> <a data-rel="close"
+											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									<h:form id="cadastro" class="form-horizontal">
+										<h:messages />
+										<h:inputHidden value="#{fabricanteBean.fab.id_fabricante}"/>
+										<h:inputHidden value="#{fabricanteBean.destinoSalvar}"/>
+										
+										<div class="form-group">
+											<label class="col-md-2 control-label">Razão Social:</label>
+											<div class="col-md-10">
+												<h:inputText id="razaoSocial" value="#{fabricanteBean.fab.razaoSocial}"
+													size="30" maxlength="30" required="true"
+													requiredMessage="Informe o nome da razão social !"
+													class="form-control">
+													<f:validateLength minimum="4" maximum="30" />
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Nome Fantasia/Comercial:</label>
+											<div class="col-md-10">
+												<h:inputText id="nomeFantasia" value="#{fabricanteBean.fab.nomeFantasia}"
+													size="30" maxlength="30" required="true"
+													requiredMessage="Informe o nome fantasia/comercial!"
+													class="form-control">
+													<f:validateLength minimum="4" maximum="30" />
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-md-offset-2 col-md-10">
+												<h:commandButton action="#{fabricanteBean.salvar}"
+													class="btn btn-info" value="Salvar" />
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-md-offset-2 col-md-10">
+												<h:commandButton action="#{fabricanteBean.novo}"
+													class="btn btn-info" value="Novo Cadastro" />
+											</div>
+										</div>
+									</h:form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+</h:body>
+<ui:insert name="footer">
+	<ui:include src="/template/common/footer.xhtml" />
+</ui:insert>
+</html>

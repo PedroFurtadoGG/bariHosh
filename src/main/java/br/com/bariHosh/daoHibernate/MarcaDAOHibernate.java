@@ -6,8 +6,7 @@ import br.com.bariHosh.dao.MarcaDAO;
 import br.com.bariHosh.entidade.*;
 import br.com.bariHosh.util.DAOFactory;
 
-public class MarcaDAOHibernate  extends GenericoDAOHibernate<Marca> 
-       implements MarcaDAO{
+public class MarcaDAOHibernate  extends GenericoDAOHibernate<Marca>  implements MarcaDAO{
 	
 	  private Session session  = DAOFactory.PegarSession();
 
