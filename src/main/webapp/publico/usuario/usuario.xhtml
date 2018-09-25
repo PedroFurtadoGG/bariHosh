@@ -66,11 +66,11 @@
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Sexo</label>
-												<h:selectOneMenu value="#{usuarioBean.usuario.pessoa.sexo}"
-													class="form-control" a:required="true">
-													<f:selectItem itemValue="masculino" itemLabel="Masculino" />
-													<f:selectItem itemValue="feminino" itemLabel="Feminino" />
-												</h:selectOneMenu>
+												<h:selectOneRadio value="#{usuarioBean.usuario.pessoa.sexo}"
+													required="true" class="form-control">
+													<f:selectItems value="#{usuarioBean.enumSexo}" var="sexo"
+														itemLabel="#{sexo.chave}" itemValue="#{sexo}" />
+												</h:selectOneRadio>
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>CPF</label>
@@ -96,7 +96,8 @@
 												<h:inputText id="nascimento" a:type="date"
 													value="#{usuarioBean.usuario.pessoa.dt_nascimento}"
 													required="true" class="form-control">
-													<f:convertDateTime pattern="YYYY-MM-dd" />
+													<f:convertDateTime pattern="YYYY-MM-dd" locale="pt_BR"
+														timeZone="America/Sao_Paulo" />
 												</h:inputText>
 											</div>
 										</div>
@@ -193,11 +194,11 @@
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Permissão
 													do Usuário </label>
-												<h:selectOneMenu class="form-control" id="tipoMedida"
-													requiredMessage="Valor é obrigatório">
-													<f:selectItem itemLabel="Selecione..." itemValue=""
-														noSelectionOption="true" />
-													<f:selectItems value="#{usuarioBean.enumpemrmissao}"
+												<h:selectOneMenu class="form-control"
+													requiredMessage="Valor é obrigatório"
+													value="#{usuarioBean.usuario.permissao}">
+													<f:selectItem itemLabel="Selecione..." />
+													<f:selectItems value="#{usuarioBean.enumpermissoes}"
 														itemValue="#{permissao}" var="permissao"
 														itemLabel="#{permissao.chave}" />
 												</h:selectOneMenu>

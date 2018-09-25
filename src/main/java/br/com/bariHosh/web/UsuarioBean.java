@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.entidade.EnumPermissao;
+import br.com.bariHosh.entidade.EnumSexo;
 import br.com.bariHosh.entidade.Fornecedor;
 import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
@@ -27,6 +28,7 @@ public class UsuarioBean {
 	private String destinoSalvar;
 
 	private EnumPermissao enumpemrmissao;
+	private EnumSexo enumSexo;
 
 	public String novo() {
 		this.destinoSalvar = "usuariosucesso";
@@ -150,16 +152,41 @@ public class UsuarioBean {
 		this.destinoSalvar = destinoSalvar;
 	}
 
-	public EnumPermissao[] getEnumpemrmissao() {
-		return enumpemrmissao.values();
-	}
-
 	public Endereco getEndereco() {
 		return endereco;
 	}
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public EnumPermissao getEnumpemrmissao() {
+		return enumpemrmissao;
+	}
+
+	public void setEnumpemrmissao(EnumPermissao enumpemrmissao) {
+		this.enumpemrmissao = enumpemrmissao;
+	}
+	
+	public EnumPermissao[] getEnumPermissoes() {
+		return EnumPermissao.values();
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	@SuppressWarnings("static-access")
+	public EnumSexo[] getEnumSexo() {
+		return enumSexo.values();
+	}
+
+	public void setEnumSexo(EnumSexo enumSexo) {
+		this.enumSexo = enumSexo;
 	}
 
 }
