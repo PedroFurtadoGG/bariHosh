@@ -21,44 +21,41 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
 @Table(name = "pedido")
 public class Pedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_cliente", nullable=false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_pedido;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_cliente", nullable = false)
 	@NotNull
 	private Cliente cliente;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario", nullable=false)
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_usuario", nullable = false)
 	@NotNull
 	private Usuario usuario;
-	
-	@OneToMany(fetch=FetchType.LAZY, cascade={CascadeType.ALL}, mappedBy="pedido")
-	private List<ItemDoPedido> itensDoPedido;
-	
 
-	@ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="id_pagamento", nullable=false)
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "pedido")
+	private List<ItemDoPedido> itensDoPedido;
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_pagamento", nullable = false)
 	private Pagamento pagamento;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false, precision=10, scale=2)
+
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
 	private Date data;
-	
+
 	private BigDecimal desconto;
 	private BigDecimal valorTotal;
-	
+
 	public Pedido() {
 		setData(new Date());
 		setDesconto(BigDecimal.ZERO);
@@ -67,29 +64,26 @@ public class Pedido implements Serializable {
 		this.pagamento = new Pagamento();
 	}
 
-	
-	
-
 	public Long getId() {
-		return id;
+		return id_pedido;
 	}
 
 	public void setId(Long id) {
-		this.id = id;
+		this.id_pedido = id;
 	}
 
-	
 	public Cliente getCliente() {
 		return cliente;
 	}
+
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
-	
 	public List<ItemDoPedido> getItensDoPedido() {
 		return itensDoPedido;
 	}
+
 	public void setItensDoPedido(List<ItemDoPedido> itensDoPedido) {
 		this.itensDoPedido = itensDoPedido;
 	}
@@ -97,56 +91,54 @@ public class Pedido implements Serializable {
 	public Pagamento getPagamento() {
 		return pagamento;
 	}
+
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
 
-	
 	public Date getData() {
 		return data;
 	}
+
 	public void setData(Date data) {
 		this.data = data;
 	}
 
-	@Column(nullable=false, precision=10, scale=2)
+	@Column(nullable = false, precision = 10, scale = 2)
 	public BigDecimal getDesconto() {
 		return desconto;
 	}
+
 	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
 	}
 
-	@Column(name="valor_total", nullable=false, precision=10, scale=2)
+	@Column(name = "valor_total", nullable = false, precision = 10, scale = 2)
 	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
+
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	
+
 	public void recalcularValorTotal() {
 		this.setValorTotal(BigDecimal.ZERO);
 		for (ItemDoPedido item : this.getItensDoPedido()) {
 			BigDecimal valorTotalDoItem = item.getValorTotal();
 			this.setValorTotal(this.getValorTotal().add(valorTotalDoItem));
 		}
-		
+
 		this.setValorTotal(this.getValorTotal().subtract(this.getDesconto()));
 	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-
-
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-
-
 
 	@Override
 	public int hashCode() {
@@ -155,15 +147,12 @@ public class Pedido implements Serializable {
 		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
 		result = prime * result + ((desconto == null) ? 0 : desconto.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((id_pedido == null) ? 0 : id_pedido.hashCode());
 		result = prime * result + ((itensDoPedido == null) ? 0 : itensDoPedido.hashCode());
 		result = prime * result + ((pagamento == null) ? 0 : pagamento.hashCode());
 		result = prime * result + ((valorTotal == null) ? 0 : valorTotal.hashCode());
 		return result;
 	}
-
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -189,10 +178,10 @@ public class Pedido implements Serializable {
 				return false;
 		} else if (!desconto.equals(other.desconto))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (id_pedido == null) {
+			if (other.id_pedido != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!id_pedido.equals(other.id_pedido))
 			return false;
 		if (itensDoPedido == null) {
 			if (other.itensDoPedido != null)
@@ -211,13 +200,5 @@ public class Pedido implements Serializable {
 			return false;
 		return true;
 	}
-
-
-
-
-	
-	
-	
-	
 
 }

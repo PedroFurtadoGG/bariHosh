@@ -4,46 +4,24 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import br.com.bariHosh.dao.GenericDAO;
+import br.com.bariHosh.dao.EnderecoDAO;
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.util.DAOFactory;
 
-public class EnderecoDAOHibernate  implements GenericDAO<Endereco>{
+public class EnderecoDAOHibernate extends GenericoDAOHibernate<Endereco> implements EnderecoDAO {
 
-	
-    private Session session  = DAOFactory.PegarSession();     
-	
-	
+	private Session session = DAOFactory.PegarSession();
+
 	@Override
-	public void salvar(Endereco model) {
-		this.session.save(model);
-		
+	public Endereco pegaEnderecoPeloCodPessoa(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public void atualizar(Endereco model) {
-		this.session.save(model);
-		
+	public List<Endereco> listaEnderecoPorBairro(String bairro) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-
-	@Override
-	public void excluir(Endereco model) {
-		this.session.delete(model);
-		
-	}
-
-	@Override
-	public Endereco carregar(Long id) {		
-		return (Endereco) this.session.get(Endereco.class, id);
-	}
-
-
-
-	@Override
-	public List<Endereco> listar() {
-		return this.session.createCriteria(Endereco.class).list();
-	}
-
-	
 
 }

@@ -17,41 +17,39 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "item_do_pedido")
+@Table(name = "item_pedido")
 public class ItemDoPedido implements Serializable {
 
+	
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	
-	private BigDecimal valorUnitario;	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_item_pedido;
+
+	private BigDecimal valorUnitario;
 	private BigDecimal valorTotal;
 	private Long quantidade;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="item_produto", nullable=false)
-	private Produto produto;	
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="item_pedido", nullable=false)
-	private Pedido pedido;
-	
 
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "item_produto", nullable = false)
+	private Produto produto;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pedido", nullable = false)
+	private Pedido pedido;
+
 	public ItemDoPedido() {
 		setQuantidade(1L);
 		setValorUnitario(BigDecimal.ZERO);
 	}
 
-	public Long getId() {
-		return id;
+	public Long getId_item_pedido() {
+		return id_item_pedido;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId_item_pedido(Long id) {
+		this.id_item_pedido = id;
 	}
 
 	public Produto getProduto() {
@@ -80,36 +78,81 @@ public class ItemDoPedido implements Serializable {
 		this.pedido = pedido;
 	}
 
-	
-	
-	
-	@Column(name="valor_unitario", precision=10, scale=2)
+	@Column(name = "valor_unitario", precision = 10, scale = 2)
 	public BigDecimal getValorUnitario() {
 		return valorUnitario;
 	}
+
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
-	
+
 	@Transient
 	public BigDecimal getValorTotal() {
 		if (valorUnitario != null && quantidade != null) {
 			this.valorTotal = valorUnitario.multiply(new BigDecimal(quantidade));
 		}
-		
+
 		return valorTotal;
 	}
+
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	
 
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id_item_pedido == null) ? 0 : id_item_pedido.hashCode());
+		result = prime * result + ((pedido == null) ? 0 : pedido.hashCode());
+		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
+		result = prime * result + ((quantidade == null) ? 0 : quantidade.hashCode());
+		result = prime * result + ((valorTotal == null) ? 0 : valorTotal.hashCode());
+		result = prime * result + ((valorUnitario == null) ? 0 : valorUnitario.hashCode());
+		return result;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemDoPedido other = (ItemDoPedido) obj;
+		if (id_item_pedido == null) {
+			if (other.id_item_pedido != null)
+				return false;
+		} else if (!id_item_pedido.equals(other.id_item_pedido))
+			return false;
+		if (pedido == null) {
+			if (other.pedido != null)
+				return false;
+		} else if (!pedido.equals(other.pedido))
+			return false;
+		if (produto == null) {
+			if (other.produto != null)
+				return false;
+		} else if (!produto.equals(other.produto))
+			return false;
+		if (quantidade == null) {
+			if (other.quantidade != null)
+				return false;
+		} else if (!quantidade.equals(other.quantidade))
+			return false;
+		if (valorTotal == null) {
+			if (other.valorTotal != null)
+				return false;
+		} else if (!valorTotal.equals(other.valorTotal))
+			return false;
+		if (valorUnitario == null) {
+			if (other.valorUnitario != null)
+				return false;
+		} else if (!valorUnitario.equals(other.valorUnitario))
+			return false;
+		return true;
+	}
 	
-	
-
 }
