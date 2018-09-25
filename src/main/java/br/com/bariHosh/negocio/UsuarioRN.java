@@ -17,7 +17,7 @@ public class UsuarioRN extends ManuseioPublico {
 	}
 
 	public Usuario carregar(Long id) {
-		return this.dao.carregar(id);
+		return this.dao.carregar(Usuario.class,id);
 	}
 
 	public Usuario buscarPorLogin(String login) {

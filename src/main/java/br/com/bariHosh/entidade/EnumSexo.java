@@ -2,7 +2,7 @@ package br.com.bariHosh.entidade;
 
 public enum EnumSexo {
 
-	MASC("masculino"), FEM("feminino");
+	MASC("Masculino"), FEM("Feminino");
 
 	public String chave;
 
