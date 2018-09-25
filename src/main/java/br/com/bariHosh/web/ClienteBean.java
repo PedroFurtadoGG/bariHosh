@@ -7,49 +7,48 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import br.com.bariHosh.entidade.Cliente;
 import br.com.bariHosh.entidade.Endereco;
-import br.com.bariHosh.entidade.Fornecedor;
+import br.com.bariHosh.entidade.EnumSexo;
 import br.com.bariHosh.entidade.Pessoa;
-import br.com.bariHosh.negocio.FornecedorRN;
+import br.com.bariHosh.negocio.ClienteRN;
 
-
-@ManagedBean(name = "fornecedorBean")
+@ManagedBean(name = "clienteBean")
 @RequestScoped
-public class fornecedorBean {
-
-
-
-	private Fornecedor fornecedor = new Fornecedor();
+public class ClienteBean {
+	
+	private Cliente cliente = new Cliente();
 	private Pessoa pessoa = new Pessoa();
     private Endereco endereco = new Endereco();
-	private List<Fornecedor> lista;
+	private List<Cliente> lista;
 	private String destinoSalvar;
-
+	private EnumSexo enumSexo;
+	
 	public String novo() {
-		this.destinoSalvar = "fornecedorsucesso";
+		this.destinoSalvar = "clientes";
 		this.setPessoa(new Pessoa());
-		this.fornecedor = new Fornecedor();
+		this.cliente = new Cliente();
 		this.endereco = new Endereco();
 		this.pessoa.setEndereco(endereco);
-		this.fornecedor.setPessoa(pessoa);
-		this.fornecedor.setAtivo(true);
-		return "/publico/fornecedor";
+		this.cliente.setPessoa(pessoa);
+		this.cliente.setAtivo(true);
+		return "/publico/cliente/cliente";
 	}
 	
 	@PostConstruct
 	public void init() {
-		this.destinoSalvar = "fornecedores";
+		this.destinoSalvar = "clientes";
 		this.setPessoa(new Pessoa());
-		this.fornecedor = new Fornecedor();
+		this.cliente = new Cliente();
 		this.endereco = new Endereco();
 		this.pessoa.setEndereco(endereco);
-		this.fornecedor.setPessoa(pessoa);
-		this.fornecedor.setAtivo(true);
+		this.cliente.setPessoa(pessoa);
+		this.cliente.setAtivo(true);
 		
 	}
 
 	public String editar() {		
-		return "/publico/fornecedor";
+		return "/publico/cliente/cliente";
 		
 	}
 	
@@ -62,39 +61,40 @@ public class fornecedorBean {
 		this.endereco = endereco;
 	}
 
-	public void setLista(List<Fornecedor> lista) {
+	public void setLista(List<Cliente> lista) {
 		this.lista = lista;
 	}
 
 	public String salvar() {
 		FacesContext context = FacesContext.getCurrentInstance();	
-		FornecedorRN forneedoroRN = new FornecedorRN();	
-		forneedoroRN.salvar(this.fornecedor);
+		ClienteRN clienteRN = new ClienteRN();	
+		clienteRN.salvar(this.cliente);
 		return this.destinoSalvar;
 	}
 
 	public String excluir() {
-		FornecedorRN forneedoroRN = new FornecedorRN();
-		forneedoroRN.excluir(this.fornecedor);
+		ClienteRN clienteRN = new ClienteRN();	
+		clienteRN.excluir(this.cliente);
+		System.out.println("teste");
 		this.lista = null;
 		return null;
 	}
 
 	public String ativar() {
-		if (this.fornecedor.isAtivo())
-			this.fornecedor.setAtivo(false);
+		if (this.cliente.isAtivo())
+			this.cliente.setAtivo(false);
 		else
-			this.fornecedor.setAtivo(true);
+			this.cliente.setAtivo(true);
 
-		FornecedorRN forneedoroRN = new FornecedorRN();
-		forneedoroRN.salvar(this.fornecedor);
+		ClienteRN clienteRN = new ClienteRN();	
+		clienteRN.salvar(this.cliente);
 		return null;
 	}
 
-	public List<Fornecedor> getLista() {
+	public List<Cliente> getLista() {
 		if (this.lista == null) {
-			FornecedorRN forneedoroRN = new FornecedorRN();
-			this.lista = forneedoroRN.listar();
+			ClienteRN clienteRN = new ClienteRN();
+			this.lista = clienteRN.listar();
 		}
 		return this.lista;
 	}
@@ -116,12 +116,20 @@ public class fornecedorBean {
 		this.pessoa = pessoa;
 	}
 
-	public Fornecedor getFornecedor() {
-		return fornecedor;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public EnumSexo[] getEnumSexo() {
+		return EnumSexo.values();
+	}
+
+	public void setEnumSexo(EnumSexo enumSexo) {
+		this.enumSexo = enumSexo;
 	}
 
 }

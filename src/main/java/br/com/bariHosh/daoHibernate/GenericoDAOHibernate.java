@@ -31,13 +31,14 @@ public class GenericoDAOHibernate<T> implements AbstratoModeloDAO<T> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public T carregar(Long id) {
-		return (T) this.session.get(Object.class, id);
+	public T carregar(Class<?> clazz ,Long id) {
+		return (T) this.session.get(clazz, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> listar(Class clazz) {
-		return  this.session.createQuery("FROM"+ clazz.getName()).list();
+	public List<T> listar(Class<?> clazz) {
+		return  this.session.createQuery(" FROM  "+ clazz.getName()).list();
 		
 	}
 

@@ -2,6 +2,7 @@ package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,11 +24,12 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id_cliente;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
 	@JoinColumn(name = "id_pessoa", nullable = false)
 	@NotNull
 	private Pessoa pessoa;
 	private String observacao;
+	private boolean ativo;
 	public Long getId_cliente() {
 		return id_cliente;
 	}
@@ -46,6 +48,14 @@ public class Cliente implements Serializable {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
+	
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -33,7 +33,7 @@ public class Usuario implements Serializable {
 
 	private String login;
 	private String senha;
-	private boolean ativo;
+	private boolean ativo = true;
 
 	public Long getId_usuario() {
 		return id_usuario;
