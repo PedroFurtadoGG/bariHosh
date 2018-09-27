@@ -49,58 +49,61 @@
                            <div class="panel-body">
                               <h:form id="cadastro" class="form-horizontal">
                                  <h:messages />
-                                 <h:inputHidden value="#{usuarioBean.usuario.id_usuario}" />
-                                 <h:inputHidden value="#{usuarioBean.usuario.ativo}" />
-                                 <h:inputHidden value="#{usuarioBean.destinoSalvar}" />
-                                 <div class="form-group">
-                                    <div class="col-md-8">
-                                       <label><span style="color: red"> * </span>Nome</label>
-                                       <h:inputText id="nome"
-                                          value="#{usuarioBean.usuario.pessoa.nome}" size="30"
-                                          maxlength="30" a:required="true"
-                                          requiredMessage="Por Favor informe seu nome"
-                                          class="form-control"
-                                          a:placeholder="Informe seu Nome Completo">
-                                          <f:validateLength minimum="10" maximum="30" />
-                                       </h:inputText>
-                                    </div>
-                                    <div class="col-md-4">
-                                       <label><span style="color: red"> * </span>Sexo</label>
-                                       <h:selectOneRadio value="#{usuarioBean.usuario.pessoa.sexo}"
-                                          required="true" class="form-control">
-                                          <f:selectItems value="#{usuarioBean.enumSexo}" var="sexo"
-                                             itemLabel="#{sexo.chave}" itemValue="#{sexo}" />
-                                       </h:selectOneRadio>
-                                    </div>
-                                    <div class="col-md-4">
-                                       <label><span style="color: red"> * </span>CPF</label>
-                                       <h:inputText id="cpf"
-                                          value="#{usuarioBean.usuario.pessoa.cpf}" size="12"
-                                          a:required="true" class="form-control"
-                                          a:placeholder="Insira seu CPF">
-                                          <f:validateRegex
-                                             pattern="[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}" />
-                                       </h:inputText>
-                                    </div>
-                                    <div class="col-md-4">
-                                       <label><span style="color: red"> * </span>RG</label>
-                                       <h:inputText id="rg"
-                                          value="#{usuarioBean.usuario.pessoa.rg}" size="12"
-                                          required="true" class="form-control"
-                                          a:placeholder="Insira seu RG" />
-                                    </div>
-                                    <div class="col-md-4">
-                                       <label><span style="color: red"> * </span>Data de
-                                       Nascimento </label>
-                                       <h:inputText id="nascimento" a:type="date"
-                                          value="#{usuarioBean.usuario.pessoa.dt_nascimento}"
-                                          required="true" class="form-control">
-                                          <f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
-                                             timeZone="America/Sao_Paulo" />
-                                       </h:inputText>
-                                    </div>
-                                 </div>
-                                 <div class="form-group">
+										<h:inputHidden
+											value="#{usuarioBean.usuario.pessoa.endereco.id_endereco}" />
+										<h:inputHidden value="#{usuarioBean.usuario.id_usuario}" />
+										<h:inputHidden value="#{usuarioBean.usuario.pessoa.id_pessoa}" />
+										<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
+										<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
+										<div class="form-group">
+											<div class="col-md-8">
+												<label><span style="color: red"> * </span>Nome</label>
+												<h:inputText id="nome"
+													value="#{usuarioBean.usuario.pessoa.nome}" size="30"
+													maxlength="30" a:required="true"
+													requiredMessage="Por Favor informe seu nome"
+													class="form-control"
+													a:placeholder="Informe seu Nome Completo">
+													<f:validateLength minimum="10" maximum="30" />
+												</h:inputText>
+											</div>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Sexo</label>
+												<h:selectOneRadio value="#{usuarioBean.usuario.pessoa.sexo}"
+													required="true" class="form-control">
+													<f:selectItems value="#{usuarioBean.enumSexo}" var="sexo"
+														itemLabel="#{sexo.chave}" itemValue="#{sexo}" />
+												</h:selectOneRadio>
+											</div>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>CPF</label>
+												<h:inputText id="cpf"
+													value="#{usuarioBean.usuario.pessoa.cpf}" size="12"
+													a:required="true" class="form-control"
+													a:placeholder="Insira seu CPF">
+													<f:validateRegex
+														pattern="[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}" />
+												</h:inputText>
+											</div>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>RG</label>
+												<h:inputText id="rg"
+													value="#{usuarioBean.usuario.pessoa.rg}" size="12"
+													required="true" class="form-control"
+													a:placeholder="Insira seu RG" />
+											</div>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Data de
+													Nascimento </label>
+												<h:inputText id="nascimento" a:type="date"
+													value="#{usuarioBean.usuario.pessoa.dt_nascimento}"
+													required="true" class="form-control">
+													<f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
+														timeZone="America/Sao_Paulo" />
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
                                     <h:panelGroup>
                                        <div class="col-md-6">
                                           <label><span style="color: red"> * </span>Email

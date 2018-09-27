@@ -1,6 +1,7 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,8 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "fornecedor")
@@ -23,15 +24,18 @@ public class Fornecedor implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_fornecedor;
 
-	@ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pessoa", nullable = false)
-	@NotNull
 	private Pessoa pessoa;
-    private boolean ativo;
+
+	private boolean ativo;
 	private String ramoAtividade;
 	private String cnpj;
 	private String razao;
 	private String numInscricao;
+
+	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, targetEntity = Produto.class)
+	private List<Produto> produtos;
 
 	public Long getId_fornecedor() {
 		return id_fornecedor;
@@ -89,14 +93,24 @@ public class Fornecedor implements Serializable {
 		this.ativo = ativo;
 	}
 
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
+		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
 		result = prime * result + ((id_fornecedor == null) ? 0 : id_fornecedor.hashCode());
 		result = prime * result + ((numInscricao == null) ? 0 : numInscricao.hashCode());
 		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
+		result = prime * result + ((produtos == null) ? 0 : produtos.hashCode());
 		result = prime * result + ((ramoAtividade == null) ? 0 : ramoAtividade.hashCode());
 		result = prime * result + ((razao == null) ? 0 : razao.hashCode());
 		return result;
@@ -106,11 +120,13 @@ public class Fornecedor implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Fornecedor other = (Fornecedor) obj;
+		if (ativo != other.ativo)
+			return false;
 		if (cnpj == null) {
 			if (other.cnpj != null)
 				return false;
@@ -130,6 +146,11 @@ public class Fornecedor implements Serializable {
 			if (other.pessoa != null)
 				return false;
 		} else if (!pessoa.equals(other.pessoa))
+			return false;
+		if (produtos == null) {
+			if (other.produtos != null)
+				return false;
+		} else if (!produtos.equals(other.produtos))
 			return false;
 		if (ramoAtividade == null) {
 			if (other.ramoAtividade != null)

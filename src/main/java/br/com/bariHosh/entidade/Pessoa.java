@@ -1,7 +1,9 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -31,11 +34,10 @@ public class Pessoa implements Serializable {
 	private String telefone;
 	private String email;
 	private Long id_usuario_criacao;
-	
 
-	@OneToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_endereco", nullable = false)
-	private Endereco id_endereco;
+	private Endereco endereco;
 
 	@Temporal(TemporalType.DATE)
 	private Date dt_nascimento;
@@ -43,6 +45,14 @@ public class Pessoa implements Serializable {
 	private Date dt_criacao;
 	@Temporal(TemporalType.DATE)
 	private Date dt_alteracao;
+	
+    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL ,targetEntity = Usuario.class)
+	private List<Usuario> usuarios ;
+    
+    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL,targetEntity = Fornecedor.class)  
+   	private List<Fornecedor> fornecedores ;
+    
+    
 
 	public Long getId_pessoa() {
 		return id_pessoa;
@@ -100,8 +110,6 @@ public class Pessoa implements Serializable {
 		this.email = email;
 	}
 
-
-
 	public Long getId_usuario_criacao() {
 		return id_usuario_criacao;
 	}
@@ -110,13 +118,12 @@ public class Pessoa implements Serializable {
 		this.id_usuario_criacao = id_usuario_criacao;
 	}
 
-
 	public Endereco getEndereco() {
-		return id_endereco;
+		return endereco;
 	}
 
-	public void setEndereco(Endereco id_endereco) {
-		this.id_endereco = id_endereco;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	public Date getDt_nascimento() {
@@ -146,6 +153,26 @@ public class Pessoa implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+	
+	
+
+	public List<Fornecedor> getFornecedores() {
+		return fornecedores;
+	}
+
+	public void setFornecedores(List<Fornecedor> fornecedores) {
+		this.fornecedores = fornecedores;
+	}
+	
+	
 
 	@Override
 	public int hashCode() {
@@ -156,13 +183,15 @@ public class Pessoa implements Serializable {
 		result = prime * result + ((dt_criacao == null) ? 0 : dt_criacao.hashCode());
 		result = prime * result + ((dt_nascimento == null) ? 0 : dt_nascimento.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((id_endereco == null) ? 0 : id_endereco.hashCode());
+		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
+		result = prime * result + ((fornecedores == null) ? 0 : fornecedores.hashCode());
 		result = prime * result + ((id_pessoa == null) ? 0 : id_pessoa.hashCode());
-		result = prime * result + ((id_usuario_criacao == null) ? 0 : id_usuario_criacao.hashCode());		
+		result = prime * result + ((id_usuario_criacao == null) ? 0 : id_usuario_criacao.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((rg == null) ? 0 : rg.hashCode());
 		result = prime * result + ((sexo == null) ? 0 : sexo.hashCode());
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
+		result = prime * result + ((usuarios == null) ? 0 : usuarios.hashCode());
 		return result;
 	}
 
@@ -200,10 +229,15 @@ public class Pessoa implements Serializable {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (id_endereco == null) {
-			if (other.id_endereco != null)
+		if (endereco == null) {
+			if (other.endereco != null)
 				return false;
-		} else if (!id_endereco.equals(other.id_endereco))
+		} else if (!endereco.equals(other.endereco))
+			return false;
+		if (fornecedores == null) {
+			if (other.fornecedores != null)
+				return false;
+		} else if (!fornecedores.equals(other.fornecedores))
 			return false;
 		if (id_pessoa == null) {
 			if (other.id_pessoa != null)
@@ -214,7 +248,7 @@ public class Pessoa implements Serializable {
 			if (other.id_usuario_criacao != null)
 				return false;
 		} else if (!id_usuario_criacao.equals(other.id_usuario_criacao))
-			return false;		
+			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
@@ -235,7 +269,13 @@ public class Pessoa implements Serializable {
 				return false;
 		} else if (!telefone.equals(other.telefone))
 			return false;
+		if (usuarios == null) {
+			if (other.usuarios != null)
+				return false;
+		} else if (!usuarios.equals(other.usuarios))
+			return false;
 		return true;
 	}
+
 
 }
