@@ -16,7 +16,6 @@
 		rel='stylesheet' type='text/css' />
 	<h:outputScript name="js/site.min.js" />
 	<title>Usuários</title>
-	
 </h:head>
 <h:body>
 	<ui:insert name="header">
@@ -49,16 +48,9 @@
 								</div>
 								<div class="panel-body">
 									<h:form id="cadastro" class="form-horizontal" name="cadastro">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="alert alert-danger">
-													<button type="button" class="close" data-dismiss="alert"
-														aria-hidden="true">×</button>
-													<strong>Warning!</strong>
-													<h:messages />
-												</div>
-											</div>
-										</div>
+										<ui:insert name="messages">
+											<ui:include src="/template/common/messages.xhtml" />
+										</ui:insert>
 										<h:inputHidden value="#{usuarioBean.usuario.id_usuario}" />
 										<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
 										<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
@@ -77,7 +69,7 @@
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Sexo</label>
 												<h:selectOneRadio value="#{usuarioBean.usuario.pessoa.sexo}"
-													required="true" class="form-control">
+													required="true" class="form-control" a:required="true">
 													<f:selectItems value="#{usuarioBean.enumSexo}" var="sexo"
 														itemLabel="#{sexo.chave}" itemValue="#{sexo}" />
 												</h:selectOneRadio>
@@ -94,35 +86,33 @@
 												</h:inputText>
 											</div>
 											<script>       
-										         function mascara(o,f){
-										          obj=o
-										          fun=f
-										          setTimeout("execmascara()",1)
-										         }
-										         function execmascara(){
-										          obj.value=fun(obj.value)
-										         }
-										         function validaCPF(v){
-										          v=v.replace(/\D/g,"");
-										          v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g,"$1.$2.$3-$4");
-										          return v;
-										         }
-										   </script>
-											
-											
+		                                       function mascara(o,f){
+		                                        obj=o
+		                                        fun=f
+		                                        setTimeout("execmascara()",1)
+		                                       }
+		                                       function execmascara(){
+		                                        obj.value=fun(obj.value)
+		                                       }
+		                                       function validaCPF(v){
+		                                        v=v.replace(/\D/g,"");
+		                                        v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g,"$1.$2.$3-$4");
+		                                        return v;
+		                                       }
+		                                    </script>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>RG</label>
 												<h:inputText id="rg"
 													value="#{usuarioBean.usuario.pessoa.rg}" size="12"
 													required="true" class="form-control"
-													a:placeholder="Insira seu RG" />
+													a:placeholder="Insira seu RG"  a:required="true"/>
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Data de
 													Nascimento </label>
 												<h:inputText id="nascimento" a:type="date"
 													value="#{usuarioBean.usuario.pessoa.dt_nascimento}"
-													required="true" class="form-control">
+													a:required="true" class="form-control">
 													<f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
 														timeZone="America/Sao_Paulo" />
 												</h:inputText>
@@ -135,7 +125,7 @@
 														(Login) </label>
 													<h:inputText id="email" class="form-control"
 														value="#{usuarioBean.usuario.pessoa.email}" size="50"
-														maxlength="50" required="true"
+														maxlength="50" a:required="true"
 														validatorMessage="e-mail inválido"
 														a:placeholder="Por Favor, informe seu email. Ele servirá para acesso ao Sistema!!!">
 														<f:validateRegex
@@ -144,52 +134,47 @@
 													</h:inputText>
 												</div>
 											</h:panelGroup>
-											
 											<div class="col-md-6">
 												<label><span style="color: red"> * </span>Telefone </label>
 												<h:inputText id="telefone"
-													value="#{usuarioBean.usuario.pessoa.telefone}"
-													size="12" required="true" class="form-control"
+													value="#{usuarioBean.usuario.pessoa.telefone}" size="12"
+													class="form-control"
 													a:placeholder="Por Favor, informe seu telefone."
 													onkeyup="mascara(this, validaTelefone);">
 												</h:inputText>
 											</div>
-											
 											<script>       
-										         function mascara(o,f){
-										          obj=o
-										          fun=f
-										          setTimeout("execmascara()",1)
-										         }
-										         function execmascara(){
-										          obj.value=fun(obj.value)
-										         }
-										         function validaTelefone(v){
-										          v=v.replace(/\D/g,"");
-										          v=v.replace(/(\d{0})(\d{2})(\d{4})(\d{3})/g,"$1($2)$3-$4");
-										          return v;
-										         }
-										   </script>
-											
+		                                       function mascara(o,f){
+		                                        obj=o
+		                                        fun=f
+		                                        setTimeout("execmascara()",1)
+		                                       }
+		                                       function execmascara(){
+		                                        obj.value=fun(obj.value)
+		                                       }
+		                                       function validaTelefone(v){
+		                                        v=v.replace(/\D/g,"");
+		                                        v=v.replace(/(\d{0})(\d{2})(\d{4})(\d{3})/g,"$1($2)$3-$4");
+		                                        return v;
+		                                       }
+		                                    </script>
 										</div>
 										<div class="form-group">
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Rua </label>
 												<h:inputText id="rua"
 													value="#{usuarioBean.usuario.pessoa.endereco.endereco}"
-													size="12" required="true" class="form-control"
-													a:placeholder="Por Favor, informe sua rua.">
+													size="12" class="form-control"
+													a:placeholder="Por Favor, informe sua rua." a:required="true">
 												</h:inputText>
 											</div>
-										
-										
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Complemento
 												</label>
 												<h:inputText id="complemento"
 													value="#{usuarioBean.usuario.pessoa.endereco.complemento}"
 													size="12" required="true" class="form-control"
-													a:placeholder="Por Favor, informe o complemento de sua residência.">
+													a:placeholder="Por Favor, informe o complemento de sua residência." a:required="true">
 												</h:inputText>
 											</div>
 											<div class="col-md-4">
@@ -197,7 +182,7 @@
 												<h:inputText id="endereco"
 													value="#{usuarioBean.usuario.pessoa.endereco.bairro}"
 													size="12" required="true" class="form-control"
-													a:placeholder="Por Favor, informe seu bairro.">
+													a:placeholder="Por Favor, informe seu bairro." a:required="true">
 												</h:inputText>
 											</div>
 										</div>
@@ -206,44 +191,44 @@
 												<label><span style="color: red"> * </span>Cep </label>
 												<h:inputText id="cep"
 													value="#{usuarioBean.usuario.pessoa.endereco.cep}"
-													size="12" required="true" class="form-control" onkeyup="mascara(this, validaCep);">
+													size="12" required="true" class="form-control"
+													onkeyup="mascara(this, validaCep);" a:required="true">
 												</h:inputText>
 											</div>
 											<script>       
-										         function mascara(o,f){
-										          obj=o
-										          fun=f
-										          setTimeout("execmascara()",1)
-										         }
-										         function execmascara(){
-										          obj.value=fun(obj.value)
-										         }
-										         function validaCep(v){
-										          v=v.replace(/\D/g,"");
-										          v=v.replace(/(\d{5})(\d{2})/g,"$1-$2");
-										          return v;
-										         }
-										   </script>
-											
+		                                       function mascara(o,f){
+		                                        obj=o
+		                                        fun=f
+		                                        setTimeout("execmascara()",1)
+		                                       }
+		                                       function execmascara(){
+		                                        obj.value=fun(obj.value)
+		                                       }
+		                                       function validaCep(v){
+		                                        v=v.replace(/\D/g,"");
+		                                        v=v.replace(/(\d{5})(\d{2})/g,"$1-$2");
+		                                        return v;
+		                                       }
+		                                    </script>
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Cidade </label>
 												<h:inputText id="ciade"
 													value="#{usuarioBean.usuario.pessoa.endereco.cidade}"
-													size="12" required="true" class="form-control">
+													size="12" required="true" class="form-control" a:required="true">
 												</h:inputText>
 											</div>
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Estado </label>
 												<h:inputText id="estado"
 													value="#{usuarioBean.usuario.pessoa.endereco.estado}"
-													size="12" required="true" class="form-control">
+													size="12" required="true" class="form-control" a:required="true">
 												</h:inputText>
 											</div>
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Pais </label>
 												<h:inputText id="pais"
 													value="#{usuarioBean.usuario.pessoa.endereco.pais}"
-													size="12" required="true" class="form-control">
+													size="12" required="true" class="form-control" a:required="true">
 												</h:inputText>
 											</div>
 										</div>
@@ -252,7 +237,7 @@
 												<label><span style="color: red"> * </span>Senha </label>
 												<h:inputSecret id="senha"
 													value="#{usuarioBean.usuario.senha}" size="10"
-													maxlength="10" required="true" redisplay="true"
+													maxlength="10" a:required="true" redisplay="true"
 													class="form-control" />
 											</div>
 											<div class="col-md-4">
@@ -261,7 +246,7 @@
 												<h:inputSecret id="confirmarsenha"
 													value="#{usuarioBean.confirmarSenha}" size="10"
 													maxlength="10" required="true" redisplay="true"
-													class="form-control" />
+													class="form-control" a:required="true"/>
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Permissão
@@ -271,8 +256,8 @@
 													requiredMessage="Valor é obrigatório">
 													<f:selectItem itemLabel="Selecione..." />
 													<f:selectItems value="#{usuarioBean.enumPermissoes}"
-														var="permit" itemValue="#{permit}"
-														itemLabel="#{permit.chave}" />
+														var="permissao" itemValue="#{permissao}"
+														itemLabel="#{permissao.chave}" a:required="true"/>
 												</h:selectOneMenu>
 											</div>
 										</div>
