@@ -15,31 +15,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-
 @Entity
-@Table(name="pagamento")
+@Table(name = "pagamento")
 public class Pagamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Enumerated(EnumType.STRING)
 	private FormaPagamento formaPagamento;
-	
-	@Column(name="completamente_recebido", nullable=false)
+
+	@Column(name = "completamente_recebido", nullable = false)
 	private boolean completamenteRecebido;
-	
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_usuario", nullable=false)
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_usuario", nullable = false)
 	@NotNull
-	private Usuario usuario ;
-	
+	private Usuario usuario;
+
 	public Pagamento() {
-	
+
 	}
-	
 
 	public Long getId() {
 		return id;
@@ -49,31 +46,29 @@ public class Pagamento implements Serializable {
 		this.id = id;
 	}
 
-
-	
 	public FormaPagamento getFormaPagamento() {
 		return formaPagamento;
 	}
+
 	public void setFormaPagamento(FormaPagamento formaPagamento) {
 		this.formaPagamento = formaPagamento;
-	}	
-	
-	
+	}
+
 	public boolean isCompletamenteRecebido() {
 		return completamenteRecebido;
 	}
+
 	public void setCompletamenteRecebido(boolean completamenteRecebido) {
 		this.completamenteRecebido = completamenteRecebido;
 	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -84,7 +79,6 @@ public class Pagamento implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -107,9 +101,4 @@ public class Pagamento implements Serializable {
 		return true;
 	}
 
-
-
-
-	
-	
 }

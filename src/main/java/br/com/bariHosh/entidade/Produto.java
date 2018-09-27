@@ -1,5 +1,6 @@
 package br.com.bariHosh.entidade;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,52 +16,52 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Produto {
+public class Produto implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id_produto;
 
 	private String codigo_barras;
-	private Fornecedor fornecedor;
 	private String nome;
 	private String descricao;
 	private Float valorEntrada;
 	private Float valorSaida;
-	private boolean isAtivo;
+	private boolean ativo;
 
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="usuario_produto_id", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario_criador;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="tipo_produto", nullable=false)
-	private TipoProduto tipoProduto;
-
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="categoria_produto", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_categoria_produto", nullable = false)
 	private CategoriaProduto categoria;
 
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="marca_produto", nullable=false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_fornecedor", nullable = false)
+	private Fornecedor fornecedor;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_marca_produto", nullable = false)
 	private Marca marca_produto;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false, precision=10, scale=2)
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
 	private Date data_criacao;
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false, precision=10, scale=2)
+	@Temporal(TemporalType.DATE)
+	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
 	private Date data_alteracao;
 
-	public Long getId() {
-		return id;
+	public Long getId_produto() {
+		return id_produto;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId_produto(Long id_produto) {
+		this.id_produto = id_produto;
 	}
 
 	public String getCodigo_barras() {
@@ -77,38 +78,6 @@ public class Produto {
 
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
-	}
-
-	public Usuario getUsuario_criador() {
-		return usuario_criador;
-	}
-
-	public void setUsuario_criador(Usuario usuario_criador) {
-		this.usuario_criador = usuario_criador;
-	}
-
-	public TipoProduto getTipoProduto() {
-		return tipoProduto;
-	}
-
-	public void setTipoProduto(TipoProduto tipoProduto) {
-		this.tipoProduto = tipoProduto;
-	}
-
-	public CategoriaProduto getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(CategoriaProduto categoria) {
-		this.categoria = categoria;
-	}
-
-	public Marca getMarca_produto() {
-		return marca_produto;
-	}
-
-	public void setMarca_produto(Marca marca_produto) {
-		this.marca_produto = marca_produto;
 	}
 
 	public String getNome() {
@@ -144,11 +113,35 @@ public class Produto {
 	}
 
 	public boolean isAtivo() {
-		return isAtivo;
+		return ativo;
 	}
 
-	public void setAtivo(boolean isAtivo) {
-		this.isAtivo = isAtivo;
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public Usuario getUsuario_criador() {
+		return usuario_criador;
+	}
+
+	public void setUsuario_criador(Usuario usuario_criador) {
+		this.usuario_criador = usuario_criador;
+	}
+
+	public CategoriaProduto getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(CategoriaProduto categoria) {
+		this.categoria = categoria;
+	}
+
+	public Marca getMarca_produto() {
+		return marca_produto;
+	}
+
+	public void setMarca_produto(Marca marca_produto) {
+		this.marca_produto = marca_produto;
 	}
 
 	public Date getData_criacao() {
@@ -177,11 +170,10 @@ public class Produto {
 		result = prime * result + ((data_criacao == null) ? 0 : data_criacao.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((fornecedor == null) ? 0 : fornecedor.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + (isAtivo ? 1231 : 1237);
+		result = prime * result + ((id_produto == null) ? 0 : id_produto.hashCode());
+		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((marca_produto == null) ? 0 : marca_produto.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((tipoProduto == null) ? 0 : tipoProduto.hashCode());
 		result = prime * result + ((usuario_criador == null) ? 0 : usuario_criador.hashCode());
 		result = prime * result + ((valorEntrada == null) ? 0 : valorEntrada.hashCode());
 		result = prime * result + ((valorSaida == null) ? 0 : valorSaida.hashCode());
@@ -227,12 +219,12 @@ public class Produto {
 				return false;
 		} else if (!fornecedor.equals(other.fornecedor))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (id_produto == null) {
+			if (other.id_produto != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!id_produto.equals(other.id_produto))
 			return false;
-		if (isAtivo != other.isAtivo)
+		if (ativo != other.ativo)
 			return false;
 		if (marca_produto == null) {
 			if (other.marca_produto != null)
@@ -243,11 +235,6 @@ public class Produto {
 			if (other.nome != null)
 				return false;
 		} else if (!nome.equals(other.nome))
-			return false;
-		if (tipoProduto == null) {
-			if (other.tipoProduto != null)
-				return false;
-		} else if (!tipoProduto.equals(other.tipoProduto))
 			return false;
 		if (usuario_criador == null) {
 			if (other.usuario_criador != null)
