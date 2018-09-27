@@ -47,7 +47,7 @@ public class UsuarioBean {
 		this.usuario.setPessoa(pessoa);
 
 		this.usuario.setAtivo(true);
-		return "/publico/usuario";
+		return "/publico/usuarios";
 	}
 
 	@PostConstruct
@@ -58,10 +58,6 @@ public class UsuarioBean {
 
 	public String entrar() {
 		return "/index";
-	}
-
-	public String cadastraFornecedor() {
-		return "/fornecedor";
 	}
 
 	public String editar() {

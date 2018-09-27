@@ -10,18 +10,16 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "endereco")
-public class Endereco implements Serializable  {
+public class Endereco implements Serializable {
 
-	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7508345999736586538L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_endereco;
 
 	private String cep;
-	private String tipoLogadouro;
 	private String endereco;
-	private String numero;
 	private String complemento;
 	private String bairro;
 	private String cidade;
@@ -44,28 +42,12 @@ public class Endereco implements Serializable  {
 		this.cep = cep;
 	}
 
-	public String getTipoLogadouro() {
-		return tipoLogadouro;
-	}
-
-	public void setTipoLogadouro(String tipoLogadouro) {
-		this.tipoLogadouro = tipoLogadouro;
-	}
-
 	public String getEndereco() {
 		return endereco;
 	}
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
 	}
 
 	public String getComplemento() {
@@ -119,9 +101,7 @@ public class Endereco implements Serializable  {
 		result = prime * result + ((endereco == null) ? 0 : endereco.hashCode());
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((id_endereco == null) ? 0 : id_endereco.hashCode());
-		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		result = prime * result + ((pais == null) ? 0 : pais.hashCode());
-		result = prime * result + ((tipoLogadouro == null) ? 0 : tipoLogadouro.hashCode());
 		return result;
 	}
 
@@ -169,20 +149,10 @@ public class Endereco implements Serializable  {
 				return false;
 		} else if (!id_endereco.equals(other.id_endereco))
 			return false;
-		if (numero == null) {
-			if (other.numero != null)
-				return false;
-		} else if (!numero.equals(other.numero))
-			return false;
 		if (pais == null) {
 			if (other.pais != null)
 				return false;
 		} else if (!pais.equals(other.pais))
-			return false;
-		if (tipoLogadouro == null) {
-			if (other.tipoLogadouro != null)
-				return false;
-		} else if (!tipoLogadouro.equals(other.tipoLogadouro))
 			return false;
 		return true;
 	}
