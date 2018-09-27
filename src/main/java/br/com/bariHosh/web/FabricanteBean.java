@@ -14,13 +14,13 @@ import br.com.bariHosh.negocio.FabricanteRN;
 @RequestScoped
 public class FabricanteBean {
 	
-	private Fabricante fab = new Fabricante();
+	private Fabricante fabricante = new Fabricante();
 	private List<Fabricante> lista ;
 	private String destinoSalvar;
 	
 	public String novo() {
 		this.destinoSalvar = "fabricante";
-		this.fab= new Fabricante();
+		this.fabricante= new Fabricante();
 		return "/publico/fabricante";
 		
 	}
@@ -28,7 +28,7 @@ public class FabricanteBean {
 	@PostConstruct
 	public void init() {
 		this.destinoSalvar= "fabricantes";
-		this.fab = new Fabricante();
+		this.fabricante = new Fabricante();
 		
 	}
 	
@@ -40,25 +40,25 @@ public class FabricanteBean {
 		
 		FacesContext context = FacesContext.getCurrentInstance();
 		FabricanteRN fabRN = new FabricanteRN();
-		fabRN.salvar(this.fab);
+		fabRN.salvar(this.fabricante);
 		return this.destinoSalvar;
 	}
 	
 	public String excluir() {
 		
 		FabricanteRN fabRN = new FabricanteRN();
-		fabRN.excluir(this.fab);
+		fabRN.excluir(this.fabricante);
 		this.lista = null;
 		return null;
 		
 	}
 
 	public Fabricante getFab() {
-		return fab;
+		return fabricante;
 	}
 
 	public void setFab(Fabricante fab) {
-		this.fab = fab;
+		this.fabricante = fab;
 	}
 	
 	

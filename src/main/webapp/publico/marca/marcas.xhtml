@@ -51,15 +51,18 @@
 											<h:messages />
 											<div class="bs-example">
 											
-												<h:dataTable class="table table-hover" value="#{marcaBean.lista}" var="marca" rules="row"
-													cellpadding="5">
+												<h:dataTable class="table table-hover" value="#{marcaBean.lista}" var="marca"  cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
-		                                             	#{marca.id}
+		                                             	#{marca.id_marca}
 		                                          	</h:column>
 													<h:column>
 														<f:facet name="header">Nome</f:facet>
 		                                             	#{marca.nome}
+		                                          	</h:column>
+		                                          	<h:column>
+														<f:facet name="header">Fabricante</f:facet>
+		                                             	#{marca.fabricante.id_fabricante}
 		                                          	</h:column>
 													<h:column>
 														<f:facet name="header">Excluir</f:facet>

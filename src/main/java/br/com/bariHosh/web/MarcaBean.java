@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.Fabricante;
 import br.com.bariHosh.entidade.Marca;
+import br.com.bariHosh.negocio.FabricanteRN;
 import br.com.bariHosh.negocio.MarcaRN;
 
 @ManagedBean(name = "marcaBean")
@@ -20,24 +21,27 @@ public class MarcaBean {
 	private List<Marca> lista;
 	private String destinoSalvar;
 	
+
+
 	public String novo() {
 		this.destinoSalvar = "marcaSucesso";
-		this.marca = new Marca();
 		this.setFabricante(new Fabricante());
-		return "/publico/marca";		
+		this.marca = new Marca();
+		this.marca.setFabricante(fabricante);
+		return "/publico/marca/marca";		
 	}
 	
 	@PostConstruct
 	public void init() {
-		this.destinoSalvar = "marcas";
+		this.destinoSalvar="marcas";
 		this.setFabricante(new Fabricante());
 		this.marca = new Marca();
 		this.marca.setFabricante(fabricante);
-		
 	}
 	
+	
 	public String editar() {
-		return "/publico/marca";
+		return "/publico/marca/marca";
 	}
 	
 	public String  salvar() {
@@ -66,6 +70,12 @@ public class MarcaBean {
 		}
 		return this.lista;
 	}
+	
+	public  void setLista(List<Marca> lista){
+		this.lista = lista;
+		
+	}
+	
 	
 
 	public Marca getMarca() {

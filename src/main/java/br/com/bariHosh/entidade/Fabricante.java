@@ -21,9 +21,6 @@ public class Fabricante implements Serializable{
 	private String razaoSocial;
 	private String nomeFantasia;
 	
-	
-
-	
 	public Long getId_fabricante() {
 		return id_fabricante;
 	}

@@ -8,8 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "marca")
@@ -23,9 +24,10 @@ public class Marca implements Serializable  {
 	private Long id_marca;
 	private String nome;
 	
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "fabricante", nullable = false)
+	//Uma marca possui apenas uma fabricante , uma fabricante detem varias marcas
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_fabricante", nullable = false)
+	@NotNull
 	private Fabricante fabricante;
 
 	
