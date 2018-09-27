@@ -1,7 +1,6 @@
 package br.com.bariHosh.web;
 
 import java.util.List;
-import java.util.Objects;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -12,7 +11,6 @@ import javax.faces.context.FacesContext;
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.entidade.EnumPermissao;
 import br.com.bariHosh.entidade.EnumSexo;
-import br.com.bariHosh.entidade.Fornecedor;
 import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.UsuarioRN;
@@ -67,17 +65,23 @@ public class UsuarioBean {
 	}
 
 	public String salvar() {
-		FacesContext context = FacesContext.getCurrentInstance();
+		try {
+			FacesContext context = FacesContext.getCurrentInstance();
 
-		if (!usuario.getSenha().equals(this.confirmarSenha)) {
-			FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
-			context.addMessage(null, facesMessage);
-			return null;
+			if (!usuario.getSenha().equals(this.confirmarSenha)) {
+				FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
+				context.addMessage(null, facesMessage);
+				return null;
+			}
+
+			UsuarioRN usuarioRN = new UsuarioRN();
+			usuarioRN.salvar(this.usuario);
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
-
-		UsuarioRN usuarioRN = new UsuarioRN();
-		usuarioRN.salvar(this.usuario);
-
+		
 		return this.destinoSalvar;
 	}
 
