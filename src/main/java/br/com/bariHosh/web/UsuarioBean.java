@@ -30,6 +30,14 @@ public class UsuarioBean {
 	private EnumPermissao enumpemrmissao;
 	private EnumSexo enumSexo;
 
+	
+	
+	public UsuarioBean() {		
+		this.endereco = new Endereco();
+		this.pessoa.setEndereco(endereco);
+		this.usuario.setPessoa(pessoa);
+	}
+
 	public String novo() {
 		this.destinoSalvar = "usuariosucesso";
 		this.pessoa = new Pessoa();
@@ -39,30 +47,22 @@ public class UsuarioBean {
 		this.usuario.setPessoa(pessoa);
 
 		this.usuario.setAtivo(true);
-		return "/publico/usuario";
+		return "/publico/usuarios";
 	}
 
 	@PostConstruct
 	public void init() {
 		this.destinoSalvar = "usuarios";
-		this.pessoa = new Pessoa();
-		this.usuario = new Usuario();
-		this.endereco = new Endereco();
-		this.pessoa.setEndereco(endereco);
-		this.usuario.setPessoa(pessoa);
-	}
+	
+		}
 
 	public String entrar() {
 		return "/index";
 	}
 
-	public String cadastraFornecedor() {
-		return "/fornecedor";
-	}
-
 	public String editar() {
 		this.confirmarSenha = this.usuario.getSenha();
-		return "/publico/usuario";
+		return "/publico/usuario/usuario";
 
 	}
 
@@ -167,7 +167,7 @@ public class UsuarioBean {
 	public void setEnumpemrmissao(EnumPermissao enumpemrmissao) {
 		this.enumpemrmissao = enumpemrmissao;
 	}
-	
+
 	public EnumPermissao[] getEnumPermissoes() {
 		return EnumPermissao.values();
 	}

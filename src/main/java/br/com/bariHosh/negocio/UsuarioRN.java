@@ -3,45 +3,57 @@ package br.com.bariHosh.negocio;
 import java.util.List;
 import java.util.Objects;
 
-import br.com.bariHosh.daoHibernate.GenericoDAOHibernate;
+import br.com.bariHosh.daoHibernate.PessoaDAOHibernate;
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
+import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
 
 public class UsuarioRN extends ManuseioPublico {
-	private GenericoDAOHibernate<Usuario> dao;
-	private UsuarioDAOHibernate usuarioDAO;
 
+	private UsuarioDAOHibernate daoUsuario;
+    private PessoaDAOHibernate daoPessoa;
 	public UsuarioRN() {
-		this.usuarioDAO = new UsuarioDAOHibernate();
-		this.dao = new GenericoDAOHibernate<Usuario>();
+		this.daoUsuario = new UsuarioDAOHibernate();
+		this.daoPessoa =  new PessoaDAOHibernate();
+		
 	}
 
 	public Usuario carregar(Long id) {
-		return this.dao.carregar(Usuario.class,id);
+		return this.daoUsuario.carregar(Usuario.class,id);
 	}
 
 	public Usuario buscarPorLogin(String login) {
-		return this.usuarioDAO.buscarPorLogin(login);
+		return this.daoUsuario.buscarPorLogin(login);
 	}
 
-	public void salvar(Usuario usuario) {
-
+	public void salvar(Usuario usuario) {			
 		if (Objects.isNull(usuario.getLogin())) {
-			usuario.setLogin(usuario.getPessoa().getEmail());
-			this.dao.salvar(usuario);
-		}
-		
-		if (!Objects.isNull(usuario.getId_usuario())) {
-			this.dao.atualizar(usuario);
+			usuario.setLogin(usuario.getPessoa().getEmail());	        
+		}		
+		if (Objects.isNull(usuario.getId_usuario())) {
+			
+			Pessoa pessoa = usuario.getPessoa();
+			this.daoPessoa.salvar(pessoa);
+			usuario.setPessoa(pessoa);
+			this.daoUsuario.salvar(usuario);
+		}else {
+			
+			System.out.println(""+usuario.getPessoa().getId_pessoa());
+			System.out.println(""+usuario.getPessoa().getEndereco().getId_endereco());
+			this.daoPessoa.atualizar(usuario.getPessoa());
+			this.daoUsuario.atualizar(usuario);
+			
 		}
 		
 	}
 
 	public void excluir(Usuario usuario) {
-		this.usuarioDAO.excluir(usuario);
+		this.daoUsuario.excluir(usuario);
 	}
 
 	public List<Usuario> listar() {
-		return this.usuarioDAO.listar(Usuario.class);
+		return this.daoUsuario.listar(Usuario.class);
 	}
+
+	
 }
