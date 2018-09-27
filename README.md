@@ -5,9 +5,10 @@
 ## Tecnologias
 
 * Java
-* Bootstrap
-* Primefaces
 * JSF
+* HTML 5
+* CSS 3
+* Bootstrap
 * Hibernate
 * MySql
 * Eclipse

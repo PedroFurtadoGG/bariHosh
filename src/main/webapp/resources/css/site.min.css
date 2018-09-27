@@ -114,7 +114,7 @@ table{
     border-collapse:collapse
 }
 td,th{
-    padding:0
+    padding-left:20px
 }
 @media print{
     *{

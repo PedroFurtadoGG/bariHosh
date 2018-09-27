@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<link rel="shortcut icon" href="favicon_16.ico" />
+	<link rel="bookmark" href="favicon_16.ico" />
+	<h:outputStylesheet name="css/site.min.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
+		rel='stylesheet' type='text/css' />
+	<h:outputScript name="js/site.min.js" />
+	<title>Fornecedor</title>
+</h:head>
+<h:body>
+	<ui:insert name="header">
+		<ui:include src="/template/common/top-menu.xhtml" />
+	</ui:insert>
+	<div class="container-fluid">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<ui:insert name="sidebar-menu">
+				<ui:include src="/template/common/sidebar-menu.xhtml" />
+			</ui:insert>
+			<div class="col-xs-12 col-sm-9 content">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Fornecedores</h3>
+					</div>
+					<div class="panel-body">
+						<div class="content-row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title">
+										<b>Cadastro de Fornecedor</b>
+									</div>
+									<div class="panel-options">
+										<a class="bg" data-target="#sample-modal-dialog-1"
+											data-toggle="modal" href="#sample-modal"><i
+											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
+											class="entypo-down-open"></i></a> <a data-rel="close"
+											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									<h:form id="cadastro" class="form-horizontal">
+										<h:messages />
+										<h:inputHidden
+											value="#{fornecedorBean.fornecedor.id_fornecedor}" />
+										<h:inputHidden value="#{fornecedorBean.fornecedor.ativo}" />
+										<h:inputHidden value="#{fornecedorBean.destinoSalvar}" />
+
+										<div class="form-group">
+											<label class="col-md-2 control-label">Nome:</label>
+											<div class="col-md-10">
+												<h:inputText id="nome"
+													value="#{fornecedorBean.fornecedor.pessoa.nome}" size="30"
+													maxlength="30" required="true"
+													requiredMessage="Por Favor informe seu nome"
+													class="form-control">
+													<f:validateLength minimum="10" maximum="30" />
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Cpf </label>
+											<div class="col-md-10">
+												<h:inputText id="cpf"
+													value="#{fornecedorBean.fornecedor.pessoa.cpf}" size="12"
+													required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Rg </label>
+											<div class="col-md-10">
+												<h:inputText id="rg"
+													value="#{fornecedorBean.fornecedor.pessoa.rg}" size="12"
+													required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Nascimento </label>
+											<div class="col-md-10">
+												<h:inputText id="nascimento" a:type="date"
+													value="#{fornecedorBean.fornecedor.pessoa.dt_nascimento}"
+													size="12" required="true" class="form-control">
+													<f:convertDateTime pattern="yyyy-mm-dd" dateStyle="short"
+														type="date">
+													</f:convertDateTime>
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Sexo </label>
+											<div class="col-md-10">
+												<h:selectOneRadio
+													value="#{fornecedorBean.fornecedor.pessoa.sexo}"
+													required="true" class="form-control">
+													<f:selectItems value="#{fornecedorBean.enumSexo}"
+														var="sexo" itemLabel="#{sexo.chave}" itemValue="#{sexo}" />
+												</h:selectOneRadio>
+											</div>
+										</div>
+										<div class="form-group">
+											<h:panelGroup>
+												<label class="col-md-2 control-label">Email </label>
+												<div class="col-md-10">
+													<h:inputText id="email" class="form-control"
+														value="#{fornecedorBean.fornecedor.pessoa.email}"
+														size="50" maxlength="50" required="true"
+														validatorMessage="e-mail inválido">
+														<f:validateRegex
+															pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
+														<h:message for="email" />
+													</h:inputText>
+												</div>
+											</h:panelGroup>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Rua: </label>
+											<div class="col-md-10">
+												<h:inputText id="rua"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.endereco}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Complemento: </label>
+											<div class="col-md-10">
+												<h:inputText id="comple"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.complemento}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Bairro: </label>
+											<div class="col-md-10">
+												<h:inputText id="endereco"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.bairro}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Cep: </label>
+											<div class="col-md-10">
+												<h:inputText id="cep"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.cep}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Cidade: </label>
+											<div class="col-md-10">
+												<h:inputText id="ciade"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.cidade}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Estado: </label>
+											<div class="col-md-10">
+												<h:inputText id="estado"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.estado}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Pais </label>
+											<div class="col-md-10">
+												<h:inputText id="pais"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.pais}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Numero
+												Inscrição </label>
+											<div class="col-md-10">
+												<h:inputText id="numinc"
+													value="#{fornecedorBean.fornecedor.numInscricao}" size="12"
+													required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Cnpj </label>
+											<div class="col-md-10">
+												<h:inputText id="cnpj"
+													value="#{fornecedorBean.fornecedor.cnpj}" size="12"
+													required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Ramo/Atividade
+											</label>
+											<div class="col-md-10">
+												<h:inputText id="ramo"
+													value="#{fornecedorBean.fornecedor.ramoAtividade}"
+													size="12" required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-md-2 control-label">Razao </label>
+											<div class="col-md-10">
+												<h:inputText id="razao"
+													value="#{fornecedorBean.fornecedor.razao}" size="12"
+													required="true" class="form-control">
+												</h:inputText>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-md-offset-2 col-md-1">
+												<h:commandButton action="#{fornecedorBean.salvar}"
+													class="btn btn-info" value="Salvar" />
+											</div>
+											<div class="col-md-offset-2 col-md-1">
+												<h:commandButton action="#{fornecedorBean.novo()}"
+													update="cadastro" class="btn btn-warning" value="Limpar" />
+											</div>
+										</div>
+									</h:form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+<ui:insert name="footer">
+	<ui:include src="/template/common/footer.xhtml" />
+</ui:insert>
+</html>

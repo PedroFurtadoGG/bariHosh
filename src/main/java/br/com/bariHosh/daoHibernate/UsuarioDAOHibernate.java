@@ -14,13 +14,13 @@ public class UsuarioDAOHibernate extends GenericoDAOHibernate<Usuario> implement
 	@Override
 	public void atualizar_permissao(Usuario usuario) {
 		if (usuario.getPermissao() == null) {
-			Usuario usuarioPermissao = this.carregar(usuario.getId_usuario());
+			Usuario usuarioPermissao = this.carregar(Usuario.class,usuario.getId_usuario());
 			usuario.setPermissao(usuarioPermissao.getPermissao());
 			this.session.evict(usuarioPermissao);
 		}
 		this.session.update(usuario);
 	}
-
+	
 	@Override
 	public Usuario buscarPorLogin(String login) {
 		String hql = "select u from Usuario u where u.login = :login";
