@@ -1,11 +1,14 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +23,9 @@ public class Fabricante implements Serializable{
 	
 	private String razaoSocial;
 	private String nomeFantasia;
+	
+	@OneToMany(mappedBy="fabricante", cascade = CascadeType.ALL, targetEntity = Marca.class)
+	private List<Marca> marcas;
 	
 	public Long getId_fabricante() {
 		return id_fabricante;
@@ -39,16 +45,25 @@ public class Fabricante implements Serializable{
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
 	}
+	public List<Marca> getMarcas() {
+		return marcas;
+	}
+	public void setMarcas(List<Marca> marcas) {
+		this.marcas = marcas;
+	}
+	
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id_fabricante == null) ? 0 : id_fabricante.hashCode());
+		result = prime * result + ((marcas == null) ? 0 : marcas.hashCode());
 		result = prime * result + ((nomeFantasia == null) ? 0 : nomeFantasia.hashCode());
 		result = prime * result + ((razaoSocial == null) ? 0 : razaoSocial.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -63,6 +78,11 @@ public class Fabricante implements Serializable{
 				return false;
 		} else if (!id_fabricante.equals(other.id_fabricante))
 			return false;
+		if (marcas == null) {
+			if (other.marcas != null)
+				return false;
+		} else if (!marcas.equals(other.marcas))
+			return false;
 		if (nomeFantasia == null) {
 			if (other.nomeFantasia != null)
 				return false;
@@ -74,7 +94,7 @@ public class Fabricante implements Serializable{
 		} else if (!razaoSocial.equals(other.razaoSocial))
 			return false;
 		return true;
-	} 
+	}
 	
 	
 	

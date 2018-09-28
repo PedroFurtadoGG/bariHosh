@@ -28,12 +28,11 @@ public class FabricanteBean {
 	@PostConstruct
 	public void init() {
 		this.destinoSalvar= "fabricantes";
-		this.fabricante = new Fabricante();
 		
 	}
 	
 	public String editar() {
-		return "/public/fabricante";
+		return "/publico/fabricante/fabricante";
 	}
 	
 	public String salvar() {

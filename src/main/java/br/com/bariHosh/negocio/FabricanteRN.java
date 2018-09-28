@@ -28,7 +28,7 @@ public class FabricanteRN {
 	}
 	
 	public Fabricante carregar(Long id) {
-		return this.dao.carregar(id);
+		return this.dao.carregar(Fabricante.class,id);
 	}
 	
 	public void excluir(Fabricante fab) {
@@ -36,7 +36,7 @@ public class FabricanteRN {
 	}
 	
 	public List<Fabricante> listar(){
-		return this.fabricanteDAO.listar();
+		return this.fabricanteDAO.listar(Fabricante.class);
 	}
 
 }

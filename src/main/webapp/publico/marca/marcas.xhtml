@@ -62,8 +62,19 @@
 		                                          	</h:column>
 		                                          	<h:column>
 														<f:facet name="header">Fabricante</f:facet>
-		                                             	#{marca.fabricante.id_fabricante}
+		                                             	#{marca.fabricante.razaoSocial}
 		                                          	</h:column>
+		                                          	<h:column>
+		                                          	
+														<f:facet name="header">Editar</f:facet>
+														<h:commandLink action="#{marcaBean.editar()}">
+															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+															<f:setPropertyActionListener
+																target="#{marcaBean.marca}" value="#{marca}" />
+														</h:commandLink>
+														
+													</h:column>
+		                                          	
 													<h:column>
 														<f:facet name="header">Excluir</f:facet>
 

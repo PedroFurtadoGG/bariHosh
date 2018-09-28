@@ -20,12 +20,19 @@ public class MarcaBean {
 	private Fabricante fabricante = new Fabricante();
 	private List<Marca> lista;
 	private String destinoSalvar;
+	private List<Fabricante> listaFab;
 	
 
 
+	public MarcaBean() {
+		
+		this.fabricante = new Fabricante();
+		this.marca.setFabricante(fabricante);
+	}
+
 	public String novo() {
 		this.destinoSalvar = "marcaSucesso";
-		this.setFabricante(new Fabricante());
+		this.fabricante = new Fabricante();
 		this.marca = new Marca();
 		this.marca.setFabricante(fabricante);
 		return "/publico/marca/marca";		
@@ -34,9 +41,9 @@ public class MarcaBean {
 	@PostConstruct
 	public void init() {
 		this.destinoSalvar="marcas";
-		this.setFabricante(new Fabricante());
-		this.marca = new Marca();
-		this.marca.setFabricante(fabricante);
+//		this.setFabricante(new Fabricante());
+//		this.marca = new Marca();
+//		this.marca.setFabricante(fabricante);
 	}
 	
 	
@@ -77,6 +84,20 @@ public class MarcaBean {
 	}
 	
 	
+	
+
+	public List<Fabricante> getListaFab() {
+		
+		if(this.listaFab==null) {
+			FabricanteRN fabRN = new FabricanteRN();
+			this.listaFab = fabRN.listar();
+		}
+		return this.listaFab;
+	}
+
+	public void setListaFab(List<Fabricante> listaFab) {
+		this.listaFab = listaFab;
+	}
 
 	public Marca getMarca() {
 		return marca;

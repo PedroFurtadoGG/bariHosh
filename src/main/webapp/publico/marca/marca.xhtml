@@ -67,10 +67,10 @@
 											<label class="col-md-2 control-label">Razao Social do Fabricante:</label>
 											
 											<div class="col-md-10">
-												<h:selectOneMenu id="razaoSocialFabricante" value="#{marcaBean.marca.fabricante.id_fabricante}"
+												<h:selectOneMenu  value="#{marcaBean.marca.fabricante.id_fabricante}"
 													required="true"	requiredMessage="Informe a razao social da fabricante!"
 													class="form-control">
-													<f:selectItems  value="#{marcaBean.lista}" var="fab" itemLabel="#{fab.razaoSocial}" itemValue="#{fab.id_fabricante}" />
+													<f:selectItems  value="#{marcaBean.listaFab}" var="fab" itemLabel="#{fab.razaoSocial}" itemValue="#{fab.id_fabricante}" />
 													
 												</h:selectOneMenu>
 											</div>
