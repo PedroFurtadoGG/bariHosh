@@ -50,13 +50,13 @@
 								<div class="panel-body">
 									<h:form id="cadastro" class="form-horizontal">
 										<h:messages />
-										<h:inputHidden value="#{fabricanteBean.fab.id_fabricante}"/>
+										<h:inputHidden value="#{fabricanteBean.fabricante.id_fabricante}"/>
 										<h:inputHidden value="#{fabricanteBean.destinoSalvar}"/>
 										
 										<div class="form-group">
 											<label class="col-md-2 control-label">Razão Social:</label>
 											<div class="col-md-10">
-												<h:inputText id="razaoSocial" value="#{fabricanteBean.fab.razaoSocial}"
+												<h:inputText id="razaoSocial" value="#{fabricanteBean.fabricante.razaoSocial}"
 													size="30" maxlength="30" required="true"
 													requiredMessage="Informe o nome da razão social !"
 													class="form-control">
@@ -67,7 +67,7 @@
 										<div class="form-group">
 											<label class="col-md-2 control-label">Nome Fantasia/Comercial:</label>
 											<div class="col-md-10">
-												<h:inputText id="nomeFantasia" value="#{fabricanteBean.fab.nomeFantasia}"
+												<h:inputText id="nomeFantasia" value="#{fabricanteBean.fabricante.nomeFantasia}"
 													size="30" maxlength="30" required="true"
 													requiredMessage="Informe o nome fantasia/comercial!"
 													class="form-control">

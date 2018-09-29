@@ -52,15 +52,15 @@ public class FabricanteBean {
 		
 	}
 
-	public Fabricante getFab() {
+	
+	public Fabricante getFabricante() {
 		return fabricante;
 	}
 
-	public void setFab(Fabricante fab) {
-		this.fabricante = fab;
+	public void setFabricante(Fabricante fabricante) {
+		this.fabricante = fabricante;
 	}
-	
-	
+
 	public String getDestinoSalvar() {
 		return destinoSalvar;
 	}

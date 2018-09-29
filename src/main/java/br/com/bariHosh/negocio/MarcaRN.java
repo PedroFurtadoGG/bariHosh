@@ -29,13 +29,13 @@ public class MarcaRN {
 		if(Objects.isNull(marca.getId_marca())) {
 			
 			Fabricante fab = marca.getFabricante();
-			this.fabricanteDAO.salvar(fab);
+//			this.fabricanteDAO.salvar(fab);
 			marca.setFabricante(fab);
 			this.marcaDAO.salvar(marca);
 			
 		}else {
 			
-			this.fabricanteDAO.atualizar(marca.getFabricante());
+//			this.fabricanteDAO.atualizar(marca.getFabricante());
 			this.marcaDAO.atualizar(marca);
 		}
 		

@@ -71,7 +71,7 @@
 														<h:commandLink action="#{fabricanteBean.editar()}">
 															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 															<f:setPropertyActionListener
-																target="#{fabricanteBean.fab}" value="#{fab}" />
+																target="#{fabricanteBean.fabricante}" value="#{fabricante}" />
 														</h:commandLink>
 														
 													</h:column>
@@ -82,7 +82,7 @@
 															onclick="if (!confirm('Confirma a exclusão do fabricante #{fab.razaoSocial}?')) return false;">
 															<i class="fa fa-trash-o"></i>
 															<f:setPropertyActionListener
-																target="#{fabricanteBean.fab}" value="#{fab}" />
+																target="#{fabricanteBean.fabricante}" value="#{fabricante}" />
 														</h:commandLink>
 														
 													</h:column>

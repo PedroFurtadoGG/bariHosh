@@ -41,9 +41,9 @@ public class MarcaBean {
 	@PostConstruct
 	public void init() {
 		this.destinoSalvar="marcas";
-//		this.setFabricante(new Fabricante());
-//		this.marca = new Marca();
-//		this.marca.setFabricante(fabricante);
+		this.setFabricante(new Fabricante());
+		this.marca = new Marca();
+		this.marca.setFabricante(fabricante);
 	}
 	
 	
