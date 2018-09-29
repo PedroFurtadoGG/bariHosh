@@ -30,6 +30,8 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Usuários</h3>
 					</div>
+
+
 					<div class="panel-body">
 						<div class="content-row">
 							<div class="panel panel-default">
@@ -46,9 +48,11 @@
 									</div>
 								</div>
 								<div class="panel-body">
+									<ui:insert name="messages">
+										<ui:include src="/template/common/messages.xhtml" />
+									</ui:insert>
 									<div class="bs-example">
 										<h:form>
-											<h:messages />
 											<div class="bs-example">
 												<h:dataTable class="table table-hover"
 													value="#{usuarioBean.lista}" var="usuario" rules="row"

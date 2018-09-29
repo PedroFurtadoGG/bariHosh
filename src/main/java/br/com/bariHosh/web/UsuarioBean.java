@@ -77,6 +77,8 @@ public class UsuarioBean {
 			UsuarioRN usuarioRN = new UsuarioRN();
 			usuarioRN.salvar(this.usuario);
 			
+			FacesMessage facesMessage = new FacesMessage("Cadastro Efetuado com sucesso!");
+			context.addMessage(null, facesMessage);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
