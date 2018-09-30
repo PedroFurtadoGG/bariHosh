@@ -1,11 +1,14 @@
 package br.com.bariHosh.negocio;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.bariHosh.daoHibernate.ClienteDAOHibernate;
 import br.com.bariHosh.entidade.Cliente;
+import br.com.bariHosh.entidade.Usuario;
+import br.com.bariHosh.util.ManuseioPublico;
 
-public class ClienteRN {
+public class ClienteRN  extends ManuseioPublico{
 
 	
 	private ClienteDAOHibernate clienteDAO;
@@ -21,18 +24,24 @@ public class ClienteRN {
 	
 	
 	
-	public void salvar(Cliente cliente) {
-		Long clienteID = cliente.getId_cliente();
-		if (clienteID == null || clienteID == 0) {			
-			this.clienteDAO.salvar(cliente);
-		} else {
-			this.clienteDAO.atualizar(cliente);
+	public void salvar(Cliente cliente) {		
+		Usuario usuariologado = super.buscarPorUsuarioLogado();	
+		if(super.validaObjeto(usuariologado)) {
+			    cliente.getPessoa().setId_usuario_criacao(usuariologado.getId_usuario());			
+			if (!super.validaObjeto(cliente.getId_cliente())) {	
+				cliente.getPessoa().setDt_criacao(new Date());
+				this.clienteDAO.salvar(cliente);
+			} else {
+				cliente.getPessoa().setDt_alteracao(new Date());
+				this.clienteDAO.atualizar(cliente);
+			}
 		}
+		
+		
 	}
 
-	public void excluir(Cliente cliente) {
-		Long clienteID = cliente.getId_cliente();
-		if (clienteID != null || clienteID != 0) {			
+	public void excluir(Cliente cliente) {		
+		if (super.validaObjeto(cliente.getId_cliente())) {			
 			this.clienteDAO.excluir(cliente);
 		} 
 		

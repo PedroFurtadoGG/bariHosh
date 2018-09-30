@@ -21,7 +21,7 @@ public class MarcaBean {
 	private List<Marca> lista;
 	private String destinoSalvar;
 	private List<Fabricante> listaFab;
-	
+	private MarcaRN marcaRN = new MarcaRN();
 
 
 	public MarcaBean() {
@@ -35,7 +35,7 @@ public class MarcaBean {
 		this.fabricante = new Fabricante();
 		this.marca = new Marca();
 		this.marca.setFabricante(fabricante);
-		return "/publico/marca/marca";		
+		return "/restrito/marca/marca";		
 	}
 	
 	@PostConstruct
@@ -48,13 +48,12 @@ public class MarcaBean {
 	
 	
 	public String editar() {
-		return "/publico/marca/marca";
+		return "/restrito/marca/marca";
 	}
 	
 	public String  salvar() {
 		
-		FacesContext context = FacesContext.getCurrentInstance();
-		 MarcaRN marcaRN = new MarcaRN();
+		FacesContext context = FacesContext.getCurrentInstance();		
 		 this.marca.setFabricante(fabricante);
 		 marcaRN.salvar(this.marca);
 		 
@@ -63,16 +62,14 @@ public class MarcaBean {
 	
 	public String excluir() {
 		
-		MarcaRN marcaRN = new MarcaRN();
+	
 		marcaRN.excluir(this.marca);
 		this.lista = null;
 		return null;
 	}
 	
-	public List<Marca> getLista(){
-		
-		if(this.lista == null) {
-			MarcaRN marcaRN = new MarcaRN();
+	public List<Marca> getLista(){		
+		if(this.lista == null) {			
 			this.lista = marcaRN.listar();
 		}
 		return this.lista;

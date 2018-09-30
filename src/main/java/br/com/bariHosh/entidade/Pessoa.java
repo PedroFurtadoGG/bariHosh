@@ -1,7 +1,6 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,10 +45,10 @@ public class Pessoa implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dt_alteracao;
 	
-    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL ,targetEntity = Usuario.class)
+    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL ,fetch=FetchType.LAZY ,targetEntity = Usuario.class)
 	private List<Usuario> usuarios ;
     
-    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL,targetEntity = Fornecedor.class)  
+    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL ,fetch=FetchType.LAZY,targetEntity = Fornecedor.class)  
    	private List<Fornecedor> fornecedores ;
     
     
