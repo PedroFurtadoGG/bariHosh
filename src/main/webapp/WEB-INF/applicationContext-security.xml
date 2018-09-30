@@ -12,7 +12,7 @@
 			access="ROLE_ADMINISTRADOR, ROLE_USUARIO_CAIXA, ROLE_USUARIO_GARCON, ROLE_USUARIO_VIP" />
 		<form-login login-page="/publico/login.jsf"
 			always-use-default-target="true"
-			default-target-url="/restrito/index.jsf"
+			default-target-url="/restrito/index.jsf?login_sucess=1"
 			authentication-failure-url="/publico/login.jsf?login_error=1" />
 		<logout />
 		<remember-me />
