@@ -9,7 +9,7 @@
 		<intercept-url pattern="/admin/**" access="ROLE_ADMINISTRADOR" />
 		<intercept-url pattern="/restrito/**" access="ROLE_USUARIO" />
 		<form-login login-page="/publico/login.jsf"
-			always-use-default-target="true" default-target-url="/restrito/principal.jsf"
+			always-use-default-target="true"  default-target-url="/publico/usuario/usuarios.jsf"
 			authentication-failure-url="/publico/login.jsf?login_error=1" />
 		<logout />
 		<remember-me />
@@ -17,10 +17,11 @@
 	<authentication-manager>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="bariHoshDataSource"
-				authorities-by-username-query="SELECT u.login, p.permissao 
-																	FROM Usuario u, usuario_permissao p 
-																	WHERE u.codigo = p.usuario AND u.login = ?"
+				authorities-by-username-query="SELECT u.login, u.permissao 
+																	FROM Usuario u
+																	WHERE  u.login = ?"
 				users-by-username-query="SELECT login, senha, ativo FROM Usuario WHERE login = ?" />
 		</authentication-provider>
 	</authentication-manager>
+
 </beans:beans>

@@ -80,10 +80,11 @@
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>CPF</label>
 												<h:inputText id="cpf"
-													value="#{usuarioBean.usuario.pessoa.cpf}" size="11"
+													value="#{usuarioBean.usuario.pessoa.cpf}"  maxlength="14" 
 													a:required="true" class="form-control"
 													onkeyup="mascara(this, validaCPF);"
-													a:placeholder="Insira seu CPF" name="cpf">
+													a:placeholder="Insira seu CPF" name="cpf"
+													validatorMessage="Cpf Invalido">
 													<f:validateRegex
 														pattern="[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}" />
 												</h:inputText>
@@ -288,7 +289,7 @@
 													value="Salvar" />
 											</div>
 											<div class="col-md-3">
-												<h:commandButton action="#{usuarioBean.limpar}"
+												<h:commandButton action="#{usuarioBean.novo}"
 													class="btn btn-warning btn-block" value="Limpar" />
 											</div>
 										</div>

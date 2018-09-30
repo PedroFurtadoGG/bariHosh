@@ -1,5 +1,8 @@
 package br.com.bariHosh.daoHibernate;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import br.com.bariHosh.dao.UsuarioDAO;
@@ -33,5 +36,13 @@ public class UsuarioDAOHibernate extends GenericoDAOHibernate<Usuario> implement
 	public Usuario buscarPorPermissao(EnumPermissao permissao) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Usuario buscarUsuarioLogado() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext external = context.getExternalContext();
+		String login = external.getRemoteUser();
+		return this.buscarPorLogin(login);
 	}
 }

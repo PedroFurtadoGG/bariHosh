@@ -31,7 +31,7 @@ public class Cliente implements Serializable {
 	@JoinColumn(name = "id_pessoa", nullable = false)
 	private Pessoa pessoa;
 
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, targetEntity = Pedido.class)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch=FetchType.LAZY ,targetEntity = Pedido.class)
 	private List<Pedido> pedidos;
 
 	public Long getId_cliente() {

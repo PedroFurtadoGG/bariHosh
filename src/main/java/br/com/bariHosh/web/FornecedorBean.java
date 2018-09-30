@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.entidade.EnumSexo;
@@ -19,17 +18,30 @@ import br.com.bariHosh.negocio.FornecedorRN;
 public class FornecedorBean {
 
 
-
 	private Fornecedor fornecedor = new Fornecedor();
 	private Pessoa pessoa = new Pessoa();
     private Endereco endereco = new Endereco();
 	private List<Fornecedor> lista;
 	private String destinoSalvar;
 	private EnumSexo enumSexo;
+	private FornecedorRN forneedoroRN;
+	
+	
+	public FornecedorBean() {
+		this.destinoSalvar = "fornecedores";
+		this.forneedoroRN = new FornecedorRN();		
+		this.pessoa = new Pessoa();
+		this.fornecedor = new Fornecedor();
+		this.endereco = new Endereco();
+		this.pessoa.setEndereco(endereco);
+		this.fornecedor.setPessoa(pessoa);
+		this.fornecedor.setAtivo(true);	
+		
+	}
 
-	public String novo() {
-		this.destinoSalvar = "fornecedorsucesso";
-		this.setPessoa(new Pessoa());
+
+	public String novo() {		
+		this.pessoa = new Pessoa();
 		this.fornecedor = new Fornecedor();
 		this.endereco = new Endereco();
 		this.pessoa.setEndereco(endereco);
@@ -40,13 +52,7 @@ public class FornecedorBean {
 	
 	@PostConstruct
 	public void init() {
-		this.destinoSalvar = "fornecedores";
-		this.setPessoa(new Pessoa());
-		this.fornecedor = new Fornecedor();
-		this.endereco = new Endereco();
-		this.pessoa.setEndereco(endereco);
-		this.fornecedor.setPessoa(pessoa);
-		this.fornecedor.setAtivo(true);
+		
 		
 	}
 
@@ -56,27 +62,14 @@ public class FornecedorBean {
 	}
 	
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
+	
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
-	public void setLista(List<Fornecedor> lista) {
-		this.lista = lista;
-	}
-
-	public String salvar() {
-		FacesContext context = FacesContext.getCurrentInstance();	
-		FornecedorRN forneedoroRN = new FornecedorRN();	
+	public String salvar() {		
 		forneedoroRN.salvar(this.fornecedor);
 		return this.destinoSalvar;
 	}
 
-	public String excluir() {
-		FornecedorRN forneedoroRN = new FornecedorRN();
+	public String excluir() {		
 		forneedoroRN.excluir(this.fornecedor);
 		this.lista = null;
 		return null;
@@ -86,16 +79,13 @@ public class FornecedorBean {
 		if (this.fornecedor.isAtivo())
 			this.fornecedor.setAtivo(false);
 		else
-			this.fornecedor.setAtivo(true);
-
-		FornecedorRN forneedoroRN = new FornecedorRN();
+			this.fornecedor.setAtivo(true);	
 		forneedoroRN.salvar(this.fornecedor);
 		return null;
 	}
 
 	public List<Fornecedor> getLista() {
-		if (this.lista == null) {
-			FornecedorRN forneedoroRN = new FornecedorRN();
+		if (this.lista == null) {			
 			this.lista = forneedoroRN.listar();
 		}
 		return this.lista;
@@ -125,7 +115,19 @@ public class FornecedorBean {
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
+	public Endereco getEndereco() {
+		return endereco;
+	}
 
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public void setLista(List<Fornecedor> lista) {
+		this.lista = lista;
+	}
+
+	@SuppressWarnings("static-access")
 	public EnumSexo[] getEnumSexo() {
 		return enumSexo.values();
 	}
