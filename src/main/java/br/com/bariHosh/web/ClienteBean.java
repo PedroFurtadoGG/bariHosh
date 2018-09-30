@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.Cliente;
 import br.com.bariHosh.entidade.Endereco;
@@ -23,8 +22,13 @@ public class ClienteBean {
 	private List<Cliente> lista;
 	private String destinoSalvar;
 	private EnumSexo enumSexo;
+	private ClienteRN clienteRN = new ClienteRN();	
 	
-	public String novo() {
+	
+	
+	
+	
+	public ClienteBean() {
 		this.destinoSalvar = "clientes";
 		this.setPessoa(new Pessoa());
 		this.cliente = new Cliente();
@@ -32,23 +36,26 @@ public class ClienteBean {
 		this.pessoa.setEndereco(endereco);
 		this.cliente.setPessoa(pessoa);
 		this.cliente.setAtivo(true);
-		return "/publico/cliente/cliente";
+	}
+
+	public String novo() {		
+		this.setPessoa(new Pessoa());
+		this.cliente = new Cliente();
+		this.endereco = new Endereco();
+		this.pessoa.setEndereco(endereco);
+		this.cliente.setPessoa(pessoa);
+		this.cliente.setAtivo(true);
+		return "/restrito/cliente/cliente";
 	}
 	
 	@PostConstruct
 	public void init() {
-		this.destinoSalvar = "clientes";
-		this.setPessoa(new Pessoa());
-		this.cliente = new Cliente();
-		this.endereco = new Endereco();
-		this.pessoa.setEndereco(endereco);
-		this.cliente.setPessoa(pessoa);
-		this.cliente.setAtivo(true);
+		
 		
 	}
 
 	public String editar() {		
-		return "/publico/cliente/cliente";
+		return "/restrito/cliente/cliente";
 		
 	}
 	
@@ -66,16 +73,12 @@ public class ClienteBean {
 	}
 
 	public String salvar() {
-		FacesContext context = FacesContext.getCurrentInstance();	
-		ClienteRN clienteRN = new ClienteRN();	
 		clienteRN.salvar(this.cliente);
 		return this.destinoSalvar;
 	}
 
-	public String excluir() {
-		ClienteRN clienteRN = new ClienteRN();	
-		clienteRN.excluir(this.cliente);
-		System.out.println("teste");
+	public String excluir() {		
+		clienteRN.excluir(this.cliente);		
 		this.lista = null;
 		return null;
 	}
@@ -86,14 +89,14 @@ public class ClienteBean {
 		else
 			this.cliente.setAtivo(true);
 
-		ClienteRN clienteRN = new ClienteRN();	
+		
 		clienteRN.salvar(this.cliente);
 		return null;
 	}
 
 	public List<Cliente> getLista() {
 		if (this.lista == null) {
-			ClienteRN clienteRN = new ClienteRN();
+			
 			this.lista = clienteRN.listar();
 		}
 		return this.lista;
@@ -124,9 +127,11 @@ public class ClienteBean {
 		this.cliente = cliente;
 	}
 
+	@SuppressWarnings("static-access")
 	public EnumSexo[] getEnumSexo() {
-		return EnumSexo.values();
+		return enumSexo.values();
 	}
+	
 
 	public void setEnumSexo(EnumSexo enumSexo) {
 		this.enumSexo = enumSexo;

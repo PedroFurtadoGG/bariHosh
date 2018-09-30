@@ -21,7 +21,7 @@ public class FabricanteBean {
 	public String novo() {
 		this.destinoSalvar = "fabricante";
 		this.fabricante= new Fabricante();
-		return "/publico/fabricante";
+		return "/restrito/fabricante";
 		
 	}
 	
@@ -32,7 +32,7 @@ public class FabricanteBean {
 	}
 	
 	public String editar() {
-		return "/publico/fabricante/fabricante";
+		return "/restrito/fabricante/fabricante";
 	}
 	
 	public String salvar() {

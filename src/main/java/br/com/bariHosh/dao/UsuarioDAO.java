@@ -7,7 +7,7 @@ public interface UsuarioDAO {
 	public Usuario buscarPorLogin(String login);
 	public Usuario buscarPorPermissao(EnumPermissao permissao);
 	public void atualizar_permissao(Usuario usuario);
-	
+	public Usuario buscarUsuarioLogado();
 	
 	
 }

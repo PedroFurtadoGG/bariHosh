@@ -10,32 +10,29 @@ import br.com.bariHosh.entidade.Marca;
 
 public class MarcaRN {
 	
-//	private GenericoDAOHibernate<Marca> dao;
+
 	private MarcaDAOHibernate marcaDAO;
-	private FabricanteDAOHibernate fabricanteDAO;
+	
 	
 	public MarcaRN() {
-//		this.dao = new GenericoDAOHibernate<Marca>();
+
 		this.marcaDAO = new MarcaDAOHibernate();
-		this.fabricanteDAO = new FabricanteDAOHibernate();
+		
 	}
 	
 	public Marca carregar(Long id) {
 		return this.marcaDAO.carregar(Marca.class,id);
 	}
 	
-	public void  salvar(Marca marca) {
-		
+	public void  salvar(Marca marca) {		
 		if(Objects.isNull(marca.getId_marca())) {
 			
-			Fabricante fab = marca.getFabricante();
-//			this.fabricanteDAO.salvar(fab);
-			marca.setFabricante(fab);
+//			Fabricante fab = marca.getFabricante();
+//			marca.setFabricante(fab);
 			this.marcaDAO.salvar(marca);
 			
-		}else {
-			
-//			this.fabricanteDAO.atualizar(marca.getFabricante());
+		}else {			
+
 			this.marcaDAO.atualizar(marca);
 		}
 		
