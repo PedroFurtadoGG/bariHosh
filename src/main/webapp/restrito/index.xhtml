@@ -37,11 +37,14 @@
 
 
 								<div class="content-row">
-									
+									<ui:insert name="messages">
+										<ui:include src="/restrito/common/messages.xhtml" />
+									</ui:insert>
 									<div class="row">
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded" src="https://lasangrealrio.files.wordpress.com/2015/04/sin-tc3adtulo.jpg" />
+												<img class="img-rounded"
+													src="https://lasangrealrio.files.wordpress.com/2015/04/sin-tc3adtulo.jpg" />
 												<div class="caption text-center">
 													<h3>Produtos Vendidos</h3>
 													<p>832746</p>
@@ -54,7 +57,8 @@
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded" src="https://ci.memecdn.com/6927068.jpg" />
+												<img class="img-rounded"
+													src="https://ci.memecdn.com/6927068.jpg" />
 												<div class="caption text-center">
 													<h3>Algum dado</h3>
 													<p>Cr12132</p>
@@ -67,7 +71,8 @@
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded" src="http://www.htv.jp/weblog/itonaga/images/kiyama.jpg" />
+												<img class="img-rounded"
+													src="http://www.htv.jp/weblog/itonaga/images/kiyama.jpg" />
 												<div class="caption text-center">
 													<h3>Clientes no Bar</h3>
 													<p>123123.</p>
@@ -80,7 +85,8 @@
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded" src="http://www.praxinoscope.jp/jpeg/Georges_artworks/2011Romance2967.jpg" />
+												<img class="img-rounded"
+													src="http://www.praxinoscope.jp/jpeg/Georges_artworks/2011Romance2967.jpg" />
 												<div class="caption text-center">
 													<h3>Quantidade de Roshs</h3>
 													<p>12</p>
@@ -92,51 +98,51 @@
 											</div>
 										</div>
 									</div>
-										<h2 class="content-row-title">Produtos mais vendidos</h2>
+									<h2 class="content-row-title">Produtos mais vendidos</h2>
 									<div class="bs-example">
-                      <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-									
-									
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>First Name</th>
+													<th>Last Name</th>
+													<th>Username</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1</td>
+													<td>Mark</td>
+													<td>Otto</td>
+													<td>@mdo</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Jacob</td>
+													<td>Thornton</td>
+													<td>@fat</td>
+												</tr>
+												<tr>
+													<td>3</td>
+													<td colspan="2">Larry the Bird</td>
+													<td>@twitter</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+
 								</div>
 
 
 
-							</div>	
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 </h:body>
 <ui:insert name="footer">
 	<ui:include src="/restrito/common/footer.xhtml" />
