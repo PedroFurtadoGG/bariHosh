@@ -1,6 +1,5 @@
 package br.com.bariHosh.dao;
 
-public interface MarcaDAO {
-	
+public interface FabricanteDAO {
 
 }

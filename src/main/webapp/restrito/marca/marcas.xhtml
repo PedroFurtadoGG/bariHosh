@@ -14,28 +14,28 @@
 		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
 		rel='stylesheet' type='text/css' />
 	<h:outputScript name="js/site.min.js" />
-	<title>Usuários</title>
+	<title>Marcas</title>
 </h:head>
 <h:body>
 	<ui:insert name="header">
-		<ui:include src="/template/common/top-menu.xhtml" />
+		<ui:include src="/restrito/common/top-menu.xhtml" />
 	</ui:insert>
 	<div class="container-fluid">
 		<div class="row row-offcanvas row-offcanvas-left">
 			<ui:insert name="sidebar-menu">
-				<ui:include src="/template/common/sidebar-menu.xhtml" />
+				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
 			</ui:insert>
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Usuários</h3>
+						<h3 class="panel-title">Marcas</h3>
 					</div>
 					<div class="panel-body">
 						<div class="content-row">
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<div class="panel-title">
-										<b>Listagem de Usuário</b>
+										<b>Listagem de Marcas</b>
 									</div>
 									<div class="panel-options">
 										<a class="bg" data-target="#sample-modal-dialog-1"
@@ -50,33 +50,38 @@
 										<h:form>
 											<h:messages />
 											<div class="bs-example">
-												<h:dataTable class="table table-hover"
-													value="#{usuarioBean.lista}" var="usuario" rules="row"
-													cellpadding="5">
-
+											
+												<h:dataTable class="table table-hover" value="#{marcaBean.lista}" var="marca"  cellpadding="5">
+													<h:column>
+														<f:facet name="header">Código</f:facet>
+		                                             	#{marca.id_marca}
+		                                          	</h:column>
 													<h:column>
 														<f:facet name="header">Nome</f:facet>
-                                             #{usuario.pessoa.nome}
-                                          </h:column>
-													<h:column>
-														<f:facet name="header">E-Mail</f:facet>
-														<a href="mailto:#{usuario.pessoa.email}">#{usuario.pessoa.email}</a>
-													</h:column>
-													<h:column>
+		                                             	#{marca.nome}
+		                                          	</h:column>
+		                                          	<h:column>
+														<f:facet name="header">Fabricante</f:facet>
+		                                             	#{marca.fabricante.razaoSocial}
+		                                          	</h:column>
+		                                          	
+		                                          	<h:column>
 														<f:facet name="header">Editar</f:facet>
-														<h:commandLink action="#{usuarioBean.editar()}">
+														<h:commandLink action="#{marcaBean.editar()}">
 															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 															<f:setPropertyActionListener
-																target="#{usuarioBean.usuario}" value="#{usuario}" />
+																target="#{marcaBean.marca}" value="#{marca}" />
 														</h:commandLink>
 													</h:column>
+		                                          	
 													<h:column>
 														<f:facet name="header">Excluir</f:facet>
-														<h:commandLink action="#{usuarioBean.excluir}"
-															onclick="if (!confirm('Confirma a exclusão do usuário #{usuario.pessoa.nome}?')) return false;">
-															<i class="fa fa-trash-o fa-4"></i>
+
+														<h:commandLink action="#{marcaBean.excluir}"
+															onclick="if (!confirm('Confirma a exclusão da marca #{marca.nome}?')) return false;">
+															<i class="fa fa-trash-o"></i>
 															<f:setPropertyActionListener
-																target="#{usuarioBean.usuario}" value="#{usuario}" />
+																target="#{marcaBean.marca}" value="#{marca}" />
 														</h:commandLink>
 													</h:column>
 												</h:dataTable>
@@ -93,6 +98,11 @@
 	</div>
 </h:body>
 <ui:insert name="footer">
-	<ui:include src="/template/common/footer.xhtml" />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<ui:include src="/restrito/common/footer.xhtml" />
 </ui:insert>
 </html>

@@ -47,7 +47,7 @@ public class FornecedorBean {
 		this.pessoa.setEndereco(endereco);
 		this.fornecedor.setPessoa(pessoa);
 		this.fornecedor.setAtivo(true);
-		return "/publico/fornecedor/fornecedor";
+		return "/restrito/fornecedor/fornecedor";
 	}
 	
 	@PostConstruct
@@ -57,7 +57,7 @@ public class FornecedorBean {
 	}
 
 	public String editar() {		
-		return "/publico/fornecedor/fornecedor";
+		return "/restrito/fornecedor/fornecedor";
 		
 	}
 	

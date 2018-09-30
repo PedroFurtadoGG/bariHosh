@@ -45,7 +45,7 @@ public class ClienteBean {
 		this.pessoa.setEndereco(endereco);
 		this.cliente.setPessoa(pessoa);
 		this.cliente.setAtivo(true);
-		return "/publico/cliente/cliente";
+		return "/restrito/cliente/cliente";
 	}
 	
 	@PostConstruct
@@ -55,7 +55,7 @@ public class ClienteBean {
 	}
 
 	public String editar() {		
-		return "/publico/cliente/cliente";
+		return "/restrito/cliente/cliente";
 		
 	}
 	

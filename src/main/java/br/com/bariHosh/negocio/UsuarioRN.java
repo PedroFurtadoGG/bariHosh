@@ -11,10 +11,13 @@ public class UsuarioRN extends ManuseioPublico {
 
 	private UsuarioDAOHibernate daoUsuario;
 
+
 	public UsuarioRN() {
 		this.daoUsuario = new UsuarioDAOHibernate();
-
 	}
+	
+
+	
 
 	public Usuario carregar(Long id) {
 		return this.daoUsuario.carregar(Usuario.class, id);
@@ -23,6 +26,7 @@ public class UsuarioRN extends ManuseioPublico {
 	public Usuario buscarPorLogin(String login) {
 		return this.daoUsuario.buscarPorLogin(login);
 	}
+
 
 	
 
@@ -41,6 +45,7 @@ public class UsuarioRN extends ManuseioPublico {
 			}
 
 		} 
+
 
 	}
 

@@ -15,28 +15,28 @@
 		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
 		rel='stylesheet' type='text/css' />
 	<h:outputScript name="js/site.min.js" />
-	<title>Usuários</title>
+	<title>Fornecedores</title>
 </h:head>
 <h:body>
 	<ui:insert name="header">
-		<ui:include src="/template/common/top-menu.xhtml" />
+		<ui:include src="/restrito/common/top-menu.xhtml" />
 	</ui:insert>
 	<div class="container-fluid">
 		<div class="row row-offcanvas row-offcanvas-left">
 			<ui:insert name="sidebar-menu">
-				<ui:include src="/template/common/sidebar-menu.xhtml" />
+				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
 			</ui:insert>
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Usuários</h3>
+						<h3 class="panel-title">Fornecedores</h3>
 					</div>
 					<div class="panel-body">
 						<div class="content-row">
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<div class="panel-title">
-										<b>Cadastro de Usuário</b>
+										<b>Cadastro de Fornecedores</b>
 									</div>
 									<div class="panel-options">
 										<a class="bg" data-target="#sample-modal-dialog-1"
@@ -49,19 +49,19 @@
 								<div class="panel-body">
 									<h:form id="cadastro" class="form-horizontal" name="cadastro">
 										<ui:insert name="messages">
-											<ui:include src="/template/common/messages.xhtml" />
+											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
 										<h:inputHidden
-											value="#{usuarioBean.usuario.pessoa.endereco.id_endereco}" />
-										<h:inputHidden value="#{usuarioBean.usuario.id_usuario}" />
-										<h:inputHidden value="#{usuarioBean.usuario.pessoa.id_pessoa}" />
-										<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
-										<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
+											value="#{fornecedorBean.fornecedor.pessoa.endereco.id_endereco}" />
+										<h:inputHidden value="#{fornecedorBean.fornecedor.id_fornecedor}" />
+										<h:inputHidden value="#{fornecedorBean.fornecedor.pessoa.id_pessoa}" />
+										<h:inputHidden value="#{fornecedorBean.fornecedor.ativo}" />
+										<h:inputHidden value="#{fornecedorBean.destinoSalvar}" />
 										<div class="form-group">
 											<div class="col-md-8">
 												<label><span style="color: red"> * </span>Nome</label>
 												<h:inputText id="nome"
-													value="#{usuarioBean.usuario.pessoa.nome}" size="30"
+													value="#{fornecedorBean.fornecedor.pessoa.nome}" size="30"
 													maxlength="30" a:required="true"
 													requiredMessage="Por Favor informe seu nome"
 													class="form-control"
@@ -71,16 +71,16 @@
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Sexo</label>
-												<h:selectOneRadio value="#{usuarioBean.usuario.pessoa.sexo}"
+												<h:selectOneRadio value="#{fornecedorBean.fornecedor.pessoa.sexo}"
 													required="true" class="form-control" a:required="true">
-													<f:selectItems value="#{usuarioBean.enumSexo}" var="sexo"
+													<f:selectItems value="#{fornecedorBean.enumSexo}" var="sexo"
 														itemLabel="#{sexo.chave}" itemValue="#{sexo}" />
 												</h:selectOneRadio>
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>CPF</label>
 												<h:inputText id="cpf"
-													value="#{usuarioBean.usuario.pessoa.cpf}"  maxlength="14" 
+													value="#{fornecedorBean.fornecedor.pessoa.cpf}"  maxlength="14" 
 													a:required="true" class="form-control"
 													onkeyup="mascara(this, validaCPF);"
 													a:placeholder="Insira seu CPF" name="cpf"
@@ -111,7 +111,7 @@
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>RG</label>
 												<h:inputText id="rg"
-													value="#{usuarioBean.usuario.pessoa.rg}" size="12"
+													value="#{fornecedorBean.fornecedor.pessoa.rg}" size="12"
 													required="true" class="form-control"
 													a:placeholder="Insira seu RG" a:required="true" />
 											</div>
@@ -119,7 +119,7 @@
 												<label><span style="color: red"> * </span>Data de
 													Nascimento </label>
 												<h:inputText id="nascimento" a:type="date"
-													value="#{usuarioBean.usuario.pessoa.dt_nascimento}"
+													value="#{fornecedorBean.fornecedor.pessoa.dt_nascimento}"
 													a:required="true" class="form-control">
 													<f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
 														timeZone="America/Sao_Paulo" />
@@ -130,9 +130,9 @@
 											<h:panelGroup>
 												<div class="col-md-6">
 													<label><span style="color: red"> * </span>Email
-														(Login) </label>
+														 </label>
 													<h:inputText id="email" class="form-control"
-														value="#{usuarioBean.usuario.pessoa.email}" size="50"
+														value="#{fornecedorBean.fornecedor.pessoa.email}" size="50"
 														maxlength="50" a:required="true"
 														validatorMessage="e-mail inválido"
 														a:placeholder="Por Favor, informe seu email. Ele servirá para acesso ao Sistema!!!">
@@ -145,7 +145,7 @@
 											<div class="col-md-6">
 												<label><span style="color: red"> * </span>Telefone </label>
 												<h:inputText id="telefone"
-													value="#{usuarioBean.usuario.pessoa.telefone}" size="12"
+													value="#{fornecedorBean.fornecedor.pessoa.telefone}" size="12"
 													class="form-control"
 													a:placeholder="Por Favor, informe seu telefone."
 													onkeyup="mascara(this, validaTelefone);">
@@ -175,7 +175,7 @@
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Rua </label>
 												<h:inputText id="rua"
-													value="#{usuarioBean.usuario.pessoa.endereco.endereco}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.endereco}"
 													size="12" class="form-control"
 													a:placeholder="Por Favor, informe sua rua."
 													a:required="true">
@@ -185,7 +185,7 @@
 												<label><span style="color: red"> * </span>Complemento
 												</label>
 												<h:inputText id="complemento"
-													value="#{usuarioBean.usuario.pessoa.endereco.complemento}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.complemento}"
 													size="12" required="true" class="form-control"
 													a:placeholder="Por Favor, informe o complemento de sua residência."
 													a:required="true">
@@ -194,7 +194,7 @@
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Bairro </label>
 												<h:inputText id="endereco"
-													value="#{usuarioBean.usuario.pessoa.endereco.bairro}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.bairro}"
 													size="12" required="true" class="form-control"
 													a:placeholder="Por Favor, informe seu bairro."
 													a:required="true">
@@ -205,7 +205,7 @@
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Cep </label>
 												<h:inputText id="cep"
-													value="#{usuarioBean.usuario.pessoa.endereco.cep}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.cep}"
 													size="12" required="true" class="form-control"
 													onkeyup="mascara(this, validaCep);" a:required="true">
 												</h:inputText>
@@ -231,7 +231,7 @@
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Cidade </label>
 												<h:inputText id="ciade"
-													value="#{usuarioBean.usuario.pessoa.endereco.cidade}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.cidade}"
 													size="12" required="true" class="form-control"
 													a:required="true">
 												</h:inputText>
@@ -239,7 +239,7 @@
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Estado </label>
 												<h:inputText id="estado"
-													value="#{usuarioBean.usuario.pessoa.endereco.estado}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.estado}"
 													size="12" required="true" class="form-control"
 													a:required="true">
 												</h:inputText>
@@ -247,49 +247,21 @@
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Pais </label>
 												<h:inputText id="pais"
-													value="#{usuarioBean.usuario.pessoa.endereco.pais}"
+													value="#{fornecedorBean.fornecedor.pessoa.endereco.pais}"
 													size="12" required="true" class="form-control"
 													a:required="true">
 												</h:inputText>
 											</div>
 										</div>
-										<div class="form-group">
-											<div class="col-md-4">
-												<label><span style="color: red"> * </span>Senha </label>
-												<h:inputSecret id="senha"
-													value="#{usuarioBean.usuario.senha}" size="10"
-													maxlength="10" a:required="true" redisplay="true"
-													class="form-control" />
-											</div>
-											<div class="col-md-4">
-												<label><span style="color: red"> * </span>Confirmar
-													Senha </label>
-												<h:inputSecret id="confirmarsenha"
-													value="#{usuarioBean.confirmarSenha}" size="10"
-													maxlength="10" required="true" redisplay="true"
-													class="form-control" a:required="true" />
-											</div>
-											<div class="col-md-4">
-												<label><span style="color: red"> * </span>Permissão
-													do Usuário </label>
-												<h:selectOneMenu class="form-control"
-													value="#{usuarioBean.usuario.permissao}"
-													requiredMessage="Valor é obrigatório">
-													<f:selectItem itemLabel="Selecione..." />
-													<f:selectItems value="#{usuarioBean.enumPermissoes}"
-														var="permissao" itemValue="#{permissao}"
-														itemLabel="#{permissao.chave}" a:required="true" />
-												</h:selectOneMenu>
-											</div>
-										</div>
+										
 										<div class="row">
 											<div class="col-md-3">
-												<h:commandButton action="#{usuarioBean.salvar}"
+												<h:commandButton action="#{fornecedorBean.salvar}"
 													class="btn btn-info btn-block" a:type="submit"
 													value="Salvar" />
 											</div>
 											<div class="col-md-3">
-												<h:commandButton action="#{usuarioBean.novo}"
+												<h:commandButton action="#{fornecedorBean.novo}"
 													class="btn btn-warning btn-block" value="Limpar" />
 											</div>
 										</div>
@@ -304,6 +276,6 @@
 	</div>
 </h:body>
 <ui:insert name="footer">
-	<ui:include src="/template/common/footer.xhtml" />
+	<ui:include src="/restrito/common/footer.xhtml" />
 </ui:insert>
 </html>

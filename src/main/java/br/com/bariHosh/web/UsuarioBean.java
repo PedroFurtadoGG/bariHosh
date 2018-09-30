@@ -17,7 +17,7 @@ import br.com.bariHosh.negocio.UsuarioRN;
 @ManagedBean(name = "usuarioBean")
 @RequestScoped
 public class UsuarioBean {
-	
+
 	private Usuario usuario = new Usuario();
 	private Pessoa pessoa = new Pessoa();
 	private Endereco endereco = new Endereco();
@@ -26,34 +26,31 @@ public class UsuarioBean {
 	private String destinoSalvar;
 	private EnumPermissao enumpemrmissao;
 	private EnumSexo enumSexo;
-	private UsuarioRN usuarioRN; 
+	private UsuarioRN usuarioRN;
 
-
-	
 	public UsuarioBean() {
 		this.destinoSalvar = "usuarios";
-		this.usuarioRN =  new UsuarioRN();
+		this.usuarioRN = new UsuarioRN();
 		this.endereco = new Endereco();
 		this.pessoa.setEndereco(endereco);
 		this.usuario.setPessoa(pessoa);
 		this.usuario.setAtivo(true);
-		
+
 	}
 
 	public String novo() {
-		this.usuarioRN =  new UsuarioRN();
+		this.usuarioRN = new UsuarioRN();
 		this.pessoa = new Pessoa();
 		this.usuario = new Usuario();
 		this.endereco = new Endereco();
 		this.pessoa.setEndereco(endereco);
 		this.usuario.setPessoa(pessoa);
 		this.usuario.setAtivo(true);
-		return "/publico/usuario/usuario";
+		return "/restrito/usuario/usuario";
 	}
 
 	@PostConstruct
 	public void init() {
-		
 
 	}
 
@@ -63,18 +60,23 @@ public class UsuarioBean {
 
 	public String editar() {
 		this.confirmarSenha = this.usuario.getSenha();
-		return "/publico/usuario/usuario";
+		return "/restrito/usuario/usuario";
 
 	}
 
 	public String salvar() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		if (!usuario.getSenha().equals(this.confirmarSenha)) {
-			FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
-			context.addMessage(null, facesMessage);
-			return null;
-		}		
-		usuarioRN.salvar(this.usuario);		
+		try {
+			FacesContext context = FacesContext.getCurrentInstance();
+			if (!usuario.getSenha().equals(this.confirmarSenha)) {
+				FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
+				context.addMessage(null, facesMessage);
+				return null;
+			}
+			usuarioRN.salvar(this.usuario);
+		} catch (Exception e) {
+
+		}
+
 		return this.destinoSalvar;
 	}
 
@@ -82,7 +84,7 @@ public class UsuarioBean {
 		return this.destinoSalvar;
 	}
 
-	public String excluir() {		
+	public String excluir() {
 		usuarioRN.excluir(this.usuario);
 		this.lista = null;
 		return null;
@@ -94,13 +96,12 @@ public class UsuarioBean {
 		else
 			this.usuario.setAtivo(true);
 
-	
 		usuarioRN.salvar(this.usuario);
 		return null;
 	}
 
 	public List<Usuario> getLista() {
-		if (this.lista == null) {			
+		if (this.lista == null) {
 			this.lista = usuarioRN.listar();
 		}
 		return this.lista;
