@@ -24,10 +24,9 @@ public class Marca implements Serializable  {
 	private Long id_marca;
 	private String nome;
 	
-	//Uma marca possui apenas uma fabricante , uma fabricante detem varias marcas
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_fabricante", nullable = false)
-	@NotNull
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_fabricante", nullable = false)	
 	private Fabricante fabricante;
 
 	

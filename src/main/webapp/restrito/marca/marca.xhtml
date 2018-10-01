@@ -25,8 +25,8 @@
 			<ui:insert name="sidebar-menu">
 				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
 			</ui:insert>
-			
-			
+
+
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -50,37 +50,52 @@
 								<div class="panel-body">
 									<h:form id="cadastro" class="form-horizontal">
 										<h:messages />
-										<h:inputHidden value="#{marcaBean.marca.id_marca}"/>
-										
+										<h:inputHidden value="#{marcaBean.marca.id_marca}" />
+
 										<div class="form-group">
-											<label class="col-md-2 control-label">Nome:</label>
 											<div class="col-md-10">
+												<label><span style="color: red"> * </span>Nome</label>
 												<h:inputText id="nome" value="#{marcaBean.marca.nome}"
-													size="30" maxlength="30" required="true"
+													size="30" maxlength="30" a:required="true"
 													requiredMessage="Informe o nome da marca!"
-													class="form-control">
-													<f:validateLength minimum="4" maximum="30" />
+													class="form-control"
+													a:placeholder="Informe seu Nome Completo">
+													<f:validateLength minimum="10" maximum="30" />
 												</h:inputText>
 											</div>
+
 										</div>
 										<div class="form-group">
-											<label class="col-md-2 control-label">Razao Social do Fabricante:</label>
-											
+
 											<div class="col-md-10">
-												<h:selectOneMenu  value="#{marcaBean.marca.fabricante.id_fabricante}"
-													required="true"	requiredMessage="Informe a razao social da fabricante!"
-													class="form-control">
-													<f:selectItems  value="#{marcaBean.listaFab}" var="fab" itemLabel="#{fab.razaoSocial}" itemValue="#{fab.id_fabricante}" />
-													
+												<label><span style="color: red"> * </span>Razao
+													Social do Fabricante:</label>
+
+
+												<h:selectOneMenu class="form-control"
+													value="#{marcaBean.marca.fabricante}"
+													requiredMessage="Informe a razao social da fabricante!"
+													converter="generiocConverter" required="true">
+													<f:selectItem itemLabel="Selecione..." />
+													<f:selectItems value="#{marcaBean.listaFab}" var="fab"
+														itemLabel="#{fab.razaoSocial}" itemValue="#{fab}" />
+
 												</h:selectOneMenu>
 											</div>
 										</div>
-										<div class="form-group">
-											<div class="col-md-offset-2 col-md-10">
+										
+										<div class="row">
+											<div class="col-md-3">
 												<h:commandButton action="#{marcaBean.salvar}"
-													class="btn btn-info" value="Salvar" />
+													class="btn btn-info btn-block" a:type="submit"
+													value="Salvar" />
+											</div>
+											<div class="col-md-3">
+												<h:commandButton action="#{marcaBean.novo}"
+													class="btn btn-warning btn-block" value="Limpar" />
 											</div>
 										</div>
+
 									</h:form>
 								</div>
 							</div>
@@ -88,8 +103,8 @@
 					</div>
 				</div>
 			</div>
-			
-			
+
+
 		</div>
 	</div>
 </h:body>

@@ -24,7 +24,7 @@ public class Fabricante implements Serializable{
 	private String razaoSocial;
 	private String nomeFantasia;
 	
-	@OneToMany(mappedBy="fabricante", cascade = CascadeType.ALL, targetEntity = Marca.class)
+	@OneToMany(mappedBy="fabricante",  targetEntity = Marca.class)
 	private List<Marca> marcas;
 	
 	public Long getId_fabricante() {
