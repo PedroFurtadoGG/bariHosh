@@ -31,7 +31,7 @@ public class MarcaBean {
 	}
 
 	public String novo() {
-		this.destinoSalvar = "marcaSucesso";
+		this.destinoSalvar = "marcas";
 		this.fabricante = new Fabricante();
 		this.marca = new Marca();
 		this.marca.setFabricante(fabricante);
@@ -48,18 +48,17 @@ public class MarcaBean {
 	
 	
 	public String editar() {
+		this.marca.getFabricante();
 		return "/restrito/marca/marca";
 	}
 	
-	public String  salvar() {
-		
-		FacesContext context = FacesContext.getCurrentInstance();		
-		 this.marca.setFabricante(fabricante);
-		 marcaRN.salvar(this.marca);
-		 
+	public String salvar() {
+
+		marcaRN.salvar(this.marca);
+
 		return this.destinoSalvar;
 	}
-	
+
 	public String excluir() {
 		
 	

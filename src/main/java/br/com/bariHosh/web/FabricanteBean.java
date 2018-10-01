@@ -19,9 +19,9 @@ public class FabricanteBean {
 	private String destinoSalvar;
 	
 	public String novo() {
-		this.destinoSalvar = "fabricante";
+		this.destinoSalvar = "fabricantes";
 		this.fabricante= new Fabricante();
-		return "/restrito/fabricante";
+		return "/restrito/fabricante/fabricante";
 		
 	}
 	
