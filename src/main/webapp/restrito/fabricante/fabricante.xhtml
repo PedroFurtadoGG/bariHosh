@@ -25,8 +25,6 @@
 			<ui:insert name="sidebar-menu">
 				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
 			</ui:insert>
-			
-			
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -50,35 +48,46 @@
 								<div class="panel-body">
 									<h:form id="cadastro" class="form-horizontal">
 										<h:messages />
-										<h:inputHidden value="#{fabricanteBean.fabricante.id_fabricante}"/>
-										<h:inputHidden value="#{fabricanteBean.destinoSalvar}"/>
-										
+										<h:inputHidden
+											value="#{fabricanteBean.fabricante.id_fabricante}" />
+										<h:inputHidden value="#{fabricanteBean.destinoSalvar}" />
 										<div class="form-group">
-											<label class="col-md-2 control-label">Razão Social:</label>
 											<div class="col-md-10">
-												<h:inputText id="razaoSocial" value="#{fabricanteBean.fabricante.razaoSocial}"
-													size="30" maxlength="30" required="true"
+												<label><span style="color: red"> * </span>Razão
+													Social:</label>
+												<h:inputText id="nomerazao"
+													value="#{fabricanteBean.fabricante.razaoSocial}" size="30"
+													maxlength="30" a:required="true"
 													requiredMessage="Informe o nome da razão social !"
-													class="form-control">
+													class="form-control"
+													a:placeholder="Informe seu Nome Completo">
 													<f:validateLength minimum="4" maximum="30" />
 												</h:inputText>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-md-2 control-label">Nome Fantasia/Comercial:</label>
 											<div class="col-md-10">
-												<h:inputText id="nomeFantasia" value="#{fabricanteBean.fabricante.nomeFantasia}"
-													size="30" maxlength="30" required="true"
+												<label><span style="color: red"> * </span>RNome
+													Fantasia/Comercial:</label>
+												<h:inputText id="nomefantasia"
+													value="#{fabricanteBean.fabricante.nomeFantasia}" size="30"
+													maxlength="30" a:required="true"
 													requiredMessage="Informe o nome fantasia/comercial!"
-													class="form-control">
+													class="form-control"
+													a:placeholder="Informe seu Nome Completo">
 													<f:validateLength minimum="4" maximum="30" />
 												</h:inputText>
 											</div>
-										</div>
-										<div class="form-group">
-											<div class="col-md-offset-2 col-md-10">
+										</div>										
+										<div class="row">
+											<div class="col-md-3">
 												<h:commandButton action="#{fabricanteBean.salvar}"
-													class="btn btn-info" value="Salvar" />
+													class="btn btn-info btn-block" a:type="submit"
+													value="Salvar" />
+											</div>
+											<div class="col-md-3">
+												<h:commandButton action="#{fabricanteBean.novo}"
+													class="btn btn-warning btn-block" value="Limpar" />
 											</div>
 										</div>
 									</h:form>
@@ -88,8 +97,6 @@
 					</div>
 				</div>
 			</div>
-			
-			
 		</div>
 	</div>
 </h:body>
