@@ -17,6 +17,7 @@
 		<mapping class="br.com.bariHosh.entidade.Cliente" />
 		<mapping class="br.com.bariHosh.entidade.Endereco" />
 		<mapping class="br.com.bariHosh.entidade.Estoque" />
+		<mapping class="br.com.bariHosh.entidade.Fabricante"/>
 		<mapping class="br.com.bariHosh.entidade.Marca" />
 		<mapping class="br.com.bariHosh.entidade.ItemDoPedido" />
 		<mapping class="br.com.bariHosh.entidade.Log_Estoque" />

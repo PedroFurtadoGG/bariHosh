@@ -1,6 +1,13 @@
-package br.com.bariHosh.negocio;
+package br.com.bariHosh.util;
 
 import java.util.InputMismatchException;
+import java.util.Objects;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
+import br.com.bariHosh.entidade.Usuario;
 
 public class ManuseioPublico {
 
@@ -53,4 +60,20 @@ public class ManuseioPublico {
 			return (false);
 		}
 	}
+	
+	public static boolean validaObjeto(Object obj) {		
+		return !Objects.isNull(obj);
+	}
+	
+	
+	
+	public Usuario buscarPorUsuarioLogado() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		ExternalContext external = context.getExternalContext();
+		String login = external.getRemoteUser();
+		return new UsuarioDAOHibernate().buscarPorLogin(login);
+	}
+
+	
+	
 }

@@ -15,16 +15,16 @@
 		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
 		rel='stylesheet' type='text/css' />
 	<h:outputScript name="js/site.min.js" />
-	<title>Cliente</title>
+	<title>Usuários</title>
 </h:head>
 <h:body>
 	<ui:insert name="header">
-		<ui:include src="/restrito/template/common/top-menu.xhtml" />
+		<ui:include src="/restrito/common/top-menu.xhtml" />
 	</ui:insert>
 	<div class="container-fluid">
 		<div class="row row-offcanvas row-offcanvas-left">
 			<ui:insert name="sidebar-menu">
-				<ui:include src="/restrito/template/common/sidebar-menu.xhtml" />
+				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
 			</ui:insert>
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
@@ -47,169 +47,96 @@
 									</div>
 								</div>
 								<div class="panel-body">
-									<h:form id="cadastro" class="form-horizontal"
-										data-toggle="validator" role="form">
-										<h:messages />
+									<h:form id="cadastro" class="form-horizontal" name="cadastro">
+										<ui:insert name="messages">
+											<ui:include src="/restrito/common/messages.xhtml" />
+										</ui:insert>
+										<h:inputHidden
+											value="#{clienteBean.cliente.pessoa.endereco.id_endereco}" />
 										<h:inputHidden value="#{clienteBean.cliente.id_cliente}" />
+										<h:inputHidden value="#{clienteBean.cliente.pessoa.id_pessoa}" />
 										<h:inputHidden value="#{clienteBean.cliente.ativo}" />
 										<h:inputHidden value="#{clienteBean.destinoSalvar}" />
-
-										<div class="form-group has-feedback">
-											<label class="col-md-2 control-label">Nome:</label>
-											<div class="col-md-10 ">
-												<h:inputText id="nome" type="text"
+										<div class="form-group">
+											<div class="col-md-8">
+												<label><span style="color: red"> * </span>Nome</label>
+												<h:inputText id="nome"
 													value="#{clienteBean.cliente.pessoa.nome}" size="30"
-													maxlength="30" required="true"
+													maxlength="30" a:required="true"
 													requiredMessage="Por Favor informe seu nome"
-													class="form-control">
+													class="form-control"
+													a:placeholder="Informe seu Nome Completo">
 													<f:validateLength minimum="10" maximum="30" />
 												</h:inputText>
 											</div>
-										</div>
-										
-										<div class="form-group ">
-											<label class="col-md-2 control-label">Cpf </label>
-											<div class="col-md-10">
-												<input
-													type="text" class="form-control" name="cpf" maxlength="14"
-													onkeypress=" return formatar('###.###.###-##', this);" 
-													
-													/>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Rg </label>
-											<div class="col-md-10">
-												<h:inputText id="rg" type="number"
-													value="#{clienteBean.cliente.pessoa.rg}" size="12"
-													required="true" class="form-control" maxlength="14">
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Nascimento </label>
-											<div class="col-md-10">
-												<h:inputText id="nascimento" a:type="date"
-													value="#{clienteBean.cliente.pessoa.dt_nascimento}"
-													size="12" required="true" class="form-control"
-													maxlength="14">
-													<f:convertDateTime pattern="yyyy-mm-dd" dateStyle="short"
-														type="date">
-													</f:convertDateTime>
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Sexo </label>
-											<div class="col-md-10">
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Sexo</label>
 												<h:selectOneRadio value="#{clienteBean.cliente.pessoa.sexo}"
-													required="true" class="form-control">
-													<f:selectItems value="#{fornecedorBean.enumSexo}"
-														var="sexo" itemLabel="#{sexo.chave}" itemValue="#{sexo}" />
+													required="true" class="form-control" a:required="true">
+													<f:selectItems value="#{usuarioBean.enumSexo}" var="sexo"
+														itemLabel="#{sexo.chave}" itemValue="#{sexo}" />
 												</h:selectOneRadio>
 											</div>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>CPF</label>
+												<h:inputText id="cpf"
+													value="#{clienteBean.cliente.pessoa.cpf}"  maxlength="14" 
+													a:required="true" class="form-control"
+													onkeyup="mascara(this, validaCPF);"
+													a:placeholder="Insira seu CPF" name="cpf"
+													validatorMessage="Cpf Invalido">
+													<f:validateRegex
+														pattern="[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}" />
+												</h:inputText>
+											</div>
+											<script>
+												function mascara(o, f) {
+													obj = o
+													fun = f
+													setTimeout("execmascara()",
+															1)
+												}
+												function execmascara() {
+													obj.value = fun(obj.value)
+												}
+												function validaCPF(v) {
+													v = v.replace(/\D/g, "");
+													v = v
+															.replace(
+																	/(\d{3})(\d{3})(\d{3})(\d{2})/g,
+																	"$1.$2.$3-$4");
+													return v;
+												}
+											</script>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>RG</label>
+												<h:inputText id="rg"
+													value="#{clienteBean.cliente.pessoa.rg}" size="12"
+													required="true" class="form-control"
+													a:placeholder="Insira seu RG" a:required="true" />
+											</div>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Data de
+													Nascimento </label>
+												<h:inputText id="nascimento" a:type="date"
+													value="#{clienteBean.cliente.pessoa.dt_nascimento}"
+													a:required="true" class="form-control">
+													<f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
+														timeZone="America/Sao_Paulo" />
+												</h:inputText>
+											</div>
 										</div>
-
 										
-
 										
-										<div class="form-group">
-											<h:panelGroup>
-												<label class="col-md-2 control-label">Email </label>
-												<div class="col-md-10">
-													<h:inputText id="email" class="form-control"
-														value="#{clienteBean.cliente.pessoa.email}" size="50"
-														maxlength="50" required="true"
-														validatorMessage="e-mail inválido">
-														<f:validateRegex
-															pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
-														<h:message for="email" />
-													</h:inputText>
-												</div>
-											</h:panelGroup>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Rua: </label>
-											<div class="col-md-10">
-												<h:inputText id="rua"
-													value="#{clienteBean.cliente.pessoa.endereco.endereco}"
-													size="12" required="true" class="form-control">
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Complemento: </label>
-											<div class="col-md-10">
-												<h:inputText id="comple"
-													value="#{clienteBean.cliente.pessoa.endereco.complemento}"
-													size="12" required="true" class="form-control">
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Bairro: </label>
-											<div class="col-md-10">
-												<h:inputText id="endereco"
-													value="#{clienteBean.cliente.pessoa.endereco.bairro}"
-													size="12" required="true" class="form-control">
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Cep: </label>
-											<div class="col-md-10">
-												<h:inputText id="cep"
-													value="#{clienteBean.cliente.pessoa.endereco.cep}"
-													size="12" required="true" class="form-control">
-												</h:inputText>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="col-md-2 control-label">Cidade: </label>
-											<div class="col-md-10">
-												<h:inputText id="ciade"
-													value="#{clienteBean.cliente.pessoa.endereco.cidade}"
-													size="12" required="true" class="form-control">
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Estado: </label>
-											<div class="col-md-10">
-												<h:inputText id="estado"
-													value="#{clienteBean.cliente.pessoa.endereco.estado}"
-													size="12" required="true" class="form-control">
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Pais </label>
-											<div class="col-md-10">
-												<h:inputText id="pais"
-													value="#{clienteBean.cliente.pessoa.endereco.pais}"
-													size="12" required="true" class="form-control">
-												</h:inputText>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-md-2 control-label">Observação </label>
-											<div class="col-md-10">
-												<h:inputText id="numinc"
-													value="#{clienteBean.cliente.observacao}" size="12"
-													required="true" class="form-control">
-												</h:inputText>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="col-md-offset-2 col-md-1">
+										<div class="row">
+											<div class="col-md-3">
 												<h:commandButton action="#{clienteBean.salvar}"
-													class="btn btn-info" value="Salvar" />
+													class="btn btn-info btn-block" a:type="submit"
+													value="Salvar" />
 											</div>
-											<div class="col-md-offset-2 col-md-1">
-												<h:commandButton action="#{clienteBean.novo()}"
-													update="cadastro" class="btn btn-warning" value="Limpar" />
+											<div class="col-md-3">
+												<h:commandButton action="#{clienteBean.novo}"
+													class="btn btn-warning btn-block" value="Limpar" />
 											</div>
 										</div>
 									</h:form>
@@ -221,36 +148,8 @@
 			</div>
 		</div>
 	</div>
-<script>
-
-$(document).ready(function() {
-   
-    $('#cadastro').bootstrapValidator({
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-            cpf: {
-                validators: {
-                    callback: {
-                        message: 'Cpf Errado Digite Corretamente !',
-                        callback: function(value) {
-                        	return validacpf(value); 					
-						 
-                        }
-                   }
-                }
-           }
-        }
-    });
-});
-
-</script>
-
 </h:body>
 <ui:insert name="footer">
-	<ui:include src="/restrito/template/common/footer.xhtml" />
+	<ui:include src="/restrito/common/footer.xhtml" />
 </ui:insert>
 </html>

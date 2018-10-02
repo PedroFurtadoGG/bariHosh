@@ -7,7 +7,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.entidade.EnumPermissao;
 import br.com.bariHosh.entidade.EnumSexo;
@@ -18,41 +17,42 @@ import br.com.bariHosh.negocio.UsuarioRN;
 @ManagedBean(name = "usuarioBean")
 @RequestScoped
 public class UsuarioBean {
+
 	private Usuario usuario = new Usuario();
 	private Pessoa pessoa = new Pessoa();
 	private Endereco endereco = new Endereco();
 	private String confirmarSenha;
 	private List<Usuario> lista;
 	private String destinoSalvar;
-
 	private EnumPermissao enumpemrmissao;
 	private EnumSexo enumSexo;
+	private UsuarioRN usuarioRN;
 
-	
-	
-	public UsuarioBean() {		
+	public UsuarioBean() {
+		this.destinoSalvar = "usuarios";
+		this.usuarioRN = new UsuarioRN();
 		this.endereco = new Endereco();
 		this.pessoa.setEndereco(endereco);
 		this.usuario.setPessoa(pessoa);
+		this.usuario.setAtivo(true);
+
 	}
 
 	public String novo() {
-		this.destinoSalvar = "usuariosucesso";
+		this.usuarioRN = new UsuarioRN();
 		this.pessoa = new Pessoa();
 		this.usuario = new Usuario();
 		this.endereco = new Endereco();
 		this.pessoa.setEndereco(endereco);
 		this.usuario.setPessoa(pessoa);
-
 		this.usuario.setAtivo(true);
-		return "/publico/usuarios";
+		return "/restrito/usuario/usuario";
 	}
 
 	@PostConstruct
 	public void init() {
-		this.destinoSalvar = "usuarios";
-	
-		}
+
+	}
 
 	public String entrar() {
 		return "/index";
@@ -60,40 +60,36 @@ public class UsuarioBean {
 
 	public String editar() {
 		this.confirmarSenha = this.usuario.getSenha();
-		return "/publico/usuario/usuario";
+		return "/restrito/usuario/usuario";
 
 	}
 
 	public String salvar() {
 		try {
 			FacesContext context = FacesContext.getCurrentInstance();
-
 			if (!usuario.getSenha().equals(this.confirmarSenha)) {
 				FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
 				context.addMessage(null, facesMessage);
 				return null;
 			}
-
-			UsuarioRN usuarioRN = new UsuarioRN();
-			usuarioRN.salvar(this.usuario);
 			
 			FacesMessage facesMessage = new FacesMessage("Cadastro Efetuado com sucesso!");
 			context.addMessage(null, facesMessage);
 			
+			
+			usuarioRN.salvar(this.usuario);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
-		
+
 		return this.destinoSalvar;
 	}
 
 	public String limpar() {
-
 		return this.destinoSalvar;
 	}
 
 	public String excluir() {
-		UsuarioRN usuarioRN = new UsuarioRN();
 		usuarioRN.excluir(this.usuario);
 		this.lista = null;
 		return null;
@@ -105,14 +101,12 @@ public class UsuarioBean {
 		else
 			this.usuario.setAtivo(true);
 
-		UsuarioRN usuarioRN = new UsuarioRN();
 		usuarioRN.salvar(this.usuario);
 		return null;
 	}
 
 	public List<Usuario> getLista() {
 		if (this.lista == null) {
-			UsuarioRN usuarioRN = new UsuarioRN();
 			this.lista = usuarioRN.listar();
 		}
 		return this.lista;

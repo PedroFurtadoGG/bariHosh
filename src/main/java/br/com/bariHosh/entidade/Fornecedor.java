@@ -34,7 +34,7 @@ public class Fornecedor implements Serializable {
 	private String razao;
 	private String numInscricao;
 
-	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, targetEntity = Produto.class)
+	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Produto.class)
 	private List<Produto> produtos;
 
 	public Long getId_fornecedor() {
