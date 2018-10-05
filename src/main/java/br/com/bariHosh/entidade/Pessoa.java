@@ -1,7 +1,11 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -52,7 +56,43 @@ public class Pessoa implements Serializable {
    	private List<Fornecedor> fornecedores ;
     
     
+    /**
+	 * calcula a idade do candidato recebe a data de nascimento como tipo string
+	 * e retorna a idade como tipo Integer
+	 * **/
+	
+	public Integer CalcularIdade(String dataNascimento) {
+		DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
 
+		Date dataNascInput = null;
+		try {
+
+			dataNascInput = dataFormatada.parse(dataNascimento);
+
+		} catch (Exception e) {
+		}
+
+		Calendar dateOfBirth = new GregorianCalendar();
+
+		dateOfBirth.setTime(dataNascInput);
+
+		// Cria um objeto calendar com a data atual
+
+		Calendar today = Calendar.getInstance();
+
+		// Obtendo a idade baseado no ano
+
+		Integer idade = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+
+		dateOfBirth.add(Calendar.YEAR, idade);
+
+		if (today.before(dateOfBirth)) {
+			idade--;
+		}
+		
+		return idade;
+	}
+    
 	public Long getId_pessoa() {
 		return id_pessoa;
 	}
