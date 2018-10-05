@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "marca")
@@ -28,7 +27,10 @@ public class Marca implements Serializable  {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fabricante", nullable = false)	
 	private Fabricante fabricante;
-
+	
+	@ManyToOne(fetch= FetchType.EAGER)
+	@JoinColumn(name = "id_fornecedor", nullable = false)
+	private Fornecedor fornecedor;
 	
 
 	public Long getId_marca() {
@@ -55,11 +57,20 @@ public class Marca implements Serializable  {
 		this.fabricante = fabricante;
 	}
 
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((fabricante == null) ? 0 : fabricante.hashCode());
+		result = prime * result + ((fornecedor == null) ? 0 : fornecedor.hashCode());
 		result = prime * result + ((id_marca == null) ? 0 : id_marca.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
@@ -79,6 +90,11 @@ public class Marca implements Serializable  {
 				return false;
 		} else if (!fabricante.equals(other.fabricante))
 			return false;
+		if (fornecedor == null) {
+			if (other.fornecedor != null)
+				return false;
+		} else if (!fornecedor.equals(other.fornecedor))
+			return false;
 		if (id_marca == null) {
 			if (other.id_marca != null)
 				return false;
@@ -91,6 +107,9 @@ public class Marca implements Serializable  {
 			return false;
 		return true;
 	}
+
+	
+	
 
 	
 
