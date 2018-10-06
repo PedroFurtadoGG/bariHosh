@@ -13,7 +13,6 @@ import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
 import br.com.bariHosh.entidade.Usuario;
-import br.com.bariHosh.negocio.UsuarioRN;
 
 public class ManuseioPublico {
 
