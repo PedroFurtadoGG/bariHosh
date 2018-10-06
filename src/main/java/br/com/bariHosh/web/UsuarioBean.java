@@ -30,10 +30,10 @@ public class UsuarioBean {
 	private EnumPermissao enumpemrmissao;
 	private EnumSexo enumSexo;
 	private UsuarioRN usuarioRN;
-	private Integer  dataReal ;
+	
 
 	public UsuarioBean() {	
-	    this.dataReal= dataReal;
+	   
 		this.destinoSalvar = "usuarios";
 		this.usuarioRN = new UsuarioRN();
 		this.endereco = new Endereco();
@@ -71,19 +71,17 @@ public class UsuarioBean {
 
 	public String salvar() {
 		try {
-			FacesContext context = FacesContext.getCurrentInstance();	
-			System.out.println(this.dataReal);
-			if(this.dataReal < 18) {		     		
-				FacesMessage facesMessage = new FacesMessage("A Idade Inferior a 18 Anos");
-				context.addMessage(null, facesMessage);
-				return null;
-			}
+			FacesContext context = FacesContext.getCurrentInstance();			
 			if (!usuario.getSenha().equals(this.confirmarSenha)) {
 				FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
 				context.addMessage(null, facesMessage);
 				return null;
 			}
-			usuarioRN.salvar(this.usuario);
+			if(usuarioRN.salvar(this.usuario)!=true) {
+			
+			return null;
+			}
+				
 		} catch (Exception e) {
 
 		}
@@ -112,13 +110,7 @@ public class UsuarioBean {
 	}
 
 	
-	public void calculaIdadeReal(){		
-		DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-		String dataFormatada = formato.format(this.usuario.getPessoa().getDt_nascimento());	
-		this.dataReal = this.usuario.getPessoa().CalcularIdade(dataFormatada);
-		
-		
-	}
+	
 	
 	public List<Usuario> getLista() {
 		if (this.lista == null) {
@@ -204,12 +196,6 @@ public class UsuarioBean {
 		this.enumSexo = enumSexo;
 	}
 
-	public Integer getDataReal() {
-		return dataReal;
-	}
-
-	public void setDataReal(Integer dataReal) {
-		this.dataReal = dataReal;
-	}
+	
 
 }
