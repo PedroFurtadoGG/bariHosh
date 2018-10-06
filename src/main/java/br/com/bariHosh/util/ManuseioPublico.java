@@ -1,7 +1,5 @@
 package br.com.bariHosh.util;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -65,13 +63,11 @@ public class ManuseioPublico {
 			return (false);
 		}
 	}
-	
-	public static boolean validaObjeto(Object obj) {		
+
+	public static boolean validaObjeto(Object obj) {
 		return !Objects.isNull(obj);
 	}
-	
-	
-	
+
 	public Usuario buscarPorUsuarioLogado() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext external = context.getExternalContext();
@@ -79,32 +75,13 @@ public class ManuseioPublico {
 		return new UsuarioDAOHibernate().buscarPorLogin(login);
 	}
 
-	
-	/**
-	 * calcula a idade do candidato recebe a data de nascimento como tipo string
-	 * e retorna a idade como tipo Integer
-	 * **/
-	
 	public Integer CalcularIdade(Date dataNascimento) {
-//		DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-//
-//		Date dataNascInput = null;
-//		try {
-//
-//			dataNascInput = dataFormatada.parse(dataNascimento);
-//
-//		} catch (Exception e) {
-//		}
 
 		Calendar dateOfBirth = new GregorianCalendar();
 
 		dateOfBirth.setTime(dataNascimento);
 
-		// Cria um objeto calendar com a data atual
-
 		Calendar today = Calendar.getInstance();
-
-		// Obtendo a idade baseado no ano
 
 		Integer idade = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
 
@@ -113,9 +90,8 @@ public class ManuseioPublico {
 		if (today.before(dateOfBirth)) {
 			idade--;
 		}
-		
+
 		return idade;
 	}
-	
-	
+
 }

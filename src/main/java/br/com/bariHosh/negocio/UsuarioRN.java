@@ -16,13 +16,9 @@ public class UsuarioRN extends ManuseioPublico {
 
 	private UsuarioDAOHibernate daoUsuario;
 
-
 	public UsuarioRN() {
 		this.daoUsuario = new UsuarioDAOHibernate();
 	}
-	
-
-	
 
 	public Usuario carregar(Long id) {
 		return this.daoUsuario.carregar(Usuario.class, id);
@@ -32,54 +28,47 @@ public class UsuarioRN extends ManuseioPublico {
 		return this.daoUsuario.buscarPorLogin(login);
 	}
 
-
-	
-
-	public boolean salvar(Usuario usuario) {		
+	public boolean salvar(Usuario usuario) {
 		try {
 			Usuario usuarioLogado = super.buscarPorUsuarioLogado();
 			if (super.validaObjeto(usuarioLogado.getId_usuario())) {
 				usuario.getPessoa().setId_usuario_criacao(usuarioLogado.getId_usuario());
 				usuario.setLogin(usuario.getPessoa().getEmail());
-				
+
 			}
-				if (super.CalcularIdade(usuario.getPessoa().getDt_nascimento()) >= 18) {
-				
-					if (!super.validaObjeto(usuario.getId_usuario())) {
-						usuario.getPessoa().setDt_criacao(new Date());
-						this.daoUsuario.salvar(usuario);
-					} else {
-						usuario.getPessoa().setDt_alteracao(new Date());
-						this.daoUsuario.atualizar(usuario);
-					}
-                    return true;
-				}else {
-					    FacesContext context = FacesContext.getCurrentInstance();				
-						FacesMessage facesMessage = new FacesMessage("A Idade e Inferior a 18 anos");
-						context.addMessage(null, facesMessage);
-						return false;
-					}
-					
-					
-			
-			
+			if (super.CalcularIdade(usuario.getPessoa().getDt_nascimento()) >= 18) {
+
+				if (!super.validaObjeto(usuario.getId_usuario())) {
+					usuario.getPessoa().setDt_criacao(new Date());
+					this.daoUsuario.salvar(usuario);
+				} else {
+					usuario.getPessoa().setDt_alteracao(new Date());
+					this.daoUsuario.atualizar(usuario);
+				}
+				return true;
+			} else {
+				FacesContext context = FacesContext.getCurrentInstance();
+				FacesMessage facesMessage = new FacesMessage("A Idade e Inferior a 18 anos");
+				context.addMessage(null, facesMessage);
+				return false;
+			}
 
 		} catch (Exception e) {
 
 		}
-        return false;
+		return false;
 	}
 
-	public boolean calculaIdadeReal(Date data ){		
-		    if(super.CalcularIdade(data)<18) {
-		    	return true;		    	
-		    }		
-		    return false;
+	public boolean calculaIdadeReal(Date data) {
+		if (super.CalcularIdade(data) < 18) {
+			return true;
+		}
+		return false;
 	}
 
 	public void excluir(Usuario usuario) {
 		if (super.validaObjeto(usuario.getId_usuario())) {
-		this.daoUsuario.excluir(usuario);
+			this.daoUsuario.excluir(usuario);
 		}
 	}
 
