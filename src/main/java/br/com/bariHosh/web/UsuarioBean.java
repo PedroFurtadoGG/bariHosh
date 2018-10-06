@@ -77,8 +77,7 @@ public class UsuarioBean {
 				context.addMessage(null, facesMessage);
 				return null;
 			}
-			if(usuarioRN.salvar(this.usuario)!=true) {
-			
+			if(usuarioRN.salvar(this.usuario)!=true) {			
 			return null;
 			}
 				
