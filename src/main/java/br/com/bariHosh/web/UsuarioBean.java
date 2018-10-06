@@ -1,6 +1,5 @@
 package br.com.bariHosh.web;
 
-import java.text.DateFormat;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,7 +8,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import java.text.SimpleDateFormat;
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.entidade.EnumPermissao;
 import br.com.bariHosh.entidade.EnumSexo;
@@ -70,27 +68,22 @@ public class UsuarioBean {
 	}
 
 	public String salvar() {
+		FacesContext context = FacesContext.getCurrentInstance();
 		try {
-			FacesContext context = FacesContext.getCurrentInstance();	
-			System.out.println(this.dataReal);
-			if(this.dataReal < 18) {		     		
-				FacesMessage facesMessage = new FacesMessage("A Idade Inferior a 18 Anos");
-				context.addMessage(null, facesMessage);
-				return null;
-			}
 			if (!usuario.getSenha().equals(this.confirmarSenha)) {
 				FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
 				context.addMessage(null, facesMessage);
 				return null;
 			}
 			
-			FacesMessage facesMessage = new FacesMessage("Cadastro Efetuado com sucesso!");
-			context.addMessage(null, facesMessage);
+	
+			
 			
 			
 			usuarioRN.salvar(this.usuario);
 		} catch (Exception e) {
-
+			context.addMessage(null, new FacesMessage(e.getMessage()));
+			return null;
 		}
 
 		return this.destinoSalvar;
@@ -117,13 +110,13 @@ public class UsuarioBean {
 	}
 
 	
-	public void calculaIdadeReal(){		
-		DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-		String dataFormatada = formato.format(this.usuario.getPessoa().getDt_nascimento());	
-		this.dataReal = this.usuario.getPessoa().CalcularIdade(dataFormatada);
-		
-		
-	}
+//	public void calculaIdadeReal(){		
+//		DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+//		String dataFormatada = formato.format(this.usuario.getPessoa().getDt_nascimento());	
+//		this.dataReal = this.usuario.getPessoa().CalcularIdade(dataFormatada);
+//		
+//		
+//	}
 	
 	public List<Usuario> getLista() {
 		if (this.lista == null) {

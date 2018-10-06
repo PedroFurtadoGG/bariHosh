@@ -1,5 +1,10 @@
 package br.com.bariHosh.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
 import java.util.Objects;
 
@@ -60,13 +65,39 @@ public class ManuseioPublico {
 			return (false);
 		}
 	}
-	
-	public static boolean validaObjeto(Object obj) {		
+
+	public static boolean validaObjeto(Object obj) {
 		return !Objects.isNull(obj);
 	}
-	
-	
-	
+
+	public Integer CalcularIdade(String dataNascimento) {
+		DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+
+		Date dataNascInput = null;
+		try {
+
+			dataNascInput = dataFormatada.parse(dataNascimento);
+
+		} catch (Exception e) {
+		}
+
+		Calendar dateOfBirth = new GregorianCalendar();
+
+		dateOfBirth.setTime(dataNascInput);
+
+		Calendar today = Calendar.getInstance();
+
+		Integer idade = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+
+		dateOfBirth.add(Calendar.YEAR, idade);
+
+		if (today.before(dateOfBirth)) {
+			idade--;
+		}
+
+		return idade;
+	}
+
 	public Usuario buscarPorUsuarioLogado() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		ExternalContext external = context.getExternalContext();
@@ -74,6 +105,4 @@ public class ManuseioPublico {
 		return new UsuarioDAOHibernate().buscarPorLogin(login);
 	}
 
-	
-	
 }

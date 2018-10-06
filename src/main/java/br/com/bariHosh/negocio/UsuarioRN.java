@@ -33,6 +33,8 @@ public class UsuarioRN extends ManuseioPublico {
 	public void salvar(Usuario usuario) {	
 		
 		Usuario usuarioLogado = super.buscarPorUsuarioLogado();
+		
+		
 		if (super.validaObjeto(usuarioLogado.getId_usuario())) {
 			usuario.getPessoa().setId_usuario_criacao(usuarioLogado.getId_usuario());
 			usuario.setLogin(usuario.getPessoa().getEmail());
