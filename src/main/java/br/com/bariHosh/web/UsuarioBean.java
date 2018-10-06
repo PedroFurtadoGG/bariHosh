@@ -1,5 +1,6 @@
 package br.com.bariHosh.web;
 
+import java.text.DateFormat;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -7,6 +8,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+
+import java.text.SimpleDateFormat;
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.entidade.EnumPermissao;
 import br.com.bariHosh.entidade.EnumSexo;
@@ -27,8 +30,10 @@ public class UsuarioBean {
 	private EnumPermissao enumpemrmissao;
 	private EnumSexo enumSexo;
 	private UsuarioRN usuarioRN;
+	
 
-	public UsuarioBean() {
+	public UsuarioBean() {	
+	   
 		this.destinoSalvar = "usuarios";
 		this.usuarioRN = new UsuarioRN();
 		this.endereco = new Endereco();
@@ -38,7 +43,7 @@ public class UsuarioBean {
 
 	}
 
-	public String novo() {
+	public String novo() {		
 		this.usuarioRN = new UsuarioRN();
 		this.pessoa = new Pessoa();
 		this.usuario = new Usuario();
@@ -59,19 +64,25 @@ public class UsuarioBean {
 	}
 
 	public String editar() {
-		this.confirmarSenha = this.usuario.getSenha();
+		this.confirmarSenha = this.usuario.getSenha();	
 		return "/restrito/usuario/usuario";
 
 	}
 
 	public String salvar() {
 		try {
-			FacesContext context = FacesContext.getCurrentInstance();
+			FacesContext context = FacesContext.getCurrentInstance();			
 			if (!usuario.getSenha().equals(this.confirmarSenha)) {
 				FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
 				context.addMessage(null, facesMessage);
 				return null;
 			}
+			if(usuarioRN.salvar(this.usuario)!=true) {
+			
+			return null;
+			}
+				
+
 			
 			FacesMessage facesMessage = new FacesMessage("Cadastro Efetuado com sucesso!");
 			context.addMessage(null, facesMessage);
@@ -105,6 +116,9 @@ public class UsuarioBean {
 		return null;
 	}
 
+	
+	
+	
 	public List<Usuario> getLista() {
 		if (this.lista == null) {
 			this.lista = usuarioRN.listar();
@@ -188,5 +202,7 @@ public class UsuarioBean {
 	public void setEnumSexo(EnumSexo enumSexo) {
 		this.enumSexo = enumSexo;
 	}
+
+	
 
 }
