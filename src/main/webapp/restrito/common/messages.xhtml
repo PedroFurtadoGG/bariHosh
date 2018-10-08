@@ -41,7 +41,7 @@
 				<div class="alert alert-danger">
 					<button type="button" class="close" data-dismiss="alert"
 						aria-hidden="true">×</button>
-					<strong>ERRO!</strong>
+					<strong>ERRO !</strong>
 					<h:messages />
 				</div>
 			</div>
@@ -54,6 +54,18 @@
 					<button type="button" class="close" data-dismiss="alert"
 						aria-hidden="true">×</button>
 					<strong>TUDO CERTO!</strong>
+					<h:messages />
+				</div>
+			</div>
+		</h:panelGroup>
+		
+		<h:panelGroup class="row"
+			rendered="#{facesContext.maximumSeverity.ordinal eq 4}">
+			<div class="col-md-6">
+				<div class="alert alert-warning alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-hidden="true">×</button>
+					<strong>OK!</strong>
 					<h:messages />
 				</div>
 			</div>

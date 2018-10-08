@@ -6,8 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,11 +20,11 @@ import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
 
 
-@Startup
-@Singleton
+@ManagedBean(name = "inicializadorSistema")
+@RequestScoped
 public class InicializadoSistema {
 
-	@Service("inicializadorSistema")
+	
 	public class InicializadorSistema {
 
 		@Autowired

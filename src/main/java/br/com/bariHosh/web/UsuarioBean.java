@@ -1,21 +1,18 @@
 package br.com.bariHosh.web;
 
-import java.text.DateFormat;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
-import java.text.SimpleDateFormat;
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.entidade.EnumPermissao;
 import br.com.bariHosh.entidade.EnumSexo;
 import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.UsuarioRN;
+import br.com.bariHosh.util.ManuseioPublico;
 
 @ManagedBean(name = "usuarioBean")
 @RequestScoped
@@ -68,24 +65,19 @@ public class UsuarioBean {
 		return "/restrito/usuario/usuario";
 
 	}
+	
+	
 
-	public String salvar() {
-		try {
-			FacesContext context = FacesContext.getCurrentInstance();			
-			if (!usuario.getSenha().equals(this.confirmarSenha)) {
-				FacesMessage facesMessage = new FacesMessage("A senha não foi confirmada corretamente");
-				context.addMessage(null, facesMessage);
-				return null;
-			}
-			if(usuarioRN.salvar(this.usuario)!=true) {			
+
+	public String salvar() {		
+		if (!usuario.getSenha().equals(this.confirmarSenha)) {
+			ManuseioPublico.MessagesErro("A senha não foi confirmada corretamente!");
 			return null;
-			}
-				
-		} catch (Exception e) {
-
 		}
-
-		return this.destinoSalvar;
+		if (usuarioRN.salvar(this.usuario) ) {	
+			return this.destinoSalvar;
+		}
+		return null;
 	}
 
 	public String limpar() {

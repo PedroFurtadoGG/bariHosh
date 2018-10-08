@@ -1,19 +1,17 @@
 package br.com.bariHosh.util;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
 import java.util.Objects;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
 import br.com.bariHosh.entidade.Usuario;
-import br.com.bariHosh.negocio.UsuarioRN;
 
 public class ManuseioPublico {
 
@@ -82,20 +80,11 @@ public class ManuseioPublico {
 
 	
 	/**
-	 * calcula a idade do candidato recebe a data de nascimento como tipo string
+	 * calcula a idade do candidato recebe a data de nascimento como Date 
 	 * e retorna a idade como tipo Integer
 	 * **/
 	
-	public Integer CalcularIdade(Date dataNascimento) {
-//		DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-//
-//		Date dataNascInput = null;
-//		try {
-//
-//			dataNascInput = dataFormatada.parse(dataNascimento);
-//
-//		} catch (Exception e) {
-//		}
+	public static Integer CalcularIdade(Date dataNascimento) {
 
 		Calendar dateOfBirth = new GregorianCalendar();
 
@@ -117,6 +106,28 @@ public class ManuseioPublico {
 		
 		return idade;
 	}
+	
+	
+	public static void MessagesSucesso(String mensagem) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,
+				mensagem, null);
+		context.addMessage(null, facesMessage);
+	}
+
+	public static void MessagesErro(String mensagem) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+				mensagem, null);
+		context.addMessage(null, facesMessage);
+	}
+	
+     public static void MessagesInfo(String mensagem) {
+    	 FacesContext context = FacesContext.getCurrentInstance();
+    	 FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_FATAL,
+					mensagem, null);
+			context.addMessage(null, facesMessage);
+    }
 	
 	
 }
