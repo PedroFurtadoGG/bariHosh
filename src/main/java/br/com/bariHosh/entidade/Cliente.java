@@ -24,6 +24,7 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_cliente;
 
+	
 	private String observacao;
 	private boolean ativo;
 

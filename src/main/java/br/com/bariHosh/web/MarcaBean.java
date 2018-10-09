@@ -7,8 +7,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import br.com.bariHosh.entidade.Fabricante;
+import br.com.bariHosh.entidade.Fornecedor;
 import br.com.bariHosh.entidade.Marca;
 import br.com.bariHosh.negocio.FabricanteRN;
+import br.com.bariHosh.negocio.FornecedorRN;
 import br.com.bariHosh.negocio.MarcaRN;
 
 @ManagedBean(name = "marcaBean")
@@ -21,10 +23,13 @@ public class MarcaBean {
 	private String destinoSalvar;
 	private List<Fabricante> listaFab;
 	private MarcaRN marcaRN = new MarcaRN();
+	private List<Fornecedor> listaForn;
+	private Fornecedor fornecedor = new Fornecedor();
 
 
 	public MarcaBean() {
 		
+		this.fornecedor= new Fornecedor();
 		this.fabricante = new Fabricante();
 		this.marca.setFabricante(fabricante);
 	}
@@ -32,8 +37,10 @@ public class MarcaBean {
 	public String novo() {
 		this.destinoSalvar = "marcas";
 		this.fabricante = new Fabricante();
+		this.fornecedor = new Fornecedor();
 		this.marca = new Marca();
 		this.marca.setFabricante(fabricante);
+		this.marca.setFornecedor(fornecedor);
 		return "/restrito/marca/marca";		
 	}
 	
@@ -41,13 +48,16 @@ public class MarcaBean {
 	public void init() {
 		this.destinoSalvar="marcas";
 		this.setFabricante(new Fabricante());
+		this.setFornecedor(new Fornecedor());
 		this.marca = new Marca();
 		this.marca.setFabricante(fabricante);
+		this.marca.setFornecedor(fornecedor);
 	}
 	
 	
 	public String editar() {
 		this.marca.getFabricante();
+		this.marca.getFornecedor();
 		return "/restrito/marca/marca";
 	}
 	
@@ -117,6 +127,30 @@ public class MarcaBean {
 	public void setDestinoSalvar(String destinoSalvar) {
 		this.destinoSalvar = destinoSalvar;
 	}
+
+	public List<Fornecedor> getListaForn() {
+		
+		if(this.listaForn ==null) {
+			FornecedorRN fornRN = new FornecedorRN();
+			this.listaForn= fornRN.listar();
+		}
+		
+		return listaForn;
+	}
+
+	public void setListaForn(List<Fornecedor> listaForn) {
+		this.listaForn = listaForn;
+	}
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+	
+	
 
 
 }

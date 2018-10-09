@@ -23,6 +23,7 @@ public class Fabricante implements Serializable{
 	
 	private String razaoSocial;
 	private String nomeFantasia;
+	private String cnpj;
 	
 	@OneToMany(mappedBy="fabricante",  targetEntity = Marca.class)
 	private List<Marca> marcas;
@@ -51,19 +52,24 @@ public class Fabricante implements Serializable{
 	public void setMarcas(List<Marca> marcas) {
 		this.marcas = marcas;
 	}
-	
+	public String getCnpj() {
+		return cnpj;
+	}
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
 	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
 		result = prime * result + ((id_fabricante == null) ? 0 : id_fabricante.hashCode());
 		result = prime * result + ((marcas == null) ? 0 : marcas.hashCode());
 		result = prime * result + ((nomeFantasia == null) ? 0 : nomeFantasia.hashCode());
 		result = prime * result + ((razaoSocial == null) ? 0 : razaoSocial.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -73,6 +79,11 @@ public class Fabricante implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Fabricante other = (Fabricante) obj;
+		if (cnpj == null) {
+			if (other.cnpj != null)
+				return false;
+		} else if (!cnpj.equals(other.cnpj))
+			return false;
 		if (id_fabricante == null) {
 			if (other.id_fabricante != null)
 				return false;
@@ -95,6 +106,7 @@ public class Fabricante implements Serializable{
 			return false;
 		return true;
 	}
+	
 	
 	
 	
