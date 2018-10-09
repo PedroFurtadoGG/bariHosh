@@ -71,7 +71,7 @@ public class UsuarioBean {
 
 	public String salvar() {		
 		if (!usuario.getSenha().equals(this.confirmarSenha)) {
-			ManuseioPublico.MessagesErro("A senha não foi confirmada corretamente!");
+			ManuseioPublico.MessagesErro("A senha no foi confirmada corretamente!");
 			return null;
 		}
 		if (usuarioRN.salvar(this.usuario) ) {	

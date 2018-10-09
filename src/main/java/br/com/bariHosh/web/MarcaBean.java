@@ -5,7 +5,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.Fabricante;
 import br.com.bariHosh.entidade.Marca;
