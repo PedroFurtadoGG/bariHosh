@@ -1,12 +1,7 @@
 package br.com.bariHosh.negocio;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
 import br.com.bariHosh.entidade.Usuario;
@@ -16,13 +11,9 @@ public class UsuarioRN extends ManuseioPublico {
 
 	private UsuarioDAOHibernate daoUsuario;
 
-
 	public UsuarioRN() {
 		this.daoUsuario = new UsuarioDAOHibernate();
 	}
-	
-
-	
 
 	public Usuario carregar(Long id) {
 		return this.daoUsuario.carregar(Usuario.class, id);
@@ -31,9 +22,6 @@ public class UsuarioRN extends ManuseioPublico {
 	public Usuario buscarPorLogin(String login) {
 		return this.daoUsuario.buscarPorLogin(login);
 	}
-
-
-	
 
 	public boolean salvar(Usuario usuario) {
 
@@ -44,7 +32,7 @@ public class UsuarioRN extends ManuseioPublico {
 					usuario.getPessoa().setId_usuario_criacao(usuarioLogado.getId_usuario());
 					usuario.setLogin(usuario.getPessoa().getEmail());
 					Usuario user = this.buscarPorLogin(usuario.getLogin());
-					if (user == null) {
+					if (!super.validaObjeto(user)) {
 						if (!super.validaObjeto(usuario.getId_usuario())) {
 							usuario.getPessoa().setDt_criacao(new Date());
 							this.daoUsuario.salvar(usuario);
@@ -57,7 +45,7 @@ public class UsuarioRN extends ManuseioPublico {
 					} else if (user.getId_usuario().equals(usuario.getId_usuario())) {
 						usuario.getPessoa().setDt_alteracao(new Date());
 						this.daoUsuario.atualizar(usuario);
-						super.MessagesSucesso("Usuario Salvo Com Sucesso!");
+						super.MessagesSucesso("Usuario Atualizado Com Sucesso!");
 						return true;
 
 					} else {
@@ -70,6 +58,7 @@ public class UsuarioRN extends ManuseioPublico {
 
 					return false;
 				}
+
 			} else {
 				super.MessagesErro("A Idade e Inferior a 18 anos");
 				return false;
@@ -94,6 +83,7 @@ public class UsuarioRN extends ManuseioPublico {
 	public void excluir(Usuario usuario) {
 		if (super.validaObjeto(usuario.getId_usuario())) {
 			this.daoUsuario.excluir(usuario);
+			super.MessagesSucesso("Usuario Excluido Com Sucesso!");
 		}
 	}
 

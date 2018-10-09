@@ -1,11 +1,7 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -54,8 +50,6 @@ public class Pessoa implements Serializable {
     
     @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL ,fetch=FetchType.LAZY,targetEntity = Fornecedor.class)  
    	private List<Fornecedor> fornecedores ;
-    
-    
     
     
 	public Long getId_pessoa() {
