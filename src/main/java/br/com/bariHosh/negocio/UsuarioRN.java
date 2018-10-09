@@ -1,12 +1,7 @@
 package br.com.bariHosh.negocio;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
 import br.com.bariHosh.entidade.Usuario;
@@ -16,13 +11,9 @@ public class UsuarioRN extends ManuseioPublico {
 
 	private UsuarioDAOHibernate daoUsuario;
 
-
 	public UsuarioRN() {
 		this.daoUsuario = new UsuarioDAOHibernate();
 	}
-	
-
-	
 
 	public Usuario carregar(Long id) {
 		return this.daoUsuario.carregar(Usuario.class, id);
@@ -31,9 +22,6 @@ public class UsuarioRN extends ManuseioPublico {
 	public Usuario buscarPorLogin(String login) {
 		return this.daoUsuario.buscarPorLogin(login);
 	}
-
-
-	
 
 	public boolean salvar(Usuario usuario) {
 
@@ -70,6 +58,7 @@ public class UsuarioRN extends ManuseioPublico {
 
 					return false;
 				}
+
 			} else {
 				super.MessagesErro("A Idade e Inferior a 18 anos");
 				return false;

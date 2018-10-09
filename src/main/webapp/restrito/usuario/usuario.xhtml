@@ -6,7 +6,8 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
 	<h:outputStylesheet name="css/site.min.css" />
 	<h:outputStylesheet library="webjars"
@@ -80,7 +81,7 @@
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>CPF</label>
 												<h:inputText id="cpf"
-													value="#{usuarioBean.usuario.pessoa.cpf}"  maxlength="14" 
+													value="#{usuarioBean.usuario.pessoa.cpf}" maxlength="14"
 													a:required="true" class="form-control"
 													onkeyup="mascara(this, validaCPF);"
 													a:placeholder="Insira seu CPF" name="cpf"
@@ -118,16 +119,16 @@
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Data de
 													Nascimento </label>
-												<h:inputText id="nascimento" a:type="date"
-												 maxlength="8"
+												<h:inputText id="nascimento" a:type="date" maxlength="8"
 													value="#{usuarioBean.usuario.pessoa.dt_nascimento}"
-													a:required="true" class="form-control">													
+													a:required="true" class="form-control">												
+
 													<f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
 														timeZone="America/Sao_Paulo" />
 												</h:inputText>
-												
+
 											</div>
-											
+
 										</div>
 										<div class="form-group">
 											<h:panelGroup>
@@ -285,7 +286,9 @@
 												</h:selectOneMenu>
 											</div>
 										</div>
-										<span style="color: red"> (*) São Campos Obrigatórios </span><br/><br/>
+										<span style="color: red"> (*) São Campos Obrigatórios </span>
+										<br />
+										<br />
 										<div class="row">
 											<div class="col-md-3">
 												<h:commandButton action="#{usuarioBean.salvar}"
