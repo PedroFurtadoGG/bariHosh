@@ -84,23 +84,24 @@
 											</div>
 										</div>
 										
-										<div class="col-md-10">
-												<label><span style="color: red"> * </span> Fornecedor:</label>
-
-
-												<h:selectOneMenu class="form-control"
-													value="#{marcaBean.marca.fornecedor.pessoa.nome}"
-													requiredMessage="Informe o nome do Fornecedor!"
-													converter="converterFornecedor" required="true">
-													<f:selectItem itemLabel="Selecione..." />
-													<f:selectItems value="#{marcaBean.listaForn}" var="forn" itemLabel="#{forn.pessoa.nome}" 
-													itemValue="#{forn}" />
-
-												</h:selectOneMenu>
+										<div class="form-group">
+											<div class="col-md-10">
+													<label><span style="color: red"> * </span> Fornecedor:</label>
+	
+	
+													<h:selectOneMenu class="form-control"
+														value="#{marcaBean.marca.fornecedor}"
+														requiredMessage="Informe o nome do Fornecedor!"
+														converter="converterFornecedor" required="true">
+														<f:selectItem itemLabel="Selecione..." />
+														<f:selectItems value="#{marcaBean.listaForn}" var="forn" itemLabel="#{forn.pessoa.nome}" 
+														itemValue="#{forn}" />
+	
+													</h:selectOneMenu>
+												</div>
 											</div>
-										</div>
-										
-										<div class="row">
+											
+											<div class="row">
 											<div class="col-md-3">
 												<h:commandButton action="#{marcaBean.salvar}"
 													class="btn btn-info btn-block" a:type="submit"
@@ -111,18 +112,18 @@
 													class="btn btn-warning btn-block" value="Limpar" />
 											</div>
 										</div>
-
+										
+											
 									</h:form>
+										
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
-
 		</div>
-	</div>
+		</div>
 </h:body>
 <ui:insert name="footer">
 	<ui:include src="/restrito/common/footer.xhtml" />
