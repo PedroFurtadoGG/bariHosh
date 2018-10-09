@@ -44,7 +44,7 @@ public class UsuarioRN extends ManuseioPublico {
 					usuario.getPessoa().setId_usuario_criacao(usuarioLogado.getId_usuario());
 					usuario.setLogin(usuario.getPessoa().getEmail());
 					Usuario user = this.buscarPorLogin(usuario.getLogin());
-					if (user == null) {
+					if (!super.validaObjeto(user)) {
 						if (!super.validaObjeto(usuario.getId_usuario())) {
 							usuario.getPessoa().setDt_criacao(new Date());
 							this.daoUsuario.salvar(usuario);
@@ -57,7 +57,7 @@ public class UsuarioRN extends ManuseioPublico {
 					} else if (user.getId_usuario().equals(usuario.getId_usuario())) {
 						usuario.getPessoa().setDt_alteracao(new Date());
 						this.daoUsuario.atualizar(usuario);
-						super.MessagesSucesso("Usuario Salvo Com Sucesso!");
+						super.MessagesSucesso("Usuario Atualizado Com Sucesso!");
 						return true;
 
 					} else {
@@ -94,6 +94,7 @@ public class UsuarioRN extends ManuseioPublico {
 	public void excluir(Usuario usuario) {
 		if (super.validaObjeto(usuario.getId_usuario())) {
 			this.daoUsuario.excluir(usuario);
+			super.MessagesSucesso("Usuario Excluido Com Sucesso!");
 		}
 	}
 
