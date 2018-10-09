@@ -176,10 +176,10 @@
 										</div>
 										<div class="form-group">
 											<div class="col-md-4">
-												<label><span style="color: red"> * </span>Rua </label>
+												<label><span style="color: red"> * </span>Logradouro</label>
 												<h:inputText id="rua"
 													value="#{usuarioBean.usuario.pessoa.endereco.endereco}"
-													size="12" class="form-control"
+													size="30" class="form-control"
 													a:placeholder="Por Favor, informe sua rua."
 													a:required="true">
 												</h:inputText>
@@ -189,7 +189,7 @@
 												</label>
 												<h:inputText id="complemento"
 													value="#{usuarioBean.usuario.pessoa.endereco.complemento}"
-													size="12" required="true" class="form-control"
+													size="50" required="true" class="form-control"
 													a:placeholder="Por Favor, informe o complemento de sua residência."
 													a:required="true">
 												</h:inputText>
@@ -198,7 +198,7 @@
 												<label><span style="color: red"> * </span>Bairro </label>
 												<h:inputText id="endereco"
 													value="#{usuarioBean.usuario.pessoa.endereco.bairro}"
-													size="12" required="true" class="form-control"
+													size="30" required="true" class="form-control"
 													a:placeholder="Por Favor, informe seu bairro."
 													a:required="true">
 												</h:inputText>
@@ -209,7 +209,7 @@
 												<label><span style="color: red"> * </span>Cep </label>
 												<h:inputText id="cep"
 													value="#{usuarioBean.usuario.pessoa.endereco.cep}"
-													size="12" required="true" class="form-control"
+													size="8" required="true" class="form-control"
 													onkeyup="mascara(this, validaCep);" a:required="true">
 												</h:inputText>
 											</div>
@@ -235,7 +235,7 @@
 												<label><span style="color: red"> * </span>Cidade </label>
 												<h:inputText id="ciade"
 													value="#{usuarioBean.usuario.pessoa.endereco.cidade}"
-													size="12" required="true" class="form-control"
+													size="30" required="true" class="form-control"
 													a:required="true">
 												</h:inputText>
 											</div>
@@ -243,7 +243,7 @@
 												<label><span style="color: red"> * </span>Estado </label>
 												<h:inputText id="estado"
 													value="#{usuarioBean.usuario.pessoa.endereco.estado}"
-													size="12" required="true" class="form-control"
+													size="20" required="true" class="form-control"
 													a:required="true">
 												</h:inputText>
 											</div>

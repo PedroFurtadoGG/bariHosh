@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import br.com.bariHosh.entidade.Fabricante;
 import br.com.bariHosh.negocio.FabricanteRN;
 
-@ManagedBean(name="fabricanteBean")
+@ManagedBean(name = "fabricanteBean")
 @RequestScoped
 public class FabricanteBean {
 	
