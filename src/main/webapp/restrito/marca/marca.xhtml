@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<link rel="shortcut icon" href="favicon_16.ico" />
+	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
 	<h:outputStylesheet name="css/site.min.css" />
 	<h:outputStylesheet library="webjars"
@@ -83,6 +83,7 @@
 												</h:selectOneMenu>
 											</div>
 										</div>
+<<<<<<< src/main/webapp/restrito/marca/marca.xhtml
 										
 										<div class="form-group">
 											<div class="col-md-10">
@@ -102,6 +103,10 @@
 											</div>
 											
 											<div class="row">
+=======
+										<span style="color: red"> (*) São Campos Obrigatórios </span><br/><br/>
+										<div class="row">
+>>>>>>> src/main/webapp/restrito/marca/marca.xhtml
 											<div class="col-md-3">
 												<h:commandButton action="#{marcaBean.salvar}"
 													class="btn btn-info btn-block" a:type="submit"
