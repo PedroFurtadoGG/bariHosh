@@ -32,6 +32,8 @@ public class MarcaBean {
 		this.fornecedor= new Fornecedor();
 		this.fabricante = new Fabricante();
 		this.marca.setFabricante(fabricante);
+		this.marca.setFornecedor(fornecedor);
+		
 	}
 
 	public String novo() {
