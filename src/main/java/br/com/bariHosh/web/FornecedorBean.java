@@ -65,8 +65,12 @@ public class FornecedorBean {
 	
 
 	public String salvar() {		
-		forneedoroRN.salvar(this.fornecedor);
-		return this.destinoSalvar;
+		if(forneedoroRN.salvar(this.fornecedor)){
+		    return this.destinoSalvar;			
+		}
+		   
+		
+		return null;
 	}
 
 	public String excluir() {		

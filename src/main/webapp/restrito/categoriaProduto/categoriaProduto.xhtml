@@ -49,7 +49,9 @@
 								</div>
 								<div class="panel-body">
 									<h:form id="cadastro" class="form-horizontal">
-										<h:messages />
+										<ui:insert name="messages">
+											<ui:include src="/restrito/common/messages.xhtml" />
+										</ui:insert>
 										<h:inputHidden value="#{categoriaProdutoBean.categoria.id_categoria}" />
 
 										<div class="form-group">

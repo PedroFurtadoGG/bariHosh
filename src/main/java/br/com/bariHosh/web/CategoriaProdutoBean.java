@@ -19,7 +19,7 @@ public class CategoriaProdutoBean {
 	
 	
 	public CategoriaProdutoBean() {
-		
+		this.destinoSalvar = "categoriaProdutos";
 		this.categoria =new CategoriaProduto();
 	}
 	
@@ -31,14 +31,14 @@ public class CategoriaProdutoBean {
 		
 	}
 	
-	public String salvar() {
-		
-		categoriaRN.salvar(this.categoria);
-		return this.destinoSalvar;
+	public String salvar() {		
+		if(categoriaRN.salvar(this.categoria)){			
+			return this.destinoSalvar;			
+		}
+		return null;
 	}
 	
-	public String excluir() {
-		
+	public String excluir() {		
 		categoriaRN.excluir(this.categoria);
 		this.lista=null;
 		return null;
@@ -48,16 +48,6 @@ public class CategoriaProdutoBean {
 		
 		return "/restrito/categoriaProduto/categoriaProduto";
 	}
-	
-	public List<CategoriaProduto> listar(){
-		
-		if(this.lista==null) {
-			this.lista=categoriaRN.listar();
-		}
-		
-		return this.lista;
-	}
-	
 
 	public CategoriaProduto getCategoria() {
 		return categoria;
@@ -76,7 +66,11 @@ public class CategoriaProdutoBean {
 	}
 
 	public List<CategoriaProduto> getLista() {
-		return lista;
+		if(this.lista==null) {
+			this.lista=categoriaRN.listar();
+		}
+		
+		return this.lista;
 	}
 
 	public void setLista(List<CategoriaProduto> lista) {
