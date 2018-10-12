@@ -1,13 +1,13 @@
 package br.com.bariHosh.util;
 
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Objects;
 
 import javax.faces.application.FacesMessage;
@@ -19,8 +19,15 @@ import br.com.bariHosh.entidade.Usuario;
 
 public class ManuseioPublico {
 
-	public static boolean isCPF(String CPF) {
-
+	public static boolean isCPF(String CPF) {	
+		
+		List<String> strings = new ArrayList<String>();
+		strings.addAll(Arrays.asList(CPF.split("\\.|-")));	
+		CPF= "";
+		for (String str : strings) {
+			  CPF = CPF+""+str;
+		}
+     
 		if (CPF.equals("00000000000") || CPF.equals("11111111111") || CPF.equals("22222222222")
 				|| CPF.equals("33333333333") || CPF.equals("44444444444") || CPF.equals("55555555555")
 				|| CPF.equals("66666666666") || CPF.equals("77777777777") || CPF.equals("88888888888")
@@ -73,33 +80,7 @@ public class ManuseioPublico {
 		return !Objects.isNull(obj);
 	}
 
-	public Integer CalcularIdade(String dataNascimento) {
-		DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-
-		Date dataNascInput = null;
-		try {
-
-			dataNascInput = dataFormatada.parse(dataNascimento);
-
-		} catch (Exception e) {
-		}
-
-		Calendar dateOfBirth = new GregorianCalendar();
-
-		dateOfBirth.setTime(dataNascInput);
-
-		Calendar today = Calendar.getInstance();
-
-		Integer idade = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
-
-		dateOfBirth.add(Calendar.YEAR, idade);
-
-		if (today.before(dateOfBirth)) {
-			idade--;
-		}
-
-		return idade;
-	}
+	
 
 	public Usuario buscarPorUsuarioLogado() {
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -115,7 +96,7 @@ public class ManuseioPublico {
 	 * e retorna a idade como tipo Integer
 	 * **/
 	
-	public static Integer CalcularIdade(Date dataNascimento) {
+	public static boolean CalcularIdade(Date dataNascimento) {
 
 		Calendar dateOfBirth = new GregorianCalendar();
 
@@ -135,7 +116,7 @@ public class ManuseioPublico {
 			idade--;
 		}
 		
-		return idade;
+		return idade>=18;
 	}
 	
 	

@@ -73,8 +73,10 @@ public class ClienteBean {
 	}
 
 	public String salvar() {
-		clienteRN.salvar(this.cliente);
-		return this.destinoSalvar;
+		if(clienteRN.salvar(this.cliente)){			
+			return this.destinoSalvar;
+		}
+		return null;
 	}
 
 	public String excluir() {		

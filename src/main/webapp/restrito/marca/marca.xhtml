@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
 	<h:outputStylesheet name="css/site.min.css" />
 	<h:outputStylesheet library="webjars"
@@ -49,7 +50,9 @@
 								</div>
 								<div class="panel-body">
 									<h:form id="cadastro" class="form-horizontal">
-										<h:messages />
+										<ui:insert name="messages">
+											<ui:include src="/restrito/common/messages.xhtml" />
+										</ui:insert>
 										<h:inputHidden value="#{marcaBean.marca.id_marca}" />
 
 										<div class="form-group">
@@ -83,44 +86,28 @@
 												</h:selectOneMenu>
 											</div>
 										</div>
-<<<<<<< src/main/webapp/restrito/marca/marca.xhtml
 										
-										<div class="form-group">
-											<div class="col-md-10">
-													<label><span style="color: red"> * </span> Fornecedor:</label>
-	
-	
-													<h:selectOneMenu class="form-control"
-														value="#{marcaBean.marca.fornecedor}"
-														requiredMessage="Informe o nome do Fornecedor!"
-														converter="converterFornecedor" required="true">
-														<f:selectItem itemLabel="Selecione..." />
-														<f:selectItems value="#{marcaBean.listaForn}" var="forn" itemLabel="#{forn.pessoa.nome}" 
-														itemValue="#{forn}" />
-	
-													</h:selectOneMenu>
+
+										<div class="row">
+
+											<span style="color: red"> (*) São Campos Obrigatórios
+											</span><br />
+											<br />
+											<div class="row">
+												<div class="col-md-3">
+													<h:commandButton action="#{marcaBean.salvar}"
+														class="btn btn-info btn-block" a:type="submit"
+														value="Salvar" />
+												</div>
+												<div class="col-md-3">
+													<h:commandButton action="#{marcaBean.novo}"
+														class="btn btn-warning btn-block" value="Limpar" />
 												</div>
 											</div>
-											
-											<div class="row">
-=======
-										<span style="color: red"> (*) São Campos Obrigatórios </span><br/><br/>
-										<div class="row">
->>>>>>> src/main/webapp/restrito/marca/marca.xhtml
-											<div class="col-md-3">
-												<h:commandButton action="#{marcaBean.salvar}"
-													class="btn btn-info btn-block" a:type="submit"
-													value="Salvar" />
-											</div>
-											<div class="col-md-3">
-												<h:commandButton action="#{marcaBean.novo}"
-													class="btn btn-warning btn-block" value="Limpar" />
-											</div>
+
 										</div>
-										
-											
 									</h:form>
-										
+
 								</div>
 							</div>
 						</div>
@@ -128,7 +115,7 @@
 				</div>
 			</div>
 		</div>
-		</div>
+	</div>
 </h:body>
 <ui:insert name="footer">
 	<ui:include src="/restrito/common/footer.xhtml" />
