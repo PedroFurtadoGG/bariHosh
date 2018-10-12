@@ -14,13 +14,13 @@ public class ItemPedidoDAOHibernate extends GenericoDAOHibernate<ItemDoPedido> i
 
 	@Override
 	public ItemDoPedido pegaItemPeloPedido(Pedido pedido) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<ItemDoPedido> listaItemsDevolvidos() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

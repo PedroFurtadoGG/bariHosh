@@ -9,23 +9,24 @@ import br.com.bariHosh.entidade.*;
 import br.com.bariHosh.util.DAOFactory;
 
 public class ProdutoDAOHibernate extends GenericoDAOHibernate<Produto> implements ProdutoDAO {
+	@SuppressWarnings("unused")
 	private Session session = DAOFactory.PegarSession();
 
 	@Override
 	public Produto pegaProdutoPeloCodBarras(String codiBarras) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
 	public List<Produto> listaDeprodutosEmEstoque() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
 	public Integer quantidadeEmEstoque() {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

@@ -14,13 +14,13 @@ public class EstoqueDAOHibernate extends GenericoDAOHibernate<Estoque> implement
 
 	@Override
 	public Estoque pegaEstoquePeloProduto(Produto produto) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<Estoque> listaEstoqueCheio() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
