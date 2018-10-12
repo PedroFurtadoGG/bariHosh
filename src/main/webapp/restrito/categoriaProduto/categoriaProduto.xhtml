@@ -37,7 +37,7 @@
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<div class="panel-title">
-										<b>Cadastro de Categorias</b>
+										<b>Cadastro de Categoria</b>
 									</div>
 									<div class="panel-options">
 										<a class="bg" data-target="#sample-modal-dialog-1"
@@ -49,7 +49,9 @@
 								</div>
 								<div class="panel-body">
 									<h:form id="cadastro" class="form-horizontal">
-										<h:messages />
+										<ui:insert name="messages">
+											<ui:include src="/restrito/common/messages.xhtml" />
+										</ui:insert>
 										<h:inputHidden value="#{categoriaProdutoBean.categoria.id_categoria}" />
 
 										<div class="form-group">

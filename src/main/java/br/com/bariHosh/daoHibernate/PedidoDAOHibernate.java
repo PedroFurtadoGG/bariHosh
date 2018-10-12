@@ -15,31 +15,31 @@ public class PedidoDAOHibernate extends GenericoDAOHibernate<Pedido> implements 
 
 	@Override
 	public Pedido pegarPeloItem(ItemDoPedido iten) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<Pedido> listaPedidosCancelados() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<Pedido> listaPedidosFinalizados() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<Pedido> listaPedidosCliente(Cliente cliente) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<Pedido> listaPedidosNaDataAtual(Date data) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

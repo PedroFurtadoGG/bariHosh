@@ -14,10 +14,11 @@ public class FornecedorDAOHibernate extends GenericoDAOHibernate<Fornecedor> imp
 
 	@Override
 	public Fornecedor buscarPorLogin(String login) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Fornecedor> listaFornecedores(){
 		
 	  return session.createCriteria(Fornecedor.class).list();

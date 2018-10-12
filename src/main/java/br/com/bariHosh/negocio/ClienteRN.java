@@ -23,27 +23,59 @@ public class ClienteRN  extends ManuseioPublico{
 
 	
 	
-	
-	public void salvar(Cliente cliente) {		
-		Usuario usuariologado = super.buscarPorUsuarioLogado();	
-		if(super.validaObjeto(usuariologado)) {
-			    cliente.getPessoa().setId_usuario_criacao(usuariologado.getId_usuario());			
-			if (!super.validaObjeto(cliente.getId_cliente())) {	
-				cliente.getPessoa().setDt_criacao(new Date());
-				this.clienteDAO.salvar(cliente);
+	public boolean salvar(Cliente cliente) {
+
+		try {
+			if (super.isCPF(cliente.getPessoa().getCpf())) {
+				if (super.CalcularIdade(cliente.getPessoa().getDt_nascimento())) {
+					Usuario usuarioLogado = super.buscarPorUsuarioLogado();
+					if (super.validaObjeto(usuarioLogado.getId_usuario())) {
+						cliente.getPessoa().setId_usuario_criacao(usuarioLogado.getId_usuario());
+						if (!super.validaObjeto(cliente.getId_cliente())) {
+							cliente.getPessoa().setDt_criacao(new Date());
+							this.clienteDAO.salvar(cliente);
+						} else {
+							cliente.getPessoa().setDt_alteracao(new Date());
+							this.clienteDAO.atualizar(cliente);
+						}
+						super.MessagesSucesso("Cliente Salvo Com Sucesso !");
+						return true;
+
+					} else {
+						super.MessagesErro("E Necessario Estar Logado!");
+						return false;
+					}
+				} else {
+					super.MessagesErro("A Idade e Inferior a 18 anos!");
+					return false;
+				}
 			} else {
-				cliente.getPessoa().setDt_alteracao(new Date());
-				this.clienteDAO.atualizar(cliente);
+				super.MessagesErro(" Cpf Invalido!");
+				cliente.getPessoa().setCpf("");
+				return false;
 			}
+
+		} catch (Exception e) {
+			System.out.println("erro salvar" + e.getMessage());
+			super.MessagesErro(
+					"Ouve erro na tentativa de salvar o cliente Verifique os campos Obrigatorios e tente novamente!");
+
 		}
-		
-		
+		return false;
 	}
 
-	public void excluir(Cliente cliente) {		
+	public void excluir(Cliente cliente) {	
+		try {
 		if (super.validaObjeto(cliente.getId_cliente())) {			
 			this.clienteDAO.excluir(cliente);
-		} 
+			super.MessagesSucesso("cliente Excluido Com Sucesso!");
+		   } 
+		} catch (Exception e) {
+			System.out.println("erro excluir" + e.getMessage());
+			super.MessagesErro(
+					"Ouve erro na tentativa de excluir o cliente Verifique os campos Obrigatorios e tente novamente!");
+
+		}
 		
 	}
 

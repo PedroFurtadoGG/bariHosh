@@ -34,7 +34,7 @@ public class UsuarioDAOHibernate extends GenericoDAOHibernate<Usuario> implement
 
 	@Override
 	public Usuario buscarPorPermissao(EnumPermissao permissao) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

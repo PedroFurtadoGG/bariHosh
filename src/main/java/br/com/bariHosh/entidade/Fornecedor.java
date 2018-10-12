@@ -35,18 +35,8 @@ public class Fornecedor implements Serializable {
 	private String numInscricao;
 
 	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Produto.class)
-	private List<Produto> produtos;
+	private List<Produto> produtos;	
 	
-	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Marca.class)
-	private List<Marca> marcas;
-
-	public List<Marca> getMarcas() {
-		return marcas;
-	}
-
-	public void setMarcas(List<Marca> marcas) {
-		this.marcas = marcas;
-	}
 
 	public Long getId_fornecedor() {
 		return id_fornecedor;
