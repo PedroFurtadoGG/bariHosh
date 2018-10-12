@@ -2,6 +2,7 @@ package br.com.bariHosh.web;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -13,15 +14,9 @@ import br.com.bariHosh.negocio.CategoriaProdutoRN;
 public class CategoriaProdutoBean {
 	
 	private CategoriaProduto categoria = new CategoriaProduto();
-	private CategoriaProdutoRN categoriaRN = new CategoriaProdutoRN();
 	private List<CategoriaProduto> lista;
 	private String destinoSalvar;
 	
-	
-	public CategoriaProdutoBean() {
-		this.destinoSalvar = "categoriaProdutos";
-		this.categoria =new CategoriaProduto();
-	}
 	
 	public String novo() {
 		this.destinoSalvar = "categoriaProdutos";
@@ -31,14 +26,22 @@ public class CategoriaProdutoBean {
 		
 	}
 	
-	public String salvar() {		
-		if(categoriaRN.salvar(this.categoria)){			
-			return this.destinoSalvar;			
-		}
-		return null;
+	@PostConstruct
+	public void init() {
+		this.destinoSalvar = "categoriaProdutos";
+		
 	}
 	
-	public String excluir() {		
+	public String salvar() {
+		
+		CategoriaProdutoRN categoriaRN = new CategoriaProdutoRN();
+		categoriaRN.salvar(this.categoria);
+		return this.destinoSalvar;
+	}
+	
+	public String excluir() {
+		
+		CategoriaProdutoRN categoriaRN = new CategoriaProdutoRN();
 		categoriaRN.excluir(this.categoria);
 		this.lista=null;
 		return null;
@@ -48,6 +51,17 @@ public class CategoriaProdutoBean {
 		
 		return "/restrito/categoriaProduto/categoriaProduto";
 	}
+	
+	public List<CategoriaProduto> getLista(){
+		
+		if(this.lista==null) {
+			CategoriaProdutoRN categoriaRN = new CategoriaProdutoRN();
+			this.lista=categoriaRN.listar();
+		}
+		
+		return this.lista;
+	}
+	
 
 	public CategoriaProduto getCategoria() {
 		return categoria;
@@ -57,21 +71,7 @@ public class CategoriaProdutoBean {
 		this.categoria = categoria;
 	}
 
-	public CategoriaProdutoRN getCategoriaRN() {
-		return categoriaRN;
-	}
 
-	public void setCategoriaRN(CategoriaProdutoRN categoriaRN) {
-		this.categoriaRN = categoriaRN;
-	}
-
-	public List<CategoriaProduto> getLista() {
-		if(this.lista==null) {
-			this.lista=categoriaRN.listar();
-		}
-		
-		return this.lista;
-	}
 
 	public void setLista(List<CategoriaProduto> lista) {
 		this.lista = lista;
