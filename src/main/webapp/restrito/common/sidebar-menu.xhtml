@@ -2,91 +2,88 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-<<<<<<< src/main/webapp/restrito/common/sidebar-menu.xhtml
    xmlns:ui="http://java.sun.com/jsf/facelets">
-   <body>
-      <ui:composition>
-         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
-            <ul class="list-group panel">
-               <li class="list-group-item"><i class="fa fa-bars	"></i> <b>MENU</b></li>
-               <li class="list-group-item"><a href="index.html"><i
-                  class="fa fa-home"></i>Dashboard </a></li>
-              
-              
-               <li>
-                  <a href="#cliente" class="list-group-item "
-                     data-toggle="collapse"><i
-                  class="fa fa-user"></i>Cliente <span
-                    style="float: right"><i class="fa fa-chevron-right"></i></span></a>
-                  <div class="collapse" id="cliente">
-                     <a href="#{request.contextPath}/restrito/cliente/cliente.jsf" class="list-group-item">Cadastro</a>
-                     <a href="#{request.contextPath}/restrito/cliente/clientes.jsf" class="list-group-item">Listagem</a>
-                  </div>
-               </li>
-               
-                <li>
-                  <a href="#fabricante" class="list-group-item "
-                     data-toggle="collapse"><i
-                  class="fa fa-industry"></i>Fabricante <span
-                    style="float: right"><i class="fa fa-chevron-right"></i></span></a>
-                  <div class="collapse" id="fabricante">
-                     <a href="#{request.contextPath}/restrito/fabricante/fabricante.jsf" class="list-group-item">Cadastro</a>
-                     <a href="#{request.contextPath}/restrito/fabricante/fabricantes.jsf" class="list-group-item">Listagem</a>
-                  </div>
-               </li>
-               
-                <li>
-                  <a href="#fornecedor" class="list-group-item "
-                     data-toggle="collapse"><i
-                  class="fa fa-truck"></i>Fornecedor <span
-                    style="float: right"><i class="fa fa-chevron-right"></i></span></a>
-                  <div class="collapse" id="fornecedor">
-                     <a href="#{request.contextPath}/restrito/fornecedor/fornecedor.jsf" class="list-group-item">Cadastro</a>
-                     <a href="#{request.contextPath}/restrito/fornecedor/fornecedores.jsf" class="list-group-item">Listagem</a>
-                  </div>
-               </li>
-               
-                <li>
-                  <a href="#marca" class="list-group-item "
-                     data-toggle="collapse"><i
-                  class="fa fa-shield"></i>Marca <span
-                    style="float: right"><i class="fa fa-chevron-right"></i></span></a>
-                  <div class="collapse" id="marca">
-                     <a href="#{request.contextPath}/restrito/marca/marca.jsf" class="list-group-item">Cadastro</a>
-                     <a href="#{request.contextPath}/restrito/marca/marcas.jsf" class="list-group-item">Listagem</a>
-                  </div>
-               </li>
-               
-                <li>
-                  <a href="#usuario" class="list-group-item "
-                     data-toggle="collapse"><i
-                  class="fa fa-user"></i>Usuario <span
-                    style="float: right"><i class="fa fa-chevron-right"></i></span></a>
-                  <div class="collapse" id="usuario">
-                     <a href="#{request.contextPath}/restrito/usuario/usuario.jsf" class="list-group-item">Cadastro</a>
-                     <a href="#{request.contextPath}/restrito/usuario/usuarios.jsf" class="list-group-item">Listagem</a>
-                  </div>
-               </li>
-               
-               <li>
-                  <a href="#demo5" class="list-group-item "
-                     data-toggle="collapse"><i
-                  class="fa fa-users"></i>Categoria Produto <span
-                    style="float: right"><i class="fa fa-chevron-right"></i></span></a>
-                  <div class="collapse" id="demo5">
-                     <a href="#{request.contextPath}/restrito/categoriaProduto/categoriaProduto.jsf" class="list-group-item">Cadastro</a>
-                     <a href="#{request.contextPath}/restrito/categoriaProduto/categoriaProdutos.jsf" class="list-group-item">Listagem</a>
-                  </div>
-               </li>
-              
-              
-               
-            </ul>
-         </div>
-      </ui:composition>
-   </body>
-=======
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<body>
+	<ui:composition>
+		<div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
+			<ul class="list-group panel">
+				<li class="list-group-item"><i class="fa fa-bars	"></i> <b>MENU</b></li>
+				<li class="list-group-item"><a href="index.html"><i
+						class="fa fa-home"></i>Dashboard </a></li>
+
+
+				<li><a href="#cliente" class="list-group-item "
+					data-toggle="collapse"><i class="fa fa-user"></i>Cliente <span
+						style="float: right"><i class="fa fa-chevron-right"></i></span></a>
+					<div class="collapse" id="cliente">
+						<a href="#{request.contextPath}/restrito/cliente/cliente.jsf"
+							class="list-group-item">Cadastro</a> <a
+							href="#{request.contextPath}/restrito/cliente/clientes.jsf"
+							class="list-group-item">Listagem</a>
+					</div></li>
+
+				<li><a href="#fabricante" class="list-group-item "
+					data-toggle="collapse"><i class="fa fa-industry"></i>Fabricante
+						<span style="float: right"><i class="fa fa-chevron-right"></i></span></a>
+					<div class="collapse" id="fabricante">
+						<a
+							href="#{request.contextPath}/restrito/fabricante/fabricante.jsf"
+							class="list-group-item">Cadastro</a> <a
+							href="#{request.contextPath}/restrito/fabricante/fabricantes.jsf"
+							class="list-group-item">Listagem</a>
+					</div></li>
+
+				<li><a href="#fornecedor" class="list-group-item "
+					data-toggle="collapse"><i class="fa fa-truck"></i>Fornecedor <span
+						style="float: right"><i class="fa fa-chevron-right"></i></span></a>
+					<div class="collapse" id="fornecedor">
+						<a
+							href="#{request.contextPath}/restrito/fornecedor/fornecedor.jsf"
+							class="list-group-item">Cadastro</a> <a
+							href="#{request.contextPath}/restrito/fornecedor/fornecedores.jsf"
+							class="list-group-item">Listagem</a>
+					</div></li>
+
+				<li><a href="#marca" class="list-group-item "
+					data-toggle="collapse"><i class="fa fa-shield"></i>Marca <span
+						style="float: right"><i class="fa fa-chevron-right"></i></span></a>
+					<div class="collapse" id="marca">
+						<a href="#{request.contextPath}/restrito/marca/marca.jsf"
+							class="list-group-item">Cadastro</a> <a
+							href="#{request.contextPath}/restrito/marca/marcas.jsf"
+							class="list-group-item">Listagem</a>
+					</div></li>
+
+				<li><a href="#usuario" class="list-group-item "
+					data-toggle="collapse"><i class="fa fa-user"></i>Usuario <span
+						style="float: right"><i class="fa fa-chevron-right"></i></span></a>
+					<div class="collapse" id="usuario">
+						<a href="#{request.contextPath}/restrito/usuario/usuario.jsf"
+							class="list-group-item">Cadastro</a> <a
+							href="#{request.contextPath}/restrito/usuario/usuarios.jsf"
+							class="list-group-item">Listagem</a>
+					</div></li>
+
+				<li><a href="#demo5" class="list-group-item "
+					data-toggle="collapse"><i class="fa fa-users"></i>Categoria
+						Produto <span style="float: right"><i
+							class="fa fa-chevron-right"></i></span></a>
+					<div class="collapse" id="demo5">
+						<a
+							href="#{request.contextPath}/restrito/categoriaProduto/categoriaProduto.jsf"
+							class="list-group-item">Cadastro</a> <a
+							href="#{request.contextPath}/restrito/categoriaProduto/categoriaProdutos.jsf"
+							class="list-group-item">Listagem</a>
+					</div></li>
+
+
+
+			</ul>
+		</div>
+	</ui:composition>
+</body>
+======= xmlns:ui="http://java.sun.com/jsf/facelets">
 <body>
 	<ui:composition>
 		<div class="col-xs-6 col-sm-3 sidebar-offcanvas" role="navigation">
@@ -175,5 +172,4 @@
 		</div>
 	</ui:composition>
 </body>
->>>>>>> src/main/webapp/restrito/common/sidebar-menu.xhtml
 </html>
