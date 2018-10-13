@@ -22,7 +22,7 @@ public class FornecedorRN extends ManuseioPublico {
 
 	public boolean salvar(Fornecedor fornecedor) {
 		try {
-			if (super.isCPF(fornecedor.getPessoa().getCpf())) {
+			if (super.validaCPF(fornecedor.getPessoa().getCpf())) {
 				if (super.CalcularIdade(fornecedor.getPessoa().getDt_nascimento())) {
 					Usuario usuarioLogado = super.buscarPorUsuarioLogado();
 					if (super.validaObjeto(usuarioLogado.getId_usuario())) {
