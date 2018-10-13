@@ -25,7 +25,7 @@ public class UsuarioRN extends ManuseioPublico {
 
 	public boolean salvar(Usuario usuario) {
 		try {
-			if (super.isCPF(usuario.getPessoa().getCpf())) {
+			if (super.validaCPF(usuario.getPessoa().getCpf())) {
 				if (super.CalcularIdade(usuario.getPessoa().getDt_nascimento())) {
 					Usuario usuarioLogado = super.buscarPorUsuarioLogado();
 					if (super.validaObjeto(usuarioLogado.getId_usuario())) {
