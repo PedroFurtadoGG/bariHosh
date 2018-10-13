@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "marca")
@@ -28,8 +27,6 @@ public class Marca implements Serializable  {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_fabricante", nullable = false)	
 	private Fabricante fabricante;
-
-	
 
 	public Long getId_marca() {
 		return id_marca;
@@ -92,6 +89,7 @@ public class Marca implements Serializable  {
 		return true;
 	}
 
+	
 	
 
 

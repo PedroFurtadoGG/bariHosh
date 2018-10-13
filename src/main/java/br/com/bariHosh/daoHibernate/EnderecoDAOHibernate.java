@@ -14,13 +14,13 @@ public class EnderecoDAOHibernate extends GenericoDAOHibernate<Endereco> impleme
 
 	@Override
 	public Endereco pegaEnderecoPeloCodPessoa(Long id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<Endereco> listaEnderecoPorBairro(String bairro) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

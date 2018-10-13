@@ -48,7 +48,9 @@
 								<div class="panel-body">
 									<div class="bs-example">
 										<h:form>
-											<h:messages />
+											<ui:insert name="messages">
+											<ui:include src="/restrito/common/messages.xhtml" />
+										</ui:insert>
 											<div class="bs-example">
 											
 												<h:dataTable class="table table-hover" value="#{fabricanteBean.lista}" var="fab" rules="row"
@@ -62,8 +64,12 @@
 														#{fab.razaoSocial}
 		                                          	</h:column>
 		                                          	<h:column>
+		                                          		<f:facet name="header">CNPJ</f:facet>
+		                                          		#{fab.cnpj}
+		                                          	</h:column>
+		                                          	<h:column>
 		                                          		<f:facet name="header">Nome Fantasia</f:facet>
-		                                          		${fab.nomeFantasia}
+		                                          		#{fab.nomeFantasia}
 		                                          	</h:column>
 		                                          	<h:column>
 		                                          	

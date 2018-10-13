@@ -1,11 +1,11 @@
 package br.com.bariHosh.negocio;
 
 import java.util.List;
-
 import br.com.bariHosh.daoHibernate.FabricanteDAOHibernate;
 import br.com.bariHosh.entidade.Fabricante;
+import br.com.bariHosh.util.ManuseioPublico;
 
-public class FabricanteRN {
+public class FabricanteRN extends ManuseioPublico{
 	
 
 	private FabricanteDAOHibernate fabricanteDAO;
@@ -15,23 +15,45 @@ public class FabricanteRN {
 		this.fabricanteDAO = new FabricanteDAOHibernate();
 	}
 	
-	public void salvar(Fabricante fab) {
-		
-		Long fabId = fab.getId_fabricante();
-		if(fabId == null || fabId==0) {
-			this.fabricanteDAO.salvar(fab);
-		}else {
-			this.fabricanteDAO.atualizar(fab);
+	public boolean salvar(Fabricante fab) {		
+		try {
+			if(!super.validaObjeto(fab.getId_fabricante())) {
+				this.fabricanteDAO.salvar(fab);
+				super.MessagesSucesso("Fabricante Salvo Com Sucesso!");
+				return true;
+			}else {
+				this.fabricanteDAO.atualizar(fab);
+				super.MessagesSucesso("Fabricante Salvo Com Sucesso!");
+				return true;
+			}		
+
+		} catch (Exception e) {
+			System.out.println("erro salvar" + e.getMessage());
+			super.MessagesErro(
+					"Ouve erro na tentativa de salvar o fabricante Verifique os campos Obrigatorios e tente novamente!");
+
 		}
-		
+		return false;
+
 	}
 	
 	public Fabricante carregar(Long id) {
 		return this.fabricanteDAO.carregar(Fabricante.class,id);
 	}
 	
-	public void excluir(Fabricante fab) {
-		this.fabricanteDAO.excluir(fab);
+	public void excluir(Fabricante fab) {		
+		
+		try {
+			if (super.validaObjeto(fab.getId_fabricante())) {
+				this.fabricanteDAO.excluir(fab);
+				super.MessagesSucesso("Fabricante  Excluido Com Sucesso!");
+			}
+
+		} catch (Exception e) {
+			System.out.println("erro excluir" + e.getMessage());
+			super.MessagesErro("Ouve erro na tentativa de excluir o fabricante contate Administrador do sistema!");
+		}
+		
 	}
 	
 	public List<Fabricante> listar(){

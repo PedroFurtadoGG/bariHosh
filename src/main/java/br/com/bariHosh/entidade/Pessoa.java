@@ -52,7 +52,6 @@ public class Pessoa implements Serializable {
    	private List<Fornecedor> fornecedores ;
     
     
-
 	public Long getId_pessoa() {
 		return id_pessoa;
 	}

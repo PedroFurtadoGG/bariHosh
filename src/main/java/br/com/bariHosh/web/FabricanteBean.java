@@ -5,19 +5,18 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.entidade.Fabricante;
 import br.com.bariHosh.negocio.FabricanteRN;
 
-@ManagedBean(name="fabricanteBean")
+@ManagedBean(name = "fabricanteBean")
 @RequestScoped
 public class FabricanteBean {
 	
 	private Fabricante fabricante = new Fabricante();
 	private List<Fabricante> lista ;
 	private String destinoSalvar;
-	
+	private FabricanteRN fabRN = new FabricanteRN();
 	public String novo() {
 		this.destinoSalvar = "fabricantes";
 		this.fabricante= new Fabricante();
@@ -36,16 +35,14 @@ public class FabricanteBean {
 	}
 	
 	public String salvar() {
-		
-		FacesContext context = FacesContext.getCurrentInstance();
-		FabricanteRN fabRN = new FabricanteRN();
-		fabRN.salvar(this.fabricante);
-		return this.destinoSalvar;
+		if (fabRN.salvar(this.fabricante)) {
+			return this.destinoSalvar;
+		}
+		return null;
 	}
-	
-	public String excluir() {
+
+	public String excluir() {	
 		
-		FabricanteRN fabRN = new FabricanteRN();
 		fabRN.excluir(this.fabricante);
 		this.lista = null;
 		return null;
@@ -71,8 +68,7 @@ public class FabricanteBean {
 
 	public List<Fabricante> getLista() {
 		
-		if(this.lista==null) {
-			FabricanteRN fabRN = new FabricanteRN();
+		if(this.lista==null) {			
 			this.lista=fabRN.listar();
 		}
 		return this.lista;

@@ -26,7 +26,7 @@ public class Fornecedor implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pessoa", nullable = false)
-	private Pessoa pessoa;
+	private Pessoa pessoa; 
 
 	private boolean ativo;
 	private String ramoAtividade;
@@ -35,7 +35,8 @@ public class Fornecedor implements Serializable {
 	private String numInscricao;
 
 	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Produto.class)
-	private List<Produto> produtos;
+	private List<Produto> produtos;	
+	
 
 	public Long getId_fornecedor() {
 		return id_fornecedor;
