@@ -24,4 +24,10 @@ public class EstoqueDAOHibernate extends GenericoDAOHibernate<Estoque> implement
 		return null;
 	}
 
+	@Override
+	public List<GrupoProduto> pegaListaGrupos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

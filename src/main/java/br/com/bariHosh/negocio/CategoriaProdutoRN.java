@@ -53,9 +53,9 @@ public class CategoriaProdutoRN extends ManuseioPublico{
 		
 	}
 	
-	public CategoriaProduto carregar(CategoriaProduto categoira) {
+	public CategoriaProduto carregar(CategoriaProduto categoria) {
 		
-		return this.categoriaProdutoDao.carregar(CategoriaProduto.class, categoira.getId_categoria());
+		return this.categoriaProdutoDao.carregar(CategoriaProduto.class, categoria.getId_categoria());
 		
 	}
 	public List<CategoriaProduto> listar(){
