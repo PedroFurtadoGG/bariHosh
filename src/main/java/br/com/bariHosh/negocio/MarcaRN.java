@@ -37,7 +37,7 @@ public class MarcaRN extends ManuseioPublico {
 		} catch (Exception e) {
 			System.out.println("erro salvar" + e.getMessage());
 			super.MessagesErro(
-					"Ouve erro na tentativa de salvar o Marca Verifique os campos Obrigatorios e tente novamente!");
+					"Houve erro na tentativa de salvar o Marca Verifique os campos Obrigatorios e tente novamente!");
 		}
 
 		return false;

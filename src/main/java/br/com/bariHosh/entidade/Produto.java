@@ -30,6 +30,7 @@ public class Produto implements Serializable {
 	private Float valorEntrada;
 	private Float valorSaida;
 	private boolean ativo;
+	
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario", nullable = false)
@@ -46,6 +47,10 @@ public class Produto implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_marca_produto", nullable = false)
 	private Marca marca_produto;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_estoque_produto", nullable = false)
+	private Estoque estoque_produto;
 
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false, precision = 10, scale = 2)
@@ -160,18 +165,27 @@ public class Produto implements Serializable {
 		this.data_alteracao = data_alteracao;
 	}
 
+	public Estoque getEstoque() {
+		return estoque_produto;
+	}
+
+	public void setEstoque(Estoque estoque) {
+		this.estoque_produto = estoque;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
 		result = prime * result + ((codigo_barras == null) ? 0 : codigo_barras.hashCode());
 		result = prime * result + ((data_alteracao == null) ? 0 : data_alteracao.hashCode());
 		result = prime * result + ((data_criacao == null) ? 0 : data_criacao.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((estoque_produto == null) ? 0 : estoque_produto.hashCode());
 		result = prime * result + ((fornecedor == null) ? 0 : fornecedor.hashCode());
 		result = prime * result + ((id_produto == null) ? 0 : id_produto.hashCode());
-		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((marca_produto == null) ? 0 : marca_produto.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((usuario_criador == null) ? 0 : usuario_criador.hashCode());
@@ -189,6 +203,8 @@ public class Produto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
+		if (ativo != other.ativo)
+			return false;
 		if (categoria == null) {
 			if (other.categoria != null)
 				return false;
@@ -214,6 +230,11 @@ public class Produto implements Serializable {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
+		if (estoque_produto == null) {
+			if (other.estoque_produto != null)
+				return false;
+		} else if (!estoque_produto.equals(other.estoque_produto))
+			return false;
 		if (fornecedor == null) {
 			if (other.fornecedor != null)
 				return false;
@@ -223,8 +244,6 @@ public class Produto implements Serializable {
 			if (other.id_produto != null)
 				return false;
 		} else if (!id_produto.equals(other.id_produto))
-			return false;
-		if (ativo != other.ativo)
 			return false;
 		if (marca_produto == null) {
 			if (other.marca_produto != null)
@@ -253,5 +272,7 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
+	
+	
 
 }
