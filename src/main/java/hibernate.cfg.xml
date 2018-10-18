@@ -24,7 +24,8 @@
 		<mapping class="br.com.bariHosh.entidade.Pagamento" />
 		<mapping class="br.com.bariHosh.entidade.Pedido" />
 		<mapping class="br.com.bariHosh.entidade.Produto" />
-		<mapping class="br.com.bariHosh.entidade.TipoProduto" />
+		<mapping class="br.com.bariHosh.entidade.SaldoEstoque" />
+		<mapping class="br.com.bariHosh.entidade.GrupoProduto" />
 
 	</session-factory>
 </hibernate-configuration>

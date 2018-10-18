@@ -55,6 +55,18 @@ public class Produto implements Serializable {
 	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
 	private Date data_alteracao;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_grupoProduto", nullable = false)	
+    private GrupoProduto  grupoProduto;
+	
+	public GrupoProduto getGrupoProduto() {
+		return grupoProduto;
+	}
+
+	public void setGrupoProduto(GrupoProduto grupoProduto) {
+		this.grupoProduto = grupoProduto;
+	}
 
 	public Long getId_produto() {
 		return id_produto;
@@ -164,14 +176,15 @@ public class Produto implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
 		result = prime * result + ((codigo_barras == null) ? 0 : codigo_barras.hashCode());
 		result = prime * result + ((data_alteracao == null) ? 0 : data_alteracao.hashCode());
 		result = prime * result + ((data_criacao == null) ? 0 : data_criacao.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((fornecedor == null) ? 0 : fornecedor.hashCode());
+		result = prime * result + ((grupoProduto == null) ? 0 : grupoProduto.hashCode());
 		result = prime * result + ((id_produto == null) ? 0 : id_produto.hashCode());
-		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((marca_produto == null) ? 0 : marca_produto.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((usuario_criador == null) ? 0 : usuario_criador.hashCode());
@@ -189,6 +202,8 @@ public class Produto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
+		if (ativo != other.ativo)
+			return false;
 		if (categoria == null) {
 			if (other.categoria != null)
 				return false;
@@ -219,12 +234,15 @@ public class Produto implements Serializable {
 				return false;
 		} else if (!fornecedor.equals(other.fornecedor))
 			return false;
+		if (grupoProduto == null) {
+			if (other.grupoProduto != null)
+				return false;
+		} else if (!grupoProduto.equals(other.grupoProduto))
+			return false;
 		if (id_produto == null) {
 			if (other.id_produto != null)
 				return false;
 		} else if (!id_produto.equals(other.id_produto))
-			return false;
-		if (ativo != other.ativo)
 			return false;
 		if (marca_produto == null) {
 			if (other.marca_produto != null)
@@ -253,5 +271,6 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
+
 
 }
