@@ -27,10 +27,10 @@ public class UsuarioBean {
 	private EnumPermissao enumpemrmissao;
 	private EnumSexo enumSexo;
 	private UsuarioRN usuarioRN;
-	
+	private String teste;
 
 	public UsuarioBean() {	
-	   
+	    this.teste = "userrrr";
 		this.destinoSalvar = "usuarios";
 		this.usuarioRN = new UsuarioRN();
 		this.endereco = new Endereco();
@@ -184,6 +184,14 @@ public class UsuarioBean {
 
 	public void setEnumSexo(EnumSexo enumSexo) {
 		this.enumSexo = enumSexo;
+	}
+
+	public String getTeste() {
+		return teste;
+	}
+
+	public void setTeste(String teste) {
+		this.teste = teste;
 	}
 
 	

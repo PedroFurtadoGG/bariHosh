@@ -25,22 +25,11 @@ public class GrupoProduto {
 	@Enumerated(EnumType.STRING)
 	private EnumTipoProduto tipoproduto;
 	
-	@OneToMany(mappedBy="produto", cascade = CascadeType.ALL ,fetch=FetchType.LAZY,targetEntity = Produto.class)  
+	@OneToMany(mappedBy="grupoProduto", cascade = CascadeType.ALL ,fetch=FetchType.LAZY,targetEntity = Produto.class)  
 	private List<Produto> produtos;
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
-	@JoinColumn(name = "id_saldoEstoque", nullable = false)
-	@NotNull
-	private SaldoEstoque saldoEstoque;
 	
 	
-	public SaldoEstoque getSaldoEstoque() {
-		return saldoEstoque;
-	}
-
-	public void setSaldoEstoque(SaldoEstoque saldoEstoque) {
-		this.saldoEstoque = saldoEstoque;
-	}
+	
 
 	public Long getIdGrupoProduto() {
 		return idGrupoProduto;
@@ -71,8 +60,7 @@ public class GrupoProduto {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((idGrupoProduto == null) ? 0 : idGrupoProduto.hashCode());
-		result = prime * result + ((produtos == null) ? 0 : produtos.hashCode());
-		result = prime * result + ((saldoEstoque == null) ? 0 : saldoEstoque.hashCode());
+		result = prime * result + ((produtos == null) ? 0 : produtos.hashCode());		
 		result = prime * result + ((tipoproduto == null) ? 0 : tipoproduto.hashCode());
 		return result;
 	}
@@ -96,11 +84,7 @@ public class GrupoProduto {
 				return false;
 		} else if (!produtos.equals(other.produtos))
 			return false;
-		if (saldoEstoque == null) {
-			if (other.saldoEstoque != null)
-				return false;
-		} else if (!saldoEstoque.equals(other.saldoEstoque))
-			return false;
+		
 		if (tipoproduto != other.tipoproduto)
 			return false;
 		return true;

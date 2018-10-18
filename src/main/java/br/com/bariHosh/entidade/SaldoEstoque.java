@@ -1,31 +1,18 @@
 package br.com.bariHosh.entidade;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+@Entity
 public class SaldoEstoque {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_saldoEstoque;
-	private Integer nquantidadeEstoque;
 	private float saldoEstoque;
 	
 	
-	
-
-
-	public Integer getNquantidadeEstoque() {
-		return nquantidadeEstoque;
-	}
-
-
-	public void setNquantidadeEstoque(Integer nquantidadeEstoque) {
-		this.nquantidadeEstoque = nquantidadeEstoque;
-	}
-
-
 	public float getSaldoEstoque() {
 		return saldoEstoque;
 	}
@@ -53,8 +40,7 @@ public class SaldoEstoque {
 		final int prime = 31;
 		int result = 1;
 		
-		result = prime * result + ((id_saldoEstoque == null) ? 0 : id_saldoEstoque.hashCode());
-		result = prime * result + ((nquantidadeEstoque == null) ? 0 : nquantidadeEstoque.hashCode());
+		result = prime * result + ((id_saldoEstoque == null) ? 0 : id_saldoEstoque.hashCode());		
 		result = prime * result + Float.floatToIntBits(saldoEstoque);
 		return result;
 	}
@@ -73,12 +59,7 @@ public class SaldoEstoque {
 			if (other.id_saldoEstoque != null)
 				return false;
 		} else if (!id_saldoEstoque.equals(other.id_saldoEstoque))
-			return false;
-		if (nquantidadeEstoque == null) {
-			if (other.nquantidadeEstoque != null)
-				return false;
-		} else if (!nquantidadeEstoque.equals(other.nquantidadeEstoque))
-			return false;
+			return false;		
 		if (Float.floatToIntBits(saldoEstoque) != Float.floatToIntBits(other.saldoEstoque))
 			return false;
 		return true;

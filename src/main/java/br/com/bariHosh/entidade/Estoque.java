@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,6 +31,10 @@ public class Estoque implements Serializable  {
 	private Produto produto;
 
 	private Integer qtd_produto;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_saldoEstoque", nullable = false)
+	private SaldoEstoque saldoEstoque;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "estoque")
 	private List<Log_Estoque> movimentacao;
@@ -107,6 +112,14 @@ public class Estoque implements Serializable  {
 		} else if (!qtd_produto.equals(other.qtd_produto))
 			return false;
 		return true;
+	}
+
+	public SaldoEstoque getSaldoEstoque() {
+		return saldoEstoque;
+	}
+
+	public void setSaldoEstoque(SaldoEstoque saldoEstoque) {
+		this.saldoEstoque = saldoEstoque;
 	}
 
 }
