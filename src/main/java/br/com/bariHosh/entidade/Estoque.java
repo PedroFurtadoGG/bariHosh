@@ -26,7 +26,7 @@ public class Estoque implements Serializable  {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_estoque;
 
-	@OneToMany(mappedBy = "estoque", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Produto.class)
+	@OneToMany(mappedBy = "estoque_produto", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Produto.class)
 	private List<Produto> produtos;	
 	
 	@Temporal(TemporalType.DATE)

@@ -11,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name ="produto")
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -53,12 +55,12 @@ public class Produto implements Serializable {
 	private Estoque estoque_produto;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false, precision = 10, scale = 2)
-	@NotNull
+//	@Column(nullable = false, precision = 10, scale = 2)
+//	@NotNull
 	private Date data_criacao;
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false, precision = 10, scale = 2)
-	@NotNull
+//	@Column(nullable = false, precision = 10, scale = 2)
+//	@NotNull
 	private Date data_alteracao;
 
 	public Long getId_produto() {
