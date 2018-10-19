@@ -3,6 +3,7 @@ package br.com.bariHosh.entidade;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -31,7 +33,7 @@ public class Log_Estoque  implements Serializable  {
 	@JoinColumn(name = "id_estoque", nullable = false)
 	private Estoque estoque;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
 	@JoinColumn(name = "id_usuariomovimentador", nullable = false)
 	private Usuario usuario_movimentador;
 
