@@ -7,16 +7,14 @@ import javax.faces.bean.RequestScoped;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.UsuarioRN;
 
-@ManagedBean(name = "TopMenuGerenciadorBean")
+@ManagedBean(name = "topMenuBean")
 @RequestScoped
 public class TopMenuBean {
-	
-	
-	
+
 	private Usuario UsuarioAutenticado;
 	private String usuarioNome;
 	private UsuarioRN usuarioRN = new UsuarioRN();
-	
+
 	public TopMenuBean() {
 		PegarUsuarioAutenticado();
 		this.usuarioNome = UsuarioAutenticado.getPessoa().getNome();
@@ -24,30 +22,28 @@ public class TopMenuBean {
 
 	@PostConstruct
 	public void init() {
-		
-		
+
 	}
-	
+
 	public String salvar() {
-		
+
 		return "";
 	}
-	
+
 	public String excluir() {
-		
-		
+
 		return null;
 	}
-	
+
 	public String editar() {
-		
-	return null;
+
+		return null;
 	}
-	
-     public void PegarUsuarioAutenticado() {
-    	 this.setUsuarioAutenticado(usuarioRN.buscarPorUsuarioLogado());
-    	 
-     }
+
+	public void PegarUsuarioAutenticado() {
+		this.setUsuarioAutenticado(usuarioRN.buscarPorUsuarioLogado());
+
+	}
 
 	public Usuario getUsuarioAutenticado() {
 		return UsuarioAutenticado;
@@ -64,6 +60,5 @@ public class TopMenuBean {
 	public void setUsuarioNome(String usuarioNome) {
 		this.usuarioNome = usuarioNome;
 	}
-	
 
 }
