@@ -59,11 +59,11 @@
 											<div class="col-md-10">
 												<label><span style="color: red"> * </span>Nome</label>
 												<h:inputText id="nome" value="#{marcaBean.marca.nome}"
-													size="30" maxlength="30" a:required="true"
+													size="70" maxlength="70" a:required="true"
 													requiredMessage="Informe o nome da marca!"
 													class="form-control"
 													a:placeholder="Informe seu Nome Completo">
-													<f:validateLength minimum="10" maximum="30" />
+													<f:validateLength minimum="10" maximum="70" />
 												</h:inputText>
 											</div>
 
@@ -73,8 +73,6 @@
 											<div class="col-md-10">
 												<label><span style="color: red"> * </span>Razao
 													Social do Fabricante:</label>
-
-
 												<h:selectOneMenu class="form-control"
 													value="#{marcaBean.marca.fabricante}"
 													requiredMessage="Informe a razao social da fabricante!"
@@ -82,7 +80,6 @@
 													<f:selectItem itemLabel="Selecione..." />
 													<f:selectItems value="#{marcaBean.listaFab}" var="fab"
 														itemLabel="#{fab.razaoSocial}" itemValue="#{fab}" />
-
 												</h:selectOneMenu>
 											</div>
 										</div>
