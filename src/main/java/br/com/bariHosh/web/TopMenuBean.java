@@ -33,11 +33,7 @@ public class TopMenuBean {
 		return "";
 	}
 	
-	public String excluir() {
-		
-		
-		return null;
-	}
+	
 	
 	public String editar() {
 		

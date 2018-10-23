@@ -17,24 +17,23 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "estoque")
-public class Estoque implements Serializable  {
+public class Estoque implements Serializable {
 
-	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_estoque;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_produto", nullable = false)
-	private Produto produto;
-
+	private boolean ativo;
 	private Integer qtd_produto;
 	
+
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_saldoEstoque", nullable = false)
 	private SaldoEstoque saldoEstoque;
+	
+	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "estoque")
+	private List<Produto> produtos;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "estoque")
 	private List<Log_Estoque> movimentacao;
@@ -47,12 +46,12 @@ public class Estoque implements Serializable  {
 		this.id_estoque = id_estoque;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public boolean isAtivo() {
+		return ativo;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	public Integer getQtd_produto() {
@@ -61,6 +60,24 @@ public class Estoque implements Serializable  {
 
 	public void setQtd_produto(Integer qtd_produto) {
 		this.qtd_produto = qtd_produto;
+	}
+
+	
+
+	public SaldoEstoque getSaldoEstoque() {
+		return saldoEstoque;
+	}
+
+	public void setSaldoEstoque(SaldoEstoque saldoEstoque) {
+		this.saldoEstoque = saldoEstoque;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	public List<Log_Estoque> getMovimentacao() {
@@ -75,10 +92,12 @@ public class Estoque implements Serializable  {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((id_estoque == null) ? 0 : id_estoque.hashCode());
-		result = prime * result + ((movimentacao == null) ? 0 : movimentacao.hashCode());
-		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
+		result = prime * result + ((movimentacao == null) ? 0 : movimentacao.hashCode());	
+		result = prime * result + ((produtos == null) ? 0 : produtos.hashCode());
 		result = prime * result + ((qtd_produto == null) ? 0 : qtd_produto.hashCode());
+		result = prime * result + ((saldoEstoque == null) ? 0 : saldoEstoque.hashCode());
 		return result;
 	}
 
@@ -91,6 +110,8 @@ public class Estoque implements Serializable  {
 		if (getClass() != obj.getClass())
 			return false;
 		Estoque other = (Estoque) obj;
+		if (ativo != other.ativo)
+			return false;
 		if (id_estoque == null) {
 			if (other.id_estoque != null)
 				return false;
@@ -100,26 +121,25 @@ public class Estoque implements Serializable  {
 			if (other.movimentacao != null)
 				return false;
 		} else if (!movimentacao.equals(other.movimentacao))
-			return false;
-		if (produto == null) {
-			if (other.produto != null)
+			return false;		
+		if (produtos == null) {
+			if (other.produtos != null)
 				return false;
-		} else if (!produto.equals(other.produto))
+		} else if (!produtos.equals(other.produtos))
 			return false;
 		if (qtd_produto == null) {
 			if (other.qtd_produto != null)
 				return false;
 		} else if (!qtd_produto.equals(other.qtd_produto))
 			return false;
+		if (saldoEstoque == null) {
+			if (other.saldoEstoque != null)
+				return false;
+		} else if (!saldoEstoque.equals(other.saldoEstoque))
+			return false;
 		return true;
 	}
 
-	public SaldoEstoque getSaldoEstoque() {
-		return saldoEstoque;
-	}
-
-	public void setSaldoEstoque(SaldoEstoque saldoEstoque) {
-		this.saldoEstoque = saldoEstoque;
-	}
+	
 
 }

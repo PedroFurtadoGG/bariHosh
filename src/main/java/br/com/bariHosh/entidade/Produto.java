@@ -56,17 +56,14 @@ public class Produto implements Serializable {
 	@NotNull
 	private Date data_alteracao;
 	
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_grupoProduto", nullable = false)	
     private GrupoProduto  grupoProduto;
 	
-	public GrupoProduto getGrupoProduto() {
-		return grupoProduto;
-	}
-
-	public void setGrupoProduto(GrupoProduto grupoProduto) {
-		this.grupoProduto = grupoProduto;
-	}
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_estoque", nullable = false)	
+    private Estoque estoque;
 
 	public Long getId_produto() {
 		return id_produto;
@@ -82,14 +79,6 @@ public class Produto implements Serializable {
 
 	public void setCodigo_barras(String codigo_barras) {
 		this.codigo_barras = codigo_barras;
-	}
-
-	public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
 	}
 
 	public String getNome() {
@@ -148,6 +137,14 @@ public class Produto implements Serializable {
 		this.categoria = categoria;
 	}
 
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}
+
 	public Marca getMarca_produto() {
 		return marca_produto;
 	}
@@ -172,6 +169,22 @@ public class Produto implements Serializable {
 		this.data_alteracao = data_alteracao;
 	}
 
+	public GrupoProduto getGrupoProduto() {
+		return grupoProduto;
+	}
+
+	public void setGrupoProduto(GrupoProduto grupoProduto) {
+		this.grupoProduto = grupoProduto;
+	}
+
+	public Estoque getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -182,6 +195,7 @@ public class Produto implements Serializable {
 		result = prime * result + ((data_alteracao == null) ? 0 : data_alteracao.hashCode());
 		result = prime * result + ((data_criacao == null) ? 0 : data_criacao.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((estoque == null) ? 0 : estoque.hashCode());
 		result = prime * result + ((fornecedor == null) ? 0 : fornecedor.hashCode());
 		result = prime * result + ((grupoProduto == null) ? 0 : grupoProduto.hashCode());
 		result = prime * result + ((id_produto == null) ? 0 : id_produto.hashCode());
@@ -229,6 +243,11 @@ public class Produto implements Serializable {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
+		if (estoque == null) {
+			if (other.estoque != null)
+				return false;
+		} else if (!estoque.equals(other.estoque))
+			return false;
 		if (fornecedor == null) {
 			if (other.fornecedor != null)
 				return false;
@@ -271,6 +290,7 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
+	
+	
 
 }
