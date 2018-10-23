@@ -62,6 +62,18 @@ public class Produto implements Serializable {
 //	@Column(nullable = false, precision = 10, scale = 2)
 //	@NotNull
 	private Date data_alteracao;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_grupoProduto", nullable = false)	
+    private GrupoProduto  grupoProduto;
+	
+	public GrupoProduto getGrupoProduto() {
+		return grupoProduto;
+	}
+
+	public void setGrupoProduto(GrupoProduto grupoProduto) {
+		this.grupoProduto = grupoProduto;
+	}
 
 	public Long getId_produto() {
 		return id_produto;
@@ -187,6 +199,7 @@ public class Produto implements Serializable {
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((estoque_produto == null) ? 0 : estoque_produto.hashCode());
 		result = prime * result + ((fornecedor == null) ? 0 : fornecedor.hashCode());
+		result = prime * result + ((grupoProduto == null) ? 0 : grupoProduto.hashCode());
 		result = prime * result + ((id_produto == null) ? 0 : id_produto.hashCode());
 		result = prime * result + ((marca_produto == null) ? 0 : marca_produto.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
@@ -242,6 +255,11 @@ public class Produto implements Serializable {
 				return false;
 		} else if (!fornecedor.equals(other.fornecedor))
 			return false;
+		if (grupoProduto == null) {
+			if (other.grupoProduto != null)
+				return false;
+		} else if (!grupoProduto.equals(other.grupoProduto))
+			return false;
 		if (id_produto == null) {
 			if (other.id_produto != null)
 				return false;
@@ -276,5 +294,6 @@ public class Produto implements Serializable {
 	}
 	
 	
+
 
 }

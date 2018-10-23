@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,6 +34,10 @@ public class Estoque implements Serializable  {
 	private Date dt_validade_lote;
 
 	private Integer qtd_produto;
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_saldoEstoque", nullable = false)
+	private SaldoEstoque saldoEstoque;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "estoque")
 	private List<Log_Estoque> movimentacao;
@@ -127,6 +132,12 @@ public class Estoque implements Serializable  {
 		return true;
 	}
 
-	
+	public SaldoEstoque getSaldoEstoque() {
+		return saldoEstoque;
+	}
+
+	public void setSaldoEstoque(SaldoEstoque saldoEstoque) {
+		this.saldoEstoque = saldoEstoque;
+	}
 
 }

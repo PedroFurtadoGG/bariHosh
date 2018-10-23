@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="bookmark" href="favicon_16.ico" />
+	<h:outputStylesheet name="css/site.min.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
+		rel='stylesheet' type='text/css' />
+	<h:outputScript name="js/site.min.js" />
+	<title>Usuários</title>
+</h:head>
+<h:body>
+	<ui:insert name="header">
+		<ui:include src="/restrito/common/top-menu.xhtml" />
+	</ui:insert>
+	<div class="container-fluid">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<ui:insert name="sidebar-menu">
+				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
+			</ui:insert>
+			<div class="col-xs-12 col-sm-9 content">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Clientes</h3>
+					</div>
+					<div class="panel-body">
+						<div class="content-row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title">
+										<b>Cadastro de Clientes</b>
+									</div>
+									<div class="panel-options">
+										<a class="bg" data-target="#sample-modal-dialog-1"
+											data-toggle="modal" href="#sample-modal"><i
+											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
+											class="entypo-down-open"></i></a> <a data-rel="close"
+											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									<h:form id="cadastro" class="form-horizontal" name="cadastro">
+										<ui:insert name="messages">
+											<ui:include src="/restrito/common/messages.xhtml" />
+										</ui:insert>
+										<h:inputHidden
+											value="#{clienteBean.cliente.pessoa.endereco.id_endereco}" />
+										<h:inputHidden value="#{clienteBean.cliente.id_cliente}" />
+										<h:inputHidden value="#{clienteBean.cliente.pessoa.id_pessoa}" />
+										<h:inputHidden value="#{clienteBean.cliente.ativo}" />
+										<h:inputHidden value="#{clienteBean.destinoSalvar}" />
+										<div class="form-group">
+											<div class="col-md-8">
+												<label><span style="color: red"> * </span>Nome</label>
+												<h:inputText id="nome"
+													value="#{clienteBean.cliente.pessoa.nome}" size="30"
+													maxlength="30" a:required="true"
+													requiredMessage="Por Favor informe seu nome"
+													class="form-control"
+													a:placeholder="Informe seu Nome Completo">
+													<f:validateLength minimum="10" maximum="30" />
+												</h:inputText>
+											</div>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Sexo</label>
+												<h:selectOneRadio value="#{clienteBean.cliente.pessoa.sexo}"
+													required="true" class="form-control" a:required="true">
+													<f:selectItems value="#{usuarioBean.enumSexo}" var="sexo"
+														itemLabel="#{sexo.chave}" itemValue="#{sexo}" />
+												</h:selectOneRadio>
+											</div>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>CPF</label>
+												<h:inputText id="cpf"
+													value="#{clienteBean.cliente.pessoa.cpf}"  maxlength="14" 
+													a:required="true" class="form-control"
+													onkeyup="mascara(this, validaCPF);"
+													a:placeholder="Insira seu CPF" name="cpf"
+													validatorMessage="Cpf Invalido">
+													<f:validateRegex
+														pattern="[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}" />
+												</h:inputText>
+											</div>
+											<script>
+												function mascara(o, f) {
+													obj = o
+													fun = f
+													setTimeout("execmascara()",
+															1)
+												}
+												function execmascara() {
+													obj.value = fun(obj.value)
+												}
+												function validaCPF(v) {
+													v = v.replace(/\D/g, "");
+													v = v
+															.replace(
+																	/(\d{3})(\d{3})(\d{3})(\d{2})/g,
+																	"$1.$2.$3-$4");
+													return v;
+												}
+											</script>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>RG</label>
+												<h:inputText id="rg"
+													value="#{clienteBean.cliente.pessoa.rg}" size="12"
+													required="true" class="form-control"
+													a:placeholder="Insira seu RG" a:required="true" />
+											</div>
+											<div class="col-md-4">
+												<label><span style="color: red"> * </span>Data de
+													Nascimento </label>
+												<h:inputText id="nascimento" a:type="date"
+													value="#{clienteBean.cliente.pessoa.dt_nascimento}"
+													a:required="true" class="form-control">
+													<f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
+														timeZone="America/Sao_Paulo" />
+												</h:inputText>
+											</div>
+										</div>
+										
+										<span style="color: red"> (*) São Campos Obrigatórios </span><br/><br/>
+										<div class="row">
+											<div class="col-md-3">
+												<h:commandButton action="#{clienteBean.salvar}"
+													class="btn btn-info btn-block" a:type="submit"
+													value="Salvar" />
+											</div>
+											<div class="col-md-3">
+												<h:commandButton action="#{clienteBean.novo}"
+													class="btn btn-warning btn-block" value="Limpar" />
+											</div>
+										</div>
+									</h:form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+<ui:insert name="footer">
+	<ui:include src="/restrito/common/footer.xhtml" />
+</ui:insert>
+</html>
