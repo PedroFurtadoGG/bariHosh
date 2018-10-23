@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="bookmark" href="favicon_16.ico" />
+	<h:outputStylesheet name="css/site.min.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
+		rel='stylesheet' type='text/css' />
+	<h:outputScript name="js/site.min.js" />
+	<title>Produtos</title>
+</h:head>
+<h:body>
+	<ui:insert name="header">
+		<ui:include src="/restrito/common/top-menu.xhtml" />
+	</ui:insert>
+	<div class="container-fluid">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<ui:insert name="sidebar-menu">
+				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
+			</ui:insert>
+
+
+			<div class="col-xs-12 col-sm-9 content">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Produtos</h3>
+					</div>
+					<div class="panel-body">
+						<div class="content-row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title">
+										<b>Cadastro de Produto</b>
+									</div>
+									<div class="panel-options">
+										<a class="bg" data-target="#sample-modal-dialog-1"
+											data-toggle="modal" href="#sample-modal"><i
+											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
+											class="entypo-down-open"></i></a> <a data-rel="close"
+											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									<h:form id="cadastro" class="form-horizontal">
+										<ui:insert name="messages">
+											<ui:include src="/restrito/common/messages.xhtml" />
+										</ui:insert>
+										<h:inputHidden value="#{produtoBean.produto.id_produto}" />
+										<h:inputHidden value="#{produtoBean.produto.estoque.id_estoque}" />
+										<h:inputHidden value="#{produtoBean.produto.marca_produto.id_marca}" />
+										<!-- <h:inputHidden value="#{produtoBean.marca.fabricante.id_fabricante}" /> -->
+										<h:inputHidden value="#{produtoBean.produto.fornecedor.id_fornecedor}" />
+										<h:inputHidden value="#{produtoBean.produto.categoria.id_categoria}"/>
+										<h:inputHidden value="#{produtoBean.usuario.id_usuario}"/>
+										<h:inputHidden value="#{produtoBean.produto.ativo}"/>
+										<h:inputHidden value="#{produtoBean.destinoSalvar}"/>
+
+
+										<div class="form-group">
+											<div class="col-md-10">
+												<label><span style="color: red"> * </span>Nome</label>
+												<h:inputText id="nome" value="#{produtoBean.produto.nome}" size="30" maxlength="30" a:required="true"
+													requiredMessage="Informe o nome do Produto"
+													class="form-control"
+													a:placeholder="Informe o nome do produto">
+													<f:validateLength minimum="1" maximum="50" />
+												</h:inputText>
+											</div>
+
+										</div>
+										<div class="form-group">
+
+											<div class="col-md-10">
+												<label><span style="color: red"> * </span>Descrição</label>
+												<h:inputText id="descricao" value="#{produtoBean.produto.descricao}" size="50" maxlength="80" a:required="true"
+													requiredMessage="Informe a descrição do produto"
+													class="form-control"
+													a:placeholder="Informe a descrição do produto">
+													<f:validateLength minimum="1" maximum="80" />
+												</h:inputText>
+											</div>
+										</div>
+										
+										<div class="form-group">
+
+											<div class="col-md-10">
+												<label><span style="color: red"> * </span>Valor de Entrada</label>
+												<h:inputText id="valorEntrada" value="#{produtoBean.produto.valorEntrada}"	maxlength="12" size="12" a:type="number" a:required="true" 
+													requiredMessage="Informe o valor de aquisição do produto"
+													class="form-control" >
+													<f:validateLength minimum="1" maximum="12" />
+												</h:inputText>
+											</div>
+										</div>
+										
+										<div class="form-group">
+
+											<div class="col-md-10">
+												<label><span style="color: red"> * </span>Valor de Saida (Venda)</label>
+												<h:inputText id="valorSaida" value="#{produtoBean.produto.valorSaida}"	maxlength="12" size="12" a:type="number" a:required="true" 
+													requiredMessage="Informe o valor de venda do produto"
+													class="form-control" >
+													<f:validateLength minimum="1" maximum="12" />
+												</h:inputText>
+											</div>
+										</div>
+										
+										<div class="form-group">
+
+											<div class="col-md-10">
+												<label><span style="color: red"> * </span>Código de Barras</label>
+												<h:inputText id="codigoBarras" value="#{produtoBean.produto.codigo_barras}" maxlength="13"  a:required="true" 
+													requiredMessage="Informe o numero do codigo de barras"
+													class="form-control" >
+													<f:validateLength minimum="13" maximum="13"/>
+												</h:inputText>
+											</div>
+										</div>
+										
+										<!-- ESTOQUE -->
+										
+										<div class="form-group">
+											<div class="col-md-4">
+											
+												<label><span style="color: red"> * </span>Data de Validade Lote</label>
+												<h:inputText id="validade" a:type="date"	value="#{produtoBean.produto.estoque.dt_validade}"
+													a:required="true" class="form-control">
+													
+													<f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR" timeZone="America/Sao_Paulo" />
+												</h:inputText>
+												
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div class="col-md-10">
+											
+												<label><span style="color: red"> * </span>Quantidade</label>
+												<h:inputText id="quantidade" value="#{produtoBean.produto.estoque.qtd_produto}"	size="10" a:type="number" a:required="true" 
+													requiredMessage="Informe o valor de aquisição do produto"
+													class="form-control" >
+													<f:convertNumber minIntegerDigits="1"  maxIntegerDigits="9" />
+												</h:inputText>
+												
+											</div>
+										</div>
+										
+										
+										
+										<!-- FIM ESTOQUE -->
+										
+										
+										<div class="form-group">
+
+											<div class="col-md-10">
+												<label><span style="color: red"> * </span>Categoria do Produto</label>
+
+
+												<h:selectOneMenu class="form-control" value="#{produtoBean.produto.categoria}"
+													requiredMessage="Informe a categoria do Produto!" required="true" converter="converterCategoriaProduto">
+													
+													<f:selectItem itemLabel="Selecione..." />
+													<f:selectItems value="#{produtoBean.listaCategorias}" var="categoria"
+														itemLabel="#{categoria.descricao}" itemValue="#{categoria}" />
+
+												</h:selectOneMenu>
+											</div>
+										</div>
+										
+										<div class="form-group">
+
+											<div class="col-md-10">
+												<label><span style="color: red"> * </span>Marca</label>
+
+
+												<h:selectOneMenu class="form-control" value="#{produtoBean.produto.marca_produto}"
+													requiredMessage="Informe a marca do produto!" required="true" converter="converterMarca">
+													
+													<f:selectItem itemLabel="Selecione..." />
+													<f:selectItems value="#{produtoBean.listaMarcas}" var="marca"
+														itemLabel="#{marca.nome}" itemValue="#{marca}" />
+
+												</h:selectOneMenu>
+											</div>
+										</div>
+										
+										<div class="form-group">
+
+											<div class="col-md-10">
+												<label><span style="color: red"> * </span>Fornecedor</label>
+
+
+												<h:selectOneMenu class="form-control" value="#{produtoBean.produto.fornecedor}"
+													requiredMessage="Informe o fornecedor do produto!" required="true" converter="converterFornecedor">
+													
+													<f:selectItem itemLabel="Selecione..." />
+													<f:selectItems value="#{produtoBean.listaFornecedor}" var="forn"
+														itemLabel="#{forn.pessoa.nome}" itemValue="#{forn}" />
+
+												</h:selectOneMenu>
+											</div>
+										</div>
+										
+
+										<div class="row">
+
+											<span style="color: red"> (*) São Campos Obrigatórios
+											</span><br />
+											<br />
+											<div class="row">
+												<div class="col-md-3">
+													<h:commandButton action="#{produtoBean.salvar}"
+														class="btn btn-info btn-block" a:type="submit"
+														value="Salvar" />
+												</div>
+												<div class="col-md-3">
+													<h:commandButton action="#{produtoBean.novo}"
+														class="btn btn-warning btn-block" value="Limpar" />
+												</div>
+											</div>
+
+										</div>
+									</h:form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+<ui:insert name="footer">
+	<ui:include src="/restrito/common/footer.xhtml" />
+</ui:insert>
+</html>

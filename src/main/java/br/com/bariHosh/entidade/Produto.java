@@ -11,11 +11,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name ="produto")
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -30,9 +32,10 @@ public class Produto implements Serializable {
 	private Float valorEntrada;
 	private Float valorSaida;
 	private boolean ativo;
+	
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_usuario", nullable = false)
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario_criador;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -46,14 +49,18 @@ public class Produto implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_marca_produto", nullable = false)
 	private Marca marca_produto;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_estoque_produto", nullable = false)
+	private Estoque estoque_produto;
 
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false, precision = 10, scale = 2)
-	@NotNull
+//	@Column(nullable = false, precision = 10, scale = 2)
+//	@NotNull
 	private Date data_criacao;
 	@Temporal(TemporalType.DATE)
-	@Column(nullable = false, precision = 10, scale = 2)
-	@NotNull
+//	@Column(nullable = false, precision = 10, scale = 2)
+//	@NotNull
 	private Date data_alteracao;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -172,6 +179,14 @@ public class Produto implements Serializable {
 		this.data_alteracao = data_alteracao;
 	}
 
+	public Estoque getEstoque() {
+		return estoque_produto;
+	}
+
+	public void setEstoque(Estoque estoque) {
+		this.estoque_produto = estoque;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -182,6 +197,7 @@ public class Produto implements Serializable {
 		result = prime * result + ((data_alteracao == null) ? 0 : data_alteracao.hashCode());
 		result = prime * result + ((data_criacao == null) ? 0 : data_criacao.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
+		result = prime * result + ((estoque_produto == null) ? 0 : estoque_produto.hashCode());
 		result = prime * result + ((fornecedor == null) ? 0 : fornecedor.hashCode());
 		result = prime * result + ((grupoProduto == null) ? 0 : grupoProduto.hashCode());
 		result = prime * result + ((id_produto == null) ? 0 : id_produto.hashCode());
@@ -229,6 +245,11 @@ public class Produto implements Serializable {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
+		if (estoque_produto == null) {
+			if (other.estoque_produto != null)
+				return false;
+		} else if (!estoque_produto.equals(other.estoque_produto))
+			return false;
 		if (fornecedor == null) {
 			if (other.fornecedor != null)
 				return false;
@@ -271,6 +292,8 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
+	
+	
 
 
 }
