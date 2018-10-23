@@ -35,7 +35,7 @@ public class Produto implements Serializable {
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_usuario", nullable = false)
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario_criador;
 
 	@ManyToOne(fetch = FetchType.LAZY)
