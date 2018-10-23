@@ -30,4 +30,12 @@ public class EstoqueDAOHibernate extends GenericoDAOHibernate<Estoque> implement
 		return null;
 	}
 
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
+	}
+
 }
