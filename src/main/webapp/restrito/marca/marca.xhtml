@@ -26,8 +26,6 @@
 			<ui:insert name="sidebar-menu">
 				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
 			</ui:insert>
-
-
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -54,7 +52,6 @@
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
 										<h:inputHidden value="#{marcaBean.marca.id_marca}" />
-
 										<div class="form-group">
 											<div class="col-md-10">
 												<label><span style="color: red"> * </span>Nome</label>
@@ -63,17 +60,11 @@
 													requiredMessage="Informe o nome da marca!"
 													class="form-control"
 													a:placeholder="Informe seu Nome Completo">
-<<<<<<< src/main/webapp/restrito/marca/marca.xhtml
-													<f:validateLength minimum="1" maximum="30" />
-=======
 													<f:validateLength minimum="10" maximum="70" />
->>>>>>> src/main/webapp/restrito/marca/marca.xhtml
 												</h:inputText>
 											</div>
-
 										</div>
 										<div class="form-group">
-
 											<div class="col-md-10">
 												<label><span style="color: red"> * </span>Razao
 													Social do Fabricante:</label>
@@ -87,13 +78,9 @@
 												</h:selectOneMenu>
 											</div>
 										</div>
-										
-
 										<div class="row">
-
 											<span style="color: red"> (*) São Campos Obrigatórios
-											</span><br />
-											<br />
+											</span><br /> <br />
 											<div class="row">
 												<div class="col-md-3">
 													<h:commandButton action="#{marcaBean.salvar}"
@@ -105,10 +92,8 @@
 														class="btn btn-warning btn-block" value="Limpar" />
 												</div>
 											</div>
-
 										</div>
 									</h:form>
-
 								</div>
 							</div>
 						</div>
