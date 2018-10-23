@@ -3,7 +3,6 @@ package br.com.bariHosh.entidade;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,10 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name ="produto")
+@Table(name = "produto")
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -32,7 +30,6 @@ public class Produto implements Serializable {
 	private Float valorEntrada;
 	private Float valorSaida;
 	private boolean ativo;
-	
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
@@ -49,24 +46,24 @@ public class Produto implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_marca_produto", nullable = false)
 	private Marca marca_produto;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_estoque_produto", nullable = false)
 	private Estoque estoque_produto;
 
 	@Temporal(TemporalType.DATE)
-//	@Column(nullable = false, precision = 10, scale = 2)
-//	@NotNull
+	// @Column(nullable = false, precision = 10, scale = 2)
+	// @NotNull
 	private Date data_criacao;
 	@Temporal(TemporalType.DATE)
-//	@Column(nullable = false, precision = 10, scale = 2)
-//	@NotNull
+	// @Column(nullable = false, precision = 10, scale = 2)
+	// @NotNull
 	private Date data_alteracao;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_grupoProduto", nullable = false)	
-    private GrupoProduto  grupoProduto;
-	
+	@JoinColumn(name = "id_grupoProduto", nullable = false)
+	private GrupoProduto grupoProduto;
+
 	public GrupoProduto getGrupoProduto() {
 		return grupoProduto;
 	}
@@ -292,8 +289,5 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-
 
 }
