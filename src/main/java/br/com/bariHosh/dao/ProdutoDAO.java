@@ -9,5 +9,6 @@ public interface ProdutoDAO {
 	public Produto pegaProdutoPeloCodBarras(String codiBarras);
 	public List<Produto> listaDeprodutosEmEstoque();
 	public Integer 	quantidadeEmEstoque();
+	public List<Produto> listaCompleta();
 
 }

@@ -23,7 +23,7 @@ public class FabricanteRN extends ManuseioPublico{
 				return true;
 			}else {
 				this.fabricanteDAO.atualizar(fab);
-				super.MessagesSucesso("Fabricante Salvo Com Sucesso!");
+				super.MessagesSucesso("Fabricante Atualizado Com Sucesso!");
 				return true;
 			}		
 

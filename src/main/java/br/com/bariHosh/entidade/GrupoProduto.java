@@ -1,6 +1,7 @@
 package br.com.bariHosh.entidade;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class GrupoProduto {
 	private EnumTipoProduto tipoproduto;
 	
 	@OneToMany(mappedBy="grupoProduto", cascade = CascadeType.ALL ,fetch=FetchType.LAZY,targetEntity = Produto.class)  
-	private List<Produto> produtos;
+	private Set<Produto> produtos;
 	
 	
 	
@@ -47,11 +48,11 @@ public class GrupoProduto {
 		this.tipoproduto = tipoproduto;
 	}
 
-	public List<Produto> getProdutos() {
+	public Set<Produto> getProdutos() {
 		return produtos;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
+	public void setProdutos(Set<Produto> produtos) {
 		this.produtos = produtos;
 	}
 

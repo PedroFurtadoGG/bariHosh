@@ -3,6 +3,8 @@ package br.com.bariHosh.entidade;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,9 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "produto")
@@ -46,22 +51,21 @@ public class Produto implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_marca_produto", nullable = false)
 	private Marca marca_produto;
-
-	@ManyToOne(fetch = FetchType.LAZY)
+	
+	@OneToOne(cascade=CascadeType.ALL)  	 
 	@JoinColumn(name = "id_estoque_produto", nullable = false)
-	private Estoque estoque_produto;
+	private Estoque estoque;
 
 	@Temporal(TemporalType.DATE)
-	// @Column(nullable = false, precision = 10, scale = 2)
-	// @NotNull
+	@Column(precision = 10, scale = 2)	
 	private Date data_criacao;
+	
 	@Temporal(TemporalType.DATE)
-	// @Column(nullable = false, precision = 10, scale = 2)
-	// @NotNull
+	@Column( precision = 10, scale = 2)	
 	private Date data_alteracao;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_grupoProduto", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_grupoProduto")
 	private GrupoProduto grupoProduto;
 
 	public GrupoProduto getGrupoProduto() {
@@ -177,11 +181,11 @@ public class Produto implements Serializable {
 	}
 
 	public Estoque getEstoque() {
-		return estoque_produto;
+		return estoque;
 	}
 
 	public void setEstoque(Estoque estoque) {
-		this.estoque_produto = estoque;
+		this.estoque = estoque;
 	}
 
 	@Override
@@ -194,7 +198,7 @@ public class Produto implements Serializable {
 		result = prime * result + ((data_alteracao == null) ? 0 : data_alteracao.hashCode());
 		result = prime * result + ((data_criacao == null) ? 0 : data_criacao.hashCode());
 		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
-		result = prime * result + ((estoque_produto == null) ? 0 : estoque_produto.hashCode());
+		result = prime * result + ((estoque == null) ? 0 : estoque.hashCode());
 		result = prime * result + ((fornecedor == null) ? 0 : fornecedor.hashCode());
 		result = prime * result + ((grupoProduto == null) ? 0 : grupoProduto.hashCode());
 		result = prime * result + ((id_produto == null) ? 0 : id_produto.hashCode());
@@ -242,10 +246,10 @@ public class Produto implements Serializable {
 				return false;
 		} else if (!descricao.equals(other.descricao))
 			return false;
-		if (estoque_produto == null) {
-			if (other.estoque_produto != null)
+		if (estoque == null) {
+			if (other.estoque != null)
 				return false;
-		} else if (!estoque_produto.equals(other.estoque_produto))
+		} else if (!estoque.equals(other.estoque))
 			return false;
 		if (fornecedor == null) {
 			if (other.fornecedor != null)

@@ -52,12 +52,14 @@
 										<ui:insert name="messages">
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
+							
 										<h:inputHidden
 											value="#{usuarioBean.usuario.pessoa.endereco.id_endereco}" />
 										<h:inputHidden value="#{usuarioBean.usuario.id_usuario}" />
 										<h:inputHidden value="#{usuarioBean.usuario.pessoa.id_pessoa}" />
 										<h:inputHidden value="#{usuarioBean.usuario.ativo}" />
 										<h:inputHidden value="#{usuarioBean.destinoSalvar}" />
+										
 										<div class="form-group">
 											<div class="col-md-8">
 												<label><span style="color: red"> * </span>Nome</label>
@@ -123,12 +125,12 @@
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Data de
 													Nascimento </label>
-												<h:inputText id="nascimento" a:type="date" a:maxlength="8"
+												<h:inputText id="nascimento" a:type="date" a:maxlength="10"
 													value="#{usuarioBean.usuario.pessoa.dt_nascimento}"
 													a:required="true" class="form-control">
 													<f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
 														timeZone="America/Sao_Paulo" />
-													<f:validateLength minimum="8" maximum="8" />
+													<f:validateLength minimum="10" />
 												</h:inputText>
 
 											</div>
@@ -146,7 +148,7 @@
 														a:placeholder="Por Favor, informe seu email. Ele servirá para acesso ao Sistema!!!">
 														<f:validateRegex
 															pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
-														<f:validateLength minimum="20" maximum="150" />
+														<f:validateLength minimum="13" maximum="150" />
 														<h:message for="email" />
 													</h:inputText>
 												</div>

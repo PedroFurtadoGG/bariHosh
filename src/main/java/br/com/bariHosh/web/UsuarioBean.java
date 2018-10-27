@@ -1,5 +1,6 @@
 package br.com.bariHosh.web;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -27,10 +28,10 @@ public class UsuarioBean {
 	private EnumPermissao enumpemrmissao;
 	private EnumSexo enumSexo;
 	private UsuarioRN usuarioRN;
-	private String teste;
+	
 
-	public UsuarioBean() {	
-	    this.teste = "userrrr";
+
+	public UsuarioBean() {		
 		this.destinoSalvar = "usuarios";
 		this.usuarioRN = new UsuarioRN();
 		this.endereco = new Endereco();
@@ -60,8 +61,8 @@ public class UsuarioBean {
 		return "/index";
 	}
 
-	public String editar() {
-		this.confirmarSenha = this.usuario.getSenha();	
+	public String editar() {	
+		
 		return "/restrito/usuario/usuario";
 
 	}
@@ -70,7 +71,7 @@ public class UsuarioBean {
 
 
 
-	public String salvar() {		
+	public String salvar() {	
 		if (!usuario.getSenha().equals(this.confirmarSenha)) {
 			ManuseioPublico.MessagesErro("A senha no foi confirmada corretamente!");
 			return null;
@@ -186,13 +187,9 @@ public class UsuarioBean {
 		this.enumSexo = enumSexo;
 	}
 
-	public String getTeste() {
-		return teste;
-	}
+	
 
-	public void setTeste(String teste) {
-		this.teste = teste;
-	}
+	
 
 	
 

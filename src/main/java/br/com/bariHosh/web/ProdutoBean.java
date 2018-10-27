@@ -1,5 +1,6 @@
 package br.com.bariHosh.web;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,20 +18,18 @@ import br.com.bariHosh.negocio.FornecedorRN;
 import br.com.bariHosh.negocio.MarcaRN;
 import br.com.bariHosh.negocio.ProdutoRN;
 
-@ManagedBean(name="produtoBean")
+@ManagedBean(name = "produtoBean")
 @RequestScoped
 public class ProdutoBean {
-	
+
 	private Produto produto = new Produto();
-	private  Marca marca = new Marca();
+	private Marca marca = new Marca();
 	private Fornecedor fornecedor = new Fornecedor();
 	private CategoriaProduto categoria = new CategoriaProduto();
 	private Usuario usuario = new Usuario();
 	private Estoque estoque = new Estoque();
-	private String destinoSalvar ;
-	
+	private String destinoSalvar;
 	private ProdutoRN produtoRN = new ProdutoRN();
-
 	private List<Produto> listaProdutos;
 	private List<Marca> listaMarcas;
 	private List<Fornecedor> listaFornecedor;
@@ -38,82 +37,49 @@ public class ProdutoBean {
 	private List<Usuario> listaUsuario;
 	private List<Estoque> listaEstoque;
 	
-	public ProdutoBean() {
-		this.destinoSalvar ="produtos";
-		this.produto = new Produto();
-		this.marca = new Marca();
-		this.fornecedor = new Fornecedor();
-		this.categoria = new CategoriaProduto();
-		this.usuario = new Usuario();
-		this.estoque = new Estoque();
-		
-		this.produto.setMarca_produto(marca);
-		this.produto.setFornecedor(fornecedor);
-		this.produto.setCategoria(categoria);
-		this.produto.setUsuario_criador(usuario);
-		this.produto.setEstoque(estoque);
+
+	public ProdutoBean() {		
+		this.destinoSalvar = "produtos";			
+		this.estoque.setProduto(this.produto);
+		this.produto.setMarca_produto(this.marca);
+		this.produto.setFornecedor(this.fornecedor);
+		this.produto.setCategoria(this.categoria);
+		this.produto.setUsuario_criador(this.usuario);
+		this.produto.setEstoque(this.estoque);
 		this.produto.setAtivo(true);
+		
 	}
-	
+
 	public String novo() {
+	
 		this.marca = new Marca();
 		this.fornecedor = new Fornecedor();
 		this.categoria = new CategoriaProduto();
 		this.usuario = new Usuario();
 		this.estoque = new Estoque();
-		
 		this.produto = new Produto();
-		
+		this.estoque.setProduto(produto);			
 		this.produto.setMarca_produto(marca);
 		this.produto.setFornecedor(fornecedor);
 		this.produto.setCategoria(categoria);
 		this.produto.setUsuario_criador(usuario);
 		this.produto.setEstoque(estoque);
-		
 		return "/restrito/produto/produto";
+	}
+
+	public String editar() {	
+		return "/restrito/produto/produto";
+	}
+
+	public String excluir() {
+		produtoRN.excluir(this.produto);
+		return null;
 
 	}
-	
-	@PostConstruct
-	public void init() {
-//		this.destinoSalvar = "produtos";
-//		this.marca = new Marca();
-//		this.fornecedor = new Fornecedor();
-//		this.categoria = new CategoriaProduto();
-//		this.usuario = new Usuario();
-//		this.estoque = new Estoque();
-//		
-//		this.produto = new Produto();
-//		
-//		this.produto.setMarca_produto(marca);
-//		this.produto.setFornecedor(fornecedor);
-//		this.produto.setCategoria(categoria);
-//		this.produto.setUsuario_criador(usuario);
-//		this.produto.setEstoque(estoque);
-		
-	}
-	
-	public String editar() {
-		this.produto.getMarca_produto();
-		this.produto.getFornecedor();
-		this.produto.getCategoria();
-		this.produto.getUsuario_criador();
-		this.produto.getEstoque();
-		
-		
-		return "/restrito/produto/produto";
-	}
-	
-	public String excluir(Produto produto) {
-		
-		produtoRN.excluir(produto);
-		return null;
-		
-	}
-	
-	public String salvar() {
-		if(this.produtoRN.salvar(produto)) {
-			return this.destinoSalvar ;
+
+	public String salvar() {		
+		if (this.produtoRN.salvar(this.produto)) {
+			return this.destinoSalvar;
 		}
 		return null;
 	}
@@ -174,10 +140,10 @@ public class ProdutoBean {
 		this.destinoSalvar = destinoSalvar;
 	}
 
-	public List<Produto> getLista() {
-		
-		if(this.listaProdutos ==null) {
-			this.listaProdutos=produtoRN.listar();
+	public List<Produto> getListaProdutos() {
+
+		if (this.listaProdutos == null) {
+			this.listaProdutos = produtoRN.listarCompleto();
 		}
 		return this.listaProdutos;
 	}
@@ -187,9 +153,9 @@ public class ProdutoBean {
 	}
 
 	public List<Marca> getListaMarcas() {
-		if(this.listaMarcas ==null) {
+		if (this.listaMarcas == null) {
 			MarcaRN marcaRN = new MarcaRN();
-			this.listaMarcas=marcaRN.listar();
+			this.listaMarcas = marcaRN.listar();
 		}
 		return this.listaMarcas;
 	}
@@ -199,9 +165,9 @@ public class ProdutoBean {
 	}
 
 	public List<Fornecedor> getListaFornecedor() {
-		if(this.listaFornecedor ==null) {
+		if (this.listaFornecedor == null) {
 			FornecedorRN fornecedorRN = new FornecedorRN();
-			this.listaFornecedor=fornecedorRN.listar();
+			this.listaFornecedor = fornecedorRN.listar();
 		}
 		return this.listaFornecedor;
 	}
@@ -211,8 +177,8 @@ public class ProdutoBean {
 	}
 
 	public List<CategoriaProduto> getListaCategorias() {
-		
-		if(this.listaCategorias == null) {
+
+		if (this.listaCategorias == null) {
 			CategoriaProdutoRN categoriaRN = new CategoriaProdutoRN();
 			this.listaCategorias = categoriaRN.listar();
 		}
@@ -238,11 +204,7 @@ public class ProdutoBean {
 	public void setListaEstoque(List<Estoque> listaEstoque) {
 		this.listaEstoque = listaEstoque;
 	}
-	
-	
-	
-	
-	
+
 	
 
 }

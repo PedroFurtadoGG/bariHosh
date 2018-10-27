@@ -59,6 +59,9 @@
 											value="#{fornecedorBean.fornecedor.pessoa.id_pessoa}" />
 										<h:inputHidden value="#{fornecedorBean.fornecedor.ativo}" />
 										<h:inputHidden value="#{fornecedorBean.destinoSalvar}" />
+										<h:inputHidden value="#{fornecedorBean.fornecedor.pessoa.dt_criacao}">
+											<f:convertDateTime pattern="yyyy-MM-dd"/>
+										</h:inputHidden>
 										<div class="form-group">
 											<div class="col-md-8">
 												<label><span style="color: red"> * </span>Nome

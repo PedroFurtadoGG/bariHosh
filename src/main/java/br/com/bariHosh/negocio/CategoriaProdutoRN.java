@@ -25,7 +25,7 @@ public class CategoriaProdutoRN extends ManuseioPublico{
 	            return true;
 			} else {
 				this.categoriaProdutoDao.atualizar(categoria);	
-				super.MessagesSucesso("Categoria Salvo Com Sucesso!");
+				super.MessagesSucesso("Categoria Atualizado Com Sucesso!");
 	            return true;
 			}
 			

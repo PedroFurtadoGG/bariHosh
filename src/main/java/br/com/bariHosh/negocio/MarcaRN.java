@@ -29,7 +29,7 @@ public class MarcaRN extends ManuseioPublico {
 			
 			} else {
 				this.marcaDAO.atualizar(marca);
-				super.MessagesSucesso("Marca Salvo Com Sucesso!");
+				super.MessagesSucesso("Marca Atualizado Com Sucesso!");
 				return true;
 				
 			}

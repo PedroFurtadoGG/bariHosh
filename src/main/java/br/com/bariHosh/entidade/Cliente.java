@@ -2,6 +2,7 @@ package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class Cliente implements Serializable {
 	private Pessoa pessoa;
 
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch=FetchType.LAZY ,targetEntity = Pedido.class)
-	private List<Pedido> pedidos;
+	private Set<Pedido> pedidos;
 
 	public Long getId_cliente() {
 		return id_cliente;
@@ -67,11 +68,11 @@ public class Cliente implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public List<Pedido> getPedidos() {
+	public Set<Pedido> getPedidos() {
 		return pedidos;
 	}
 
-	public void setPedidos(List<Pedido> pedidos) {
+	public void setPedidos(Set<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
 

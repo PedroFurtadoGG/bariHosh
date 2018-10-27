@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,7 +44,7 @@ public class Pedido implements Serializable {
 	private Usuario usuario;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, mappedBy = "pedido")
-	private List<ItemDoPedido> itensDoPedido;
+	private Set<ItemDoPedido> itensDoPedido;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pagamento", nullable = false)
@@ -60,7 +62,7 @@ public class Pedido implements Serializable {
 		setData(new Date());
 		setDesconto(BigDecimal.ZERO);
 		setValorTotal(BigDecimal.ZERO);
-		this.itensDoPedido = new ArrayList<>();
+		this.itensDoPedido = new HashSet<ItemDoPedido>();
 		this.pagamento = new Pagamento();
 	}
 
@@ -80,11 +82,11 @@ public class Pedido implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public List<ItemDoPedido> getItensDoPedido() {
+	public Set<ItemDoPedido> getItensDoPedido() {
 		return itensDoPedido;
 	}
 
-	public void setItensDoPedido(List<ItemDoPedido> itensDoPedido) {
+	public void setItensDoPedido(Set<ItemDoPedido> itensDoPedido) {
 		this.itensDoPedido = itensDoPedido;
 	}
 

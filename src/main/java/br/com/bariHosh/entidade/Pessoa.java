@@ -3,6 +3,7 @@ package br.com.bariHosh.entidade;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -45,11 +46,11 @@ public class Pessoa implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dt_alteracao;
 	
-    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL ,fetch=FetchType.LAZY ,targetEntity = Usuario.class)
-	private List<Usuario> usuarios ;
+    @OneToMany(mappedBy="pessoa",fetch=FetchType.LAZY ,targetEntity = Usuario.class)
+	private Set<Usuario> usuarios ;
     
-    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL ,fetch=FetchType.LAZY,targetEntity = Fornecedor.class)  
-   	private List<Fornecedor> fornecedores ;
+    @OneToMany(mappedBy="pessoa", fetch=FetchType.LAZY,targetEntity = Fornecedor.class)  
+   	private Set<Fornecedor> fornecedores ;
     
     
 	public Long getId_pessoa() {
@@ -152,21 +153,21 @@ public class Pessoa implements Serializable {
 		return serialVersionUID;
 	}
 	
-	public List<Usuario> getUsuarios() {
+	public Set<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(List<Usuario> usuarios) {
+	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 	
 	
 
-	public List<Fornecedor> getFornecedores() {
+	public Set<Fornecedor> getFornecedores() {
 		return fornecedores;
 	}
 
-	public void setFornecedores(List<Fornecedor> fornecedores) {
+	public void setFornecedores(Set<Fornecedor> fornecedores) {
 		this.fornecedores = fornecedores;
 	}
 	

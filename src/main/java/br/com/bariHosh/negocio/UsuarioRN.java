@@ -33,11 +33,10 @@ public class UsuarioRN extends ManuseioPublico {
 						usuario.setLogin(usuario.getPessoa().getEmail());
 						Usuario user = this.buscarPorLogin(usuario.getLogin());
 						if (!super.validaObjeto(user)) {
-							if (!super.validaObjeto(usuario.getId_usuario())) {
-								usuario.getPessoa().setDt_criacao(new Date());
+							if (!super.validaObjeto(usuario.getId_usuario())) {								
 								this.daoUsuario.salvar(usuario);
 							} else {
-								usuario.getPessoa().setDt_alteracao(new Date());
+							      usuario.getPessoa().setDt_alteracao(new Date());
 								this.daoUsuario.atualizar(usuario);
 							}
 							super.MessagesSucesso("Usuario Salvo Com Sucesso !");
