@@ -14,6 +14,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
+import br.com.bariHosh.entidade.Log_Estoque;
 import br.com.bariHosh.entidade.Usuario;
 
 public class ManuseioPublico {
@@ -133,5 +134,7 @@ public class ManuseioPublico {
 		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_FATAL, mensagem, null);
 		context.addMessage(null, facesMessage);
 	}
+	
+	
 
 }

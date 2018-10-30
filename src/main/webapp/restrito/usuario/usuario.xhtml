@@ -66,7 +66,7 @@
 												<h:inputText id="nome"
 													value="#{usuarioBean.usuario.pessoa.nome}" size="70"
 													maxlength="70" a:required="true"
-													requiredMessage="Por Favor informe seu nome"
+													requiredMessage="Por Favor informe seu Nome"
 													class="form-control"
 													a:placeholder="Informe seu Nome Completo">
 													<f:validateLength minimum="10" maximum="70" />
@@ -145,7 +145,7 @@
 														value="#{usuarioBean.usuario.pessoa.email}" size="150"
 														maxlength="150" a:required="true"
 														validatorMessage="e-mail inválido"
-														a:placeholder="Por Favor, informe seu email. Ele servirá para acesso ao Sistema!!!">
+														a:placeholder="Informe seu email. Ele Servirá para Acesso ao Sistema!!!">
 														<f:validateRegex
 															pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
 														<f:validateLength minimum="13" maximum="150" />
@@ -158,7 +158,7 @@
 												<h:inputText id="telefone"
 													value="#{usuarioBean.usuario.pessoa.telefone}"
 													maxlenght="12" size="12" class="form-control"
-													a:placeholder="Por Favor, informe seu telefone."
+													a:placeholder="Informe seu Telefone"
 													onkeyup="mascara(this, validaTelefone);"
 													a:required="true">
 												</h:inputText>
@@ -189,7 +189,7 @@
 												<h:inputText id="rua"
 													value="#{usuarioBean.usuario.pessoa.endereco.endereco}"
 													size="50" class="form-control" maxlength="50"
-													a:placeholder="Por Favor, informe seu endereço.">
+													a:placeholder="Informe seu Endereço.">
 												</h:inputText>
 											</div>
 											<div class="col-md-4">
@@ -198,7 +198,7 @@
 													value="#{usuarioBean.usuario.pessoa.endereco.complemento}"
 													size="250" maxlength="250" required="true"
 													class="form-control"
-													a:placeholder="Por Favor, informe o complemento de sua residência.">
+													a:placeholder="Informe o Complemento de sua Residência.">
 												</h:inputText>
 											</div>
 											<div class="col-md-4">
@@ -207,7 +207,7 @@
 													value="#{usuarioBean.usuario.pessoa.endereco.bairro}"
 													size="50" maxlength="50" required="true"
 													class="form-control"
-													a:placeholder="Por Favor, informe seu bairro.">
+													a:placeholder="Informe seu Bairro">
 												</h:inputText>
 											</div>
 										</div>
@@ -217,6 +217,7 @@
 												<h:inputText id="cep"
 													value="#{usuarioBean.usuario.pessoa.endereco.cep}"
 													size="12" class="form-control" maxlength="12"
+													a:placeholder="Informe seu CEP">
 													onkeyup="mascara(this, validaCep);" a:required="true">
 												</h:inputText>
 											</div>
@@ -243,6 +244,7 @@
 												<h:inputText id="ciade"
 													value="#{usuarioBean.usuario.pessoa.endereco.cidade}"
 													size="30" required="true" maxlength="30"
+													a:placeholder="Informe sua Cidade">
 													class="form-control">
 												</h:inputText>
 											</div>
@@ -251,6 +253,7 @@
 												<h:inputText id="estado"
 													value="#{usuarioBean.usuario.pessoa.endereco.estado}"
 													size="20" required="true" class="form-control"
+													a:placeholder="Informe seu Estado">
 													maxlength="20">
 												</h:inputText>
 											</div>
@@ -259,6 +262,7 @@
 												<h:inputText id="pais"
 													value="#{usuarioBean.usuario.pessoa.endereco.pais}"
 													size="20" maxlength="20" required="true"
+													a:placeholder="Informe seu Pais"
 													class="form-control">
 												</h:inputText>
 											</div>
@@ -269,7 +273,9 @@
 												<h:inputSecret id="senha"
 													value="#{usuarioBean.usuario.senha}" size="20"
 													maxlength="20" a:required="true" redisplay="true"
-													class="form-control" />
+													a:placeholder="Informe sua Senha de Acesso "
+													class="form-control" >
+													</h:inputSecret>
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Confirmar
@@ -277,7 +283,9 @@
 												<h:inputSecret id="confirmarsenha"
 													value="#{usuarioBean.confirmarSenha}" size="20"
 													maxlength="20" required="true" redisplay="true"
-													class="form-control" a:required="true" />
+													class="form-control" a:required="true" 
+													a:placeholder="Confirme sua Senha">
+													</h:inputSecret>
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Permissão

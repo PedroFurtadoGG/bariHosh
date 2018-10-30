@@ -142,7 +142,7 @@
 														value="#{fornecedorBean.fornecedor.pessoa.email}"
 														size="50" maxlength="50" a:required="true"
 														validatorMessage="e-mail inválido"
-														a:placeholder="Por Favor, informe seu email. Ele servirá para acesso ao Sistema!!!">
+														a:placeholder="Informe seu email.!">
 														<f:validateRegex
 															pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
 														<h:message for="email" />
@@ -155,7 +155,7 @@
 												<h:inputText id="telefone"
 													value="#{fornecedorBean.fornecedor.pessoa.telefone}"
 													size="12" class="form-control"
-													a:placeholder="Por Favor, informe seu telefone."
+													a:placeholder="Informe seu telefone."
 													onkeyup="mascara(this, validaTelefone);">
 												</h:inputText>
 											</div>
@@ -188,7 +188,7 @@
 													maxlength="30" a:required="true"
 													requiredMessage="Informe o nome da razão social !"
 													class="form-control"
-													a:placeholder="Informe o Nome Completo">
+													a:placeholder="Informe a Razão Social">
 													<f:validateLength minimum="4" maximum="30" />
 												</h:inputText>
 											</div>
@@ -235,7 +235,7 @@
 												<h:inputText id="rua"
 													value="#{fornecedorBean.fornecedor.pessoa.endereco.endereco}"
 													size="12" class="form-control"
-													a:placeholder="Por Favor, informe sua rua."
+													a:placeholder="Informe sua rua."
 													a:required="true">
 												</h:inputText>
 											</div>
@@ -245,7 +245,7 @@
 												<h:inputText id="complemento"
 													value="#{fornecedorBean.fornecedor.pessoa.endereco.complemento}"
 													size="12" required="true" class="form-control"
-													a:placeholder="Por Favor, informe o complemento de sua residência."
+													a:placeholder="Informe o complemento de sua residência."
 													a:required="true">
 												</h:inputText>
 											</div>
@@ -254,7 +254,7 @@
 												<h:inputText id="endereco"
 													value="#{fornecedorBean.fornecedor.pessoa.endereco.bairro}"
 													size="12" required="true" class="form-control"
-													a:placeholder="Por Favor, informe seu bairro."
+													a:placeholder="Informe seu bairro."
 													a:required="true">
 												</h:inputText>
 											</div>
@@ -265,6 +265,7 @@
 												<h:inputText id="cep"
 													value="#{fornecedorBean.fornecedor.pessoa.endereco.cep}"
 													size="12" required="true" class="form-control"
+													a:placeholder="Insira seu CEP">
 													onkeyup="mascara(this, validaCep);" a:required="true">
 												</h:inputText>
 											</div>
@@ -291,6 +292,7 @@
 												<h:inputText id="ciade"
 													value="#{fornecedorBean.fornecedor.pessoa.endereco.cidade}"
 													size="12" required="true" class="form-control"
+													a:placeholder="Insira sua Cidade">
 													a:required="true">
 												</h:inputText>
 											</div>
@@ -299,6 +301,7 @@
 												<h:inputText id="estado"
 													value="#{fornecedorBean.fornecedor.pessoa.endereco.estado}"
 													size="12" required="true" class="form-control"
+													a:placeholder="Insira seu Estado">
 													a:required="true">
 												</h:inputText>
 											</div>
@@ -307,6 +310,7 @@
 												<h:inputText id="pais"
 													value="#{fornecedorBean.fornecedor.pessoa.endereco.pais}"
 													size="12" required="true" class="form-control"
+													a:placeholder="Insira seu Pais">
 													a:required="true">
 												</h:inputText>
 											</div>

@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.bariHosh.daoHibernate.EstoqueDAOHibernate;
+import br.com.bariHosh.daoHibernate.LogEstoqueDAOHibernate;
 import br.com.bariHosh.daoHibernate.ProdutoDAOHibernate;
+import br.com.bariHosh.entidade.EnumTipoRegistro;
 import br.com.bariHosh.entidade.Estoque;
 import br.com.bariHosh.entidade.Log_Estoque;
 import br.com.bariHosh.entidade.Produto;
@@ -15,33 +17,72 @@ public class EstoqueRN extends ManuseioPublico{
 	
 	private EstoqueDAOHibernate estoqueDAO ;
 	private ProdutoDAOHibernate  produtoDAO;
-	private Log_Estoque logSistema ;
+	private LogEstoqueDAOHibernate logDAO;
+	
 
 	
 	public EstoqueRN() {
 		this.estoqueDAO =new EstoqueDAOHibernate();	
-		this.logSistema  =  new Log_Estoque();
+		 this.setLogDAO(new LogEstoqueDAOHibernate());
 		 this.produtoDAO = new ProdutoDAOHibernate()  ;
 	} 
 
-	public boolean salvar(Estoque estoque){
+	public boolean salvar(Produto produto, Log_Estoque logEstoque, Integer lancamentoQuantia) {
 		try {
-			Usuario usuarioLogado = super.buscarPorUsuarioLogado();				
-			logSistema.setUsuario_movimentador(usuarioLogado);
-			logSistema.setDt_movimentacao(new Date());
-			logSistema.setEstoque(estoque);
-		 	estoque.getMovimentacao().add(logSistema);		
-			if (!super.validaObjeto(usuarioLogado)) {
-				if (!super.validaObjeto(estoque.getId_estoque())) {	
-					logSistema.setTipo_movimentacao("Criaçao do Estoque");
-					this.estoqueDAO.salvar(estoque);
-				} else {				
-					this.estoqueDAO.atualizar(estoque);
+			if (super.CalcularDataValidadeProduto(produto.getEstoque().getData_validade_lote())) {
+				Usuario usuarioLogado = super.buscarPorUsuarioLogado();
+				if (super.validaObjeto(usuarioLogado)) {
+					if (logEstoque.getTipo_movimentacao() == EnumTipoRegistro.ENTRADA) {
+
+						// finalizacao estoque ao produto criacao de novo estoque injetando ao produto
+						produto.getEstoque().setAtivo(false);
+						produto.getEstoque().setData_finalizacao(new Date());
+						estoqueDAO.atualizar(produto.getEstoque());
+
+						
+						Estoque estoque = new Estoque();
+						estoque.setAtivo(true);
+						estoque.setData_criacao(new Date());
+						estoque.setQtd_produto(produto.getEstoque().getQtd_produto());
+						estoque.setData_validade_lote(produto.getEstoque().getData_validade_lote());
+						estoque.setSaldoEstoque(produto.getEstoque().getSaldoEstoque());
+						estoque.setProduto(produto);
+						produto.setEstoque(estoque);
+
+						if (aumentarEstoqueProduto(produto, lancamentoQuantia)) {
+							logEstoque.setUsuario_movimentador(usuarioLogado);
+							logEstoque.setDt_movimentacao(new Date());
+							logEstoque.setEstoque(produto.getEstoque());
+							logEstoque.setDescricao(
+									"CRIACAO DE ESTOQUE PARA PRODUTO : " + "( " + produto.getId_produto() + " )");
+							logDAO.salvar(logEstoque);
+							return true;
+
+						}
+						return false;
+
+					} else if (logEstoque.getTipo_movimentacao() == EnumTipoRegistro.SAIDA) {
+
+						if (diminuirEstoqueProduto(produto, lancamentoQuantia)) {
+							logEstoque.setUsuario_movimentador(usuarioLogado);
+							logEstoque.setDt_movimentacao(new Date());
+							logEstoque.setEstoque(produto.getEstoque());
+							logEstoque.setDescricao(
+									"ALTERACAO DE ESTOQUE PARA PRODUTO : " + "( " + produto.getId_produto() + " )");
+							logDAO.salvar(logEstoque);
+							return true;
+
+						}
+						return false;
+
+					}
+
+				} else {
+					super.MessagesErro("E necessario Estar Logado!");
+					return false;
 				}
-				super.MessagesSucesso("Estoque Salvo Com Sucesso !");
-				return true;
 			} else {
-				super.MessagesErro("E necessario Estar Logado!");
+				super.MessagesErro("Produto vencido !");
 				return false;
 			}
 
@@ -74,34 +115,30 @@ public class EstoqueRN extends ManuseioPublico{
 	}
 
 
-	public boolean diminuirEstoqueProduto(Estoque estoque,Integer quantiaRemove) {
-		logSistema = new Log_Estoque();
-		
-		    Integer qtdEstoque  = estoque.getQtd_produto();
+	public boolean diminuirEstoqueProduto(Produto produto,Integer quantiaRemove) {		
+		    Integer qtdEstoque  = produto.getEstoque().getQtd_produto();
 		    if(qtdEstoque < quantiaRemove) {
 		    	super.MessagesErro("Quantia de Retira Ultrapassa o limite de estoque !");
 		    	return false ;
 		    }else {
 		    	qtdEstoque = qtdEstoque - quantiaRemove;
-		    	estoque.setQtd_produto(qtdEstoque);
-		    	logSistema.setTipo_movimentacao("Retirada do Estoque");
+		    	produto.getEstoque().setQtd_produto(qtdEstoque);		    	
 		    	super.MessagesSucesso("Prouduto Retidado OK !");
-		    	this.salvar(estoque);
-		    }
-		return false;
+		        this.produtoDAO.atualizar(produto);
+		        return true;
+		    }	
 	}
 
-	public boolean aumentarEstoqueProduto(Estoque estoque, Integer quantiaAdd) {	
-		logSistema = new Log_Estoque();		
-		        Integer qtdEstoque  = estoque.getQtd_produto();
+	public boolean aumentarEstoqueProduto(Produto produto, Integer quantiaAdd) {	
+		       	
+		        Integer qtdEstoque  = produto.getEstoque().getQtd_produto();
 		    if( quantiaAdd<=0) {
 		    	super.MessagesErro("Quantia de Adição nao reproduz efeito no estoque  !");
 		    	return false ;
 		    }else {
 		    	qtdEstoque = qtdEstoque + quantiaAdd;
-		    	estoque.setQtd_produto(qtdEstoque);
-		    	logSistema.setTipo_movimentacao("Inclusão no Estoque");
-		    	this.salvar(estoque);
+		    	produto.getEstoque().setQtd_produto(qtdEstoque);
+		    	 this.produtoDAO.atualizar(produto);
 		    	super.MessagesSucesso("Prouduto Adicionado OK !");
 		    	return true ;
 		    }
@@ -124,6 +161,14 @@ public class EstoqueRN extends ManuseioPublico{
 
 	public void setEstoqueDAO(EstoqueDAOHibernate estoqueDAO) {
 		this.estoqueDAO = estoqueDAO;
+	}
+
+	public LogEstoqueDAOHibernate getLogDAO() {
+		return logDAO;
+	}
+
+	public void setLogDAO(LogEstoqueDAOHibernate logDAO) {
+		this.logDAO = logDAO;
 	}
 	
 	

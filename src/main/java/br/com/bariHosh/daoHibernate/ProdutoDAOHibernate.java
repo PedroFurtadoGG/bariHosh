@@ -38,8 +38,7 @@ public class ProdutoDAOHibernate extends GenericoDAOHibernate<Produto> implement
 				+ " JOIN FETCH p.categoria c "
 			 	+ "JOIN FETCH p.marca_produto m"
 				+ " JOIN FETCH p.fornecedor f"
-				+ " JOIN FETCH p.estoque e "
-				+ " JOIN FETCH p.usuario_criador u " ;				
+				+ " JOIN FETCH p.estoque e " ;				
 		Query consulta = this.session.createQuery(hql);
 		List<Produto> list = (List<Produto> ) consulta.list();
 		

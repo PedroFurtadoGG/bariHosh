@@ -74,9 +74,12 @@ public class FornecedorBean {
 	}
 
 	public String excluir() {		
-		forneedoroRN.excluir(this.fornecedor);
-		this.lista = null;
-		return null;
+		if(forneedoroRN.excluir(this.fornecedor)) {			
+			this.lista = null;
+			return null;
+		}
+	    return null;
+		
 	}
 
 	public String ativar() {

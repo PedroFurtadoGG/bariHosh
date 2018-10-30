@@ -54,38 +54,54 @@
 											</ui:insert>
 											<div class="bs-example">
 												<h:dataTable class="table table-hover"
-													value="#{clienteBean.lista}" var="cliente" rules="row"
-													cellpadding="5">
+													value="#{estoqueBean.listaProdutos}" var="produto"
+													rules="row" cellpadding="5">
 													<h:column>
 														<f:facet name="header">Produto</f:facet>
-			                                             #{cliente.id_cliente}
+			                                             #{produto.id_produto}
 			                                          </h:column>
 													<h:column>
+														<f:facet name="header">Nome</f:facet>
+		                                             #{produto.nome}
+		                                          </h:column>
+													<h:column>
 														<f:facet name="header">Código de Barras</f:facet>
-		                                             #{cliente.pessoa.nome}
+		                                             #{produto.codigo_barras}
 		                                          </h:column>
 													<h:column>
 														<f:facet name="header">Categoria</f:facet>
-														<a href="mailto:#{cliente.pessoa.email}">#{cliente.pessoa.email}</a>
+														#{produto.categoria.descricao}
 													</h:column>
 													<h:column>
 														<f:facet name="header">Valor</f:facet>
-														<a href="mailto:#{cliente.pessoa.email}">#{cliente.pessoa.email}</a>
+														#{produto.valorSaida}
+													</h:column>
+													<h:column>
+														<f:facet name="header">Quantidade Produto Estoque</f:facet>
+														#{produto.estoque.qtd_produto}
+													</h:column>													
+													<h:column>
+														<f:facet name="header">Validade Lote</f:facet>
+														<h:outputText
+															value="#{produto.estoque.data_validade_lote}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+														</h:outputText>
 													</h:column>
 
 													<h:column>
 														<f:facet name="header">Editar</f:facet>
 
-														<h:commandLink action="#{clienteBean.editar()}">
+														<h:commandLink action="#{estoqueBean.editar()}">
 															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 															<f:setPropertyActionListener
-																target="#{clienteBean.cliente}" value="#{cliente}" />
+																target="#{estoqueBean.produto}" value="#{produto}" />
 														</h:commandLink>
 													</h:column>
 
 													<f:facet name="footer">
-														<h:outputText value="Total página: " />
-														<h:outputText value="#{cliente.pessoa.email}" />
+														<h:outputText value="Total Produtos: " />
+														<h:outputText
+															value="#{estoqueBean.obterTotalProdutosEmEstoqueGeral()}" />
 													</f:facet>
 												</h:dataTable>
 											</div>

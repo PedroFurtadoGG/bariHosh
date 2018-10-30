@@ -62,8 +62,9 @@
 											value="#{produtoBean.produto.fornecedor.id_fornecedor}" />
 										<h:inputHidden
 											value="#{produtoBean.produto.categoria.id_categoria}" />
-										<h:inputHidden value="#{produtoBean.usuario.id_usuario}" />
+										<h:inputHidden value="#{produtoBean.produto.id_usuario_criacao}" />
 										<h:inputHidden value="#{produtoBean.produto.ativo}" />
+										<h:inputHidden value="#{produtoBean.produto.estoque.ativo}" />
 										<h:inputHidden value="#{produtoBean.destinoSalvar}" />	
 										<h:inputHidden value="#{produtoBean.produto.estoque.qtd_produto	}" />
 										<h:inputHidden value="#{produtoBean.produto.data_criacao}">
@@ -127,6 +128,7 @@
 													value="#{produtoBean.produto.codigo_barras}" maxlength="13"
 													a:required="true"
 													requiredMessage="Informe o numero do codigo de barras"
+													a:placeholder="Informe o Codigo de Barras "
 													class="form-control">
 													<f:validateLength minimum="13" maximum="13" />
 												</h:inputText>
@@ -165,9 +167,12 @@
 													disabled="#{produtoBean.produto.estoque.qtd_produto !=null}"
 													value="#{produtoBean.produto.estoque.qtd_produto}"
 													size="10" a:type="number" a:required="true"
-													requiredMessage="Informe o valor de aquisição do produto"
+													 maxlength="10"
+													requiredMessage="Informe a quantidade Inicial  do produto"
+													a:placeholder="Informe a Quantidade "
 													class="form-control">
-													<f:convertNumber minIntegerDigits="1" maxIntegerDigits="9" />
+													<f:validateLength minimum="1" maximum="10" />
+													<f:convertNumber minIntegerDigits="1" maxIntegerDigits="10" />
 												</h:inputText>
 											</div>
 
@@ -178,6 +183,7 @@
 													value="#{produtoBean.produto.valorEntrada}" maxlength="12"
 													size="12" a:type="number" a:required="true"
 													requiredMessage="Informe o valor de aquisição do produto"
+													a:placeholder="Informe valor Entrada"
 													class="form-control">
 													<f:validateLength minimum="1" maximum="12" />
 												</h:inputText>
@@ -189,6 +195,7 @@
 													value="#{produtoBean.produto.valorSaida}" maxlength="12"
 													size="12" a:type="number" a:required="true"
 													requiredMessage="Informe o valor de venda do produto"
+													a:placeholder="Informe o Valor Venda "
 													class="form-control">
 													<f:validateLength minimum="1" maximum="12" />
 												</h:inputText>

@@ -1,6 +1,5 @@
 package br.com.bariHosh.web;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -62,14 +61,10 @@ public class UsuarioBean {
 	}
 
 	public String editar() {	
-		
+		this.confirmarSenha = this.usuario.getSenha();
 		return "/restrito/usuario/usuario";
 
 	}
-	
-	
-
-
 
 	public String salvar() {	
 		if (!usuario.getSenha().equals(this.confirmarSenha)) {
@@ -87,9 +82,12 @@ public class UsuarioBean {
 	}
 
 	public String excluir() {
-		usuarioRN.excluir(this.usuario);
-		this.lista = null;
+		if(usuarioRN.excluir(this.usuario)) {			
+			this.lista = null;
+			return null;			
+		}
 		return null;
+		
 	}
 
 	public String ativar() {

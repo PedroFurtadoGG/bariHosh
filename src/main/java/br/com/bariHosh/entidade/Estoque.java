@@ -2,26 +2,20 @@ package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "estoque")
@@ -33,17 +27,16 @@ public class Estoque implements Serializable  {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_estoque;
 	private Integer qtd_produto;
+    private float saldoEstoque;
 	private boolean ativo;
 
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
 	private Produto produto;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_saldoEstoque")
-	private SaldoEstoque saldoEstoque;
+	
 
-	@OneToMany(mappedBy = "estoque", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Log_Estoque.class)
+	@OneToMany(mappedBy = "estoque",  fetch = FetchType.LAZY, targetEntity = Log_Estoque.class)
 	private Set<Log_Estoque> movimentacao ;
 
 	@Temporal(TemporalType.DATE)	
@@ -87,11 +80,12 @@ public class Estoque implements Serializable  {
 		this.movimentacao = movimentacao;
 	}
 
-	public SaldoEstoque getSaldoEstoque() {
+	public float getSaldoEstoque() {
 		return saldoEstoque;
 	}
 
-	public void setSaldoEstoque(SaldoEstoque saldoEstoque) {
+
+	public void setSaldoEstoque(float saldoEstoque) {
 		this.saldoEstoque = saldoEstoque;
 	}
 
@@ -139,7 +133,7 @@ public class Estoque implements Serializable  {
 		result = prime * result + ((movimentacao == null) ? 0 : movimentacao.hashCode());
 		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
 		result = prime * result + ((qtd_produto == null) ? 0 : qtd_produto.hashCode());
-		result = prime * result + ((saldoEstoque == null) ? 0 : saldoEstoque.hashCode());
+		result = prime * result + Float.floatToIntBits(saldoEstoque);
 		return result;
 	}
 
@@ -189,12 +183,11 @@ public class Estoque implements Serializable  {
 				return false;
 		} else if (!qtd_produto.equals(other.qtd_produto))
 			return false;
-		if (saldoEstoque == null) {
-			if (other.saldoEstoque != null)
-				return false;
-		} else if (!saldoEstoque.equals(other.saldoEstoque))
+		if (Float.floatToIntBits(saldoEstoque) != Float.floatToIntBits(other.saldoEstoque))
 			return false;
 		return true;
 	}
+
+
 
 }
