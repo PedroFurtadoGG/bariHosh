@@ -62,10 +62,17 @@
 													<h:column>
 														<f:facet name="header">Nome</f:facet>
                                              #{cliente.pessoa.nome}
-                                          </h:column>
+                                          </h:column>													
 													<h:column>
-														<f:facet name="header">E-Mail</f:facet>
-														<a href="mailto:#{cliente.pessoa.email}">#{cliente.pessoa.email}</a>
+														<f:facet name="header">Data Nascimento</f:facet>
+														<h:outputText
+															value="#{cliente.pessoa.dt_nascimento}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+														</h:outputText>
+													</h:column>
+													<h:column>
+														<f:facet name="header">Sexo</f:facet>
+														#{cliente.pessoa.sexo}
 													</h:column>
 													<h:column>
 														<f:facet name="header">Editar</f:facet>

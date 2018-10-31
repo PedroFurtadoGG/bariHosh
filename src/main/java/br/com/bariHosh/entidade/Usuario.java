@@ -27,7 +27,7 @@ public class Usuario implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private EnumPermissao permissao;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade= CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.LAZY, cascade = {CascadeType.ALL}) 
 	@JoinColumn(name = "id_pessoa", nullable = false)
 	private Pessoa pessoa;
 

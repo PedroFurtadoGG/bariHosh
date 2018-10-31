@@ -1,15 +1,16 @@
 package br.com.bariHosh.web;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import br.com.bariHosh.entidade.EnumTipoRegistro;
 import br.com.bariHosh.entidade.Estoque;
+import br.com.bariHosh.entidade.Log_Estoque;
 import br.com.bariHosh.entidade.Produto;
-import br.com.bariHosh.entidade.SaldoEstoque;
 import br.com.bariHosh.negocio.EstoqueRN;
 import br.com.bariHosh.negocio.ProdutoRN;
 
@@ -19,56 +20,60 @@ public class EstoqueBean {
 
 	private Produto produto = new Produto();
 	private Estoque estoque = new Estoque();
-	private SaldoEstoque saldoEstoque = new SaldoEstoque();
-	private List<Produto> listaProdutos = new ArrayList<Produto>();
+	private List<Produto> listaProdutos ;
+	private Log_Estoque logEstoque = new Log_Estoque();
 	private EstoqueRN estoqueRN = new EstoqueRN();
 	private ProdutoRN produtoRN = new ProdutoRN();
 	private String destinoSalvar;
-	private Integer quantiaAdd;
-	private Integer quantiaRemove;
+	private Integer LancamentoQuantia;
+	private Date dataMovimentacao;
+
 	private Integer quantidadeTotalprodutos;
+	private EnumTipoRegistro enumRegistro;
 
-	public EstoqueBean() {
+	public EstoqueBean() {	
+		this.produtoRN = new ProdutoRN();		
+	    this.destinoSalvar = "produtos-estoque";
+		this.produto.setEstoque(this.estoque);	
+	//	obterTotalProdutosEmEstoqueGeral();
+	}
+   
+	
+	public String novo() {		
+		this.estoqueRN = new EstoqueRN();
 		this.produto = new Produto();
 		this.estoque = new Estoque();
-		this.saldoEstoque = new SaldoEstoque();
-		this.estoque.setSaldoEstoque(saldoEstoque);
-		this.produto.setEstoque(estoque);
-		this.destinoSalvar = "estoque";
-		obterTotalProdutosEmEstoqueGeral();
+		this.produto.setEstoque(estoque);	
+		this.estoque.setProduto(this.produto);
+		this.listaProdutos = new ArrayList<Produto>();
+		this.produtoRN = new ProdutoRN();
+		this.dataMovimentacao = new Date();
+		return "/restrito/estoque/estoque";
 	}
 
-	@PostConstruct
-	public void Init() {
-		this.produto = new Produto();
-		this.estoque = new Estoque();
-		this.saldoEstoque = new SaldoEstoque();
-		this.estoque.setSaldoEstoque(saldoEstoque);
-		this.produto.setEstoque(estoque);
-		this.destinoSalvar = "estoque";
-		this.obterTotalProdutosEmEstoqueGeral();
+	public String editar() {		
+		return "/restrito/estoque/estoque";
 	}
+
+	
+	
+	public String salvar() {
+		if(estoqueRN.salvar(this.produto,this.logEstoque,this.LancamentoQuantia)) {
+			this.listaProdutos =null;
+			return this.destinoSalvar;			
+		}		
+		return null;
+		
+	}
+	
 
 	// este metodo es responsavel por trazer a quantidade total de itens(produto)
 	// dentro do armazenbar
-	public String obterTotalProdutosEmEstoqueGeral() {
+	public Integer obterTotalProdutosEmEstoqueGeral() {
 		this.quantidadeTotalprodutos = estoqueRN.obterTotalProdutosEmEstoqueGeral();
-		return this.destinoSalvar;
+		return this.quantidadeTotalprodutos;
 	}
-
-	public String diminuirProdutoEstoque() {
-		if (estoqueRN.diminuirEstoqueProduto(this.produto.getEstoque(), this.quantiaRemove)) {
-			return this.destinoSalvar;
-		}
-		return null;
-	}
-
-	public String aumentarProdutoEstoque() {
-		if (estoqueRN.aumentarEstoqueProduto(this.produto.getEstoque(), this.quantiaAdd)) {
-			return this.destinoSalvar;
-		}
-		return null;
-	}
+	
 
 	public Produto getProduto() {
 		return produto;
@@ -86,13 +91,7 @@ public class EstoqueBean {
 		this.estoque = estoque;
 	}
 
-	public SaldoEstoque getSaldoEstoque() {
-		return saldoEstoque;
-	}
-
-	public void setSaldoEstoque(SaldoEstoque saldoEstoque) {
-		this.saldoEstoque = saldoEstoque;
-	}
+	
 
 	public EstoqueRN getEstoqueRN() {
 		return estoqueRN;
@@ -112,8 +111,8 @@ public class EstoqueBean {
 
 	public List<Produto> getListaProdutos() {
 		if (this.listaProdutos == null) {
-			this.listaProdutos = produtoRN.listar();
-		}
+			this.listaProdutos = produtoRN.listarCompleto();
+	}
 		return this.listaProdutos;
 
 	}
@@ -130,21 +129,9 @@ public class EstoqueBean {
 		this.destinoSalvar = destinoSalvar;
 	}
 
-	public Integer getQuantiaAdd() {
-		return quantiaAdd;
-	}
+	
 
-	public void setQuantiaAdd(Integer quantiaAdd) {
-		this.quantiaAdd = quantiaAdd;
-	}
-
-	public Integer getQuantiaRemove() {
-		return quantiaRemove;
-	}
-
-	public void setQuantiaRemove(Integer quantiaRemove) {
-		this.quantiaRemove = quantiaRemove;
-	}
+	
 
 	public Integer getQuantidadeTotalprodutos() {
 		return quantidadeTotalprodutos;
@@ -152,6 +139,38 @@ public class EstoqueBean {
 
 	public void setQuantidadeTotalprodutos(Integer quantidadeTotal) {
 		this.quantidadeTotalprodutos = quantidadeTotal;
+	}
+
+	@SuppressWarnings("static-access")
+	public EnumTipoRegistro[] getEnumRegistro() {
+		return enumRegistro.values();
+	}
+
+	public void setEnumRegistro(EnumTipoRegistro enumRegistro) {
+		this.enumRegistro = enumRegistro;
+	}
+
+	public Log_Estoque getLogEstoque() {
+		return logEstoque;
+	}
+
+	public void setLogEstoque(Log_Estoque logEstoque) {
+		this.logEstoque = logEstoque;
+	}
+	public Integer getLancamentoQuantia() {
+		return LancamentoQuantia;
+	}
+
+	public void setLancamentoQuantia(Integer lancamentoQuantia) {
+		LancamentoQuantia = lancamentoQuantia;
+	}
+
+	public Date getDataMovimentacao() {
+		return dataMovimentacao;
+	}
+
+	public void setDataMovimentacao(Date dataMovimentacao) {
+		this.dataMovimentacao = dataMovimentacao;
 	}
 
 }

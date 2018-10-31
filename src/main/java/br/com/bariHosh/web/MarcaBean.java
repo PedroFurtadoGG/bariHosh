@@ -60,8 +60,11 @@ public class MarcaBean {
 	}
 
 	public String excluir() {
-		marcaRN.excluir(this.marca);
-		this.lista = null;
+		if(marcaRN.excluir(this.marca)) {			
+			this.lista = null;
+			return null;
+			
+		}
 		return null;
 	}
 

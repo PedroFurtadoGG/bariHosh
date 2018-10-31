@@ -14,6 +14,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
+import br.com.bariHosh.entidade.Log_Estoque;
 import br.com.bariHosh.entidade.Usuario;
 
 public class ManuseioPublico {
@@ -86,21 +87,34 @@ public class ManuseioPublico {
 		return new UsuarioDAOHibernate().buscarPorLogin(login);
 	}
 
-	public static boolean CalcularIdade(Date dataNascimento) {
-
+	
+	
+	public static boolean CalcularIdade(Date data) {
 		Calendar dateOfBirth = new GregorianCalendar();
-		dateOfBirth.setTime(dataNascimento);
+		dateOfBirth.setTime(data);
 		Calendar today = Calendar.getInstance();
-
-		Integer idade = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
-
-		dateOfBirth.add(Calendar.YEAR, idade);
-
+		Integer tempoData = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+		dateOfBirth.add(Calendar.YEAR, tempoData);
 		if (today.before(dateOfBirth)) {
-			idade--;
+			tempoData--;		}
+		return tempoData >= 18;
+		
+	}
+	
+	
+	public static boolean CalcularDataValidadeProduto(Date data) {				
+		   return  CalcularData(data)<=0;
 		}
-
-		return idade >= 18;
+	
+	public static Integer CalcularData(Date data) {
+		Calendar dateOfBirth = new GregorianCalendar();
+		dateOfBirth.setTime(data);
+		Calendar today = Calendar.getInstance();
+		Integer tempoData = today.get(Calendar.DAY_OF_MONTH) - dateOfBirth.get(Calendar.DAY_OF_MONTH);
+		dateOfBirth.add(Calendar.DAY_OF_MONTH, tempoData);
+		if (today.before(dateOfBirth)) {
+			tempoData--;		}
+		return tempoData ;
 	}
 
 	public static void MessagesSucesso(String mensagem) {
@@ -120,5 +134,7 @@ public class ManuseioPublico {
 		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_FATAL, mensagem, null);
 		context.addMessage(null, facesMessage);
 	}
+	
+	
 
 }

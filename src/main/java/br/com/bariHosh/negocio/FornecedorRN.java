@@ -56,24 +56,32 @@ public class FornecedorRN extends ManuseioPublico {
 			System.out.println("erro salvar" + e.getMessage());
 			super.MessagesErro(
 					"Ouve erro na tentativa de salvar o fornecedor Verifique os campos Obrigatorios e tente novamente!");
-
+            
 		}
 		return false;
 
 	}
 
-	public void excluir(Fornecedor fornecedor) {
+	public boolean excluir(Fornecedor fornecedor) {		
 		try {
-			if (super.validaObjeto(fornecedor.getId_fornecedor())) {
-				this.fornecedorDAO.excluir(fornecedor);
-				super.MessagesSucesso("Fornecedor Excluido Com Sucesso!");
+			if (super.validaObjeto(fornecedor.getId_fornecedor())) {			
+			if(fornecedorDAO.ListaProdutosVinculados(fornecedor.getId_fornecedor()).size()==0) {					
+					this.fornecedorDAO.excluir(fornecedor);
+					super.MessagesSucesso("Fornecedor Excluido Com Sucesso!");
+			        return true ;
+				}else {
+					super.MessagesErro("Existe Produtos vinculados a Este Fornecedor ! Por favor atualize os dados de Produto !");
+					return false;
+				}
+				
 			}
 
 		} catch (Exception e) {
 			System.out.println("erro excluir" + e.getMessage());
 			super.MessagesErro("Ouve erro na tentativa de excluir o fornecedor contate Administrador do sistema!");
+			return false;
 		}
-
+       return false;
 	}
 
 	public List<Fornecedor> listar() {

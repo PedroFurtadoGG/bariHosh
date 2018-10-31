@@ -6,6 +6,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,24 +24,22 @@ public class Log_Estoque  implements Serializable  {
 
 	
 	private static final long serialVersionUID = 1L;
-
+    private String descricao;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_log_estoque;
-
-	private String tipo_movimentacao;
+	@Enumerated(EnumType.STRING)
+	private EnumTipoRegistro tipo_movimentacao;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_estoque", nullable = false)
 	private Estoque estoque;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)	
+	@OneToOne(fetch = FetchType.LAZY)	
 	@JoinColumn(name = "id_usuariomovimentador", nullable = false)
 	private Usuario usuario_movimentador;
 
-	@Temporal(TemporalType.DATE)
-	@Column(nullable = false, precision = 10, scale = 2)
-	@NotNull
+	@Temporal(TemporalType.DATE)	
 	private Date dt_movimentacao;
 
 	public Long getId_log_estoque() {
@@ -50,13 +50,7 @@ public class Log_Estoque  implements Serializable  {
 		this.id_log_estoque = id;
 	}
 
-	public String getTipo_movimentacao() {
-		return tipo_movimentacao;
-	}
-
-	public void setTipo_movimentacao(String tipo_movimentacao) {
-		this.tipo_movimentacao = tipo_movimentacao;
-	}
+	
 
 	public Estoque getEstoque() {
 		return estoque;
@@ -82,10 +76,29 @@ public class Log_Estoque  implements Serializable  {
 		this.dt_movimentacao = dt_movimentacao;
 	}
 
+	
+	public EnumTipoRegistro getTipo_movimentacao() {
+		return tipo_movimentacao;
+	}
+
+	public void setTipo_movimentacao(EnumTipoRegistro tipo_movimentacao) {
+		this.tipo_movimentacao = tipo_movimentacao;
+	}
+
+	
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result + ((dt_movimentacao == null) ? 0 : dt_movimentacao.hashCode());
 		result = prime * result + ((estoque == null) ? 0 : estoque.hashCode());
 		result = prime * result + ((id_log_estoque == null) ? 0 : id_log_estoque.hashCode());
@@ -103,6 +116,11 @@ public class Log_Estoque  implements Serializable  {
 		if (getClass() != obj.getClass())
 			return false;
 		Log_Estoque other = (Log_Estoque) obj;
+		if (descricao == null) {
+			if (other.descricao != null)
+				return false;
+		} else if (!descricao.equals(other.descricao))
+			return false;
 		if (dt_movimentacao == null) {
 			if (other.dt_movimentacao != null)
 				return false;
@@ -118,10 +136,7 @@ public class Log_Estoque  implements Serializable  {
 				return false;
 		} else if (!id_log_estoque.equals(other.id_log_estoque))
 			return false;
-		if (tipo_movimentacao == null) {
-			if (other.tipo_movimentacao != null)
-				return false;
-		} else if (!tipo_movimentacao.equals(other.tipo_movimentacao))
+		if (tipo_movimentacao != other.tipo_movimentacao)
 			return false;
 		if (usuario_movimentador == null) {
 			if (other.usuario_movimentador != null)
@@ -130,5 +145,7 @@ public class Log_Estoque  implements Serializable  {
 			return false;
 		return true;
 	}
+
+	
 
 }

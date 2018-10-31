@@ -51,34 +51,44 @@
 										<ui:insert name="messages">
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
-										<h:inputHidden value="#{clienteBean.destinoSalvar}" />
+										<h:inputHidden value="#{estoqueBean.produto.id_produto}" />
+										<h:inputHidden value="#{estoqueBean.destinoSalvar}" />
+											<h:inputHidden value="#{estoqueBean.produto.estoque.qtd_produto}" />
+										
 										<div class="form-group">
 											<div class="col-md-8">
 												<label><span style="color: red"> * </span>Produto</label>
-												<h:inputText id="produto"
-													value="#{clienteBean.cliente.pessoa.nome}" size="30"
-													maxlength="30" a:required="true"
-													class="form-control"
-													a:placeholder="Informe seu Nome Completo">
-													<f:validateLength minimum="10" maximum="30" />
-												</h:inputText>
+												<h:selectOneMenu class="form-control"
+													value="#{estoqueBean.produto}"
+													requiredMessage="Informe o Produto!"
+													required="true" converter="converterProduto">
+													<f:selectItem itemLabel="Selecione..." />
+													<f:selectItems value="#{estoqueBean.listaProdutos}"
+														var="produto" itemLabel="#{produto.nome}"
+														itemValue="#{produto}" />
+														 <f:ajax  render="cadastro:qtd"/>
+														  <f:ajax  render="cadastro:nascimento"/>
+												</h:selectOneMenu>
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Registro de Entrada/Saída</label>
-												<h:selectOneRadio value="#{clienteBean.cliente.pessoa.sexo}"
+												<h:selectOneRadio value="#{estoqueBean.logEstoque.tipo_movimentacao}"
 													required="true" class="form-control" a:required="true">
-													<f:selectItems value="#{usuarioBean.enumSexo}" var="sexo"
-														itemLabel="#{sexo.chave}" itemValue="#{sexo}" />
+													<f:selectItems value="#{estoqueBean.enumRegistro}" var="tiporegistro"
+														itemLabel="#{tiporegistro.descricao}" itemValue="#{tiporegistro}" />
+														 
 												</h:selectOneRadio>
 											</div>
-											
+											</div>
+												<div class="form-group">											
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Quantidade Atual</label>
 												<h:inputText id="qtd"
-													value="#{clienteBean.cliente.pessoa.nome}" size="30"
+												   disabled="true"
+													value="#{estoqueBean.produto.estoque.qtd_produto}" size="30"
+													a:type="number"
 													maxlength="30" a:required="true"
-													class="form-control"
-													a:placeholder="Informe seu Nome Completo">
+													class="form-control">													
 													<f:validateLength minimum="10" maximum="30" />
 												</h:inputText>
 											</div>
@@ -86,20 +96,22 @@
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Lançamento</label>
 												<h:inputText id="lancamento"
-													value="#{clienteBean.cliente.pessoa.nome}" size="30"
-													maxlength="30" a:required="true"
+													value="#{estoqueBean.lancamentoQuantia}" size="10"
+													maxlength="10" a:required="true"
 													class="form-control"
-													a:placeholder="Informe seu Nome Completo">
-													<f:validateLength minimum="10" maximum="30" />
+													
+													a:placeholder="Informe a Quantidade">
+													<f:validateLength minimum="1" maximum="10" />
 												</h:inputText>
 											</div>
 											
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Data de
-													Movimentação </label>
+													Validade Lote </label>
 												<h:inputText id="nascimento" a:type="date"
-													value="#{clienteBean.cliente.pessoa.dt_nascimento}"
-													a:required="true" class="form-control">
+													value="#{estoqueBean.produto.estoque.data_validade_lote}"
+													a:required="true"
+													 class="form-control">
 													<f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
 														timeZone="America/Sao_Paulo" />
 												</h:inputText>
@@ -110,12 +122,12 @@
 										<span style="color: red"> (*) São Campos Obrigatórios </span><br/><br/>
 										<div class="row">
 											<div class="col-md-3">
-												<h:commandButton action="#{clienteBean.salvar}"
+												<h:commandButton action="#{estoqueBean.salvar}"
 													class="btn btn-info btn-block" a:type="submit"
 													value="Salvar" />
 											</div>
 											<div class="col-md-3">
-												<h:commandButton action="#{clienteBean.novo}"
+												<h:commandButton action="#{estoqueBean.novo}"
 													class="btn btn-warning btn-block" value="Limpar" />
 											</div>
 										</div>
