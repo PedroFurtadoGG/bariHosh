@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,8 +20,8 @@ import javax.persistence.TemporalType;
 @Table(name = "estoque")
 public class Estoque implements Serializable  {
 
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 8264949375762622529L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_estoque;
