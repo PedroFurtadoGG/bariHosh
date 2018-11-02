@@ -2,10 +2,8 @@ package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -27,7 +25,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "pedido")
 public class Pedido implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2538579313415028690L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

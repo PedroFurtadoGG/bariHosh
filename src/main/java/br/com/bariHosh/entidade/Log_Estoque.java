@@ -3,8 +3,6 @@ package br.com.bariHosh.entidade;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -17,14 +15,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 @Entity
 public class Log_Estoque  implements Serializable  {
 
+	private static final long serialVersionUID = -7221258183866011712L;
 	
-	private static final long serialVersionUID = 1L;
-    private String descricao;
+	private String descricao;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_log_estoque;

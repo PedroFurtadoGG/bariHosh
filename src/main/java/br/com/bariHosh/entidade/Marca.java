@@ -15,9 +15,8 @@ import javax.persistence.Table;
 @Table(name = "marca")
 public class Marca implements Serializable  {
 
+	private static final long serialVersionUID = 8539535248560042148L;
 	
-	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_marca;
