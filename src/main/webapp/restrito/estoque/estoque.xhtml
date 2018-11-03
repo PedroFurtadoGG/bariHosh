@@ -51,6 +51,8 @@
 										<ui:insert name="messages">
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
+										
+										<h:inputHidden value="#{estoqueBean.logEstoque.id_log_estoque}" />
 										<h:inputHidden value="#{estoqueBean.produto.id_produto}" />
 										<h:inputHidden value="#{estoqueBean.destinoSalvar}" />
 											<h:inputHidden value="#{estoqueBean.produto.estoque.qtd_produto}" />
