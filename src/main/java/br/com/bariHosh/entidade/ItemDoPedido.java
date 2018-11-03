@@ -20,8 +20,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "item_pedido")
 public class ItemDoPedido implements Serializable {
 
-	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3882264367186637840L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -2,7 +2,6 @@ package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,8 +21,8 @@ import javax.persistence.TemporalType;
 @Table(name = "pessoa")
 public class Pessoa implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = -8116745230067889976L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_pessoa;

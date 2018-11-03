@@ -19,7 +19,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "pagamento")
 public class Pagamento implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7227621808219296302L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

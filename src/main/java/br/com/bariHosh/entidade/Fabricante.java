@@ -1,10 +1,8 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -16,9 +14,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "fabricante")
 public class Fabricante implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = 27082973257799897L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_fabricante;
