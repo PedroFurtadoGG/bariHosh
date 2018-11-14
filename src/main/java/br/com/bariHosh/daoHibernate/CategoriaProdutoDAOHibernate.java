@@ -16,6 +16,7 @@ public class CategoriaProdutoDAOHibernate extends GenericoDAOHibernate<Categoria
 
 	private Session session = DAOFactory.PegarSession();
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Produto> ListaProdutosVinculados(Long id) {
 		String hql = "select p from Produto p where p.categoria = :idcategoria";

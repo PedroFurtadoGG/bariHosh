@@ -70,5 +70,9 @@ public class MarcaRN extends ManuseioPublico {
 	public List<Marca> listar() {
 		return this.marcaDAO.listar(Marca.class);
 	}
+	
+	public List<Marca> listarCompleto() {
+		return this.marcaDAO.listaCompleta();
+	}
 
 }

@@ -28,11 +28,11 @@ public class Log_Estoque  implements Serializable  {
 	@Enumerated(EnumType.STRING)
 	private EnumTipoRegistro tipo_movimentacao;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name = "id_estoque", nullable = false)
 	private Estoque estoque;
 
-	@OneToOne(fetch = FetchType.LAZY)	
+	@OneToOne(fetch = FetchType.LAZY )	
 	@JoinColumn(name = "id_usuariomovimentador", nullable = false)
 	private Usuario usuario_movimentador;
 

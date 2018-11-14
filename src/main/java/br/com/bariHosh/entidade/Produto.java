@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
 @Entity
 @Table(name = "produto")
 public class Produto implements Serializable {
@@ -48,8 +49,10 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "id_marca_produto", nullable = false)
 	private Marca marca_produto;
 	
-	@OneToOne(cascade=CascadeType.ALL)  	 
-	@JoinColumn(name = "id_estoque_produto", nullable = false)
+		 
+	
+	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)  
+	@JoinColumn(name = "id_estoque_produto")
 	private Estoque estoque;
 
 	@Temporal(TemporalType.DATE)

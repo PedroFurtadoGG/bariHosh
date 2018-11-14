@@ -19,10 +19,10 @@
 		<mapping class="br.com.bariHosh.entidade.Estoque" />
 		<mapping class="br.com.bariHosh.entidade.Fabricante"/>
 		<mapping class="br.com.bariHosh.entidade.Marca" />
-		<mapping class="br.com.bariHosh.entidade.ItemDoPedido" />
+		<mapping class="br.com.bariHosh.entidade.ItemComanda" />
 		<mapping class="br.com.bariHosh.entidade.Log_Estoque" />
 		<mapping class="br.com.bariHosh.entidade.Pagamento" />
-		<mapping class="br.com.bariHosh.entidade.Pedido" />
+		<mapping class="br.com.bariHosh.entidade.Comanda" />
 		<mapping class="br.com.bariHosh.entidade.Produto" />		
 		<mapping class="br.com.bariHosh.entidade.GrupoProduto" />
 

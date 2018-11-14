@@ -8,13 +8,10 @@ import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Objects;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
-import br.com.bariHosh.entidade.Log_Estoque;
 import br.com.bariHosh.entidade.Usuario;
 
 public class ManuseioPublico {
@@ -110,8 +107,8 @@ public class ManuseioPublico {
 		Calendar dateOfBirth = new GregorianCalendar();
 		dateOfBirth.setTime(data);
 		Calendar today = Calendar.getInstance();
-		Integer tempoData = today.get(Calendar.DAY_OF_MONTH) - dateOfBirth.get(Calendar.DAY_OF_MONTH);
-		dateOfBirth.add(Calendar.DAY_OF_MONTH, tempoData);
+		Integer tempoData = today.get(Calendar.DAY_OF_YEAR) - dateOfBirth.get(Calendar.DAY_OF_YEAR);
+		dateOfBirth.add(Calendar.DAY_OF_YEAR, tempoData);
 		if (today.before(dateOfBirth)) {
 			tempoData--;		}
 		return tempoData ;

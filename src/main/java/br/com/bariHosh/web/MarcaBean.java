@@ -2,7 +2,6 @@ package br.com.bariHosh.web;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import br.com.bariHosh.entidade.Fabricante;
@@ -20,10 +19,10 @@ public class MarcaBean {
 	private String destinoSalvar;
 	private List<Fabricante> listaFab;
 	private MarcaRN marcaRN = new MarcaRN();
-
+	private FabricanteRN fabRN = new FabricanteRN();
 	public MarcaBean() {
-
-		this.fabricante = new Fabricante();
+		this.marcaRN = new MarcaRN();
+		this.destinoSalvar = "marcas";
 		this.marca.setFabricante(fabricante);
 
 	}
@@ -36,18 +35,9 @@ public class MarcaBean {
 		return "/restrito/marca/marca";
 	}
 
-	@PostConstruct
-	public void init() {
-		this.destinoSalvar = "marcas";
-		this.setFabricante(new Fabricante());
-		this.marca = new Marca();
-		this.marca.setFabricante(fabricante);
+	
 
-	}
-
-	public String editar() {
-		this.marca.getFabricante();
-
+	public String editar() {		
 		return "/restrito/marca/marca";
 	}
 
@@ -70,7 +60,7 @@ public class MarcaBean {
 
 	public List<Marca> getLista() {
 		if (this.lista == null) {
-			this.lista = marcaRN.listar();
+			this.lista = marcaRN.listarCompleto();
 		}
 		return this.lista;
 	}
@@ -81,8 +71,7 @@ public class MarcaBean {
 	}
 
 	public List<Fabricante> getListaFab() {
-		if (this.listaFab == null) {
-			FabricanteRN fabRN = new FabricanteRN();
+		if (this.listaFab == null) {			
 			this.listaFab = fabRN.listar();
 		}
 		return this.listaFab;

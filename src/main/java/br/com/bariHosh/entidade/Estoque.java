@@ -10,8 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,14 +28,14 @@ public class Estoque implements Serializable  {
 	private Integer qtd_produto;
     private float saldoEstoque;
 	private boolean ativo;
-
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_produto", referencedColumnName = "id_produto")
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_estoque_produto",referencedColumnName="id_produto")
 	private Produto produto;
 
 	
 
-	@OneToMany(mappedBy = "estoque",  fetch = FetchType.LAZY, targetEntity = Log_Estoque.class)
+	@OneToMany(mappedBy = "estoque", fetch = FetchType.LAZY)
 	private Set<Log_Estoque> movimentacao ;
 
 	@Temporal(TemporalType.DATE)	
@@ -187,6 +187,5 @@ public class Estoque implements Serializable  {
 		return true;
 	}
 
-
-
+	
 }

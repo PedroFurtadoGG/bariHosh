@@ -12,5 +12,6 @@ public interface EstoqueDAO {
 	public Estoque pegaEstoquePeloProduto(Produto produto);
 	public List<Estoque> listaEstoqueCheio();
 	public List<GrupoProduto> pegaListaGrupos();
+	public List<Estoque> ListaEstoqueVinculados(Long id_produto);
 	
 }

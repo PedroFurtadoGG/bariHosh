@@ -53,9 +53,8 @@
 										<ui:insert name="messages">
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
-										<h:inputHidden value="#{produtoBean.produto.id_produto}" />
-										<h:inputHidden
-											value="#{produtoBean.produto.estoque.id_estoque}" />
+										<h:inputHidden value="#{produtoBean.produto.id_produto}" />		
+										<h:inputHidden value="#{produtoBean.produto.estoque.id_estoque}" />									
 										<h:inputHidden
 											value="#{produtoBean.produto.marca_produto.id_marca}" />
 										<h:inputHidden
@@ -92,7 +91,7 @@
 												<h:selectOneMenu class="form-control"
 													value="#{produtoBean.produto.categoria}"
 													requiredMessage="Informe a categoria do Produto!"
-													required="true" converter="converterCategoriaProduto">
+													required="true" converter="converterCategoriaProduto" >
 													<f:selectItem itemLabel="Selecione..." />
 													<f:selectItems value="#{produtoBean.listaCategorias}"
 														var="categoria" itemLabel="#{categoria.descricao}"
