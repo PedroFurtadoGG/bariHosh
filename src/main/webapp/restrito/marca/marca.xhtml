@@ -54,6 +54,8 @@
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
 										<h:inputHidden value="#{marcaBean.marca.id_marca}" />
+										<h:inputHidden value="#{marcaBean.marca.fabricante.id_fabricante}" />
+										<h:inputHidden value="#{marcaBean.destinoSalvar}" />
 
 										<div class="form-group">
 											<div class="col-md-10">
@@ -80,13 +82,15 @@
 												<h:selectOneMenu class="form-control"
 													value="#{marcaBean.marca.fabricante}"
 													requiredMessage="Informe a razao social da fabricante!"
-													converter="generiocConverter" required="true">
+													converter="generiocConverter"  required="true">
 													<f:selectItem itemLabel="Selecione..." />
-													<f:selectItems value="#{marcaBean.listaFab}" var="fab"
-														itemLabel="#{fab.razaoSocial}" itemValue="#{fab}" />
+													<f:selectItems value="#{marcaBean.listaFab}"
+													 var="fab" itemLabel="#{fab.razaoSocial}" itemValue="#{fab}" />
 												</h:selectOneMenu>
 											</div>
 										</div>
+										
+										
 										
 
 										<div class="row">

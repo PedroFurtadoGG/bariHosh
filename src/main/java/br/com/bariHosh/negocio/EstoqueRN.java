@@ -33,7 +33,7 @@ public class EstoqueRN extends ManuseioPublico{
 				Usuario usuarioLogado = super.buscarPorUsuarioLogado();
 				if (super.validaObjeto(usuarioLogado)) {
 					if (logEstoque.getTipo_movimentacao() == EnumTipoRegistro.ENTRADA) {
-
+              
 						// finalizacao estoque ao produto criacao de novo estoque injetando ao produto
 						produto.getEstoque().setAtivo(false);
 						produto.getEstoque().setData_finalizacao(new Date());
@@ -50,6 +50,8 @@ public class EstoqueRN extends ManuseioPublico{
 						produto.setEstoque(estoque);
 
 						if (aumentarEstoqueProduto(produto, lancamentoQuantia)) {
+							logEstoque = new Log_Estoque();
+							logEstoque.setTipo_movimentacao(EnumTipoRegistro.ENTRADA);
 							logEstoque.setUsuario_movimentador(usuarioLogado);
 							logEstoque.setDt_movimentacao(new Date());
 							logEstoque.setEstoque(produto.getEstoque());
@@ -64,6 +66,8 @@ public class EstoqueRN extends ManuseioPublico{
 					} else if (logEstoque.getTipo_movimentacao() == EnumTipoRegistro.SAIDA) {
 
 						if (diminuirEstoqueProduto(produto, lancamentoQuantia)) {
+							logEstoque = new Log_Estoque();
+							logEstoque.setTipo_movimentacao(EnumTipoRegistro.SAIDA);
 							logEstoque.setUsuario_movimentador(usuarioLogado);
 							logEstoque.setDt_movimentacao(new Date());
 							logEstoque.setEstoque(produto.getEstoque());

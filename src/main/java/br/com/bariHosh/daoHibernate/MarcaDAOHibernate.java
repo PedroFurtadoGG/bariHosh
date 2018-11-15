@@ -23,5 +23,16 @@ public class MarcaDAOHibernate  extends GenericoDAOHibernate<Marca>  implements 
 		   listaProduto = consulta.list();
 		return listaProduto ;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Marca> listaCompleta() {
+		String hql = "select m from Marca m  "
+				+ " JOIN FETCH m.fabricante f " ;				
+		Query consulta = this.session.createQuery(hql);
+		List<Marca> list = (List<Marca> ) consulta.list();
+		
+		return list;		
+	}
 
 }

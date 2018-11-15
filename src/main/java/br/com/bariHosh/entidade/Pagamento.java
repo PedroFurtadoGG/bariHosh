@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pagamento")
@@ -24,6 +23,7 @@ public class Pagamento implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Enumerated(EnumType.STRING)
 	private FormaPagamento formaPagamento;
 
@@ -31,8 +31,7 @@ public class Pagamento implements Serializable {
 	private boolean completamenteRecebido;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_usuario", nullable = false)
-	@NotNull
+	@JoinColumn(name = "id_usuario")	
 	private Usuario usuario;
 
 	public Pagamento() {

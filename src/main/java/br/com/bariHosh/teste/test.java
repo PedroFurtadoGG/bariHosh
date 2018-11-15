@@ -9,7 +9,6 @@ import br.com.bariHosh.entidade.EnumPermissao;
 import br.com.bariHosh.entidade.EnumSexo;
 import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Usuario;
-import br.com.bariHosh.negocio.UsuarioRN;
 
 public class test {
 

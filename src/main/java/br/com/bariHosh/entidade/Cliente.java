@@ -1,6 +1,8 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -33,8 +35,8 @@ public class Cliente implements Serializable {
 	@JoinColumn(name = "id_pessoa", nullable = false)
 	private Pessoa pessoa;
 
-	@OneToMany(mappedBy = "cliente",  fetch=FetchType.LAZY ,targetEntity = Pedido.class)
-	private Set<Pedido> pedidos;
+	@OneToMany(mappedBy = "cliente",  fetch=FetchType.LAZY ,targetEntity = Comanda.class)
+	private List<Comanda> comandas = new ArrayList<Comanda>();
 
 	public Long getId_cliente() {
 		return id_cliente;
@@ -68,12 +70,12 @@ public class Cliente implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public Set<Pedido> getPedidos() {
-		return pedidos;
+	public List<Comanda> getComandas() {
+		return comandas;
 	}
 
-	public void setPedidos(Set<Pedido> pedidos) {
-		this.pedidos = pedidos;
+	public void setComandas(List<Comanda> comandas) {
+		this.comandas = comandas;
 	}
 
 	@Override
@@ -81,9 +83,9 @@ public class Cliente implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (ativo ? 1231 : 1237);
+		result = prime * result + ((comandas == null) ? 0 : comandas.hashCode());
 		result = prime * result + ((id_cliente == null) ? 0 : id_cliente.hashCode());
 		result = prime * result + ((observacao == null) ? 0 : observacao.hashCode());
-		result = prime * result + ((pedidos == null) ? 0 : pedidos.hashCode());
 		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
 		return result;
 	}
@@ -99,6 +101,11 @@ public class Cliente implements Serializable {
 		Cliente other = (Cliente) obj;
 		if (ativo != other.ativo)
 			return false;
+		if (comandas == null) {
+			if (other.comandas != null)
+				return false;
+		} else if (!comandas.equals(other.comandas))
+			return false;
 		if (id_cliente == null) {
 			if (other.id_cliente != null)
 				return false;
@@ -109,11 +116,6 @@ public class Cliente implements Serializable {
 				return false;
 		} else if (!observacao.equals(other.observacao))
 			return false;
-		if (pedidos == null) {
-			if (other.pedidos != null)
-				return false;
-		} else if (!pedidos.equals(other.pedidos))
-			return false;
 		if (pessoa == null) {
 			if (other.pessoa != null)
 				return false;
@@ -122,4 +124,5 @@ public class Cliente implements Serializable {
 		return true;
 	}
 
+	
 }

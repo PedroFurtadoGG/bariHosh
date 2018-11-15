@@ -7,9 +7,9 @@ import javax.faces.context.FacesContext;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+
 import br.com.bariHosh.dao.UsuarioDAO;
 import br.com.bariHosh.entidade.EnumPermissao;
-import br.com.bariHosh.entidade.Produto;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.util.DAOFactory;
 
@@ -49,6 +49,7 @@ public class UsuarioDAOHibernate extends GenericoDAOHibernate<Usuario> implement
 		return this.buscarPorLogin(login);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Usuario> listaCompleta() {
 		String hql = "select u from Usuario u  "

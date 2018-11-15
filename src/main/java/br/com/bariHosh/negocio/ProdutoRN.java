@@ -3,9 +3,11 @@ package br.com.bariHosh.negocio;
 import java.util.Date;
 import java.util.List;
 
+import br.com.bariHosh.daoHibernate.EstoqueDAOHibernate;
 import br.com.bariHosh.daoHibernate.LogEstoqueDAOHibernate;
 import br.com.bariHosh.daoHibernate.ProdutoDAOHibernate;
 import br.com.bariHosh.entidade.EnumTipoRegistro;
+import br.com.bariHosh.entidade.Estoque;
 import br.com.bariHosh.entidade.Log_Estoque;
 import br.com.bariHosh.entidade.Produto;
 import br.com.bariHosh.entidade.Usuario;
@@ -13,12 +15,16 @@ import br.com.bariHosh.util.ManuseioPublico;
 
 public class ProdutoRN extends ManuseioPublico {
 
+	
 	private ProdutoDAOHibernate produtoDAO;
+	private EstoqueDAOHibernate estoqueDAO;
 	private LogEstoqueDAOHibernate logDAO;
     private Log_Estoque logEstoque = new Log_Estoque(); 
+    
     public ProdutoRN() {
 		this.produtoDAO = new ProdutoDAOHibernate();
 		this.logDAO= new LogEstoqueDAOHibernate();
+		this.estoqueDAO =  new EstoqueDAOHibernate();
 	}
 
 	public Produto carregar(Long id) {
@@ -84,7 +90,7 @@ public class ProdutoRN extends ManuseioPublico {
 		return false;
 	}
 
-	public boolean excluir(Produto produto) {
+	public boolean sxcluir(Produto produto) {
 		try {
 			if (super.validaObjeto(produto.getId_produto())) {
 				this.produtoDAO.excluir(produto);
@@ -96,6 +102,32 @@ public class ProdutoRN extends ManuseioPublico {
 			super.MessagesErro("Ocorreu um erro ao tentar excluir o Produto.");
 		}
 		return false;
+	}
+	
+	public boolean excluir(Produto produto) {		
+		try {
+			if (super.validaObjeto(produto.getId_produto())) {
+				List<Estoque> listaEstoque = this.estoqueDAO.ListaEstoqueVinculados(produto.getId_produto());						
+						for(Estoque estoque :listaEstoque) {
+							List<Log_Estoque> listalog = this.logDAO.ListaEtoqueVinculados(estoque.getId_estoque());
+							for(Log_Estoque log: listalog) {
+								this.logDAO.excluir(log);								
+							}							
+							this.estoqueDAO.excluir(estoque);
+						}					
+					
+					this.produtoDAO.excluir(produto);
+					super.MessagesSucesso("Produto deletado com sucesso !");
+					return true;
+				
+			}
+				
+			}catch (Exception e) {
+				System.out.println("erro ao excluir :" + e.getMessage());
+				super.MessagesErro("Ocorreu um erro ao tentar excluir o Produto.");
+			}
+			return false;  
+		
 	}
 	
 	
@@ -122,6 +154,14 @@ public class ProdutoRN extends ManuseioPublico {
 
 	public void setLogDAO(LogEstoqueDAOHibernate logDAO) {
 		this.logDAO = logDAO;
+	}
+
+	public EstoqueDAOHibernate getEstoqueDAO() {
+		return estoqueDAO;
+	}
+
+	public void setEstoqueDAO(EstoqueDAOHibernate estoqueDAO) {
+		this.estoqueDAO = estoqueDAO;
 	}
 
 	

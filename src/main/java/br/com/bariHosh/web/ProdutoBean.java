@@ -34,7 +34,7 @@ public class ProdutoBean {
 	
 
 	public ProdutoBean() {		
-		this.destinoSalvar = "produtos";		
+		this.destinoSalvar = "produtos";	
 		this.estoque.setProduto(this.produto);
 		this.produto.setMarca_produto(this.marca);
 		this.produto.setFornecedor(this.fornecedor);
@@ -42,6 +42,7 @@ public class ProdutoBean {
 		this.produto.setEstoque(this.estoque);
 		this.produto.setAtivo(true);
 		this.produto.getEstoque().setAtivo(true);
+	
 		
 		
 	}
