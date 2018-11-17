@@ -5818,7 +5818,6 @@ blockquote{
     background-color:#3BAFDA;
     cursor:pointer;
     display:block;
-    height:50%;
     position:absolute;
     right:15px;
     text-indent:-99999px;
@@ -5832,13 +5831,13 @@ blockquote{
     -moz-border-radius-topright:3px;
     border-top-right-radius:3px;
     border:1px solid #269ecb;
-    top:0
+    top:20px
 }
 .stepper .down{
     -webkit-border-bottom-right-radius:3px;
     -moz-border-radius-bottomright:3px;
     border-bottom-right-radius:3px;
-    bottom:0
+    bottom:5px
 }
 .stepper .down::before,.stepper .up::before{
     content:"";
