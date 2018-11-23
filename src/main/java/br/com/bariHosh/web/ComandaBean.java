@@ -16,6 +16,7 @@ import br.com.bariHosh.negocio.ClienteRN;
 import br.com.bariHosh.negocio.ComandaRN;
 import br.com.bariHosh.negocio.ItemComandaRN;
 import br.com.bariHosh.negocio.ProdutoRN;
+import br.com.bariHosh.util.ManuseioPublico;
 
 @ManagedBean(name = "comandaBean")
 @ViewScoped
