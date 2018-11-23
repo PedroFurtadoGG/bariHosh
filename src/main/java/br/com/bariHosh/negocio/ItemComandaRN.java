@@ -12,19 +12,33 @@ public class ItemComandaRN  extends ManuseioPublico{
 
 	
 	private ItemComandaDAOHibernate itemComandaDAO = new ItemComandaDAOHibernate();
-	
+	   
 	public List<ItemComanda> listaIntemComandaPorComandaId(Long id_comanda) {
-		  List<ItemComanda> list = itemComandaDAO.listaItensPorComandaId(id_comanda);
-		  if(list ==null) {		  
-			  list  = new ArrayList<ItemComanda>();
-		  }	    
+		  List<ItemComanda> lista = new ArrayList<ItemComanda>();
+		if(id_comanda!=null) {
+			 lista = itemComandaDAO.listaItensPorComandaId(id_comanda);
+		}
+		  
+		  return lista;
 	
-	return list;
 	}
 
 	public boolean excluir(ItemComanda model ) {
-		itemComandaDAO.excluir(model);
+		try {
+			itemComandaDAO.excluir(model);
+			super.MessagesSucesso("Item Removido Com Sucesso ");
+			return true ;
+			
+		}catch (Exception e) {
+			System.out.println("erro excluir" + e.getMessage());
+			super.MessagesErro("Ouve erro na tentativa de excluir o item contate Administrador do sistema!");
+		}
+		
 		return false;
+	}
+	
+	public List<ItemComanda> listaItems(){		
+		return itemComandaDAO.listar(ItemComanda.class);
 	}
 	
 }

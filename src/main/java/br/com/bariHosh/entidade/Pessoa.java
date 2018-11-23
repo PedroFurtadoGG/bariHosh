@@ -1,7 +1,9 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -46,10 +48,10 @@ public class Pessoa implements Serializable {
 	private Date dt_alteracao;
 	
     @OneToMany(mappedBy="pessoa",fetch=FetchType.LAZY ,targetEntity = Usuario.class)
-	private Set<Usuario> usuarios ;
+	private List<Usuario> usuarios  = new ArrayList<Usuario>();
     
     @OneToMany(mappedBy="pessoa", fetch=FetchType.LAZY,targetEntity = Fornecedor.class)  
-   	private Set<Fornecedor> fornecedores ;
+   	private List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();;
     
     
 	public Long getId_pessoa() {
@@ -152,21 +154,21 @@ public class Pessoa implements Serializable {
 		return serialVersionUID;
 	}
 	
-	public Set<Usuario> getUsuarios() {
+	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
-	public void setUsuarios(Set<Usuario> usuarios) {
+	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 	
 	
 
-	public Set<Fornecedor> getFornecedores() {
+	public List<Fornecedor> getFornecedores() {
 		return fornecedores;
 	}
 
-	public void setFornecedores(Set<Fornecedor> fornecedores) {
+	public void setFornecedores(List<Fornecedor> fornecedores) {
 		this.fornecedores = fornecedores;
 	}
 	
@@ -273,6 +275,14 @@ public class Pessoa implements Serializable {
 		} else if (!usuarios.equals(other.usuarios))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Pessoa [id_pessoa=" + id_pessoa + ", nome=" + nome + ", rg=" + rg + ", cpf=" + cpf + ", sexo=" + sexo
+				+ ", telefone=" + telefone + ", email=" + email + ", id_usuario_criacao=" + id_usuario_criacao
+				+ ", endereco=" + endereco + ", dt_nascimento=" + dt_nascimento + ", dt_criacao=" + dt_criacao
+				+ ", dt_alteracao=" + dt_alteracao + ", usuarios=" + usuarios.size() + ", fornecedores=" + fornecedores + "]";
 	}
 
 

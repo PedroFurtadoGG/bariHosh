@@ -51,10 +51,10 @@ public class ComandaDAOHibernate extends GenericoDAOHibernate<Comanda> implement
 	public void setSession(Session session) {
 		this.session = session;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Comanda> listaComandasStatus(boolean status) {
-		String hql = "select c from Comanda c  "
-				+ " JOIN FETCH c.cliente e   where c.ativo = :status ";
+		String hql = "select c from Comanda c JOIN FETCH c.cliente o  where c.ativo = :status ";
 			 					
 		Query consulta = this.session.createQuery(hql);
 		      consulta.setBoolean("status", status);

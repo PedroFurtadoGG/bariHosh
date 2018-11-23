@@ -31,7 +31,7 @@ public class Cliente implements Serializable {
 	private String observacao;
 	private boolean ativo;
 
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pessoa", nullable = false)
 	private Pessoa pessoa;
 
@@ -78,51 +78,86 @@ public class Cliente implements Serializable {
 		this.comandas = comandas;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (ativo ? 1231 : 1237);
-		result = prime * result + ((comandas == null) ? 0 : comandas.hashCode());
-		result = prime * result + ((id_cliente == null) ? 0 : id_cliente.hashCode());
-		result = prime * result + ((observacao == null) ? 0 : observacao.hashCode());
-		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cliente other = (Cliente) obj;
-		if (ativo != other.ativo)
-			return false;
-		if (comandas == null) {
-			if (other.comandas != null)
-				return false;
-		} else if (!comandas.equals(other.comandas))
-			return false;
-		if (id_cliente == null) {
-			if (other.id_cliente != null)
-				return false;
-		} else if (!id_cliente.equals(other.id_cliente))
-			return false;
-		if (observacao == null) {
-			if (other.observacao != null)
-				return false;
-		} else if (!observacao.equals(other.observacao))
-			return false;
-		if (pessoa == null) {
-			if (other.pessoa != null)
-				return false;
-		} else if (!pessoa.equals(other.pessoa))
-			return false;
-		return true;
-	}
-
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + (ativo ? 1231 : 1237);
+//		result = prime * result + ((comandas == null) ? 0 : comandas.hashCode());
+//		result = prime * result + ((id_cliente == null) ? 0 : id_cliente.hashCode());
+//		result = prime * result + ((observacao == null) ? 0 : observacao.hashCode());
+//		result = prime * result + ((pessoa == null) ? 0 : pessoa.hashCode());
+//		return result;
+//	}
+//
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj) {
+//			return true;
+//		}
+//		if (obj == null) {
+//			return false;
+//		}
+//		if (!(obj instanceof Cliente)) {
+//			return false;
+//		}
+//		Cliente other = (Cliente) obj;
+//		if (ativo != other.ativo) {
+//			return false;
+//		}
+//		if (comandas == null) {
+//			if (other.comandas != null) {
+//				return false;
+//			}
+//		} else if (!comandas.equals(other.comandas)) {
+//			return false;
+//		}
+//		if (id_cliente == null) {
+//			if (other.id_cliente != null) {
+//				return false;
+//			}
+//		} else if (!id_cliente.equals(other.id_cliente)) {
+//			return false;
+//		}
+//		if (observacao == null) {
+//			if (other.observacao != null) {
+//				return false;
+//			}
+//		} else if (!observacao.equals(other.observacao)) {
+//			return false;
+//		}
+//		if (pessoa == null) {
+//			if (other.pessoa != null) {
+//				return false;
+//			}
+//		} else if (!pessoa.equals(other.pessoa)) {
+//			return false;
+//		}
+//		return true;
+//	}
+//	
+	
+	@Override  
+    public int hashCode() {	      
+		 return (int) ((id_cliente == null) ? 0 : id_cliente);
+	        
+	 
+    }  
+	
+	
+    @Override  
+    public boolean equals(Object obj) {  
+        if (obj == null)  return false;  
+        if (obj instanceof Cliente){
+            return ((Cliente)obj).getId_cliente().equals(this.id_cliente);  
+        }         
+        return false;  
+    }
+	
+	
+    
+    
+	
+	
 	
 }

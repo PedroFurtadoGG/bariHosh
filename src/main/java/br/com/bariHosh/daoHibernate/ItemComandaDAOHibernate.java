@@ -2,8 +2,10 @@ package br.com.bariHosh.daoHibernate;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import br.com.bariHosh.dao.ItemComandaDAO;
 import br.com.bariHosh.entidade.*;
@@ -38,14 +40,17 @@ public class ItemComandaDAOHibernate extends GenericoDAOHibernate<ItemComanda> i
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ItemComanda> listaItensPorComandaId(Long id_comanda) {
-		String hql = "select i from ItemComanda i  "
-				+ " JOIN FETCH i.produto p   where i.comanda = :idcomanda ";
-			 					
+		
+		String hql = " from ItemComanda i JOIN FETCH i.comanda c JOIN FETCH i.produto p where i.comanda = :idcomanda ";
+		
 		Query consulta = this.session.createQuery(hql);
 		      consulta.setLong("idcomanda", id_comanda);
-		List<ItemComanda> list = (List<ItemComanda> ) consulta.list();
-		
+		List<ItemComanda> list = (List<ItemComanda> ) consulta.list();		
 		return list;
 	}
 
+	
+	
+	
+	
 }
