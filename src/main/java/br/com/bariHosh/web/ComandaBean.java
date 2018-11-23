@@ -1,17 +1,12 @@
 package br.com.bariHosh.web;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import br.com.bariHosh.entidade.Cliente;
 import br.com.bariHosh.entidade.Comanda;
@@ -24,104 +19,157 @@ import br.com.bariHosh.negocio.ProdutoRN;
 import br.com.bariHosh.util.ManuseioPublico;
 
 @ManagedBean(name = "comandaBean")
-@RequestScoped
-public class ComandaBean {
+@ViewScoped
+public class ComandaBean implements Serializable {
 
-	private List<Cliente> Clientes ;
+	private static final long serialVersionUID = 5157727053904987775L;
+	private List<Cliente> Clientes;
 	private List<Produto> Produtos;
-	private List<ItemComanda> itensComanda;
 	private List<Comanda> comandasAbertas;
 	private List<Comanda> comandasEncerradas;
-	
+	private List<ItemComanda> itensComanda;
 	private Cliente cliente = new Cliente();
 	private Produto produto = new Produto();
 	private Comanda comanda = new Comanda();
 	private ItemComanda itemComanda = new ItemComanda();
+
 	private String destinoSalvar;
-	private ClienteRN clienteRN;
-	private ProdutoRN produtoRN;
-	private ComandaRN comandaRN;
-	private ItemComandaRN itemComandaRN;
+	private ClienteRN clienteRN = new ClienteRN();
+	private ProdutoRN produtoRN = new ProdutoRN();
+	private ComandaRN comandaRN = new ComandaRN();
+	private ItemComandaRN itemComandaRN = new ItemComandaRN();
 
-	public ComandaBean() {
-		this.destinoSalvar = "comanda";
-		this. itemComanda = new ItemComanda();
-		this.itemComandaRN = new ItemComandaRN();
-		this.clienteRN = new ClienteRN();
-		this.produtoRN = new ProdutoRN();
-		this.comandaRN = new ComandaRN();
-		this.comanda.setData(new Date());
-	
-		
-
-	}
-	
-	public String editar() {
-		return "/restrito/comanda/comanda";
-		
-	}
-
-	public String salvar() {
-		  this.destinoSalvar ="comandasAberto";
-		return "/restrito/comanda/comandasAberto2";
-	}
-	public String novo() {
-		this.comanda = new Comanda();
+	@PostConstruct
+	public void init() {
+		this.itensComanda = new ArrayList<ItemComanda>();
 		this.itemComanda = new ItemComanda();
-		this.cliente = new Cliente();
-		this.destinoSalvar = "comandasAberto";
-		this.itemComandaRN = new ItemComandaRN();
+		this.itemComanda.setComanda(this.comanda);
+		this.itemComanda.setProduto(this.produto);
 		this.clienteRN = new ClienteRN();
 		this.produtoRN = new ProdutoRN();
 		this.comandaRN = new ComandaRN();
-		this.itensComanda = new ArrayList<ItemComanda>() ;
-		this.comanda.setData(new Date());
-		this.comanda.setCliente(this.cliente);
-		this.itemComanda.setProduto(this.produto);
-		
-		return null;
-	}
-	public String adicionarItem() {
-		this.itemComanda.setValorUnitario(this.itemComanda.getProduto().getValorSaida());
-		this.itemComanda.setValorTotal(this.itemComanda.getProduto().getValorSaida()*this.itemComanda.getQuantidade());
-		this.comanda.adicionaItemComanda(this.itemComanda);
-		if (this.comandaRN.salvar(this.comanda)) {
-			this.destinoSalvar = "comanda";
-			this.itemComanda = new ItemComanda();
-			this.itensComanda = null;
-			this.getItensComanda();
+		this.itemComandaRN = new ItemComandaRN();
+		Comanda comanda = this.comandaRN.recuperaComandaParaEdicao();
+		if (comanda != null) {
+			this.comanda = comanda;
 		}
+
+	}
+
+	public String novo() {
+		
+		this.itensComanda = new ArrayList<ItemComanda>();
+		this.itemComanda = new ItemComanda();
+		this.itemComanda.setComanda(this.comanda);
+		this.itemComanda.setProduto(this.produto);
+		this.clienteRN = new ClienteRN();
+		this.produtoRN = new ProdutoRN();
+		this.comandaRN = new ComandaRN();
+		this.itemComandaRN = new ItemComandaRN();
+		
+
+		return "comanda";
+	}
+
+	public void adicionarItemComanda() {
+		
+		this.itemComanda.setValorUnitario(this.itemComanda.getProduto().getValorSaida());
+		this.itemComanda
+				.setValorTotal(this.itemComanda.getProduto().getValorSaida() * this.itemComanda.getQuantidade());
+		this.comanda.adicionaItemComanda(this.itemComanda);
+		ManuseioPublico.MessagesSucesso("Item adicionado com Sucesso !");
+		this.itemComanda = new ItemComanda();
+
+	}
+
+	public void excluirItemComanda() {
+		this.comanda.removeItemComanda(this.itemComanda);
+		if (this.comanda.getId_comanda() != null) {
+			new ItemComandaRN().excluir(this.itemComanda);
+		}else {
+			ManuseioPublico.MessagesSucesso("Item Removido  com Sucesso !");
+		}
+		
+	}
+
+	public void excluirComanda(Comanda comanda) {
+		this.comanda = comanda;
+		this.destinoSalvar = "comandasAberto";
+		if (new ComandaRN().excluir(this.comanda)) {
+           this.comanda = new Comanda();
+           this.comandasAbertas = null;
+		}
+
+	}
+
+	public String editarComanda(Comanda comanda) {
+		this.comanda = comanda;
+		this.destinoSalvar = "comanda";
 		return this.destinoSalvar;
 
 	}
 
-	public String excluir() {
-		try {		
-		this.comanda.removeItemComanda(this.itemComanda);	
+	public String salvarComanda() {
+		this.comandaRN = new ComandaRN();
 		if (this.comandaRN.salvar(this.comanda)) {
-			this.destinoSalvar = "comanda";
-			this.itemComanda = new ItemComanda();
-			this.itensComanda = null;
-			this.getItensComanda();
+			this.comanda = new Comanda();
+			this.destinoSalvar = "comandasAberto";
 		}
-		System.out.println("testyesssss");
-		}catch (Exception e) {
-		System.out.println(e.getMessage());
-		}
-		return "comandasAberto";
+		return this.destinoSalvar;
 	}
-	
-	public String excluirComanda() {
-			
-		System.out.println("testyesssss");
-		if (this.comandaRN.excluir(this.comanda)) {
-		  	System.out.println("testyesssss22"+this.comanda.getId_comanda());
-			this.itensComanda = null;
-			this.getItensComanda();
+
+	public List<Cliente> getClientes() {	
+		if (this.Clientes == null) {
+			this.Clientes = new ClienteRN().listar();
 		}
-		return null;
+		return this.Clientes;
 	}
-	
+
+	public List<Produto> getProdutos() {
+		if (this.Produtos == null) {
+			this.Produtos = new ProdutoRN().listar();
+		}
+		return this.Produtos;
+	}
+
+	public List<ItemComanda> getItensComanda() {
+		return this.itensComanda;
+	}
+
+	public List<Comanda> getComandasEncerradas() {
+		if (this.comandasEncerradas == null) {
+			this.comandasEncerradas = this.comandaRN.listaComandasStatus(false);
+		}
+		return this.comandasEncerradas;
+	}
+
+	public List<Comanda> getComandasAbertas() {
+		if (this.comandasAbertas == null) {
+			this.comandasAbertas = new ComandaRN().listaComandasStatus(true);
+		}
+		return this.comandasAbertas;
+
+	}
+
+	public void setItensComanda(List<ItemComanda> itensComanda) {
+		this.itensComanda = itensComanda;
+	}
+
+	public Comanda getComanda() {		
+		return this.comanda;
+	}
+
+	public void setComanda(Comanda comanda) {
+		this.comanda = comanda;
+	}
+
+	public ItemComanda getItemComanda() {
+		return itemComanda;
+	}
+
+	public void setItemComanda(ItemComanda itemComanda) {
+		this.itemComanda = itemComanda;
+	}
 
 	public String getDestinoSalvar() {
 		return destinoSalvar;
@@ -131,30 +179,22 @@ public class ComandaBean {
 		this.destinoSalvar = destinoSalvar;
 	}
 
-	public List<Cliente> getClientes() {
-		if (this.Clientes == null ) {
-			this.Clientes = clienteRN.listar();
-		}
-		return Clientes;
+	public void setClientes(List<Cliente> clientes) {
+		Clientes = clientes;
 	}
 
-	public List<Produto> getProdutos() {
-		if (this.Produtos == null) {
-			this.Produtos = this.produtoRN.listar();
-		}
-		return Produtos;
+	public void setProdutos(List<Produto> produtos) {
+		Produtos = produtos;
 	}
-	
-	public List<ItemComanda> getItensComanda() {
-		if (this.itensComanda == null) {
-			if (this.comanda.getId_comanda() != null) {
-				this.itensComanda = this.itemComandaRN.listaIntemComandaPorComandaId(this.comanda.getId_comanda());
-			}
 
-		}
-		return this.itensComanda;
+	public void setComandasAbertas(List<Comanda> comandasAbertas) {
+		this.comandasAbertas = comandasAbertas;
 	}
-	
+
+	public void setComandasEncerradas(List<Comanda> comandasEncerradas) {
+		this.comandasEncerradas = comandasEncerradas;
+	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -171,45 +211,36 @@ public class ComandaBean {
 		this.produto = produto;
 	}
 
-	public ItemComanda getItemComanda() {
-		return itemComanda;
+	public ClienteRN getClienteRN() {
+		return clienteRN;
 	}
 
-	public void setItemComanda(ItemComanda itemComanda) {
-		this.itemComanda = itemComanda;
+	public void setClienteRN(ClienteRN clienteRN) {
+		this.clienteRN = clienteRN;
 	}
 
-	public Comanda getComanda() {
-		return comanda;
+	public ProdutoRN getProdutoRN() {
+		return produtoRN;
 	}
 
-	public void setComanda(Comanda comanda) {
-		this.comanda = comanda;
+	public void setProdutoRN(ProdutoRN produtoRN) {
+		this.produtoRN = produtoRN;
 	}
 
-	
-			
-
-	public List<Comanda> getComandasEncerradas() {
-		if (this.comandasEncerradas == null) {
-			this.comandasEncerradas = this.comandaRN.listaComandasStatus(false);
-
-		}
-		return this.comandasEncerradas;
+	public ComandaRN getComandaRN() {
+		return comandaRN;
 	}
-	
 
-	public List<Comanda> getComandasAbertas() {
-		if (this.comandasAbertas == null) {
-			this.comandasAbertas = this.comandaRN.listaComandasStatus(true);
-
-		}
-		return this.comandasAbertas;
+	public void setComandaRN(ComandaRN comandaRN) {
+		this.comandaRN = comandaRN;
 	}
-	
 
-	
+	public ItemComandaRN getItemComandaRN() {
+		return itemComandaRN;
+	}
 
-	
+	public void setItemComandaRN(ItemComandaRN itemComandaRN) {
+		this.itemComandaRN = itemComandaRN;
+	}
 
 }

@@ -25,7 +25,7 @@ public class ItemComanda implements Serializable {
 	private float valorTotal;
 	private Long quantidade;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_produto", nullable = false)
 	private Produto produto;
 
@@ -85,6 +85,8 @@ public class ItemComanda implements Serializable {
 		this.valorTotal = valorTotal;
 	}
 
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -133,5 +135,13 @@ public class ItemComanda implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ItemComanda [id_itemComanda=" + id_itemComanda + ", valorUnitario=" + valorUnitario + ", valorTotal="
+				+ valorTotal + ", quantidade=" + quantidade + ", produto=" + produto.getCodigo_barras() + ", comanda=" + comanda.getId_comanda() + "]";
+	}
+	
+	
 
 }
