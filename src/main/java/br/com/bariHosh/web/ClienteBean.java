@@ -24,7 +24,8 @@ public class ClienteBean {
 	private EnumSexo enumSexo;
 	private ClienteRN clienteRN = new ClienteRN();	
 	
-	
+	private Cliente clienteFiltro = new Cliente();
+	private Pessoa pessoaFiltro = new Pessoa();
 	
 	
 	
@@ -36,7 +37,14 @@ public class ClienteBean {
 		this.pessoa.setEndereco(endereco);
 		this.cliente.setPessoa(pessoa);
 		this.cliente.setAtivo(true);
+		
+		this.setPessoaFiltro(new Pessoa());
+		this.clienteFiltro = new Cliente();
+		this.pessoaFiltro.setEndereco(endereco);
+		this.clienteFiltro.setPessoa(pessoaFiltro);
+		this.clienteFiltro.setAtivo(true);
 	}
+	
 
 	public String novo() {		
 		this.setPessoa(new Pessoa());
@@ -52,6 +60,14 @@ public class ClienteBean {
 	public void init() {
 		
 		
+	}
+	
+	public String filtrar() {
+		
+		
+		this.lista = clienteRN.listaFiltrada(clienteFiltro.getPessoa().getNome(), clienteFiltro.getPessoa().getCpf());
+		
+		return "/restrito/cliente/clientes";
 	}
 
 	public String editar() {		
@@ -137,6 +153,22 @@ public class ClienteBean {
 
 	public void setEnumSexo(EnumSexo enumSexo) {
 		this.enumSexo = enumSexo;
+	}
+
+	public Cliente getClienteFiltro() {
+		return clienteFiltro;
+	}
+
+	public void setClienteFiltro(Cliente clienteFiltro) {
+		this.clienteFiltro = clienteFiltro;
+	}
+
+	public Pessoa getPessoaFiltro() {
+		return pessoaFiltro;
+	}
+
+	public void setPessoaFiltro(Pessoa pessoaFiltro) {
+		this.pessoaFiltro = pessoaFiltro;
 	}
 
 }

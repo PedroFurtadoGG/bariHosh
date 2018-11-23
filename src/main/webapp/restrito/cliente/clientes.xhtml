@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
 	<h:outputStylesheet name="css/site.min.css" />
 	<h:outputStylesheet library="webjars"
@@ -47,10 +48,34 @@
 								</div>
 								<div class="panel-body">
 									<div class="bs-example">
+										<div class="form-group">
+											<h:form>
+												<div class="cold-md-4">
+													<label>Nome</label>
+													<h:inputText id="nome" class="form-control"
+														value="#{clienteBean.clienteFiltro.pessoa.nome}" size="30">
+													</h:inputText>
+												</div>
+												<div class="cold-md-4">
+													<label>CPF</label>
+													<h:inputText id="cpf" class="form-control"
+														value="#{clienteBean.clienteFiltro.pessoa.cpf}" size="15">
+													</h:inputText>
+												</div>
+	
+												<div class="row" />
+	
+												<h:commandButton action="#{clienteBean.filtrar()}"
+													class="btn btn-info btn-block" a:type="submit"
+													value="Filtrar" />
+											</h:form>
+										</div>
+
 										<h:form>
-										<ui:insert name="messages">
-											<ui:include src="/restrito/common/messages.xhtml" />
-										</ui:insert>
+											<ui:insert name="messages">
+												<ui:include src="/restrito/common/messages.xhtml" />
+											</ui:insert>
+
 											<div class="bs-example">
 												<h:dataTable class="table table-hover"
 													value="#{clienteBean.lista}" var="cliente" rules="row"
@@ -62,11 +87,10 @@
 													<h:column>
 														<f:facet name="header">Nome</f:facet>
                                              #{cliente.pessoa.nome}
-                                          </h:column>													
+                                          </h:column>
 													<h:column>
 														<f:facet name="header">Data Nascimento</f:facet>
-														<h:outputText
-															value="#{cliente.pessoa.dt_nascimento}">
+														<h:outputText value="#{cliente.pessoa.dt_nascimento}">
 															<f:convertDateTime pattern="dd/MM/yyyy" />
 														</h:outputText>
 													</h:column>
@@ -77,14 +101,14 @@
 													<h:column>
 														<f:facet name="header">Editar</f:facet>
 
-														<h:commandLink action="#{clienteBean.editar()}">															
+														<h:commandLink action="#{clienteBean.editar()}">
 															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 															<f:setPropertyActionListener
 																target="#{clienteBean.cliente}" value="#{cliente}" />
 														</h:commandLink>
 													</h:column>
-													
-														<h:column>
+
+													<h:column>
 														<f:facet name="header">Excluir</f:facet>
 
 														<h:commandLink action="#{clienteBean.excluir}"

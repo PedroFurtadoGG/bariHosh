@@ -26,6 +26,8 @@ public class FornecedorBean {
 	private EnumSexo enumSexo;
 	private FornecedorRN forneedoroRN;
 	
+	private Fornecedor fornecedorFiltro = new Fornecedor();
+	
 	
 	public FornecedorBean() {
 		this.destinoSalvar = "fornecedores";
@@ -37,8 +39,16 @@ public class FornecedorBean {
 		this.fornecedor.setPessoa(pessoa);
 		this.fornecedor.setAtivo(true);	
 		
+		this.fornecedorFiltro = new Fornecedor();
+		
 	}
-
+	
+	public String filtrar() {
+		
+		this.lista = forneedoroRN.listaFiltrada(fornecedorFiltro.getNumInscricao(), fornecedorFiltro.getRamoAtividade(), fornecedorFiltro.getRazao());
+		
+		return "/restrito/fornecedor/fornecedores";
+	}
 
 	public String novo() {		
 		this.pessoa = new Pessoa();
@@ -142,5 +152,14 @@ public class FornecedorBean {
 	public void setEnumSexo(EnumSexo enumSexo) {
 		this.enumSexo = enumSexo;
 	}
+
+	public Fornecedor getFornecedorFiltro() {
+		return fornecedorFiltro;
+	}
+
+	public void setFornecedorFiltro(Fornecedor fornecedorFiltro) {
+		this.fornecedorFiltro = fornecedorFiltro;
+	}
+	
 
 }

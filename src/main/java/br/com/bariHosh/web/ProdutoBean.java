@@ -34,7 +34,6 @@ public class ProdutoBean {
 	
 	
 	private Produto produtoFiltro = new Produto();
-	private List<Produto> listaProdutosFiltro;
 
 	public ProdutoBean() {		
 		this.destinoSalvar = "produtos";	
