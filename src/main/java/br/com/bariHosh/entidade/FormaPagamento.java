@@ -2,16 +2,20 @@ package br.com.bariHosh.entidade;
 
 public enum FormaPagamento {
 
-	DINHEIRO_A_VISTA("Á Vista"), CARTAO("Cartao");
+	DINHEIRO_VISTA("DINHEIRO"), CARTAO("CREDITO");
 
-	private String descricao;
+	public String chave;
 
-	FormaPagamento(String descricao) {
-		this.descricao = descricao;
+	FormaPagamento(String key) {
+		this.chave = key;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public String getChave() {
+		return chave;
+	}
+
+	public void setChave(String chave) {
+		this.chave = chave;
 	}
 
 }
