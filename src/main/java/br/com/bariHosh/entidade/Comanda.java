@@ -43,7 +43,7 @@ public class Comanda implements Serializable {
 
 
 
-	@OneToMany( cascade = CascadeType.ALL , mappedBy = "comanda")	
+	@OneToMany( cascade = CascadeType.ALL , mappedBy = "comanda" ,fetch=FetchType.LAZY)	
 	private List<ItemComanda> itensDaComanda = new ArrayList<ItemComanda>();
 
 	
@@ -122,11 +122,7 @@ public class Comanda implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public List<ItemComanda> getItensDaComanda() {
-		if(this.getId_comanda()!=null) {
-			this.itensDaComanda = new ItemComandaRN().listaIntemComandaPorComandaId(this.getId_comanda());
-		}
-		
+	public List<ItemComanda> getItensDaComanda() {	
 		return this.itensDaComanda ;
 	}
 
@@ -149,6 +145,8 @@ public class Comanda implements Serializable {
 	public void setValorTotal(float valorTotal) {
 		this.valorTotal = valorTotal;
 	}
+
+	
 
 	@Override
 	public int hashCode() {
@@ -206,6 +204,13 @@ public class Comanda implements Serializable {
 		if (Float.floatToIntBits(valorTotal) != Float.floatToIntBits(other.valorTotal))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Comanda [id_comanda=" + id_comanda + ", cliente=" + cliente + ", usuario=" + usuario
+				+ ", itensDaComanda=" + itensDaComanda + ", data=" + data + ", desconto=" + desconto + ", valorTotal="
+				+ valorTotal + ", ativo=" + ativo + "]";
 	}
 
 	
