@@ -29,7 +29,7 @@ public class MarcaRN extends ManuseioPublico {
 			
 			} else {
 				this.marcaDAO.atualizar(marca);
-				super.MessagesSucesso("Marca Salvo Com Sucesso!");
+				super.MessagesSucesso("Marca Atualizado Com Sucesso!");
 				return true;
 				
 			}
@@ -37,29 +37,42 @@ public class MarcaRN extends ManuseioPublico {
 		} catch (Exception e) {
 			System.out.println("erro salvar" + e.getMessage());
 			super.MessagesErro(
-					"Ouve erro na tentativa de salvar o Marca Verifique os campos Obrigatorios e tente novamente!");
+					"Houve erro na tentativa de salvar o Marca Verifique os campos Obrigatorios e tente novamente!");
 		}
 
 		return false;
 	}
 
-	public void excluir(Marca marca) {
+	public boolean excluir(Marca marca) {
 		try {
-			if (super.validaObjeto(marca.getId_marca())) {				
-				this.marcaDAO.excluir(marca);				
-				super.MessagesSucesso("Marca Excluido Com Sucesso!");
+			if (super.validaObjeto(marca.getId_marca())) {
+				if(marcaDAO.ListaProdutosVinculados(marca.getId_marca()).size()==0) {		
+					this.marcaDAO.excluir(marca);
+					super.MessagesSucesso("Marca Excluido Com Sucesso!");
+					return true;
+					
+				}else {					
+					super.MessagesErro(
+							"Existe Produtos vinculados a Esta Marca ! Por favor atualize os dados de Produto !");
+					return false;
+				}
+				
 			}
 
 		} catch (Exception e) {
 			System.out.println("erro excluir" + e.getMessage());
 			super.MessagesErro("Ouve erro na tentativa de excluir a marca  contate Administrador do sistema!");
 		}
-
+     return false;
 	
 	}
 
 	public List<Marca> listar() {
 		return this.marcaDAO.listar(Marca.class);
+	}
+	
+	public List<Marca> listarCompleto() {
+		return this.marcaDAO.listaCompleta();
 	}
 
 }

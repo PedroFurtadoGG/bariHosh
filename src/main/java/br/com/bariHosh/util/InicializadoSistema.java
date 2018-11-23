@@ -4,14 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
 import br.com.bariHosh.entidade.Endereco;
 import br.com.bariHosh.entidade.EnumPermissao;
@@ -21,7 +16,7 @@ import br.com.bariHosh.entidade.Usuario;
 
 
 @ManagedBean(name = "inicializadorSistema")
-@RequestScoped
+@ApplicationScoped
 public class InicializadoSistema {
 
 	
@@ -34,6 +29,7 @@ public class InicializadoSistema {
 
 		@PostConstruct
 		public void iniciar() {
+			System.out.println("vaimerda");
 			inicializarUsuarioAdmin();
 		}
 

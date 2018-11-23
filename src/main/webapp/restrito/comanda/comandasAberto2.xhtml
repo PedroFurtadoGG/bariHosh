@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="bookmark" href="favicon_16.ico" />
+	<h:outputStylesheet name="css/site.min.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
+		rel='stylesheet' type='text/css' />
+	<h:outputScript name="js/site.min.js" />
+	<title>Comanda</title>
+</h:head>
+<h:body>
+	<ui:insert name="header">
+		<ui:include src="/restrito/common/top-menu.xhtml" />
+	</ui:insert>
+	<div class="container-fluid">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<ui:insert name="sidebar-menu">
+				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
+			</ui:insert>
+			<div class="col-xs-12 col-sm-9 content">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Comanda</h3>
+					</div>
+					<div class="panel-body">
+						<div class="content-row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<div class="panel-title">
+										<b>Comanda</b>
+									</div>
+									<div class="panel-options">
+										<a class="bg" data-target="#sample-modal-dialog-1"
+											data-toggle="modal" href="#sample-modal"><i
+											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
+											class="entypo-down-open"></i></a> <a data-rel="close"
+											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									<div class="bs-example">
+										<h:form id="formComanda" class="form-horizontal">
+											<ui:insert name="messages">
+												<ui:include src="/restrito/common/messages.xhtml" />
+											</ui:insert>	
+
+											<div class="form-group">
+												
+												<div class="col-md-2">
+													<label><span style="color: red"> * </span>codigo</label>
+													<h:inputText id="qtrd"
+														value="#{testeComandaBean.itemComanda.id_itemComanda}" size="30"
+														maxlength="30" class="form-control" required="true"
+														a:type="number" a:placeholder="Quantidade">
+														<f:validateLength minimum="1" maximum="30" />
+													</h:inputText>
+												</div>
+												<div class="col-md-2">
+													<label><span style="color: red"> * </span>Quantidade</label>
+													<h:inputText id="qtd"
+														value="#{testeComandaBean.itemComanda.quantidade}" size="30"
+														maxlength="30" class="form-control" required="true"
+														a:type="number" a:placeholder="Quantidade">
+														<f:validateLength minimum="1" maximum="30" />
+													</h:inputText>
+												</div>
+												
+												<div class="col-md-2">
+													<label><span style="color: red"> * </span>Adicionar</label>
+													<h:commandButton
+														actionListener="#{testeComandaBean.addItemComanda()}"
+														class="btn btn-info btn-block " style="float: right"
+														value="+" />
+
+												</div>
+												
+											</div>
+											
+										</h:form>
+										<h:form class="form-horizontal" id="formtable">
+
+											<div class="bs-example">
+												<br /> <br /> <br />
+												<h3>Itens Da Comanda</h3>
+
+												<h:dataTable class="table table-hover"
+												
+													value="#{testeComandaBean.listaComanda}" var="itemcomanda" rules="row"
+													 rowClasses="table-odd-row,table-even-row"
+													cellpadding="5">
+
+													<h:column>
+														<f:facet name="header">cod</f:facet>
+                                             #{itemcomanda.id_itemComanda}
+                                          </h:column>
+                                          	<h:column>
+														<f:facet name="header">quantidade</f:facet>
+                                             #{itemcomanda.quantidade}
+                                          </h:column>
+													
+
+													<h:column>
+														<f:facet name="header">Excluir</f:facet>
+														<h:commandLink action="#{testeComandaBean.removeItemComanda()}"
+															
+															onclick="if (!confirm('Confirma a exclusão do item desta Comanda #{itemcomanda.produto.nome}?')) return false;">
+															<i class="fa fa-trash-o"></i>
+															<f:setPropertyActionListener
+																target="#{testeComandaBean.itemComanda}" 
+																value="#{itemcomanda}" />
+														</h:commandLink>
+													</h:column>
+													
+
+												</h:dataTable>
+											</div>
+
+
+
+										</h:form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+<ui:insert name="footer">
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<ui:include src="/restrito/common/footer.xhtml" />
+</ui:insert>
+</html>

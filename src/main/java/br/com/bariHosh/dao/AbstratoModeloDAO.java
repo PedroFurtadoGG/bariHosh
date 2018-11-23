@@ -11,7 +11,9 @@ public interface AbstratoModeloDAO<T> {
 
 	public List<T> listar(Class<?> clazz);
 
-	public T carregar( Class<?> clazz ,Long id);
+	public T carregar(Class<?> clazz, Long id);
+
+
 
 	
 }

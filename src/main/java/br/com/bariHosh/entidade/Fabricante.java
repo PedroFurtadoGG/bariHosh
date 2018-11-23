@@ -1,10 +1,10 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,9 +14,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "fabricante")
 public class Fabricante implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
-	
+
+	private static final long serialVersionUID = 27082973257799897L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_fabricante;
@@ -24,9 +24,9 @@ public class Fabricante implements Serializable{
 	private String razaoSocial;
 	private String nomeFantasia;
 	private String cnpj;
-	
-	@OneToMany(mappedBy="fabricante",  targetEntity = Marca.class)
-	private List<Marca> marcas;
+	 
+	@OneToMany(mappedBy="fabricante", fetch=FetchType.LAZY , targetEntity = Marca.class)
+	private Set<Marca> marcas;
 	
 	public Long getId_fabricante() {
 		return id_fabricante;
@@ -46,10 +46,10 @@ public class Fabricante implements Serializable{
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
 	}
-	public List<Marca> getMarcas() {
+	public Set<Marca> getMarcas() {
 		return marcas;
 	}
-	public void setMarcas(List<Marca> marcas) {
+	public void setMarcas(Set<Marca> marcas) {
 		this.marcas = marcas;
 	}
 	public String getCnpj() {

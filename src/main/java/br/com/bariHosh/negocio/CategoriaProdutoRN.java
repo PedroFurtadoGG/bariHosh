@@ -1,7 +1,6 @@
 package br.com.bariHosh.negocio;
 
 import java.util.List;
-import java.util.Objects;
 
 import br.com.bariHosh.daoHibernate.CategoriaProdutoDAOHibernate;
 import br.com.bariHosh.entidade.CategoriaProduto;
@@ -25,7 +24,7 @@ public class CategoriaProdutoRN extends ManuseioPublico{
 	            return true;
 			} else {
 				this.categoriaProdutoDao.atualizar(categoria);	
-				super.MessagesSucesso("Categoria Salvo Com Sucesso!");
+				super.MessagesSucesso("Categoria Atualizado Com Sucesso!");
 	            return true;
 			}
 			
@@ -38,19 +37,28 @@ public class CategoriaProdutoRN extends ManuseioPublico{
 		return false;
 	}
 
-	public void excluir(CategoriaProduto categoria) {
+	public boolean excluir(CategoriaProduto categoria) {		
+
 		try {
-			if (super.validaObjeto(categoria.getId_categoria())) {				
-				this.categoriaProdutoDao.excluir(categoria);		
-				super.MessagesSucesso("Categoria  Excluido Com Sucesso!");
+			if (super.validaObjeto(categoria.getId_categoria())) {			
+				if (categoriaProdutoDao.ListaProdutosVinculados(categoria.getId_categoria()).size() == 0) {
+					this.categoriaProdutoDao.excluir(categoria);
+					super.MessagesSucesso("Categoria  Excluido Com Sucesso!");
+					return true;
+				} else {
+					super.MessagesErro(
+							"Existe Produtos vinculados a Esta Categoria ! Por favor atualize os dados de Produto !");
+					return false;
+				}
 			}
 
 		} catch (Exception e) {
 			System.out.println("erro excluir" + e.getMessage());
-			super.MessagesErro("Ouve erro na tentativa de excluir a categoria de produto  contate Administrador do sistema!");
+			super.MessagesErro(
+					"Ouve erro na tentativa de excluir a categoria de produto  contate Administrador do sistema!");
 		}
-		
-		
+		return false;
+
 	}
 	
 	public CategoriaProduto carregar(CategoriaProduto categoria) {

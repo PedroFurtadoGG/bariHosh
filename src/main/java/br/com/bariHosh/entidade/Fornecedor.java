@@ -1,7 +1,9 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,15 +20,21 @@ import javax.persistence.Table;
 @Table(name = "fornecedor")
 public class Fornecedor implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7321484279854901930L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_fornecedor;
-
+	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_pessoa", nullable = false)
 	private Pessoa pessoa; 
+
+	
+	@OneToMany(mappedBy="fornecedor",fetch=FetchType.LAZY  ,targetEntity = Produto.class)
+    private List<Produto> produtos = new ArrayList<Produto>();
+	 
+	
 
 	private boolean ativo;
 	private String ramoAtividade;
@@ -34,8 +42,7 @@ public class Fornecedor implements Serializable {
 	private String razao;
 	private String numInscricao;
 
-	@OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Produto.class)
-	private List<Produto> produtos;	
+	
 	
 
 	public Long getId_fornecedor() {
@@ -94,6 +101,7 @@ public class Fornecedor implements Serializable {
 		this.ativo = ativo;
 	}
 
+	
 	public List<Produto> getProdutos() {
 		return produtos;
 	}
@@ -166,4 +174,13 @@ public class Fornecedor implements Serializable {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Fornecedor [id_fornecedor=" + id_fornecedor + ", pessoa=" + pessoa.getId_pessoa() + ", produtos=" + produtos
+				+ ", ativo=" + ativo + ", ramoAtividade=" + ramoAtividade + ", cnpj=" + cnpj + ", razao=" + razao
+				+ ", numInscricao=" + numInscricao + "]";
+	}
+	
+	
+	
 }

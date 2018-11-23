@@ -33,11 +33,10 @@ public class UsuarioRN extends ManuseioPublico {
 						usuario.setLogin(usuario.getPessoa().getEmail());
 						Usuario user = this.buscarPorLogin(usuario.getLogin());
 						if (!super.validaObjeto(user)) {
-							if (!super.validaObjeto(usuario.getId_usuario())) {
-								usuario.getPessoa().setDt_criacao(new Date());
+							if (!super.validaObjeto(usuario.getId_usuario())) {								
 								this.daoUsuario.salvar(usuario);
 							} else {
-								usuario.getPessoa().setDt_alteracao(new Date());
+							      usuario.getPessoa().setDt_alteracao(new Date());
 								this.daoUsuario.atualizar(usuario);
 							}
 							super.MessagesSucesso("Usuario Salvo Com Sucesso !");
@@ -78,18 +77,20 @@ public class UsuarioRN extends ManuseioPublico {
 		return false;
 	}
 
-	public void excluir(Usuario usuario) {
+	public boolean excluir(Usuario usuario) {
 		
 		try {
-			if (super.validaObjeto(usuario.getId_usuario())) {
+			if (super.validaObjeto(usuario.getId_usuario())) {				
 				this.daoUsuario.excluir(usuario);
 				super.MessagesSucesso("Usuario Excluido Com Sucesso!");
+				return true ;
 			}
 
 		} catch (Exception e) {
 			System.out.println("erro excluir" + e.getMessage());
 			super.MessagesErro("Ouve erro na tentativa de excluir o usuario contate Administrador do sistema!");
 		}
+		return false;
 	
 	}
 

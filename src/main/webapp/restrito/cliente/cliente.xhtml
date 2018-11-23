@@ -57,6 +57,9 @@
 										<h:inputHidden value="#{clienteBean.cliente.pessoa.id_pessoa}" />
 										<h:inputHidden value="#{clienteBean.cliente.ativo}" />
 										<h:inputHidden value="#{clienteBean.destinoSalvar}" />
+										<h:inputHidden value="#{clienteBean.cliente.pessoa.dt_criacao}">
+											<f:convertDateTime pattern="yyyy-MM-dd"/>
+										</h:inputHidden>
 										<div class="form-group">
 											<div class="col-md-8">
 												<label><span style="color: red"> * </span>Nome</label>

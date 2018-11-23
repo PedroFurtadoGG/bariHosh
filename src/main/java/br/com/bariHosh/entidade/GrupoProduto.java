@@ -1,6 +1,7 @@
 package br.com.bariHosh.entidade;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,14 +11,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotNull;
 
 @Entity
-public class GrupoProduto {
-	
+public class GrupoProduto implements Serializable {
+
+	private static final long serialVersionUID = -8125070377148704699L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idGrupoProduto;
@@ -26,7 +26,7 @@ public class GrupoProduto {
 	private EnumTipoProduto tipoproduto;
 	
 	@OneToMany(mappedBy="grupoProduto", cascade = CascadeType.ALL ,fetch=FetchType.LAZY,targetEntity = Produto.class)  
-	private List<Produto> produtos;
+	private Set<Produto> produtos;
 	
 	
 	
@@ -47,11 +47,11 @@ public class GrupoProduto {
 		this.tipoproduto = tipoproduto;
 	}
 
-	public List<Produto> getProdutos() {
+	public Set<Produto> getProdutos() {
 		return produtos;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
+	public void setProdutos(Set<Produto> produtos) {
 		this.produtos = produtos;
 	}
 

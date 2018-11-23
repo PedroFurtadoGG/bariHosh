@@ -26,8 +26,9 @@ public class GenericoDAOHibernate<T> implements AbstratoModeloDAO<T> {
 	@Override
 	public void atualizar(T model) {
 		try {
-
-			this.session.update(model);
+            
+            this.session.merge(model);
+			
 		} catch (HibernateException e) {
 			System.out.println(e.getMessage());
 		}
@@ -69,5 +70,7 @@ public class GenericoDAOHibernate<T> implements AbstratoModeloDAO<T> {
 		return lista;
 
 	}
+	
+	
 
 }

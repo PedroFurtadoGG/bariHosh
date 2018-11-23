@@ -13,10 +13,13 @@ public class TopMenuBean {
 
 	private Usuario UsuarioAutenticado;
 	private String usuarioNome;
-	private UsuarioRN usuarioRN = new UsuarioRN();
+	private UsuarioRN usuarioRN ;
 
 	public TopMenuBean() {
-		PegarUsuarioAutenticado();
+		this.usuarioRN = new UsuarioRN();
+		this.UsuarioAutenticado = new Usuario();
+		this.usuarioNome = new String();
+		PegarUsuarioAutenticado(); 		
 		this.usuarioNome = UsuarioAutenticado.getPessoa().getNome();
 	}
 

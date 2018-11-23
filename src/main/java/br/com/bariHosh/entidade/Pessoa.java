@@ -1,8 +1,10 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,8 +23,8 @@ import javax.persistence.TemporalType;
 @Table(name = "pessoa")
 public class Pessoa implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = -8116745230067889976L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_pessoa;
@@ -45,11 +47,11 @@ public class Pessoa implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date dt_alteracao;
 	
-    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL ,fetch=FetchType.LAZY ,targetEntity = Usuario.class)
-	private List<Usuario> usuarios ;
+    @OneToMany(mappedBy="pessoa",fetch=FetchType.LAZY ,targetEntity = Usuario.class)
+	private List<Usuario> usuarios  = new ArrayList<Usuario>();
     
-    @OneToMany(mappedBy="pessoa", cascade = CascadeType.ALL ,fetch=FetchType.LAZY,targetEntity = Fornecedor.class)  
-   	private List<Fornecedor> fornecedores ;
+    @OneToMany(mappedBy="pessoa", fetch=FetchType.LAZY,targetEntity = Fornecedor.class)  
+   	private List<Fornecedor> fornecedores = new ArrayList<Fornecedor>();;
     
     
 	public Long getId_pessoa() {
@@ -273,6 +275,14 @@ public class Pessoa implements Serializable {
 		} else if (!usuarios.equals(other.usuarios))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Pessoa [id_pessoa=" + id_pessoa + ", nome=" + nome + ", rg=" + rg + ", cpf=" + cpf + ", sexo=" + sexo
+				+ ", telefone=" + telefone + ", email=" + email + ", id_usuario_criacao=" + id_usuario_criacao
+				+ ", endereco=" + endereco + ", dt_nascimento=" + dt_nascimento + ", dt_criacao=" + dt_criacao
+				+ ", dt_alteracao=" + dt_alteracao + ", usuarios=" + usuarios.size() + ", fornecedores=" + fornecedores + "]";
 	}
 
 
