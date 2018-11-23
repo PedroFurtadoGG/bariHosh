@@ -118,11 +118,12 @@
 										<br />
 										<br />
 										<br />
+										</h:form>
 										<h3>Produtos</h3>
 										
 										<h:form>
 										<h:dataTable class="table table-hover" 
-											value="#{comandaBean.comanda.itensDaComanda}" var="itemComanda"
+											value="#{comandaBean.itensComanda}" var="itemComanda"
 											rules="row" cellpadding="5">
 											<h:column>
 												<f:facet name="header">Codigo</f:facet>													
@@ -168,7 +169,6 @@
 											</h:column>
 										</h:dataTable>
 										
-										</h:form>									
 										</h:form>
 										<h:form>
 										
@@ -183,7 +183,6 @@
 											</div>
 										</div>
 										</h:form>
-										
 									
 
 								</div>

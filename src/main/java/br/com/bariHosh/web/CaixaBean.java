@@ -18,7 +18,7 @@ import br.com.bariHosh.negocio.ProdutoRN;
 
 @ManagedBean(name = "comandaBean")
 @RequestScoped
-public class ComandaBean {
+public class CaixaBean {
 
 	private List<Cliente> Clientes ;
 	private List<Produto> Produtos;
@@ -36,7 +36,7 @@ public class ComandaBean {
 	private ComandaRN comandaRN;
 	private ItemComandaRN itemComandaRN;
 
-	public ComandaBean() {
+	public CaixaBean() {
 		this.destinoSalvar = "comanda";
 		this.itemComanda = new ItemComanda();
 		this.itemComandaRN = new ItemComandaRN();

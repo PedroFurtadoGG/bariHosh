@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.bariHosh.daoHibernate.ItemComandaDAOHibernate;
-import br.com.bariHosh.entidade.Comanda;
 import br.com.bariHosh.entidade.ItemComanda;
 import br.com.bariHosh.util.ManuseioPublico;
 
