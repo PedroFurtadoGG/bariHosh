@@ -50,22 +50,16 @@ public boolean excluir(Comanda comanda) {
 		return false;
 	}
 
-
-
 	public ComandaDAOHibernate getComandaDAO() {
 		return comandaDAO;
 	}
-
-
 
 	public void setComandaDAO(ComandaDAOHibernate comandaDAO) {
 		this.comandaDAO = comandaDAO;
 	}
 
-
-
 	public List<Comanda> listaComandasStatus(boolean status) {
-		 
+
 		return this.comandaDAO.listaComandasStatus(status);
 	}
 	
@@ -76,15 +70,5 @@ public boolean excluir(Comanda comanda) {
 	    }
        return null;
 	}
-
-
-
-	
-
-
-
-	
-	
-	
 
 }
