@@ -1,7 +1,6 @@
 package br.com.bariHosh.negocio;
 
 import java.util.List;
-import java.util.Objects;
 
 import br.com.bariHosh.daoHibernate.CategoriaProdutoDAOHibernate;
 import br.com.bariHosh.entidade.CategoriaProduto;

@@ -1,6 +1,8 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,7 +32,7 @@ public class Fornecedor implements Serializable {
 
 	
 	@OneToMany(mappedBy="fornecedor",fetch=FetchType.LAZY  ,targetEntity = Produto.class)
-    private Set<Produto> produtos ;
+    private List<Produto> produtos = new ArrayList<Produto>();
 	 
 	
 
@@ -100,11 +102,11 @@ public class Fornecedor implements Serializable {
 	}
 
 	
-	public Set<Produto> getProdutos() {
+	public List<Produto> getProdutos() {
 		return produtos;
 	}
 
-	public void setProdutos(Set<Produto> produtos) {
+	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
 
@@ -171,6 +173,14 @@ public class Fornecedor implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Fornecedor [id_fornecedor=" + id_fornecedor + ", pessoa=" + pessoa.getId_pessoa() + ", produtos=" + produtos
+				+ ", ativo=" + ativo + ", ramoAtividade=" + ramoAtividade + ", cnpj=" + cnpj + ", razao=" + razao
+				+ ", numInscricao=" + numInscricao + "]";
+	}
+	
 	
 	
 }

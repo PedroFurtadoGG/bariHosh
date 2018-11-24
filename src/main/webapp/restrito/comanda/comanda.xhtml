@@ -39,18 +39,14 @@
 									<div class="panel-title">
 										<b>Comanda</b>
 									</div>
-
 								</div>
 								<div class="panel-body">
-									<h:form id="cadastro" class="form-horizontal" name="cadastro">
+									<h:form class="form-horizontal">
 										<ui:insert name="messages">
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
-										<h:inputHidden value="#{comandaBean.cliente.id_cliente}" />
-										<h:inputHidden value="#{comandaBean.comanda.id_comanda}" />										
-										<h:inputHidden value="#{comandaBean.comanda.ativo}" />
-										<h:inputHidden value="#{comandaBean.itemComanda.id_itemComanda}" />
-
+											<h:inputHidden	value="#{comandaBean.comanda.id_comanda}" />
+										
 										<div class="form-group">
 											<div class="col-md-8">
 												<label><span style="color: red"> * </span>Cliente</label>
@@ -61,9 +57,7 @@
 													<f:selectItem itemLabel="Selecione..." />
 													<f:selectItems value="#{comandaBean.clientes}"
 														var="cliente" itemLabel="#{cliente.pessoa.nome}"
-														itemValue="#{cliente}" />
-													<!--  <f:ajax  render="cadastro:qtd"/>
-														  <f:ajax  render="cadastro:nascimento"/> -->
+														itemValue="#{cliente}" />													
 												</h:selectOneMenu>
 											</div>
 											<div class="col-md-4">
@@ -90,7 +84,7 @@
 													<f:selectItem itemLabel="Selecione..." />
 													<f:selectItems value="#{comandaBean.produtos}"
 														var="produto" itemLabel="#{produto.nome}"
-														itemValue="#{produto}" />
+								 						itemValue="#{produto}" />
 												</h:selectOneMenu>
 											</div>
 											<div class="col-md-2">
@@ -101,91 +95,81 @@
 													a:type="number" a:placeholder="Quantidade">
 													<f:validateLength minimum="1" maximum="30" />
 												</h:inputText>
-											</div>
+											</div>										
 											<div class="col-md-2">
 												<label><span style="color: red"> * </span>Adicionar</label>
-												<h:commandButton action="#{comandaBean.adicionarItem}"
-													class="btn btn-info btn-block " 
-													style="float: right" value="+" />
-
+												<h:commandButton actionListener="#{comandaBean.adicionarItemComanda}"												   
+													class="btn btn-info btn-block " style="float: right"
+													value="+" />
 											</div>
 										</div>
 										<div class="form-group">
 											<div class="col-md-8">
 												<span style="color: red"> (*) São Campos Obrigatórios</span>
 											</div>
-										</div>								
-										<br />
-										<br />
-										<br />
-										<h3>Produtos</h3>
-										
-										<h:form>
-										<h:dataTable class="table table-hover" 
-											value="#{comandaBean.comanda.itensDaComanda}" var="itemComanda"
-											rules="row" cellpadding="5">
-											<h:column>
-												<f:facet name="header">Codigo</f:facet>													
-														 #{itemComanda.produto.id_produto}														
+										</div>
+                                      </h:form>
+										<h:form class="form-horizontal" id="formtable">
+
+											<div class="bs-example">
+												<br /> <br /> <br />
+												<h3>Itens da Comanda</h3>
+
+												<h:dataTable class="table table-hover"
+													value="#{comandaBean.comanda.itensDaComanda}"
+													var="itemComanda" rules="row" cellpadding="5">
+													<h:column>
+														<f:facet name="header">Codigo Produto</f:facet>													
+														 #{itemComanda.produto.id_produto}													
 
 												</h:column>
-											<h:column>
-												<f:facet name="header">Produto</f:facet>													
+													<h:column>
+														<f:facet name="header">Descrição</f:facet>													
 														 #{itemComanda.produto.nome}														
 
 												</h:column>
-											<h:column>
-												<f:facet name="header">Quantidade</f:facet>
+													<h:column>
+														<f:facet name="header">Quantidade</f:facet>
 											    	#{itemComanda.quantidade}
 												</h:column>
-											<h:column>
-												<f:facet name="header">Valor Unitario</f:facet>												
+													<h:column>
+														<f:facet name="header">Valor Unitario</f:facet>												
 														 #{itemComanda.valorUnitario}
 												</h:column>
-											<h:column>
-												<f:facet name="header">Valor Total</f:facet>													
+													<h:column>
+														<f:facet name="header">Valor Total</f:facet>													
 														 #{itemComanda.valorTotal}				
 
 												</h:column>
-												<h:column>
-														<f:facet name="header">Editar</f:facet>
 
-														<h:commandLink action="#{comandaBean.editar()}">
-															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+													<h:column>
+														<f:facet name="header">Excluir</f:facet>
+														<h:commandLink action="#{comandaBean.excluirItemComanda}"
+															onclick="if (!confirm('Confirma a exclusão do item #{itemComanda.produto.nome}?')) return false;">
+															<i class="fa fa-trash-o fa-4"></i>
 															<f:setPropertyActionListener
-																target="#{comandaBean.comanda}" value="#{comanda}" />
+																target="#{comandaBean.itemComanda}"
+																value="#{itemComanda}" />
+
 														</h:commandLink>
 													</h:column>
-											<h:column>
-												<f:facet name="header">Excluir</f:facet>
-												<h:commandLink action="#{comandaBean.excluir}"
-													onclick="if (!confirm('Confirma a exclusão do item #{itemComanda.produto.nome}?')) return false;">
-													<i class="fa fa-trash-o fa-4"></i>
-												<f:setPropertyActionListener
-														target="#{comandaBean.itemComanda}" value="#{itemComanda}"/>
-														
-												</h:commandLink>
-											</h:column>
-										</h:dataTable>
-										
-										</h:form>									
+												</h:dataTable>
+												</div>
 										</h:form>
-										<h:form>
-										
-										<div class="row">
-											<div class="col-md-3">
-												<h:commandButton action="#{comandaBean.salvar()}"
-													class="btn btn-info btn-block" value="Lista" />
-											</div>
-											<div class="col-md-3">
-												<h:commandButton action="#{comandaBean.novo}"
-													class="btn btn-warning btn-block" value="Limpar" />
-											</div>
-										</div>
-										</h:form>
-										
-									
 
+										<h:form>
+											<div class="row">
+												<div class="col-md-3">
+													<h:commandButton action="#{comandaBean.salvarComanda()}"
+														class="btn btn-info btn-block" value="Salvar Comanda" />													
+														
+												</div>
+												<div class="col-md-3">
+													<h:commandButton action="#{comandaBean.novo}"
+														class="btn btn-warning btn-block" value="Nova Comanda" />
+												</div>
+											</div>
+										</h:form>
 								</div>
 							</div>
 						</div>

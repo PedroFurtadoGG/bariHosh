@@ -1,7 +1,9 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -36,7 +38,7 @@ public class Estoque implements Serializable  {
 	
 
 	@OneToMany(mappedBy = "estoque", fetch = FetchType.LAZY)
-	private Set<Log_Estoque> movimentacao ;
+	private List<Log_Estoque> movimentacao = new ArrayList<Log_Estoque>() ;
 
 	@Temporal(TemporalType.DATE)	
 	private Date data_criacao;
@@ -71,11 +73,11 @@ public class Estoque implements Serializable  {
 		this.qtd_produto = qtd_produto;
 	}
 
-	public Set<Log_Estoque> getMovimentacao() {
+	public List<Log_Estoque> getMovimentacao() {
 		return movimentacao;
 	}
 
-	public void setMovimentacao(Set<Log_Estoque> movimentacao) {
+	public void setMovimentacao(List<Log_Estoque> movimentacao) {
 		this.movimentacao = movimentacao;
 	}
 

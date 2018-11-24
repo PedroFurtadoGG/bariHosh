@@ -1,12 +1,12 @@
 package br.com.bariHosh.entidade;
 
-public enum FormaPagamento {
+public enum EnumMovimentoCaixa {
 
-	DINHEIRO_VISTA("DINHEIRO"), CARTAO("CREDITO");
+	EN("ENTRADA"), SA("SAÍDA");
 
 	public String chave;
 
-	FormaPagamento(String key) {
+	EnumMovimentoCaixa(String key) {
 		this.chave = key;
 	}
 

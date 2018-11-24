@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+
 import br.com.bariHosh.entidade.Fabricante;
 import br.com.bariHosh.entidade.Marca;
 import br.com.bariHosh.negocio.FabricanteRN;
