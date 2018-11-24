@@ -6,12 +6,15 @@ import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.ComandaDAOHibernate;
 import br.com.bariHosh.entidade.Comanda;
+import br.com.bariHosh.ordenadores.OrdenadorComanda;
 import br.com.bariHosh.util.ManuseioPublico;
 
 public class ComandaRN extends ManuseioPublico {
 
 	private ComandaDAOHibernate comandaDAO = new ComandaDAOHibernate();
-
+    private OrdenadorComanda ordenadorComanda ;
+    
+    
 	public boolean salvar(Comanda comanda) {
 		try {
 			if (!super.validaObjeto(comanda.getId_comanda())) {
@@ -59,9 +62,8 @@ public class ComandaRN extends ManuseioPublico {
  
 
 	public List<Comanda> listaComandasStatus(boolean status) {
-
-
-		return this.comandaDAO.listaComandasStatus(status);
+		OrdenadorComanda listaOrdenada = new OrdenadorComanda(this.comandaDAO.listaComandasStatus(status));
+		return listaOrdenada.listagemEmOrdem();
 	}
 
 	public Comanda recuperaComandaParaEdicao() {
@@ -72,5 +74,7 @@ public class ComandaRN extends ManuseioPublico {
 		}
 		return null;
 	}
+
+	
 
 }

@@ -105,15 +105,23 @@ public class ComandaBean implements Serializable {
 	}
 
 	public void excluirComanda(Comanda comanda) {
-		this.comanda = comanda;
-		this.destinoSalvar = "comandasAberto";
+		this.comanda = comanda;		
 		if (new ComandaRN().excluir(this.comanda)) {
            this.comanda = new Comanda();
            this.comandasAbertas = null;
 		}
 
 	}
-	
+	public String finalizarComanda(Comanda comanda) {
+		  this.comanda = comanda;
+		  this.destinoSalvar = "comandasEncerradas";
+	 	  this.comanda.setAtivo(false);		 
+		if (new ComandaRN().salvar(this.comanda)) {
+             this.comanda = new Comanda();
+             this.comandasAbertas = null;
+		}
+		return this.destinoSalvar;
+	}	
 	
 
 	public String editarComanda(Comanda comanda) {

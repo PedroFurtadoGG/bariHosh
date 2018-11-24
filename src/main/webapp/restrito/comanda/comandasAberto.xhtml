@@ -92,7 +92,18 @@
 															onclick="if (!confirm('Confirma a exclusão do Comanda #{comanda.id_comanda}?')) return false;">
 															<i class="fa fa-trash-o"></i>
 														</h:commandLink>
-													</h:column>												
+													</h:column>	
+													
+													<h:column>
+														<f:facet name="header">Finalizar Comanda </f:facet>
+
+														<h:commandLink
+															action="#{comandaBean.finalizarComanda(comanda)}"
+															onclick="if (!confirm('Confirma a exclusão do Comanda #{comanda.id_comanda}?')) return false;">
+													         <i class="fa fa-check-square"></i>
+														
+														</h:commandLink>
+													</h:column>											
 
 												</h:dataTable>
 											</div>
