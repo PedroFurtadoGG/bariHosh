@@ -1,5 +1,10 @@
 package br.com.bariHosh.dao;
 
-public interface FabricanteDAO {
+import java.util.List;
 
+import br.com.bariHosh.entidade.Fabricante;
+
+public interface FabricanteDAO {
+	
+	public List<Fabricante> listaFiltrada(String cnpj , String razaoSocial);
 }

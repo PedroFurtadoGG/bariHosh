@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
 	<h:outputStylesheet name="css/site.min.css" />
 	<h:outputStylesheet library="webjars"
@@ -49,11 +50,36 @@
 									<div class="bs-example">
 										<h:form>
 											<ui:insert name="messages">
-											<ui:include src="/restrito/common/messages.xhtml" />
-										</ui:insert>
+												<ui:include src="/restrito/common/messages.xhtml" />
+											</ui:insert>
 											<div class="bs-example">
-											
-												<h:dataTable class="table table-hover" value="#{fabricanteBean.lista}" var="fab" rules="row"
+
+													<h:form>
+														<div class="cold-md-4">
+															<label>CNPJ</label>
+															<h:inputText id="cnpj" class="form-control"
+																value="#{fabricanteBean.fabricanteFiltro.cnpj}"
+																size="30">
+															</h:inputText>
+														</div>
+														<div class="cold-md-4">
+															<label>Razao Social</label>
+															<h:inputText id="razaoSocial" class="form-control"
+																value="#{fabricanteBean.fabricanteFiltro.razaoSocial}"
+																size="15">
+															</h:inputText>
+														</div>
+
+														<div class="row" />
+
+														<h:commandButton action="#{fabricanteBean.filtrar()}"
+															class="btn btn-info btn-block" a:type="submit"
+															value="Filtrar" />
+													</h:form>
+
+
+												<h:dataTable class="table table-hover"
+													value="#{fabricanteBean.lista}" var="fab" rules="row"
 													cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
@@ -63,23 +89,23 @@
 														<f:facet name="header">Razão Social</f:facet>
 														#{fab.razaoSocial}
 		                                          	</h:column>
-		                                          	<h:column>
-		                                          		<f:facet name="header">CNPJ</f:facet>
+													<h:column>
+														<f:facet name="header">CNPJ</f:facet>
 		                                          		#{fab.cnpj}
 		                                          	</h:column>
-		                                          	<h:column>
-		                                          		<f:facet name="header">Nome Fantasia</f:facet>
+													<h:column>
+														<f:facet name="header">Nome Fantasia</f:facet>
 		                                          		#{fab.nomeFantasia}
 		                                          	</h:column>
-		                                          	<h:column>
-		                                          	
+													<h:column>
+
 														<f:facet name="header">Editar</f:facet>
 														<h:commandLink action="#{fabricanteBean.editar()}">
 															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 															<f:setPropertyActionListener
 																target="#{fabricanteBean.fabricante}" value="#{fab}" />
 														</h:commandLink>
-														
+
 													</h:column>
 													<h:column>
 														<f:facet name="header">Excluir</f:facet>
@@ -90,7 +116,7 @@
 															<f:setPropertyActionListener
 																target="#{fabricanteBean.fabricante}" value="#{fab}" />
 														</h:commandLink>
-														
+
 													</h:column>
 												</h:dataTable>
 											</div>

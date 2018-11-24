@@ -32,6 +32,8 @@ public class ProdutoBean {
 	private List<CategoriaProduto> listaCategorias;	
 	private List<Estoque> listaEstoque;
 	
+	
+	private Produto produtoFiltro = new Produto();
 
 	public ProdutoBean() {		
 		this.destinoSalvar = "produtos";	
@@ -72,8 +74,14 @@ public class ProdutoBean {
 	     	return null;
 		}
 	    return null;
-		
 
+	}
+	
+	public String filtrar() {
+		
+		this.listaProdutos = produtoRN.listaFiltrada(produtoFiltro.getNome(), produtoFiltro.getValorEntrada(), produto.getValorSaida(), produtoFiltro.getCodigo_barras());
+		
+		return "/restrito/produto/produtos";
 	}
 
 	public String salvar() {		
@@ -138,6 +146,18 @@ public class ProdutoBean {
 		if (this.listaProdutos == null) {
 			this.listaProdutos = produtoRN.listarCompleto();
 		}
+//		else {
+//			this.listaProdutos = produtoRN.listaFiltrada(produtoFiltro.getNome(), produtoFiltro.getValorEntrada(), produto.getValorSaida(), produtoFiltro.getCodigo_barras());
+//		}
+		return this.listaProdutos;
+	}
+	
+	public List<Produto> getListaProdutosFiltro() {
+
+		if (this.listaProdutos == null) {
+			this.listaProdutos = produtoRN.listaFiltrada(produtoFiltro.getNome(), produtoFiltro.getValorEntrada(), produto.getValorSaida(), produtoFiltro.getCodigo_barras());
+		}
+		
 		return this.listaProdutos;
 	}
 
@@ -190,6 +210,16 @@ public class ProdutoBean {
 	public void setListaEstoque(List<Estoque> listaEstoque) {
 		this.listaEstoque = listaEstoque;
 	}
+
+	public Produto getProdutoFiltro() {
+		return produtoFiltro;
+	}
+
+	public void setProdutoFiltro(Produto produtoFiltro) {
+		this.produtoFiltro = produtoFiltro;
+	}
+	
+	
 
 	
 

@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
 	<h:outputStylesheet name="css/site.min.css" />
 	<h:outputStylesheet library="webjars"
@@ -48,13 +49,46 @@
 								<div class="panel-body">
 									<div class="bs-example">
 										<h:form>
-										<ui:insert name="messages">
-											<ui:include src="/restrito/common/messages.xhtml" />
-										</ui:insert>										
+											<ui:insert name="messages">
+												<ui:include src="/restrito/common/messages.xhtml" />
+											</ui:insert>
 											<div class="bs-example">
+
+												<h:form>
+													<div class="cold-md-4">
+														<label>Numero Inscricao</label>
+														<h:inputText id="inscricao" class="form-control"
+															value="#{fornecedorBean.fornecedorFiltro.numInscricao}"
+															size="30">
+														</h:inputText>
+													</div>
+													<div class="cold-md-4">
+														<label>Ramo Atividade</label>
+														<h:inputText id="ramo" class="form-control"
+															value="#{fornecedorBean.fornecedorFiltro.ramoAtividade}"
+															size="15">
+														</h:inputText>
+													</div>
+
+													<div class="cold-md-4">
+														<label>Razao Social</label>
+														<h:inputText id="razao" class="form-control"
+															value="#{fornecedorBean.fornecedorFiltro.razao}"
+															size="15">
+														</h:inputText>
+													</div>
+
+													<div class="row" />
+
+													<h:commandButton action="#{fornecedorBean.filtrar()}"
+														class="btn btn-info btn-block" a:type="submit"
+														value="Filtrar" />
+												</h:form>
+												
+												
 												<h:dataTable class="table table-hover"
-													value="#{fornecedorBean.lista}" var="fornecedor" rules="row"
-													cellpadding="5">
+													value="#{fornecedorBean.lista}" var="fornecedor"
+													rules="row" cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
                                              #{fornecedor.id_fornecedor}
@@ -67,29 +101,31 @@
 														<f:facet name="header">E-Mail</f:facet>
 														<a href="mailto:#{fornecedor.pessoa.email}">#{fornecedor.pessoa.email}</a>
 													</h:column>
-													
+
 													<h:column>
 														<f:facet name="header">Telefone</f:facet>
 														<a href="mailto:#{fornecedor.pessoa.telefone}">#{fornecedor.pessoa.telefone}</a>
 													</h:column>
-													
+
 													<h:column>
 														<f:facet name="header">Editar</f:facet>
 
-														<h:commandLink action="#{fornecedorBean.editar()}">															
+														<h:commandLink action="#{fornecedorBean.editar()}">
 															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 															<f:setPropertyActionListener
-																target="#{fornecedorBean.fornecedor}" value="#{fornecedor}" />
+																target="#{fornecedorBean.fornecedor}"
+																value="#{fornecedor}" />
 														</h:commandLink>
 													</h:column>
-														<h:column>
+													<h:column>
 														<f:facet name="header">Excluir</f:facet>
 
 														<h:commandLink action="#{fornecedorBean.excluir}"
 															onclick="if (!confirm('Confirma a exclusão do usuário #{fornecedor.pessoa.nome}?')) return false;">
 															<i class="fa fa-trash-o"></i>
 															<f:setPropertyActionListener
-																target="#{fornecedorBean.fornecedor}" value="#{fornecedor}" />
+																target="#{fornecedorBean.fornecedor}"
+																value="#{fornecedor}" />
 														</h:commandLink>
 													</h:column>
 												</h:dataTable>

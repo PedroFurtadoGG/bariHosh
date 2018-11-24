@@ -88,5 +88,9 @@ public class FornecedorRN extends ManuseioPublico {
 		return this.fornecedorDAO.listaFornecedores();
 
 	}
+	
+	public List<Fornecedor> listaFiltrada(String numInscricao, String ramoAtividade, String razao){
+		return this.fornecedorDAO.listaFiltrada(numInscricao, ramoAtividade, razao);
+	}
 
 }

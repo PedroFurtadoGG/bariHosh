@@ -17,6 +17,15 @@ public class FabricanteBean {
 	private List<Fabricante> lista ;
 	private String destinoSalvar;
 	private FabricanteRN fabRN = new FabricanteRN();
+	
+	private Fabricante fabricanteFiltro = new Fabricante();
+	
+	public FabricanteBean() {
+		this.destinoSalvar = "fabricantes";
+		this.fabricante = new Fabricante();
+		this.fabricanteFiltro = new Fabricante();
+	}
+	
 	public String novo() {
 		this.destinoSalvar = "fabricantes";
 		this.fabricante= new Fabricante();
@@ -32,6 +41,13 @@ public class FabricanteBean {
 	
 	public String editar() {
 		return "/restrito/fabricante/fabricante";
+	}
+	
+	public String filtrar() {
+		
+		this.lista = fabRN.listaFiltrada(fabricanteFiltro.getCnpj(), fabricanteFiltro.getRazaoSocial());
+		
+		return "/restrito/fabricante/fabricantes";
 	}
 	
 	public String salvar() {
@@ -64,6 +80,16 @@ public class FabricanteBean {
 
 	public void setDestinoSalvar(String destinoSalvar) {
 		this.destinoSalvar = destinoSalvar;
+	}
+	
+	
+
+	public Fabricante getFabricanteFiltro() {
+		return fabricanteFiltro;
+	}
+
+	public void setFabricanteFiltro(Fabricante fabricanteFiltro) {
+		this.fabricanteFiltro = fabricanteFiltro;
 	}
 
 	public List<Fabricante> getLista() {

@@ -26,6 +26,7 @@ public class FornecedorDAOHibernate extends GenericoDAOHibernate<Fornecedor> imp
 		
 	  return session.createCriteria(Fornecedor.class).list();
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Produto> ListaProdutosVinculados(Long id) {
 		String hql = "select p from Produto p where p.fornecedor = :idfornecedor";
@@ -34,6 +35,27 @@ public class FornecedorDAOHibernate extends GenericoDAOHibernate<Fornecedor> imp
 		List<Produto> listaProduto = new ArrayList<Produto>();
 		   listaProduto = consulta.list();
 		return listaProduto ;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Fornecedor> listaFiltrada(String numInscricao, String ramoAtividade, String razao) {
+		StringBuffer hql = new StringBuffer();
+		
+		hql.append("select f from Fornecedor f");
+		hql.append(" where f.ramoAtividade like '%" +ramoAtividade +"%' ");
+		if(!numInscricao.equals("")) {
+			hql.append("and f.numInscricao ='" + numInscricao +"'");
+		}
+		if(!razao.equals("")) {
+			hql.append(" and f.razao like '%" + razao+ "%'");
+		}
+		
+		Query consulta = this.session.createQuery(hql.toString());
+		List<Fornecedor> listaFiltrada = (List<Fornecedor>)consulta.list();
+		
+		
+		return listaFiltrada;
 	}
 
 }
