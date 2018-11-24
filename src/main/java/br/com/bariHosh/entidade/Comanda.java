@@ -37,12 +37,6 @@ public class Comanda implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
-	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_pagamento")
-	private Pagamento pagamento;
-
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "comanda", fetch = FetchType.LAZY)
 	private List<ItemComanda> itensDaComanda = new ArrayList<ItemComanda>();
@@ -147,13 +141,9 @@ public class Comanda implements Serializable {
 	}
 	
 
-	public Pagamento getPagamento() {
-		return pagamento;
-	}
+	
 
-	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
-	}
+	
 
 	@Override
 	public int hashCode() {
@@ -164,8 +154,7 @@ public class Comanda implements Serializable {
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
 		result = prime * result + Float.floatToIntBits(desconto);
 		result = prime * result + ((id_comanda == null) ? 0 : id_comanda.hashCode());
-		result = prime * result + ((itensDaComanda == null) ? 0 : itensDaComanda.hashCode());
-		result = prime * result + ((pagamento == null) ? 0 : pagamento.hashCode());
+		result = prime * result + ((itensDaComanda == null) ? 0 : itensDaComanda.hashCode());		
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		result = prime * result + Float.floatToIntBits(valorTotal);
 		return result;
@@ -217,13 +206,7 @@ public class Comanda implements Serializable {
 		} else if (!itensDaComanda.equals(other.itensDaComanda)) {
 			return false;
 		}
-		if (pagamento == null) {
-			if (other.pagamento != null) {
-				return false;
-			}
-		} else if (!pagamento.equals(other.pagamento)) {
-			return false;
-		}
+		
 		if (usuario == null) {
 			if (other.usuario != null) {
 				return false;

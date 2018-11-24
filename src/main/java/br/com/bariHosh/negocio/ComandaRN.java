@@ -5,7 +5,9 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.ComandaDAOHibernate;
+import br.com.bariHosh.daoHibernate.PagamentoDAOHibernate;
 import br.com.bariHosh.entidade.Comanda;
+import br.com.bariHosh.entidade.EnumStatusPagamento;
 import br.com.bariHosh.entidade.Pagamento;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.ordenadores.OrdenadorComanda;
@@ -14,7 +16,7 @@ import br.com.bariHosh.util.ManuseioPublico;
 public class ComandaRN extends ManuseioPublico {
 
 	private ComandaDAOHibernate comandaDAO = new ComandaDAOHibernate();
-
+    private PagamentoDAOHibernate pagamentoDAO = new PagamentoDAOHibernate();
     
     
 	public boolean salvar(Comanda comanda) {
@@ -50,9 +52,13 @@ public class ComandaRN extends ManuseioPublico {
 			if (super.validaObjeto(usuarioLogado.getId_usuario())) {
 				// injetando id usuario
 				   comanda.setUsuario(usuarioLogado);	
-				   Pagamento pagamento = new Pagamento();
-					super.MessagesSucesso("Comanda Finalizada  Com Sucesso ");
+				   
+					Pagamento pagamento = new Pagamento();
+					pagamento.setStatusPagamento(EnumStatusPagamento.EM_ABERTO);
+					pagamento.setCompletamenteRecebido(false);
+//					pagamento.se
 					this.comandaDAO.atualizar(comanda);
+					super.MessagesSucesso("Comanda Finalizada  Com Sucesso ");
 					return true;
 				
 			} else {
