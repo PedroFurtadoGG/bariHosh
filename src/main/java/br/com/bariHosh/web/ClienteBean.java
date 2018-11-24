@@ -23,12 +23,12 @@ public class ClienteBean {
 	private String destinoSalvar;
 	private EnumSexo enumSexo;
 	private ClienteRN clienteRN = new ClienteRN();	
-	
+
 	private Cliente clienteFiltro = new Cliente();
 	private Pessoa pessoaFiltro = new Pessoa();
 	
 	
-	
+
 	public ClienteBean() {
 		this.destinoSalvar = "clientes";
 		this.setPessoa(new Pessoa());

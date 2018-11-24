@@ -37,6 +37,12 @@ public class Comanda implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
+	
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_pagamento")
+	private Pagamento pagamento;
+
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "comanda", fetch = FetchType.LAZY)
 	private List<ItemComanda> itensDaComanda = new ArrayList<ItemComanda>();
@@ -139,6 +145,15 @@ public class Comanda implements Serializable {
 	public void setValorTotal(float valorTotal) {
 		this.valorTotal = valorTotal;
 	}
+	
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
 
 	@Override
 	public int hashCode() {
@@ -150,6 +165,7 @@ public class Comanda implements Serializable {
 		result = prime * result + Float.floatToIntBits(desconto);
 		result = prime * result + ((id_comanda == null) ? 0 : id_comanda.hashCode());
 		result = prime * result + ((itensDaComanda == null) ? 0 : itensDaComanda.hashCode());
+		result = prime * result + ((pagamento == null) ? 0 : pagamento.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		result = prime * result + Float.floatToIntBits(valorTotal);
 		return result;
@@ -157,52 +173,70 @@ public class Comanda implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof Comanda)) {
 			return false;
+		}
 		Comanda other = (Comanda) obj;
-		if (ativo != other.ativo)
+		if (ativo != other.ativo) {
 			return false;
+		}
 		if (cliente == null) {
-			if (other.cliente != null)
+			if (other.cliente != null) {
 				return false;
-		} else if (!cliente.equals(other.cliente))
+			}
+		} else if (!cliente.equals(other.cliente)) {
 			return false;
+		}
 		if (data == null) {
-			if (other.data != null)
+			if (other.data != null) {
 				return false;
-		} else if (!data.equals(other.data))
+			}
+		} else if (!data.equals(other.data)) {
 			return false;
-		if (Float.floatToIntBits(desconto) != Float.floatToIntBits(other.desconto))
+		}
+		if (Float.floatToIntBits(desconto) != Float.floatToIntBits(other.desconto)) {
 			return false;
+		}
 		if (id_comanda == null) {
-			if (other.id_comanda != null)
+			if (other.id_comanda != null) {
 				return false;
-		} else if (!id_comanda.equals(other.id_comanda))
+			}
+		} else if (!id_comanda.equals(other.id_comanda)) {
 			return false;
+		}
 		if (itensDaComanda == null) {
-			if (other.itensDaComanda != null)
+			if (other.itensDaComanda != null) {
 				return false;
-		} else if (!itensDaComanda.equals(other.itensDaComanda))
+			}
+		} else if (!itensDaComanda.equals(other.itensDaComanda)) {
 			return false;
+		}
+		if (pagamento == null) {
+			if (other.pagamento != null) {
+				return false;
+			}
+		} else if (!pagamento.equals(other.pagamento)) {
+			return false;
+		}
 		if (usuario == null) {
-			if (other.usuario != null)
+			if (other.usuario != null) {
 				return false;
-		} else if (!usuario.equals(other.usuario))
+			}
+		} else if (!usuario.equals(other.usuario)) {
 			return false;
-		if (Float.floatToIntBits(valorTotal) != Float.floatToIntBits(other.valorTotal))
+		}
+		if (Float.floatToIntBits(valorTotal) != Float.floatToIntBits(other.valorTotal)) {
 			return false;
+		}
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Comanda [id_comanda=" + id_comanda + ", cliente=" + cliente + ", usuario=" + usuario
-				+ ", itensDaComanda=" + itensDaComanda + ", data=" + data + ", desconto=" + desconto + ", valorTotal="
-				+ valorTotal + ", ativo=" + ativo + "]";
-	}
+	
 
 }
