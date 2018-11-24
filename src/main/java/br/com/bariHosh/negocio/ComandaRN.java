@@ -6,26 +6,36 @@ import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.ComandaDAOHibernate;
 import br.com.bariHosh.entidade.Comanda;
+import br.com.bariHosh.entidade.Pagamento;
+import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.ordenadores.OrdenadorComanda;
 import br.com.bariHosh.util.ManuseioPublico;
 
 public class ComandaRN extends ManuseioPublico {
 
 	private ComandaDAOHibernate comandaDAO = new ComandaDAOHibernate();
-    private OrdenadorComanda ordenadorComanda ;
+
     
     
 	public boolean salvar(Comanda comanda) {
 		try {
-			if (!super.validaObjeto(comanda.getId_comanda())) {
-				this.comandaDAO.salvar(comanda);
-				super.MessagesSucesso("Comanda Salva Com Sucesso ");
-				return true;
+			Usuario usuarioLogado = super.buscarPorUsuarioLogado();
+			if (super.validaObjeto(usuarioLogado.getId_usuario())) {
+				// injetando id usuario
+				comanda.setUsuario(usuarioLogado);
+				if (!super.validaObjeto(comanda.getId_comanda())) {
+					this.comandaDAO.salvar(comanda);
+					super.MessagesSucesso("Comanda Salva Com Sucesso ");
+					return true;
+				} else {
+					super.MessagesSucesso("Comanda Atualizada  Com Sucesso ");
+					this.comandaDAO.atualizar(comanda);
+					return true;
+				}
 			} else {
-				super.MessagesSucesso("Comanda Atualizada  Com Sucesso ");
-				this.comandaDAO.atualizar(comanda);
-				return true;
+				super.MessagesErro("E necessario Estar Logado!");
 
+				return false;
 			}
 		} catch (Exception e) {
 			super.MessagesErro("Ouve erro na tentativa de salvar a comanda contate Administrador do sistema!");
@@ -33,6 +43,30 @@ public class ComandaRN extends ManuseioPublico {
 		return false;
 
 	}
+	
+	public boolean finalizar(Comanda comanda) {
+		try {
+			Usuario usuarioLogado = super.buscarPorUsuarioLogado();
+			if (super.validaObjeto(usuarioLogado.getId_usuario())) {
+				// injetando id usuario
+				   comanda.setUsuario(usuarioLogado);	
+				   Pagamento pagamento = new Pagamento();
+					super.MessagesSucesso("Comanda Finalizada  Com Sucesso ");
+					this.comandaDAO.atualizar(comanda);
+					return true;
+				
+			} else {
+				super.MessagesErro("E necessario Estar Logado!");
+
+				return false;
+			}
+		} catch (Exception e) {
+			super.MessagesErro("Ouve erro na tentativa de salvar a comanda contate Administrador do sistema!");
+		}
+		return false;
+
+	}
+
 
 	public boolean excluir(Comanda comanda) {
 		try {

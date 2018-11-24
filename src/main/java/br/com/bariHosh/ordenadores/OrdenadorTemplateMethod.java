@@ -1,4 +1,4 @@
-package br.com.bariHosh.util;
+package br.com.bariHosh.ordenadores;
 
 import java.util.List;
 

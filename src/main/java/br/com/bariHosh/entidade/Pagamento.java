@@ -26,7 +26,9 @@ public class Pagamento implements Serializable {
 	
 	@Enumerated(EnumType.STRING)
 	private FormaPagamento formaPagamento;
-
+	
+	@Enumerated(EnumType.STRING)
+	private EnumStatusPagamento  statusPagamento;
 	@Column(name = "completamente_recebido", nullable = false)
 	private boolean completamenteRecebido;
 
@@ -69,6 +71,17 @@ public class Pagamento implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	
+	
+
+	public EnumStatusPagamento getStatusPagamento() {
+		return statusPagamento;
+	}
+
+	public void setStatusPagamento(EnumStatusPagamento statusPagamento) {
+		this.statusPagamento = statusPagamento;
+	}
 
 	@Override
 	public int hashCode() {
@@ -77,28 +90,48 @@ public class Pagamento implements Serializable {
 		result = prime * result + (completamenteRecebido ? 1231 : 1237);
 		result = prime * result + ((formaPagamento == null) ? 0 : formaPagamento.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((statusPagamento == null) ? 0 : statusPagamento.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (!(obj instanceof Pagamento)) {
 			return false;
+		}
 		Pagamento other = (Pagamento) obj;
-		if (completamenteRecebido != other.completamenteRecebido)
+		if (completamenteRecebido != other.completamenteRecebido) {
 			return false;
-		if (formaPagamento != other.formaPagamento)
+		}
+		if (formaPagamento != other.formaPagamento) {
 			return false;
+		}
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
+		if (statusPagamento != other.statusPagamento) {
+			return false;
+		}
+		if (usuario == null) {
+			if (other.usuario != null) {
+				return false;
+			}
+		} else if (!usuario.equals(other.usuario)) {
+			return false;
+		}
 		return true;
 	}
 
+	
 }

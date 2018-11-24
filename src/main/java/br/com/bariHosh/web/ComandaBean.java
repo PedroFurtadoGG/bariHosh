@@ -70,9 +70,7 @@ public class ComandaBean implements Serializable {
 	}
 	
 	
-	public void calcularSubtotal() {
-		
-	}
+	
 	
 	
 	public List<Cliente> buscaPeloNome(String nome) {
@@ -114,9 +112,9 @@ public class ComandaBean implements Serializable {
 	}
 	public String finalizarComanda(Comanda comanda) {
 		  this.comanda = comanda;
-		  this.destinoSalvar = "comandasEncerradas";
+		  this.destinoSalvar = "comandasAberto";
 	 	  this.comanda.setAtivo(false);		 
-		if (new ComandaRN().salvar(this.comanda)) {
+		if (new ComandaRN().finalizar(this.comanda)) {
              this.comanda = new Comanda();
              this.comandasAbertas = null;
 		}
