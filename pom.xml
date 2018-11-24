@@ -90,5 +90,7 @@
 			<artifactId>font-awesome</artifactId>
 			<version>4.5.0</version>
 		</dependency>
+		
+	
 	</dependencies>
 </project>

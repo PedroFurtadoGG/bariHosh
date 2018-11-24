@@ -3,6 +3,7 @@ package br.com.bariHosh.web;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -32,13 +33,12 @@ public class ComandaBean implements Serializable {
 	private Produto produto = new Produto();
 	private Comanda comanda = new Comanda();
 	private ItemComanda itemComanda = new ItemComanda();
-
 	private String destinoSalvar;
 	private ClienteRN clienteRN = new ClienteRN();
 	private ProdutoRN produtoRN = new ProdutoRN();
 	private ComandaRN comandaRN = new ComandaRN();
 	private ItemComandaRN itemComandaRN = new ItemComandaRN();
-
+	
 	@PostConstruct
 	public void init() {
 		this.itensComanda = new ArrayList<ItemComanda>();
@@ -66,10 +66,23 @@ public class ComandaBean implements Serializable {
 		this.produtoRN = new ProdutoRN();
 		this.comandaRN = new ComandaRN();
 		this.itemComandaRN = new ItemComandaRN();
-		
-
 		return "comanda";
 	}
+	
+	
+	public void calcularSubtotal() {
+		
+	}
+	
+	
+	public List<Cliente> buscaPeloNome(String nome) {
+		List<Cliente> clientes = new ClienteRN().listar();
+		 clientes.stream().filter(c -> c.getPessoa().getNome().contains(nome)).collect(Collectors.toList());
+		return clientes; 
+			
+	}
+
+	
 
 	public void adicionarItemComanda() {
 		
@@ -79,7 +92,6 @@ public class ComandaBean implements Serializable {
 		this.comanda.adicionaItemComanda(this.itemComanda);
 		ManuseioPublico.MessagesSucesso("Item adicionado com Sucesso !");
 		this.itemComanda = new ItemComanda();
-
 	}
 
 	public void excluirItemComanda() {
@@ -93,14 +105,24 @@ public class ComandaBean implements Serializable {
 	}
 
 	public void excluirComanda(Comanda comanda) {
-		this.comanda = comanda;
-		this.destinoSalvar = "comandasAberto";
+		this.comanda = comanda;		
 		if (new ComandaRN().excluir(this.comanda)) {
            this.comanda = new Comanda();
            this.comandasAbertas = null;
 		}
 
 	}
+	public String finalizarComanda(Comanda comanda) {
+		  this.comanda = comanda;
+		  this.destinoSalvar = "comandasEncerradas";
+	 	  this.comanda.setAtivo(false);		 
+		if (new ComandaRN().salvar(this.comanda)) {
+             this.comanda = new Comanda();
+             this.comandasAbertas = null;
+		}
+		return this.destinoSalvar;
+	}	
+	
 
 	public String editarComanda(Comanda comanda) {
 		this.comanda = comanda;
@@ -138,7 +160,7 @@ public class ComandaBean implements Serializable {
 
 	public List<Comanda> getComandasEncerradas() {
 		if (this.comandasEncerradas == null) {
-			this.comandasEncerradas = this.comandaRN.listaComandasStatus(false);
+			this.comandasEncerradas = new ComandaRN().listaComandasStatus(false);
 		}
 		return this.comandasEncerradas;
 	}

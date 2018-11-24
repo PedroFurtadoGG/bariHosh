@@ -22,10 +22,11 @@ public class ClienteBean {
 	private List<Cliente> lista;
 	private String destinoSalvar;
 	private EnumSexo enumSexo;
-	private ClienteRN clienteRN = new ClienteRN();
+	private ClienteRN clienteRN = new ClienteRN();	
 
 	private Cliente clienteFiltro = new Cliente();
 	private Pessoa pessoaFiltro = new Pessoa();
+	
 
 	public ClienteBean() {
 		this.destinoSalvar = "clientes";
