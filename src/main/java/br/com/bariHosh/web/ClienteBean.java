@@ -25,9 +25,6 @@ public class ClienteBean {
 	private ClienteRN clienteRN = new ClienteRN();	
 	
 	
-	
-	
-	
 	public ClienteBean() {
 		this.destinoSalvar = "clientes";
 		this.setPessoa(new Pessoa());

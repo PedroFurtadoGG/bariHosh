@@ -64,8 +64,7 @@ public boolean excluir(Comanda comanda) {
 
 
 
-	public List<Comanda> listaComandasStatus(boolean status) {
-		 
+	public List<Comanda> listaComandasStatus(boolean status) {		 
 		return this.comandaDAO.listaComandasStatus(status);
 	}
 	
