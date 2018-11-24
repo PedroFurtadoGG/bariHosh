@@ -1,12 +1,9 @@
 package br.com.bariHosh.daoHibernate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-
-import com.mysql.jdbc.PreparedStatement;
 
 import br.com.bariHosh.dao.ProdutoDAO;
 import br.com.bariHosh.entidade.Produto;
