@@ -41,7 +41,7 @@ public class Caixa implements Serializable {
 	private String categoria;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_produto", nullable = false)
+	@JoinColumn(name = "id_produto", nullable = true)
 	private Produto produto;
 
 	@Enumerated(EnumType.STRING)
