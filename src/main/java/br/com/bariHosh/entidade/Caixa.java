@@ -41,7 +41,7 @@ public class Caixa implements Serializable {
 	private String categoria;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_produto", nullable = false)
+	@JoinColumn(name = "id_produto", nullable = true)
 	private Produto produto;
 
 	@Enumerated(EnumType.STRING)
@@ -49,6 +49,10 @@ public class Caixa implements Serializable {
 
 	@Temporal(TemporalType.DATE)
 	private Date data_movimentacao;
+	
+	public Caixa() {
+		setData_movimentacao(new Date());
+	}
 
 	public Long getId_caixa() {
 		return id_caixa;

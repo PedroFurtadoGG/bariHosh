@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +20,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-import br.com.bariHosh.negocio.ItemComandaRN;
-
 @Entity
 @Table(name = "comada")
 public class Comanda implements Serializable {
@@ -31,22 +30,17 @@ public class Comanda implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_comanda;
 
-	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_cliente")	
+	@JoinColumn(name = "id_cliente")
 	private Cliente cliente;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
-	
 
-
-
-	@OneToMany( cascade = CascadeType.ALL , mappedBy = "comanda" ,fetch=FetchType.LAZY)	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "comanda", fetch = FetchType.LAZY)
 	private List<ItemComanda> itensDaComanda = new ArrayList<ItemComanda>();
 
-	
 	@Temporal(TemporalType.DATE)
 	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
@@ -59,12 +53,13 @@ public class Comanda implements Serializable {
 	public Comanda() {
 		setData(new Date());
 	}
-	
+
 	public void adicionaItemComanda(ItemComanda item) {
 		this.itensDaComanda.add(item);
 		item.setComanda(this);
 
 	}
+
 	public void removeItemComanda(ItemComanda item) {
 		this.itensDaComanda.remove(item);
 		item.setComanda(null);
@@ -72,13 +67,13 @@ public class Comanda implements Serializable {
 	}
 
 	public void recalcularValorTotal() {
-//		this.valorTotal=0;
-//		for (ItemComanda item : this.getItensDaComanda()) {
-////			float valorTotalDoItem = item.getValorTotal();
-////			this.setValorTotal(this.getValorTotal().add(valorTotalDoItem));
-//		}
-//
-////		this.setValorTotal(this.getValorTotal().subtract(this.getDesconto()));
+		// this.valorTotal=0;
+		// for (ItemComanda item : this.getItensDaComanda()) {
+		//// float valorTotalDoItem = item.getValorTotal();
+		//// this.setValorTotal(this.getValorTotal().add(valorTotalDoItem));
+		// }
+		//
+		//// this.setValorTotal(this.getValorTotal().subtract(this.getDesconto()));
 	}
 
 	public Cliente getCliente() {
@@ -105,7 +100,6 @@ public class Comanda implements Serializable {
 		this.id_comanda = id_comanda;
 	}
 
-	
 	public Usuario getUsuario() {
 		return usuario;
 	}
@@ -122,8 +116,8 @@ public class Comanda implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public List<ItemComanda> getItensDaComanda() {	
-		return this.itensDaComanda ;
+	public List<ItemComanda> getItensDaComanda() {
+		return this.itensDaComanda;
 	}
 
 	public void setItensDaComanda(List<ItemComanda> itensDaComanda) {
@@ -145,8 +139,6 @@ public class Comanda implements Serializable {
 	public void setValorTotal(float valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-
-	
 
 	@Override
 	public int hashCode() {
@@ -212,9 +204,5 @@ public class Comanda implements Serializable {
 				+ ", itensDaComanda=" + itensDaComanda + ", data=" + data + ", desconto=" + desconto + ", valorTotal="
 				+ valorTotal + ", ativo=" + ativo + "]";
 	}
-
-	
-
-	
 
 }
