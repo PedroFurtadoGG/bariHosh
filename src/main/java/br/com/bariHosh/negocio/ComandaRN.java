@@ -57,9 +57,7 @@ public class ComandaRN extends ManuseioPublico {
 	}
 
 
-
-
- 
+S
 
 	public List<Comanda> listaComandasStatus(boolean status) {
 		OrdenadorComanda listaOrdenada = new OrdenadorComanda(this.comandaDAO.listaComandasStatus(status));
