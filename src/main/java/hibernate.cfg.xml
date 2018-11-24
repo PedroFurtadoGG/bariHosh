@@ -9,7 +9,6 @@
 		<property name="current_session_context_class">thread</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="hibernate.show_sql">true</property>
-		
 		<mapping class="br.com.bariHosh.entidade.Usuario" />
 		<mapping class="br.com.bariHosh.entidade.Pessoa" />
 		<mapping class="br.com.bariHosh.entidade.Fornecedor" />
