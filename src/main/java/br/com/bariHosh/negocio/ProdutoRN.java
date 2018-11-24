@@ -139,6 +139,10 @@ public class ProdutoRN extends ManuseioPublico {
 	public List<Produto> listarCompleto() {
 		return this.produtoDAO.listaCompleta();
 	}
+	
+	public List<Produto> listaFiltrada(String nome, Float valorEntrada, Float valorSaida, String codBarras){
+		return this.produtoDAO.listaFiltrada(nome, valorEntrada, valorSaida, codBarras);
+	}
 
 	public Log_Estoque getLogEstoque() {
 		return logEstoque;

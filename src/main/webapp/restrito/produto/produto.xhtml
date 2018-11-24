@@ -53,24 +53,28 @@
 										<ui:insert name="messages">
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
-										<h:inputHidden value="#{produtoBean.produto.id_produto}" />		
-										<h:inputHidden value="#{produtoBean.produto.estoque.id_estoque}" />									
+										<h:inputHidden value="#{produtoBean.produto.id_produto}" />
+										<h:inputHidden
+											value="#{produtoBean.produto.estoque.id_estoque}" />
 										<h:inputHidden
 											value="#{produtoBean.produto.marca_produto.id_marca}" />
 										<h:inputHidden
 											value="#{produtoBean.produto.fornecedor.id_fornecedor}" />
 										<h:inputHidden
 											value="#{produtoBean.produto.categoria.id_categoria}" />
-										<h:inputHidden value="#{produtoBean.produto.id_usuario_criacao}" />
+										<h:inputHidden
+											value="#{produtoBean.produto.id_usuario_criacao}" />
 										<h:inputHidden value="#{produtoBean.produto.ativo}" />
 										<h:inputHidden value="#{produtoBean.produto.estoque.ativo}" />
-										<h:inputHidden value="#{produtoBean.destinoSalvar}" />	
-										<h:inputHidden value="#{produtoBean.produto.estoque.qtd_produto	}" />
+										<h:inputHidden value="#{produtoBean.destinoSalvar}" />
+										<h:inputHidden
+											value="#{produtoBean.produto.estoque.qtd_produto	}" />
 										<h:inputHidden value="#{produtoBean.produto.data_criacao}">
-											<f:convertDateTime pattern="yyyy-MM-dd"/>
+											<f:convertDateTime pattern="yyyy-MM-dd" />
 										</h:inputHidden>
-										<h:inputHidden value="#{produtoBean.produto.estoque.data_criacao}">
-											<f:convertDateTime pattern="yyyy-MM-dd"/>
+										<h:inputHidden
+											value="#{produtoBean.produto.estoque.data_criacao}">
+											<f:convertDateTime pattern="yyyy-MM-dd" />
 										</h:inputHidden>
 										<div class="form-group">
 											<div class="col-md-8">
@@ -91,7 +95,7 @@
 												<h:selectOneMenu class="form-control"
 													value="#{produtoBean.produto.categoria}"
 													requiredMessage="Informe a categoria do Produto!"
-													required="true" converter="converterCategoriaProduto" >
+													required="true" converter="converterCategoriaProduto">
 													<f:selectItem itemLabel="Selecione..." />
 													<f:selectItems value="#{produtoBean.listaCategorias}"
 														var="categoria" itemLabel="#{categoria.descricao}"
@@ -165,11 +169,9 @@
 												<h:inputText id="quantidade"
 													disabled="#{produtoBean.produto.estoque.qtd_produto !=null}"
 													value="#{produtoBean.produto.estoque.qtd_produto}"
-													size="10" a:type="number" a:required="true"
-													 maxlength="10"
+													size="10" a:type="number" a:required="true" maxlength="10"
 													requiredMessage="Informe a quantidade Inicial  do produto"
-													a:placeholder="Informe a Quantidade "
-													class="form-control">
+													a:placeholder="Informe a Quantidade " class="form-control">
 													<f:validateLength minimum="1" maximum="10" />
 													<f:convertNumber minIntegerDigits="1" maxIntegerDigits="10" />
 												</h:inputText>
@@ -179,24 +181,22 @@
 												<label><span style="color: red"> * </span>Valor de
 													Entrada</label>
 												<h:inputText id="valorEntrada"
-													value="#{produtoBean.produto.valorEntrada}" maxlength="12"
-													size="12" a:type="number" a:required="true"
+													value="#{produtoBean.produto.valorEntrada}" a:type="number"
+													a:min="0.00" a:max="10000.00" a:step="0.01"
+													a:required="true"
 													requiredMessage="Informe o valor de aquisição do produto"
-													a:placeholder="Informe valor Entrada"
-													class="form-control">
-													<f:validateLength minimum="1" maximum="12" />
+													a:placeholder="Informe valor Entrada" class="form-control">
 												</h:inputText>
 											</div>
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Valor de
 													Saida (Venda)</label>
 												<h:inputText id="valorSaida"
-													value="#{produtoBean.produto.valorSaida}" maxlength="12"
-													size="12" a:type="number" a:required="true"
+													value="#{produtoBean.produto.valorSaida}" a:type="number"
+													a:min="0.00" a:max="10000.00" a:step="0.01"
+													a:required="true"
 													requiredMessage="Informe o valor de venda do produto"
-													a:placeholder="Informe o Valor Venda "
-													class="form-control">
-													<f:validateLength minimum="1" maximum="12" />
+													a:placeholder="Informe o Valor Venda " class="form-control">
 												</h:inputText>
 											</div>
 										</div>
