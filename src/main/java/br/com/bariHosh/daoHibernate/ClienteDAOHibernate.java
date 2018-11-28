@@ -31,5 +31,16 @@ public class ClienteDAOHibernate extends GenericoDAOHibernate<Cliente> implement
 		return listaFiltrada;
 	}
 
+	@Override
+	public String totalClientesRegistrados() {
+	
+		String sql = "SELECT count(c.id) FROM Cliente c WHERE c.id";
+		
+		Query consulta = this.session.createQuery(sql);
+		String resultado = consulta.getMaxResults().toString();
+		
+		return resultado;
+	}
+
 
 }
