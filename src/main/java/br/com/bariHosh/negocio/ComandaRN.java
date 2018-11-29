@@ -24,7 +24,7 @@ public class ComandaRN extends ManuseioPublico {
 			Usuario usuarioLogado = super.buscarPorUsuarioLogado();
 			if (super.validaObjeto(usuarioLogado.getId_usuario())) {
 				// injetando id usuario
-				comanda.setUsuario(usuarioLogado);
+			     	comanda.setUsuario(usuarioLogado);
 				if (!super.validaObjeto(comanda.getId_comanda())) {
 					this.comandaDAO.salvar(comanda);
 					super.MessagesSucesso("Comanda Salva Com Sucesso ");
@@ -46,17 +46,18 @@ public class ComandaRN extends ManuseioPublico {
 
 	}
 	
-	public boolean finalizar(Comanda comanda) {
+     public void atualiza(Comanda comanda) {
+    	 this.comandaDAO.atualizar(comanda);			
+		
+	}
+	
+	public boolean finalizarComanda(Comanda comanda) {
 		try {
 			Usuario usuarioLogado = super.buscarPorUsuarioLogado();
 			if (super.validaObjeto(usuarioLogado.getId_usuario())) {
 				// injetando id usuario
-				   comanda.setUsuario(usuarioLogado);	
-				   
-					Pagamento pagamento = new Pagamento();
-					pagamento.setStatusPagamento(EnumStatusPagamento.EM_ABERTO);
-					pagamento.setCompletamenteRecebido(false);
-//					pagamento.se
+				
+     				
 					this.comandaDAO.atualizar(comanda);
 					super.MessagesSucesso("Comanda Finalizada  Com Sucesso ");
 					return true;
@@ -87,6 +88,18 @@ public class ComandaRN extends ManuseioPublico {
 		}
 		return false;
 	}
+	
+	public void reativaComanda(Comanda comanda) {
+		if(super.validaObjeto(comanda)) {			
+			this.comandaDAO.atualizar(comanda);
+		super.MessagesSucesso("Comanda Reativada   Com Sucesso ");
+		} else {			
+			super.MessagesErro("Ouve erro na tentativa de ativar a comanda contate Administrador do sistema!");
+		}
+
+		
+	}
+
 
 	public ComandaDAOHibernate getComandaDAO() {
 		return comandaDAO;
@@ -104,14 +117,17 @@ public class ComandaRN extends ManuseioPublico {
 		return listaOrdenada.listagemEmOrdem();
 	}
 
-	public Comanda recuperaComandaParaEdicao() {
+	public Comanda recuperaComandaParaEdicao(String id_comanda) {
 		String idcomanda = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap()
-				.get("id_comanda");
+				.get(id_comanda);
 		if (super.validaObjeto(idcomanda)) {
 			return this.comandaDAO.carregar(Comanda.class, Long.parseLong(idcomanda));
 		}
 		return null;
 	}
+
+
+	
 
 	
 

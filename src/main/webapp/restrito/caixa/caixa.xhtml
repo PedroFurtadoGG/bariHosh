@@ -46,8 +46,25 @@
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
 										<h:inputHidden value="#{comandaBean.comanda.id_comanda}" />
-
 										<div class="form-group">
+
+											<div class="col-md-3">
+												<label><span style="color: red"> </span>Busca de
+													Comanda</label>
+												<h:inputText id="buscacomanda"
+													value="#{caixaBean.comanda.id_comanda}" maxlength="12"
+													size="12" required="true" class="form-control"
+													a:placeholder="Digite o codigo da comanda ">
+													<f:validateLength minimum="1" maximum="120" />
+												</h:inputText>
+											</div>
+											<div class="col-md-3">
+											<label><span style="color: red"> </span>
+													</label>
+													
+												<h:commandButton actionListener="#{caixaBean.buscarComanda()}"
+													class="btn btn-info btn-block" value="Busca Comanda" />
+											</div>
 											<div class="col-md-6">
 												<label><span style="color: red"> * </span>Forma de
 													Pagamento </label>
@@ -60,56 +77,86 @@
 														itemLabel="#{forma_pagamento.chave}" a:required="true" />
 												</h:selectOneMenu>
 											</div>
-											<div class="col-md-3">
-												<label><span style="color: red"> * </span>Data da
-													Movimentação </label>
-												<h:inputText id="data" a:type="date" readonly="true"
-													value="#{caixaBean.caixa.data_movimentacao}"
-													a:required="true" class="form-control">
-													<f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
-														timeZone="America/Sao_Paulo" />
-												</h:inputText>
+											<div class="col-md-6">
+												<h3>Itens da Compra</h3>
+												<h:dataTable class="table table-hover"
+													value="#{caixaBean.comanda.itensDaComanda}"
+													var="itemComanda" rules="row" cellpadding="5">
+													<h:column>
+														<f:facet name="header">Codigo Produto</f:facet>													
+														 #{itemComanda.produto.id_produto}												
+
+												</h:column>
+													<h:column>
+														<f:facet name="header">Descrição</f:facet>													
+														 #{itemComanda.produto.nome}														
+
+												</h:column>
+													<h:column>
+														<f:facet name="header">Quantidade</f:facet>
+											    	#{itemComanda.quantidade}
+												</h:column>
+													<h:column>
+														<f:facet name="header">Valor Unitario</f:facet>												
+														 #{itemComanda.valorUnitario}
+												</h:column>
+													<h:column>
+														<f:facet name="header">Valor Total</f:facet>													
+														 #{itemComanda.valorTotal}				
+
+												</h:column>
+
+													<h:column>
+														<f:facet name="header">Excluir</f:facet>
+														<h:commandLink action="#{comandaBean.excluirItemComanda}"
+															onclick="if (!confirm('Confirma a exclusão do item #{itemComanda.produto.nome}?')) return false;">
+															<i class="fa fa-trash-o fa-4"></i>
+															<f:setPropertyActionListener
+																target="#{comandaBean.itemComanda}"
+																value="#{itemComanda}" />
+
+														</h:commandLink>
+													</h:column>
+												</h:dataTable>
 											</div>
-											
-											<div class="col-md-3">
-												<label><span style="color: red"> * </span>Tipo de Movimentação </label>
-												<h:selectOneMenu class="form-control"
-													value="#{caixaBean.caixa.tipo_movimento}"
-													requiredMessage="Valor é obrigatório">
-													<f:selectItem itemLabel="Selecione..." />
-													<f:selectItems value="#{caixaBean.tipo_movimentacao}"
-														var="tipo_movimento" itemValue="#{tipo_movimento}"
-														itemLabel="#{tipo_movimento.chave}" a:required="true" />
-												</h:selectOneMenu>
+
+
+
+											<div>
+												<div class="col-md-3">
+													<label><span style="color: red"> * </span>Valor de
+														Desconto</label>
+													<h:inputText id="valorDesconto"
+														value="#{caixaBean.comanda.desconto}" a:type="number"
+														a:min="0.00" a:max="10000.00" a:step="0.01"
+														a:placeholder="Informe o Valor de Desconto "
+														class="form-control">
+													</h:inputText>
+												</div>
+
+												<div class="col-md-3">
+													<label><span style="color: red"> * </span>Valor de
+														Acrescimo</label>
+													<h:inputText id="valorAcrescimo"
+														value="#{caixaBean.caixa.valor_acrescimo}" a:type="number"
+														a:min="0.00" a:max="10000.00" a:step="0.01"
+														a:placeholder="Informe o Valor de Acrescimo "
+														class="form-control">
+													</h:inputText>
+												</div>
+
+												<div class="col-md-3">
+													<label><span style="color: red"> * </span>Valor
+														Total</label>
+													<h:inputText id="valorTotal"
+														value="#{caixaBean.comanda.valorTotal}" a:type="number"
+														a:min="0.00" a:max="10000.00" a:step="0.01"
+														a:required="true" a:placeholder="Informe o Valor Total "
+														class="form-control">
+													</h:inputText>
+												</div>
 											</div>
-											
-											<div class="col-md-3">
-												<label><span style="color: red"> * </span>Valor de Desconto</label>
-												<h:inputText id="valorDesconto"
-													value="#{caixaBean.caixa.valor_desconto}" a:type="number"
-													a:min="0.00" a:max="10000.00" a:step="0.01"
-													a:placeholder="Informe o Valor de Desconto " class="form-control">
-												</h:inputText>
-											</div>
-											
-											<div class="col-md-3">
-												<label><span style="color: red"> * </span>Valor de Acrescimo</label>
-												<h:inputText id="valorAcrescimo"
-													value="#{caixaBean.caixa.valor_acrescimo}" a:type="number"
-													a:min="0.00" a:max="10000.00" a:step="0.01"
-													a:placeholder="Informe o Valor de Acrescimo " class="form-control">
-												</h:inputText>
-											</div>
-											
-											<div class="col-md-3">
-												<label><span style="color: red"> * </span>Valor Total</label>
-												<h:inputText id="valorTotal"
-													value="#{caixaBean.caixa.valor_total}" a:type="number"
-													a:min="0.00" a:max="10000.00" a:step="0.01" a:required="true"
-													a:placeholder="Informe o Valor Total " class="form-control">
-												</h:inputText>
-											</div>
-											
+
 										</div>
 										<br />
 										<br />
@@ -117,53 +164,6 @@
 											<div class="col-md-8">
 												<span style="color: red"> (*) São Campos Obrigatórios</span>
 											</div>
-										</div>
-									</h:form>
-									<h:form class="form-horizontal" id="formtable">
-
-										<div class="bs-example">
-											<br /> <br /> <br />
-											<h3>Itens da Compra</h3>
-
-											<h:dataTable class="table table-hover"
-												value="#{caixaBean.comanda.itensDaComanda}"
-												var="itemComanda" rules="row" cellpadding="5">
-												<h:column>
-													<f:facet name="header">Codigo Produto</f:facet>													
-														 #{itemComanda.produto.id_produto}													
-
-												</h:column>
-												<h:column>
-													<f:facet name="header">Descrição</f:facet>													
-														 #{itemComanda.produto.nome}														
-
-												</h:column>
-												<h:column>
-													<f:facet name="header">Quantidade</f:facet>
-											    	#{itemComanda.quantidade}
-												</h:column>
-												<h:column>
-													<f:facet name="header">Valor Unitario</f:facet>												
-														 #{itemComanda.valorUnitario}
-												</h:column>
-												<h:column>
-													<f:facet name="header">Valor Total</f:facet>													
-														 #{itemComanda.valorTotal}				
-
-												</h:column>
-
-												<h:column>
-													<f:facet name="header">Excluir</f:facet>
-													<h:commandLink action="#{comandaBean.excluirItemComanda}"
-														onclick="if (!confirm('Confirma a exclusão do item #{itemComanda.produto.nome}?')) return false;">
-														<i class="fa fa-trash-o fa-4"></i>
-														<f:setPropertyActionListener
-															target="#{comandaBean.itemComanda}"
-															value="#{itemComanda}" />
-
-													</h:commandLink>
-												</h:column>
-											</h:dataTable>
 										</div>
 									</h:form>
 

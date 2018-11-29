@@ -80,7 +80,7 @@
 														<f:facet name="header">Editar</f:facet>
 														<h:commandLink action="#{comandaBean.editarComanda(comanda)}">
 														 	<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-													     	<f:param name = "id_comanda" value = "#{comanda.id_comanda}" /> 
+													     	<f:param name = "id_comanda_aberta" value = "#{comanda.id_comanda}" /> 
 														</h:commandLink>
 													</h:column>
 
@@ -99,7 +99,7 @@
 
 														<h:commandLink
 															action="#{comandaBean.finalizarComanda(comanda)}"
-															onclick="if (!confirm('Confirma a exclusão do Comanda #{comanda.id_comanda}?')) return false;">
+															onclick="if (!confirm('Confirma a finalização do Comanda #{comanda.id_comanda}?')) return false;">
 													         <i class="fa fa-check-square"></i>
 														
 														</h:commandLink>

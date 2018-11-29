@@ -23,7 +23,7 @@ public class ItemComanda implements Serializable {
 
 	private float valorUnitario;
 	private float valorTotal;
-	private Long quantidade;
+	private Integer quantidade;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_produto", nullable = false)
@@ -45,7 +45,7 @@ public class ItemComanda implements Serializable {
 		this.id_itemComanda = id_itemComanda;
 	}
 
-	public Long getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
@@ -57,7 +57,7 @@ public class ItemComanda implements Serializable {
 		return valorTotal;
 	}
 
-	public void setQuantidade(Long quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 

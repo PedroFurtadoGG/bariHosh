@@ -76,23 +76,28 @@
 														</h:outputText>
 													</h:column>
 													<h:column>
-														<f:facet name="header">Editar</f:facet>
-
-														<h:commandLink action="#{comandaBean.editar()}">
-															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-															<f:setPropertyActionListener
-																target="#{comandaBean.comanda}" value="#{comanda}" />
-														</h:commandLink>
-													</h:column>
-
-													<h:column>
 														<f:facet name="header">Excluir</f:facet>
 
-														<h:commandLink action="#{clienteBean.excluir}"
+														<h:commandLink
+															action="#{comandaBean.excluirComanda(comanda)}"
 															onclick="if (!confirm('Confirma a exclusão do Comanda #{comanda.id_comanda}?')) return false;">
 															<i class="fa fa-trash-o"></i>
-															<f:setPropertyActionListener
-																target="#{comandaBean.comanda}" value="#{comanda}" />
+														</h:commandLink>
+													</h:column>	
+													<h:column>
+														<f:facet name="header"> Reativar Comanda</f:facet>
+														<h:commandLink
+															action="#{comandaBean.reativarComanda(comanda)}">
+															<i class="fa fa-power-off" ></i>
+														</h:commandLink>
+													</h:column>
+													<h:column>
+														<f:facet name="header"> Realizar Pagamento</f:facet>
+														<h:commandLink
+															action="/restrito/caixa/caixa?faces-redirect = true">
+															<i class="fa fa-dollar"></i>
+															<f:param name="id_comanda_encerrada"
+																value="#{comanda.id_comanda}" />
 														</h:commandLink>
 													</h:column>
 												</h:dataTable>
