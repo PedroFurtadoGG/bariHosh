@@ -1,7 +1,6 @@
 package br.com.bariHosh.web;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -9,13 +8,11 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.bariHosh.entidade.Caixa;
 import br.com.bariHosh.entidade.Comanda;
+import br.com.bariHosh.entidade.Despesa;
 import br.com.bariHosh.entidade.EnumMovimentoCaixa;
 import br.com.bariHosh.entidade.FormaPagamento;
-import br.com.bariHosh.entidade.ItemComanda;
-import br.com.bariHosh.entidade.Produto;
+import br.com.bariHosh.entidade.Pagamento;
 import br.com.bariHosh.negocio.ComandaRN;
-import br.com.bariHosh.negocio.ItemComandaRN;
-import br.com.bariHosh.negocio.ProdutoRN;
 
 @ManagedBean(name = "caixaBean")
 @ViewScoped
@@ -25,42 +22,64 @@ public class CaixaBean implements Serializable {
 
 	private FormaPagamento forma_pagamento;
 	private EnumMovimentoCaixa tipo_movimentacao;
-
-	private List<ItemComanda> itensComanda;
-	private List<Produto> Produtos;
-
 	private String destinoSalvar;
-	private ItemComanda itemComanda = new ItemComanda();
-	private ItemComandaRN itemComandaRN = new ItemComandaRN();
-	private ComandaRN comandaRN = new  ComandaRN();
-	private Produto produto = new Produto();
-	private Comanda comanda = new Comanda();
-	private Long id_comanda;
-	private Caixa caixa = new Caixa();
+	private ComandaRN comandaRN = new ComandaRN();
+	
 
+	private Comanda comanda = new Comanda();
+	private Caixa caixa = new Caixa();
+	private Despesa despesa = new Despesa();
+	
+	private Pagamento pagamento = new Pagamento();
+	
 	@PostConstruct
-	public void init() {		
+	public void Init() {
+		this.pagamento.setDespesa(this.despesa);
+		
+		
+	}
+	
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
+	@PostConstruct
+	public void init() {
 		Comanda comanda_encerrada = this.comandaRN.recuperaComandaParaEdicao("id_comanda_encerrada");
 		if (comanda_encerrada != null) {
 			this.comanda = comanda_encerrada;
 		}
 	}
-	
-	
+	public String novo() {
+
+		
+		return "comanda";
+	}
+
 	public String realizarPagamendo(Comanda comanda) {
-		
+
 		this.comanda = comanda;
-		System.out.println("teste"+this.comanda.getValorTotal());
-		this.destinoSalvar = 	"caixa?faces-redirect=true";		
-		return this.destinoSalvar ;
+		System.out.println("teste" + this.comanda.getValorTotal());
+		this.destinoSalvar = "caixa?faces-redirect=true";
+		return this.destinoSalvar;
 	}
 	
 	
-	public void buscarComanda(){
-		
-		
+	public String finalizarMovimentacaoComanda() {		
+		System.out.println("teste" + this.comanda.getValorTotal());
+		this.destinoSalvar = "caixa?faces-redirect=true";
+		return this.destinoSalvar;
 	}
-	
+
+	public void buscarComanda() {
+		Comanda comandarecuperada = new ComandaRN().carregarComanda(this.comanda.getId_comanda());
+		if(comandarecuperada!=null) {
+		this.comanda = comandarecuperada;
+		}        
+	}
 
 	@SuppressWarnings("static-access")
 	public FormaPagamento[] getForma_pagamento() {
@@ -79,30 +98,7 @@ public class CaixaBean implements Serializable {
 		this.caixa = caixa;
 	}
 
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
-	public ItemComanda getItemComanda() {
-		return itemComanda;
-	}
-
-	public void setItemComanda(ItemComanda itemComanda) {
-		this.itemComanda = itemComanda;
-	}
-
-	public List<Produto> getProdutos() {
-		if (this.Produtos == null) {
-			this.Produtos = new ProdutoRN().listar();
-		}
-		return this.Produtos;
-	}
-	
-	public Comanda getComanda() {		
+	public Comanda getComanda() {
 		return this.comanda;
 	}
 
@@ -118,64 +114,27 @@ public class CaixaBean implements Serializable {
 	public void setTipo_movimentacao(EnumMovimentoCaixa tipo_movimentacao) {
 		this.tipo_movimentacao = tipo_movimentacao;
 	}
-	
-
-
-	public List<ItemComanda> getItensComanda() {
-		return itensComanda;
-	}
-
-
-	public void setItensComanda(List<ItemComanda> itensComanda) {
-		this.itensComanda = itensComanda;
-	}
-
 
 	public String getDestinoSalvar() {
 		return destinoSalvar;
 	}
 
-
 	public void setDestinoSalvar(String destinoSalvar) {
 		this.destinoSalvar = destinoSalvar;
 	}
-
-
-	public ItemComandaRN getItemComandaRN() {
-		return itemComandaRN;
-	}
-
-
-	public void setItemComandaRN(ItemComandaRN itemComandaRN) {
-		this.itemComandaRN = itemComandaRN;
-	}
-
 
 	public ComandaRN getComandaRN() {
 		return comandaRN;
 	}
 
-
 	public void setComandaRN(ComandaRN comandaRN) {
 		this.comandaRN = comandaRN;
 	}
 
-
-	public Long getId_comanda() {
-		return id_comanda;
+	public Despesa getDespesa() {
+		return despesa;
 	}
-
-
-	public void setId_comanda(Long id_comanda) {
-		this.id_comanda = id_comanda;
+	public void setDespesa(Despesa despesa) {
+		this.despesa = despesa;
 	}
-
-
-	public void setProdutos(List<Produto> produtos) {
-		Produtos = produtos;
-	}
-	
-	
-
-
 }

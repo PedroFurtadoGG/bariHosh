@@ -21,7 +21,7 @@ public class ItemComandaRN extends ManuseioPublico {
 
 	}
 
-	public boolean excluir(ItemComanda model) {
+	public boolean excluirItemComanda(ItemComanda model) {
 		try {
 			itemComandaDAO.excluir(model);
 			super.MessagesSucesso("Item Removido Com Sucesso ");

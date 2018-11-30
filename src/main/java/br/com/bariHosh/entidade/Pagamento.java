@@ -2,6 +2,7 @@ package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -36,16 +38,11 @@ public class Pagamento implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")	
-	private Usuario usuario;
-	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_comanda")	
-	private Comanda comanda;
+	private Usuario usuario; 	
 
-	public Pagamento() {
-
-	}
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_despesa")
+	private Despesa despesa;
 
 	public Long getId() {
 		return id;
@@ -63,6 +60,14 @@ public class Pagamento implements Serializable {
 		this.formaPagamento = formaPagamento;
 	}
 
+	public EnumStatusPagamento getStatusPagamento() {
+		return statusPagamento;
+	}
+
+	public void setStatusPagamento(EnumStatusPagamento statusPagamento) {
+		this.statusPagamento = statusPagamento;
+	}
+
 	public boolean isCompletamenteRecebido() {
 		return completamenteRecebido;
 	}
@@ -78,34 +83,21 @@ public class Pagamento implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
-	
 
-	public EnumStatusPagamento getStatusPagamento() {
-		return statusPagamento;
+	public Despesa getDespesa() {
+		return despesa;
 	}
 
-	public void setStatusPagamento(EnumStatusPagamento statusPagamento) {
-		this.statusPagamento = statusPagamento;
-	}
-	
-	
-
-	public Comanda getComanda() {
-		return comanda;
-	}
-
-	public void setComanda(Comanda comanda) {
-		this.comanda = comanda;
+	public void setDespesa(Despesa despesa) {
+		this.despesa = despesa;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((comanda == null) ? 0 : comanda.hashCode());
 		result = prime * result + (completamenteRecebido ? 1231 : 1237);
+		result = prime * result + ((despesa == null) ? 0 : despesa.hashCode());
 		result = prime * result + ((formaPagamento == null) ? 0 : formaPagamento.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((statusPagamento == null) ? 0 : statusPagamento.hashCode());
@@ -115,48 +107,42 @@ public class Pagamento implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (!(obj instanceof Pagamento)) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
 		Pagamento other = (Pagamento) obj;
-		if (comanda == null) {
-			if (other.comanda != null) {
+		if (completamenteRecebido != other.completamenteRecebido)
+			return false;
+		if (despesa == null) {
+			if (other.despesa != null)
 				return false;
-			}
-		} else if (!comanda.equals(other.comanda)) {
+		} else if (!despesa.equals(other.despesa))
 			return false;
-		}
-		if (completamenteRecebido != other.completamenteRecebido) {
+		if (formaPagamento != other.formaPagamento)
 			return false;
-		}
-		if (formaPagamento != other.formaPagamento) {
-			return false;
-		}
 		if (id == null) {
-			if (other.id != null) {
+			if (other.id != null)
 				return false;
-			}
-		} else if (!id.equals(other.id)) {
+		} else if (!id.equals(other.id))
 			return false;
-		}
-		if (statusPagamento != other.statusPagamento) {
+		if (statusPagamento != other.statusPagamento)
 			return false;
-		}
 		if (usuario == null) {
-			if (other.usuario != null) {
+			if (other.usuario != null)
 				return false;
-			}
-		} else if (!usuario.equals(other.usuario)) {
+		} else if (!usuario.equals(other.usuario))
 			return false;
-		}
 		return true;
 	}
+	
+	
+	
 
+	
+
+	
 	
 }

@@ -41,7 +41,7 @@
 									</div>
 								</div>
 								<div class="panel-body">
-									<h:form class="form-horizontal">
+									<h:form class="form-horizontal" id="formCaixa">
 										<ui:insert name="messages">
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
@@ -49,27 +49,30 @@
 										<div class="form-group">
 
 											<div class="col-md-3">
-												<label><span style="color: red"> </span>Busca de
+												<label><span style="color: red"> </span>Codigo da
 													Comanda</label>
 												<h:inputText id="buscacomanda"
 													value="#{caixaBean.comanda.id_comanda}" maxlength="12"
-													size="12" required="true" class="form-control"
+													size="12" required="true" class="form-control"  a:type="number"
 													a:placeholder="Digite o codigo da comanda ">
+														<f:ajax listener="#{caixaBean.buscarComanda()}" 
+														execute="formCaixa" render="@all" event="blur" />
 													<f:validateLength minimum="1" maximum="120" />
 												</h:inputText>
 											</div>
 											<div class="col-md-3">
-											<label><span style="color: red"> </span>
-													</label>
-													
-												<h:commandButton actionListener="#{caixaBean.buscarComanda()}"
-													class="btn btn-info btn-block" value="Busca Comanda" />
+												<label><span style="color: red">* </span> Buscar Comanda </label>
+												<h:commandButton id="submit1" class="btn btn-info btn-block" value="Busca Comanda" >
+													<f:ajax listener="#{caixaBean.buscarComanda()}" 
+														execute="formCaixa" render="@all" event="keyup" />
+												</h:commandButton>
+												
 											</div>
 											<div class="col-md-6">
 												<label><span style="color: red"> * </span>Forma de
 													Pagamento </label>
 												<h:selectOneMenu class="form-control"
-													value="#{caixaBean.caixa.forma_pagamento}"
+													value="#{caixaBean.forma_pagamento}"
 													requiredMessage="Valor é obrigatório">
 													<f:selectItem itemLabel="Selecione..." />
 													<f:selectItems value="#{caixaBean.forma_pagamento}"
@@ -106,17 +109,7 @@
 
 												</h:column>
 
-													<h:column>
-														<f:facet name="header">Excluir</f:facet>
-														<h:commandLink action="#{comandaBean.excluirItemComanda}"
-															onclick="if (!confirm('Confirma a exclusão do item #{itemComanda.produto.nome}?')) return false;">
-															<i class="fa fa-trash-o fa-4"></i>
-															<f:setPropertyActionListener
-																target="#{comandaBean.itemComanda}"
-																value="#{itemComanda}" />
 
-														</h:commandLink>
-													</h:column>
 												</h:dataTable>
 											</div>
 
@@ -138,7 +131,7 @@
 													<label><span style="color: red"> * </span>Valor de
 														Acrescimo</label>
 													<h:inputText id="valorAcrescimo"
-														value="#{caixaBean.caixa.valor_acrescimo}" a:type="number"
+														value="#{caixaBean.comanda.valorTotal}" a:type="number"
 														a:min="0.00" a:max="10000.00" a:step="0.01"
 														a:placeholder="Informe o Valor de Acrescimo "
 														class="form-control">
@@ -170,12 +163,12 @@
 									<h:form>
 										<div class="row">
 											<div class="col-md-3">
-												<h:commandButton action="#{comandaBean.salvarComanda()}"
-													class="btn btn-info btn-block" value="Salvar Caixa" />
+												<h:commandButton action="#{caixaBean.finalizarMovimentacaoComanda()}"
+													class="btn btn-info btn-block" value="Finalizar Transação" />
 
 											</div>
 											<div class="col-md-3">
-												<h:commandButton action="#{comandaBean.novo}"
+												<h:commandButton action="#{caixaBean.novo}"
 													class="btn btn-warning btn-block" value="Nova Transação" />
 											</div>
 										</div>

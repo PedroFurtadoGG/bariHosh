@@ -5,10 +5,8 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.ComandaDAOHibernate;
-import br.com.bariHosh.daoHibernate.PagamentoDAOHibernate;
 import br.com.bariHosh.entidade.Comanda;
-import br.com.bariHosh.entidade.EnumStatusPagamento;
-import br.com.bariHosh.entidade.Pagamento;
+import br.com.bariHosh.entidade.ItemComanda;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.ordenadores.OrdenadorComanda;
 import br.com.bariHosh.util.ManuseioPublico;
@@ -16,8 +14,20 @@ import br.com.bariHosh.util.ManuseioPublico;
 public class ComandaRN extends ManuseioPublico {
 
 	private ComandaDAOHibernate comandaDAO = new ComandaDAOHibernate();
-    private PagamentoDAOHibernate pagamentoDAO = new PagamentoDAOHibernate();
+  
     
+    
+    
+    public Comanda  carregarComanda(Long id) {
+    	 Comanda comanda = new Comanda();
+    	 comanda = this.comandaDAO.carregar(Comanda.class, id);
+    	  if(!super.validaObjeto(comanda)) {    
+    		  super.MessagesErro("Comanda não encontrada !");
+              return comanda = new Comanda();
+        
+    	  }
+		return comanda;
+	}
     
 	public boolean salvar(Comanda comanda) {
 		try {
@@ -45,6 +55,8 @@ public class ComandaRN extends ManuseioPublico {
 		return false;
 
 	}
+	
+	
 	
      public void atualiza(Comanda comanda) {
     	 this.comandaDAO.atualizar(comanda);			
@@ -78,6 +90,9 @@ public class ComandaRN extends ManuseioPublico {
 	public boolean excluir(Comanda comanda) {
 		try {
 			if (super.validaObjeto(comanda.getId_comanda())) {
+				for(ItemComanda item : comanda.getItensDaComanda()) {
+				new EstoqueRN().aumentarEstoqueProduto(item.getProduto(), item.getQuantidade());
+				}
 				this.comandaDAO.excluir(comanda);
 				super.MessagesSucesso("Comanda Excluido Com Sucesso!");
 				return true;
