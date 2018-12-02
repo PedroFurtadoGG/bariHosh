@@ -29,8 +29,12 @@ public class EstoqueDAOHibernate extends GenericoDAOHibernate<Estoque> implement
 
 	@Override
 	public Estoque pegaEstoquePeloProduto(Produto produto) {
+		String hql = "select e from Estoque e where e.produto = :idproduto and  e.ativo =1";
+		Query consulta = this.session.createQuery(hql);
+		consulta.setLong("idproduto", produto.getId_produto());		
+	    Estoque estoque = (Estoque) consulta.uniqueResult();
+		return estoque ;	
 		
-		return null;
 	}
 
 	@Override

@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.bariHosh.daoHibernate.ItemComandaDAOHibernate;
+import br.com.bariHosh.entidade.Estoque;
 import br.com.bariHosh.entidade.ItemComanda;
 import br.com.bariHosh.util.ManuseioPublico;
 
 public class ItemComandaRN extends ManuseioPublico {
 
 	private ItemComandaDAOHibernate itemComandaDAO = new ItemComandaDAOHibernate();
-
+	private  EstoqueRN estoqueRN = new EstoqueRN();		
 	public List<ItemComanda> listaIntemComandaPorComandaId(Long id_comanda) {
 		List<ItemComanda> lista = new ArrayList<ItemComanda>();
 		if (id_comanda != null) {
@@ -22,7 +23,9 @@ public class ItemComandaRN extends ManuseioPublico {
 	}
 
 	public boolean excluirItemComanda(ItemComanda model) {
-		try {
+		try {				 
+		     Estoque estoque = estoqueRN.carregarEstoquePorProduto(model.getProduto());
+			 estoqueRN.aumentarEstoqueProduto(estoque.getProduto(), model.getQuantidade());			
 			itemComandaDAO.excluir(model);
 			super.MessagesSucesso("Item Removido Com Sucesso ");
 			return true;

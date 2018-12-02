@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,6 +47,9 @@ public class Comanda implements Serializable {
 	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
 	private Date data;
+	
+	@Enumerated(EnumType.STRING)
+	private EnumStatusComanda statusComanda;
 	
 	
 
@@ -135,6 +140,14 @@ public class Comanda implements Serializable {
 		this.valorTotal = valorTotal;
 	}
 
+	public EnumStatusComanda getStatusComanda() {
+		return statusComanda;
+	}
+
+	public void setStatusComanda(EnumStatusComanda statusComanda) {
+		this.statusComanda = statusComanda;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -144,6 +157,7 @@ public class Comanda implements Serializable {
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
 		result = prime * result + ((id_comanda == null) ? 0 : id_comanda.hashCode());
 		result = prime * result + ((itensDaComanda == null) ? 0 : itensDaComanda.hashCode());
+		result = prime * result + ((statusComanda == null) ? 0 : statusComanda.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		result = prime * result + Float.floatToIntBits(valorTotal);
 		return result;
@@ -180,6 +194,8 @@ public class Comanda implements Serializable {
 				return false;
 		} else if (!itensDaComanda.equals(other.itensDaComanda))
 			return false;
+		if (statusComanda != other.statusComanda)
+			return false;
 		if (usuario == null) {
 			if (other.usuario != null)
 				return false;
@@ -189,11 +205,6 @@ public class Comanda implements Serializable {
 			return false;
 		return true;
 	}
-	
-
-	
-
-	
 
 	
 	

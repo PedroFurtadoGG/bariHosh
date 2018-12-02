@@ -146,9 +146,7 @@ public class ProdutoBean {
 		if (this.listaProdutos == null) {
 			this.listaProdutos = produtoRN.listarCompleto();
 		}
-//		else {
-//			this.listaProdutos = produtoRN.listaFiltrada(produtoFiltro.getNome(), produtoFiltro.getValorEntrada(), produto.getValorSaida(), produtoFiltro.getCodigo_barras());
-//		}
+		
 		return this.listaProdutos;
 	}
 	

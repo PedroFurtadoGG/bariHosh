@@ -6,6 +6,8 @@ import javax.faces.context.FacesContext;
 
 import br.com.bariHosh.daoHibernate.ComandaDAOHibernate;
 import br.com.bariHosh.entidade.Comanda;
+import br.com.bariHosh.entidade.EnumStatusComanda;
+import br.com.bariHosh.entidade.Estoque;
 import br.com.bariHosh.entidade.ItemComanda;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.ordenadores.OrdenadorComanda;
@@ -36,6 +38,7 @@ public class ComandaRN extends ManuseioPublico {
 				// injetando id usuario
 			     	comanda.setUsuario(usuarioLogado);
 				if (!super.validaObjeto(comanda.getId_comanda())) {
+				
 					this.comandaDAO.salvar(comanda);
 					super.MessagesSucesso("Comanda Salva Com Sucesso ");
 					return true;
@@ -91,9 +94,10 @@ public class ComandaRN extends ManuseioPublico {
 		try {
 			EstoqueRN estoqueRN = new EstoqueRN();
 			if (super.validaObjeto(comanda.getId_comanda())) {
-//				for(ItemComanda item : comanda.getItensDaComanda()) {
-//				estoqueRN.aumentarEstoqueProduto(item.getProduto(), item.getQuantidade());
-//				}
+				for(ItemComanda item : comanda.getItensDaComanda()) {
+				Estoque estoque =	estoqueRN.carregarEstoquePorProduto(item.getProduto());
+				estoqueRN.aumentarEstoqueProduto(estoque.getProduto(), item.getQuantidade());
+				}
 				new ComandaDAOHibernate().excluir(comanda);
 				super.MessagesSucesso("Comanda Excluido Com Sucesso!");
 				return true;
@@ -129,7 +133,7 @@ public class ComandaRN extends ManuseioPublico {
 
 
 	public List<Comanda> listaComandasStatus(boolean status) {
-		OrdenadorComanda listaOrdenada = new OrdenadorComanda(this.comandaDAO.listaComandasStatus(status));
+		OrdenadorComanda listaOrdenada = new OrdenadorComanda(this.comandaDAO.listaComandasStatus(status,EnumStatusComanda.EM_ABERTO));
 		return listaOrdenada.listagemEmOrdem();
 	}
 

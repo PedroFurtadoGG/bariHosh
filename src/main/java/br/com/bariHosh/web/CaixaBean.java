@@ -2,6 +2,7 @@ package br.com.bariHosh.web;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,10 +13,15 @@ import br.com.bariHosh.entidade.Caixa;
 import br.com.bariHosh.entidade.Comanda;
 import br.com.bariHosh.entidade.Despesa;
 import br.com.bariHosh.entidade.EnumMovimentoCaixa;
+import br.com.bariHosh.entidade.EnumStatusCaixa;
+import br.com.bariHosh.entidade.EnumStatusComanda;
+import br.com.bariHosh.entidade.EnumStatusPagamento;
 import br.com.bariHosh.entidade.FormaPagamento;
 import br.com.bariHosh.entidade.Movimentacao;
 import br.com.bariHosh.entidade.Pagamento;
+import br.com.bariHosh.negocio.CaixaRN;
 import br.com.bariHosh.negocio.ComandaRN;
+import br.com.bariHosh.util.ManuseioPublico;
 
 @ManagedBean(name = "caixaBean")
 @ViewScoped
@@ -26,63 +32,83 @@ public class CaixaBean implements Serializable {
 	private FormaPagamento forma_pagamento;
 	private EnumMovimentoCaixa tipo_movimentacao;
 	private String destinoSalvar;
-	
+
 	private ComandaRN comandaRN = new ComandaRN();
 	private Comanda comanda = new Comanda();
 	private Caixa caixa = new Caixa();
-	private Despesa despesa = new Despesa();	
-	private Pagamento pagamento = new Pagamento();	
+	private CaixaRN caixaRN = new CaixaRN();
+	private Despesa despesa = new Despesa();
+	private Pagamento pagamento = new Pagamento();
 	private Movimentacao movimentacao = new Movimentacao();
 	private List<Movimentacao> movimentacoesCaixa = new ArrayList<Movimentacao>();
 
-	
-	
-	
 	@PostConstruct
 	public void init() {
-	
+        ManuseioPublico.MessagesSucesso("Caixa aberto com sucesso ");
 		Comanda comanda_encerrada = this.comandaRN.recuperaComandaParaEdicao("id_comanda_encerrada");
 		if (comanda_encerrada != null) {
 			this.comanda = comanda_encerrada;
 			this.pagamento.setValorTotal(this.comanda.getValorTotal());
-		 }
- }
-		
-	public String novo() {	
+		}
+	}
+
+	public String novo() {
 		this.pagamento = new Pagamento();
 		this.comanda = new Comanda();
 		this.comandaRN = new ComandaRN();
-		this.despesa=new Despesa();
-		this.destinoSalvar ="caixa";
+		this.despesa = new Despesa();
+		this.destinoSalvar = "caixa";
 		return this.destinoSalvar;
 	}
 
-	public String realizarPagamendo(Comanda comanda) {
-		return "";
-	}
-	
+	public void abrirCaixa() {
+		this.caixa.setMovimentacaoCaixa(this.movimentacoesCaixa);
+		this.caixa.setData_abertura(new Date());
+		this.caixa.setStatusCaixa(EnumStatusCaixa.ABERTO);
 
-    public void alteraValorTotalPagamento() {    	
-	  this.pagamento.setValorTotal(this.comanda.getValorTotal()+this.pagamento.getValorAcrescimo()-this.pagamento.getDesconto());
-			
 	}
-	
-	public String finalizarMovimentacaoComanda() {		
-		System.out.println("teste" + this.comanda.getValorTotal());
-		this.destinoSalvar = "caixa?faces-redirect=true";
+
+	public void fechaCaixa() {
+		this.caixa.setMovimentacaoCaixa(this.movimentacoesCaixa);
+		this.caixa.setData_fechamento(new Date());
+		this.caixa.setStatusCaixa(EnumStatusCaixa.FECHADO);
+
+	}
+
+	public String finalizarMovimentacaoComanda() {
+        this.pagamento.setCompletamenteRecebido(true);
+        this.pagamento.setStatusPagamento(EnumStatusPagamento.FINALIZADO);
+        this.pagamento.setDespesa(new Despesa());
+        this.pagamento.getDespesa().setValorTotalDespesa(this.comanda.getValorTotal());
+        this.pagamento.getDespesa().setDataCricacaoDespesa(new Date());
+        this.pagamento.getDespesa().setComanda(this.comanda);
+        this.movimentacao.setDataInicialMovimentacao(new Date());
+        this.movimentacao.setTipo_movimento(EnumMovimentoCaixa.EN);
+        this.movimentacao.setDataFinalMovimentacao(new Date());
+        this.movimentacao.setPagamentoComanda(this.pagamento);       
+        this.caixa.adicionaMovimentacao(this.movimentacao);
+        if(this.caixaRN.salvar(caixa)){ 
+        	this.comanda.setStatusComanda(EnumStatusComanda.FINALIZADO);
+        	new ComandaRN().atualiza(this.comanda);
+        	this.destinoSalvar = novo();        	
+        }       
+		
 		return this.destinoSalvar;
+	}
+
+	public void alteraValorTotalPagamento() {
+		this.pagamento.setValorTotal(
+				this.comanda.getValorTotal() + this.pagamento.getValorAcrescimo() - this.pagamento.getDesconto());
+
 	}
 
 	public void buscarComanda() {
 		Comanda comandarecuperada = new ComandaRN().carregarComanda(this.comanda.getId_comanda());
-		if(comandarecuperada!=null) {
-		this.comanda = comandarecuperada;
-		this.pagamento.setValorTotal(this.comanda.getValorTotal());
-		}        
+		if (comandarecuperada != null) {
+			this.comanda = comandarecuperada;
+			this.pagamento.setValorTotal(this.comanda.getValorTotal());
+		}
 	}
-	
-	
-	
 
 	@SuppressWarnings("static-access")
 	public FormaPagamento[] getForma_pagamento() {
@@ -137,26 +163,31 @@ public class CaixaBean implements Serializable {
 	public Despesa getDespesa() {
 		return despesa;
 	}
+
 	public void setDespesa(Despesa despesa) {
 		this.despesa = despesa;
 	}
-	
+
 	public Pagamento getPagamento() {
 		return pagamento;
 	}
+
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
+
 	public Movimentacao getMovimentacao() {
 		return movimentacao;
 	}
+
 	public void setMovimentacao(Movimentacao movimentacao) {
 		this.movimentacao = movimentacao;
 	}
-	
+
 	public List<Movimentacao> getMovimentacoesCaixa() {
 		return movimentacoesCaixa;
 	}
+
 	public void setMovimentacoesCaixa(List<Movimentacao> movimentacoesCaixa) {
 		this.movimentacoesCaixa = movimentacoesCaixa;
 	}

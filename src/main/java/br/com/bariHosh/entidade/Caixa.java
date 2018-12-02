@@ -47,7 +47,19 @@ public class Caixa implements Serializable {
 	
 	@Enumerated(EnumType.STRING)
 	private EnumStatusCaixa statusCaixa;
+	
+	
+	public void adicionaMovimentacao(Movimentacao mov) {
+		this.movimentacaoCaixa.add(mov);
+		mov.setCaixa(this);
 
+	}
+
+	public void removeMovimentacao(Movimentacao mov) {		
+			this.movimentacaoCaixa.remove(mov);
+			mov.setCaixa(null);
+
+		}
 	public Long getId_caixa() {
 		return id_caixa;
 	}
