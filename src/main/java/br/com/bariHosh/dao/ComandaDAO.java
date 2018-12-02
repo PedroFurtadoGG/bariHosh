@@ -13,6 +13,7 @@ public interface ComandaDAO {
 	public List<Comanda> listaPedidosCliente(Cliente cliente);
 	public List<Comanda> listaPedidosNaDataAtual(Date data);	
 	public List<Comanda> listaComandasStatus(boolean status);
+	List<Comanda> listaFiltrada(Long id_comanda, String nome);
 	
 
 }

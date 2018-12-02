@@ -29,24 +29,66 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Comandas</h3>
+						<h3 class="panel-title">
+							<a href="javascript:void(0);" class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a> <b>Comandas</b>
+						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="content-row">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<div class="panel-title">
-										<b>Listagem de Comandas Abertas</b>
-									</div>
-									<div class="panel-options">
-										<a class="bg" data-target="#sample-modal-dialog-1"
-											data-toggle="modal" href="#sample-modal"><i
-											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
-											class="entypo-down-open"></i></a> <a data-rel="close"
-											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
-									</div>
+									<h3 class="panel-title">
+										<a href="javascript:void(0);" class="toggle-sidebar"><span
+											class="fa fa-angle-double-left" data-toggle="offcanvas"
+											title="Maximize Panel"></span></a> <b>Listagem de Comandas
+											Abertas</b>
+									</h3>
 								</div>
 								<div class="panel-body">
+									<div class="form-group">
+										<h:form>
+											<div class="panel-body">
+												<div class="content-row">
+													<div class="panel panel-default">
+														<div class="panel-body">
+															<h:form id="busca" class="form-horizontal" name="busca">
+																<ui:insert name="messages">
+																	<ui:include src="/restrito/common/messages.xhtml" />
+																</ui:insert>
+																<div class="form-group">
+																	<div class="col-md-2">
+																		<h:inputText id="codigo" class="form-control"
+																			a:placeholder="Codigo"
+																			value="#{comandaBean.comandaFiltro.id_comanda}"
+																			size="30">
+																		</h:inputText>
+																	</div>
+																	<div class="col-md-5">
+																		<h:inputText id="nome" class="form-control"
+																			a:placeholder="Busca Por Nome do Cliente"
+																			value="#{comandaBean.comandaFiltro.cliente.pessoa.nome}"
+																			size="30">
+																		</h:inputText>
+
+
+																	</div>
+
+																	<div class="col-md-2">
+																		<h:commandButton
+																			action="#{comandaBean.filtrarAbertas()}"
+																			class="btn btn-info btn-block" a:type="submit"
+																			value="Filtrar" />
+																	</div>
+																</div>
+															</h:form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</h:form>
+									</div>
 									<div class="bs-example">
 										<h:form id="formComandaAberto">
 											<ui:insert name="messages">
@@ -74,13 +116,20 @@
 														<h:outputText value="#{comanda.data}">
 															<f:convertDateTime pattern="dd/MM/yyyy" />
 														</h:outputText>
-													</h:column>					
-													
+													</h:column>
+
 													<h:column>
 														<f:facet name="header">Editar</f:facet>
+<<<<<<< HEAD
+														<h:commandLink
+															action="#{comandaBean.editarComanda(comanda)}">
+															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+															<f:param name="id_comanda" value="#{comanda.id_comanda}" />
+=======
 														<h:commandLink action="#{comandaBean.editarComanda(comanda)}">
 														 	<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-													     	<f:param name = "id_comanda" value = "#{comanda.id_comanda}" /> 
+													     	<f:param name = "id_comanda_aberta" value = "#{comanda.id_comanda}" /> 
+>>>>>>> refs/remotes/origin/edson_hosh
 														</h:commandLink>
 													</h:column>
 
@@ -92,18 +141,19 @@
 															onclick="if (!confirm('Confirma a exclusão do Comanda #{comanda.id_comanda}?')) return false;">
 															<i class="fa fa-trash-o"></i>
 														</h:commandLink>
-													</h:column>	
-													
+													</h:column>
+
 													<h:column>
 														<f:facet name="header">Finalizar Comanda </f:facet>
 
 														<h:commandLink
 															action="#{comandaBean.finalizarComanda(comanda)}"
-															onclick="if (!confirm('Confirma a exclusão do Comanda #{comanda.id_comanda}?')) return false;">
+															onclick="if (!confirm('Confirma a finalização do Comanda #{comanda.id_comanda}?')) return false;">
 													         <i class="fa fa-check-square"></i>
 														
 														</h:commandLink>
-													</h:column>											
+													</h:column>
+
 
 												</h:dataTable>
 											</div>

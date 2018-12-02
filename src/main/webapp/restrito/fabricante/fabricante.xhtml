@@ -35,16 +35,11 @@
 						<div class="content-row">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<div class="panel-title">
-										<b>Cadastro de Fabricante</b>
-									</div>
-									<div class="panel-options">
-										<a class="bg" data-target="#sample-modal-dialog-1"
-											data-toggle="modal" href="#sample-modal"><i
-											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
-											class="entypo-down-open"></i></a> <a data-rel="close"
-											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
-									</div>
+									<h3 class="panel-title">
+										<a href="javascript:void(0);" class="toggle-sidebar"><span
+											class="fa fa-angle-double-left" data-toggle="offcanvas"
+											title="Maximize Panel"></span></a> <b>Cadastro de Fabricante</b>
+									</h3>
 								</div>
 								<div class="panel-body">
 									<h:form id="cadastro" class="form-horizontal">
@@ -85,24 +80,23 @@
 											</div>
 										</div>
 										<script>
-												function mascara(o, f) {
-													obj = o
-													fun = f
-													setTimeout("execmascara()",
-															1)
-												}
-												function execmascara() {
-													obj.value = fun(obj.value)
-												}
-												function validaCNPJ(v) {
-													v = v.replace(/\D/g, "");
-													v = v
-															.replace(
-																	/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,
-																	"$1.$2.$3/$4-$5");
-													return v;
-												}
-											</script>
+											function mascara(o, f) {
+												obj = o
+												fun = f
+												setTimeout("execmascara()", 1)
+											}
+											function execmascara() {
+												obj.value = fun(obj.value)
+											}
+											function validaCNPJ(v) {
+												v = v.replace(/\D/g, "");
+												v = v
+														.replace(
+																/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g,
+																"$1.$2.$3/$4-$5");
+												return v;
+											}
+										</script>
 
 
 										<div class="form-group">

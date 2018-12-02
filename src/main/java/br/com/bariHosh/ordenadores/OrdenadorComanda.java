@@ -3,7 +3,6 @@ package br.com.bariHosh.ordenadores;
 import java.util.List;
 
 import br.com.bariHosh.entidade.Comanda;
-import br.com.bariHosh.util.OrdenadorTemplateMethod;
 
 public class OrdenadorComanda  extends OrdenadorTemplateMethod<Comanda>{
 
