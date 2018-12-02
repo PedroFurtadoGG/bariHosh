@@ -136,11 +136,6 @@ public class ItemComanda implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "ItemComanda [id_itemComanda=" + id_itemComanda + ", valorUnitario=" + valorUnitario + ", valorTotal="
-				+ valorTotal + ", quantidade=" + quantidade + ", produto=" + produto.getCodigo_barras() + ", comanda=" + comanda.getId_comanda() + "]";
-	}
 	
 	
 

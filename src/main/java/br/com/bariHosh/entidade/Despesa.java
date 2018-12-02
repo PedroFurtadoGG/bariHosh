@@ -28,7 +28,7 @@ public class Despesa {
 	private Date dataCricacaoDespesa;
 	
 	private float valorTotalDespesa;
-	private float valorAcrescimo;
+	
 	
 	
 	public Long getId_despesa() {
@@ -55,13 +55,6 @@ public class Despesa {
 	public void setValorTotalDespesa(float valorTotalDespesa) {
 		this.valorTotalDespesa = valorTotalDespesa;
 	}
-	
-	public float getValorAcrescimo() {
-		return valorAcrescimo;
-	}
-	public void setValorAcrescimo(float valorAcrescimo) {
-		this.valorAcrescimo = valorAcrescimo;
-	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,7 +63,6 @@ public class Despesa {
 		result = prime * result + ((dataCricacaoDespesa == null) ? 0 : dataCricacaoDespesa.hashCode());
 		result = prime * result + ((id_despesa == null) ? 0 : id_despesa.hashCode());
 		result = prime * result + Float.floatToIntBits(valorTotalDespesa);
-		result = prime * result + Float.floatToIntBits(valorAcrescimo);
 		return result;
 	}
 	@Override
@@ -99,10 +91,10 @@ public class Despesa {
 			return false;
 		if (Float.floatToIntBits(valorTotalDespesa) != Float.floatToIntBits(other.valorTotalDespesa))
 			return false;
-		if (Float.floatToIntBits(valorAcrescimo) != Float.floatToIntBits(other.valorAcrescimo))
-			return false;
 		return true;
 	}
+	
+	
 	
 	
 

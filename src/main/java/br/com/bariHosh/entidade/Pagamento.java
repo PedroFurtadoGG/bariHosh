@@ -27,6 +27,12 @@ public class Pagamento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	private float valorAcrescimo;
+	private float desconto;
+	private float ValorTotal;
+	
+	
+
 	@Enumerated(EnumType.STRING)
 	private FormaPagamento formaPagamento;
 	
@@ -91,17 +97,43 @@ public class Pagamento implements Serializable {
 	public void setDespesa(Despesa despesa) {
 		this.despesa = despesa;
 	}
+	
+	public float getValorAcrescimo() {
+		return valorAcrescimo;
+	}
+	public void setValorAcrescimo(float valorAcrescimo) {
+		this.valorAcrescimo = valorAcrescimo;
+	}
+	
+	public float getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(float desconto) {
+		this.desconto = desconto;
+	}
+
+	public float getValorTotal() {
+		return ValorTotal;
+	}
+
+	public void setValorTotal(float valorTotal) {
+		ValorTotal = valorTotal;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + Float.floatToIntBits(ValorTotal);
 		result = prime * result + (completamenteRecebido ? 1231 : 1237);
+		result = prime * result + Float.floatToIntBits(desconto);
 		result = prime * result + ((despesa == null) ? 0 : despesa.hashCode());
 		result = prime * result + ((formaPagamento == null) ? 0 : formaPagamento.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((statusPagamento == null) ? 0 : statusPagamento.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
+		result = prime * result + Float.floatToIntBits(valorAcrescimo);
 		return result;
 	}
 
@@ -114,7 +146,11 @@ public class Pagamento implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pagamento other = (Pagamento) obj;
+		if (Float.floatToIntBits(ValorTotal) != Float.floatToIntBits(other.ValorTotal))
+			return false;
 		if (completamenteRecebido != other.completamenteRecebido)
+			return false;
+		if (Float.floatToIntBits(desconto) != Float.floatToIntBits(other.desconto))
 			return false;
 		if (despesa == null) {
 			if (other.despesa != null)
@@ -135,13 +171,10 @@ public class Pagamento implements Serializable {
 				return false;
 		} else if (!usuario.equals(other.usuario))
 			return false;
+		if (Float.floatToIntBits(valorAcrescimo) != Float.floatToIntBits(other.valorAcrescimo))
+			return false;
 		return true;
 	}
-	
-	
-	
-
-	
 
 	
 	

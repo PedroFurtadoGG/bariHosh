@@ -138,7 +138,7 @@ public class EstoqueRN extends ManuseioPublico {
 		} else {
 			qtdEstoque = qtdEstoque + quantiaAdd;
 			produto.getEstoque().setQtd_produto(qtdEstoque);
-			this.produtoDAO.atualizar(produto);			
+			new ProdutoDAOHibernate().atualizar(produto);			
 			return true;
 		}
 

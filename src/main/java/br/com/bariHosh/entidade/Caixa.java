@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -30,6 +32,12 @@ public class Caixa implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "caixa", fetch = FetchType.LAZY)
 	private List<Movimentacao> movimentacaoCaixa = new ArrayList<Movimentacao>();
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuarioCaixa;
+
+	
 
 	@Temporal(TemporalType.DATE)
 	private Date data_abertura;
@@ -79,6 +87,14 @@ public class Caixa implements Serializable {
 	public void setStatusCaixa(EnumStatusCaixa statusCaixa) {
 		this.statusCaixa = statusCaixa;
 	}
+	
+	public Usuario getUsuarioCaixa() {
+		return usuarioCaixa;
+	}
+
+	public void setUsuarioCaixa(Usuario usuarioCaixa) {
+		this.usuarioCaixa = usuarioCaixa;
+	}
 
 	@Override
 	public int hashCode() {
@@ -89,6 +105,7 @@ public class Caixa implements Serializable {
 		result = prime * result + ((id_caixa == null) ? 0 : id_caixa.hashCode());
 		result = prime * result + ((movimentacaoCaixa == null) ? 0 : movimentacaoCaixa.hashCode());
 		result = prime * result + ((statusCaixa == null) ? 0 : statusCaixa.hashCode());
+		result = prime * result + ((usuarioCaixa == null) ? 0 : usuarioCaixa.hashCode());
 		return result;
 	}
 
@@ -123,21 +140,13 @@ public class Caixa implements Serializable {
 			return false;
 		if (statusCaixa != other.statusCaixa)
 			return false;
+		if (usuarioCaixa == null) {
+			if (other.usuarioCaixa != null)
+				return false;
+		} else if (!usuarioCaixa.equals(other.usuarioCaixa))
+			return false;
 		return true;
 	}
-	
-	
-
-	
-
-	
-	
-	
-
-	
-
-	
-	
 
 	
 	

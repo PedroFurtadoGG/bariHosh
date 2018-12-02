@@ -139,11 +139,7 @@ public class Movimentacao {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
+
 	
 	
 

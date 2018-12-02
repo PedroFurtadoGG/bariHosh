@@ -89,11 +89,12 @@ public class ComandaRN extends ManuseioPublico {
 
 	public boolean excluir(Comanda comanda) {
 		try {
+			EstoqueRN estoqueRN = new EstoqueRN();
 			if (super.validaObjeto(comanda.getId_comanda())) {
-				for(ItemComanda item : comanda.getItensDaComanda()) {
-				new EstoqueRN().aumentarEstoqueProduto(item.getProduto(), item.getQuantidade());
-				}
-				this.comandaDAO.excluir(comanda);
+//				for(ItemComanda item : comanda.getItensDaComanda()) {
+//				estoqueRN.aumentarEstoqueProduto(item.getProduto(), item.getQuantidade());
+//				}
+				new ComandaDAOHibernate().excluir(comanda);
 				super.MessagesSucesso("Comanda Excluido Com Sucesso!");
 				return true;
 			}

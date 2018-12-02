@@ -96,7 +96,7 @@ public class ComandaBean implements Serializable {
 		this.comanda.removeItemComanda(this.itemComanda);
 		this.comanda.setValorTotal(this.comanda.getValorTotal() - this.itemComanda.getValorTotal());
 		if (this.comanda.getId_comanda() != null) {
-			new EstoqueRN().aumentarEstoqueProduto(this.itemComanda.getProduto(), this.itemComanda.getQuantidade());
+			//new EstoqueRN().aumentarEstoqueProduto(this.itemComanda.getProduto(), this.itemComanda.getQuantidade());
 			new ItemComandaRN().excluirItemComanda(this.itemComanda);
 			new ComandaRN().atualiza(this.comanda);
 		} else {
@@ -105,8 +105,7 @@ public class ComandaBean implements Serializable {
 	}
 
 	public void excluirComanda(Comanda comanda) {
-		this.comanda = comanda;
-
+	     	this.comanda = comanda;
 		if (new ComandaRN().excluir(this.comanda)) {
 			this.comanda = new Comanda();
 			this.comandasAbertas = null;
