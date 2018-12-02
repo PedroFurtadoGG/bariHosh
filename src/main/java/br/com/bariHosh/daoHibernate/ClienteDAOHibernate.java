@@ -27,7 +27,7 @@ public class ClienteDAOHibernate extends GenericoDAOHibernate<Cliente> implement
 		}
 
 		if (!ManuseioPublico.validaObjeto(id_cliente)) {
-			hql.append("and p.id_cliente = " + id_cliente + " ");
+			hql.append("and c.id_cliente = " + id_cliente + " ");
 		}
 
 		Query consulta = this.session.createQuery(hql.toString());

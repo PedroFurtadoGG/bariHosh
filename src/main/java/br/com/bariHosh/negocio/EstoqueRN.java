@@ -192,6 +192,10 @@ public class EstoqueRN extends ManuseioPublico {
 	public void setLogDAO(LogEstoqueDAOHibernate logDAO) {
 		this.logDAO = logDAO;
 	}
+	
+	public List<Estoque> listaFiltrada(Long id_produto, String nome,String barras){
+		return this.estoqueDAO.listaFiltrada(id_produto, nome, barras);
+	}
 
 	
 
