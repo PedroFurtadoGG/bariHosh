@@ -20,30 +20,32 @@ public class EstoqueBean {
 
 	private Produto produto = new Produto();
 	private Estoque estoque = new Estoque();
-	private List<Produto> listaProdutos ;
+	private List<Produto> listaProdutos;
 	private Log_Estoque logEstoque = new Log_Estoque();
 	private EstoqueRN estoqueRN = new EstoqueRN();
 	private ProdutoRN produtoRN = new ProdutoRN();
 	private String destinoSalvar;
 	private Integer LancamentoQuantia;
 	private Date dataMovimentacao;
+	private Estoque estoqueFiltro = new Estoque();
+	
+	private List<Estoque> lista;
 
 	private Integer quantidadeTotalprodutos;
 	private EnumTipoRegistro enumRegistro;
 
-	public EstoqueBean() {	
-		this.produtoRN = new ProdutoRN();		
-	    this.destinoSalvar = "produtos-estoque";
-		this.produto.setEstoque(this.estoque);	
-	//	obterTotalProdutosEmEstoqueGeral();
+	public EstoqueBean() {
+		this.produtoRN = new ProdutoRN();
+		this.destinoSalvar = "produtos-estoque";
+		this.produto.setEstoque(this.estoque);
+		// obterTotalProdutosEmEstoqueGeral();
 	}
-   
-	
-	public String novo() {		
+
+	public String novo() {
 		this.estoqueRN = new EstoqueRN();
 		this.produto = new Produto();
 		this.estoque = new Estoque();
-		this.produto.setEstoque(estoque);	
+		this.produto.setEstoque(estoque);
 		this.estoque.setProduto(this.produto);
 		this.listaProdutos = new ArrayList<Produto>();
 		this.produtoRN = new ProdutoRN();
@@ -51,21 +53,18 @@ public class EstoqueBean {
 		return "/restrito/estoque/estoque";
 	}
 
-	public String editar() {		
+	public String editar() {
 		return "/restrito/estoque/estoque";
 	}
 
-	
-	
 	public String salvar() {
-		if(estoqueRN.salvar(this.produto,this.logEstoque,this.LancamentoQuantia)) {
-			this.listaProdutos =null;
-			return this.destinoSalvar;			
-		}		
+		if (estoqueRN.salvar(this.produto, this.logEstoque, this.LancamentoQuantia)) {
+			this.listaProdutos = null;
+			return this.destinoSalvar;
+		}
 		return null;
-		
+
 	}
-	
 
 	// este metodo es responsavel por trazer a quantidade total de itens(produto)
 	// dentro do armazenbar
@@ -74,6 +73,25 @@ public class EstoqueBean {
 		return this.quantidadeTotalprodutos;
 	}
 	
+	public String filtrar() {
+
+		this.lista = estoqueRN.listaFiltrada(estoqueFiltro.getProduto().getId_produto(), estoqueFiltro.getProduto().getNome(),
+				estoqueFiltro.getProduto().getCodigo_barras());
+
+		return "/restrito/cliente/clientes";
+	}
+	
+	public List<Estoque> getLista() {
+		if (this.lista == null) {
+
+			this.lista = estoqueRN.listar();
+		}
+		return this.lista;
+	}
+	
+	public void setLista(List<Estoque> lista) {
+		this.lista = lista;
+	}
 
 	public Produto getProduto() {
 		return produto;
@@ -90,8 +108,6 @@ public class EstoqueBean {
 	public void setEstoque(Estoque estoque) {
 		this.estoque = estoque;
 	}
-
-	
 
 	public EstoqueRN getEstoqueRN() {
 		return estoqueRN;
@@ -112,7 +128,7 @@ public class EstoqueBean {
 	public List<Produto> getListaProdutos() {
 		if (this.listaProdutos == null) {
 			this.listaProdutos = produtoRN.listarCompleto();
-	}
+		}
 		return this.listaProdutos;
 
 	}
@@ -128,10 +144,6 @@ public class EstoqueBean {
 	public void setDestinoSalvar(String destinoSalvar) {
 		this.destinoSalvar = destinoSalvar;
 	}
-
-	
-
-	
 
 	public Integer getQuantidadeTotalprodutos() {
 		return quantidadeTotalprodutos;
@@ -157,6 +169,7 @@ public class EstoqueBean {
 	public void setLogEstoque(Log_Estoque logEstoque) {
 		this.logEstoque = logEstoque;
 	}
+
 	public Integer getLancamentoQuantia() {
 		return LancamentoQuantia;
 	}
@@ -171,6 +184,14 @@ public class EstoqueBean {
 
 	public void setDataMovimentacao(Date dataMovimentacao) {
 		this.dataMovimentacao = dataMovimentacao;
+	}
+
+	public Estoque getEstoqueFiltro() {
+		return estoqueFiltro;
+	}
+
+	public void setEstoqueFiltro(Estoque estoqueFiltro) {
+		this.estoqueFiltro = estoqueFiltro;
 	}
 
 }

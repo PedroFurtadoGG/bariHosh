@@ -151,7 +151,7 @@ public class EstoqueRN extends ManuseioPublico{
 
 	public Integer obterTotalProdutosEmEstoqueGeral() {
 	       List<Produto> listaProduto =  produtoDAO.listar(Produto.class);
-	       Integer qtdTOTAL =0 ;
+	       Integer qtdTOTAL = 0 ;
 	       for(Produto produto : listaProduto) {
 	    	   qtdTOTAL = qtdTOTAL + produto.getEstoque().getQtd_produto();	    	   
 	       }
@@ -173,6 +173,10 @@ public class EstoqueRN extends ManuseioPublico{
 
 	public void setLogDAO(LogEstoqueDAOHibernate logDAO) {
 		this.logDAO = logDAO;
+	}
+	
+	public List<Estoque> listaFiltrada(Long id_produto, String nome,String barras){
+		return this.estoqueDAO.listaFiltrada(id_produto, nome, barras);
 	}
 	
 	

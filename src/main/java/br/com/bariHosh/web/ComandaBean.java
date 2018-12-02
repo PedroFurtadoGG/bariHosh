@@ -12,6 +12,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.bariHosh.entidade.Cliente;
 import br.com.bariHosh.entidade.Comanda;
 import br.com.bariHosh.entidade.ItemComanda;
+import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Produto;
 import br.com.bariHosh.negocio.ClienteRN;
 import br.com.bariHosh.negocio.ComandaRN;
@@ -32,12 +33,14 @@ public class ComandaBean implements Serializable {
 	private Cliente cliente = new Cliente();
 	private Produto produto = new Produto();
 	private Comanda comanda = new Comanda();
+	private Comanda comandaFiltro = new Comanda();
 	private ItemComanda itemComanda = new ItemComanda();
 	private String destinoSalvar;
 	private ClienteRN clienteRN = new ClienteRN();
 	private ProdutoRN produtoRN = new ProdutoRN();
 	private ComandaRN comandaRN = new ComandaRN();
 	private ItemComandaRN itemComandaRN = new ItemComandaRN();
+	private Pessoa pessoaFiltro = new Pessoa();
 	
 	@PostConstruct
 	public void init() {
@@ -53,6 +56,9 @@ public class ComandaBean implements Serializable {
 		if (comanda != null) {
 			this.comanda = comanda;
 		}
+		
+		this.setPessoaFiltro(new Pessoa());
+		this.comandaFiltro = new Comanda();
 
 	}
 
@@ -263,6 +269,29 @@ public class ComandaBean implements Serializable {
 
 	public void setItemComandaRN(ItemComandaRN itemComandaRN) {
 		this.itemComandaRN = itemComandaRN;
+	}
+	
+	public Comanda getComandaFiltro() {
+		return comandaFiltro;
+	}
+
+	public void setComandaFiltro(Comanda comandaFiltro) {
+		this.comandaFiltro = comandaFiltro;
+	}
+	
+	public String filtrarAbertas() {
+
+		this.comandasAbertas = comandaRN.listaFiltrada(comandaFiltro.getId_comanda(), comandaFiltro.getCliente().getPessoa().getNome());
+
+		return "/restrito/comanda/comandasAberto";
+	}
+	
+	public Pessoa getPessoaFiltro() {
+		return pessoaFiltro;
+	}
+
+	public void setPessoaFiltro(Pessoa pessoaFiltro) {
+		this.pessoaFiltro = pessoaFiltro;
 	}
 
 }

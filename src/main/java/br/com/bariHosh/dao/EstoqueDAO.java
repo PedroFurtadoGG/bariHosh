@@ -13,5 +13,6 @@ public interface EstoqueDAO {
 	public List<Estoque> listaEstoqueCheio();
 	public List<GrupoProduto> pegaListaGrupos();
 	public List<Estoque> ListaEstoqueVinculados(Long id_produto);
+	List<Estoque> listaFiltrada(Long id_produto, String nome, String barra);
 	
 }
