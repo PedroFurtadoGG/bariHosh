@@ -16,6 +16,7 @@ import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Produto;
 import br.com.bariHosh.negocio.ClienteRN;
 import br.com.bariHosh.negocio.ComandaRN;
+import br.com.bariHosh.negocio.EstoqueRN;
 import br.com.bariHosh.negocio.ItemComandaRN;
 import br.com.bariHosh.negocio.ProdutoRN;
 import br.com.bariHosh.util.ManuseioPublico;
@@ -52,7 +53,7 @@ public class ComandaBean implements Serializable {
 		this.produtoRN = new ProdutoRN();
 		this.comandaRN = new ComandaRN();
 		this.itemComandaRN = new ItemComandaRN();
-		Comanda comanda = this.comandaRN.recuperaComandaParaEdicao();
+		Comanda comanda = this.comandaRN.recuperaComandaParaEdicao("id_comanda_aberta");
 		if (comanda != null) {
 			this.comanda = comanda;
 		}
@@ -63,7 +64,7 @@ public class ComandaBean implements Serializable {
 	}
 
 	public String novo() {
-		
+
 		this.itensComanda = new ArrayList<ItemComanda>();
 		this.itemComanda = new ItemComanda();
 		this.itemComanda.setComanda(this.comanda);
@@ -74,61 +75,71 @@ public class ComandaBean implements Serializable {
 		this.itemComandaRN = new ItemComandaRN();
 		return "comanda";
 	}
-	
-	
-	public void calcularSubtotal() {
-		
-	}
-	
-	
+
 	public List<Cliente> buscaPeloNome(String nome) {
 		List<Cliente> clientes = new ClienteRN().listar();
-		 clientes.stream().filter(c -> c.getPessoa().getNome().contains(nome)).collect(Collectors.toList());
-		return clientes; 
-			
+		clientes.stream().filter(c -> c.getPessoa().getNome().contains(nome)).collect(Collectors.toList());
+		return clientes;
+
 	}
 
-	
-
 	public void adicionarItemComanda() {
-		
-		this.itemComanda.setValorUnitario(this.itemComanda.getProduto().getValorSaida());
-		this.itemComanda
-				.setValorTotal(this.itemComanda.getProduto().getValorSaida() * this.itemComanda.getQuantidade());
-		this.comanda.adicionaItemComanda(this.itemComanda);
-		ManuseioPublico.MessagesSucesso("Item adicionado com Sucesso !");
-		this.itemComanda = new ItemComanda();
+
+		if (new EstoqueRN().VerificaEstoque(itemComanda.getProduto(), itemComanda.getQuantidade())) {
+			this.itemComanda.setValorUnitario(this.itemComanda.getProduto().getValorSaida());
+			this.itemComanda
+					.setValorTotal(this.itemComanda.getProduto().getValorSaida() * this.itemComanda.getQuantidade());
+			this.comanda.adicionaItemComanda(this.itemComanda);
+			float valorItem = this.itemComanda.getValorTotal();
+			this.comanda.setValorTotal(this.comanda.getValorTotal() + valorItem);
+			ManuseioPublico.MessagesSucesso("Item adicionado com Sucesso !");
+			this.itemComanda = new ItemComanda();
+		}
+
 	}
 
 	public void excluirItemComanda() {
 		this.comanda.removeItemComanda(this.itemComanda);
+		this.comanda.setValorTotal(this.comanda.getValorTotal() - this.itemComanda.getValorTotal());
 		if (this.comanda.getId_comanda() != null) {
-			new ItemComandaRN().excluir(this.itemComanda);
-		}else {
+			//new EstoqueRN().aumentarEstoqueProduto(this.itemComanda.getProduto(), this.itemComanda.getQuantidade());
+			new ItemComandaRN().excluirItemComanda(this.itemComanda);
+			new ComandaRN().atualiza(this.comanda);
+		} else {
 			ManuseioPublico.MessagesSucesso("Item Removido  com Sucesso !");
 		}
-		
 	}
 
 	public void excluirComanda(Comanda comanda) {
-		this.comanda = comanda;		
+	     	this.comanda = comanda;
 		if (new ComandaRN().excluir(this.comanda)) {
-           this.comanda = new Comanda();
-           this.comandasAbertas = null;
+			this.comanda = new Comanda();
+			this.comandasAbertas = null;
+			this.comandasEncerradas = null;
 		}
 
 	}
+
 	public String finalizarComanda(Comanda comanda) {
-		  this.comanda = comanda;
-		  this.destinoSalvar = "comandasEncerradas";
-	 	  this.comanda.setAtivo(false);		 
-		if (new ComandaRN().salvar(this.comanda)) {
-             this.comanda = new Comanda();
-             this.comandasAbertas = null;
+		this.comanda = comanda;
+		this.destinoSalvar = "comandasAberto";
+		this.comanda.setAtivo(false);
+		if (new ComandaRN().finalizarComanda(this.comanda)) {
+			this.comanda = new Comanda();
+			this.comandasAbertas = null;
 		}
 		return this.destinoSalvar;
-	}	
-	
+	}
+
+	public String reativarComanda(Comanda comanda) {
+		this.comanda = comanda;
+		this.comanda.setAtivo(true);
+		new ComandaRN().reativaComanda(comanda);
+		this.comandasEncerradas = null;
+		this.destinoSalvar = "comandasAberto";
+		return this.destinoSalvar;
+
+	}
 
 	public String editarComanda(Comanda comanda) {
 		this.comanda = comanda;
@@ -146,7 +157,7 @@ public class ComandaBean implements Serializable {
 		return this.destinoSalvar;
 	}
 
-	public List<Cliente> getClientes() {	
+	public List<Cliente> getClientes() {
 		if (this.Clientes == null) {
 			this.Clientes = new ClienteRN().listar();
 		}
@@ -183,7 +194,7 @@ public class ComandaBean implements Serializable {
 		this.itensComanda = itensComanda;
 	}
 
-	public Comanda getComanda() {		
+	public Comanda getComanda() {
 		return this.comanda;
 	}
 
