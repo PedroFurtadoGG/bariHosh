@@ -6,5 +6,5 @@ import br.com.bariHosh.entidade.Fabricante;
 
 public interface FabricanteDAO {
 	
-	public List<Fabricante> listaFiltrada(String cnpj , String razaoSocial);
+	public List<Fabricante> listaFiltrada(Long id_fabricante, String razaoSocial);
 }

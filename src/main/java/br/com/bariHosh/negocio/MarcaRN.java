@@ -74,5 +74,9 @@ public class MarcaRN extends ManuseioPublico {
 	public List<Marca> listarCompleto() {
 		return this.marcaDAO.listaCompleta();
 	}
+	
+	public List<Marca> listaFiltrada(Long id_marca, String nome){
+		return this.marcaDAO.listaFiltrada(id_marca, nome);
+	}
 
 }

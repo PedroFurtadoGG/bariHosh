@@ -21,6 +21,9 @@ public class MarcaBean {
 	private List<Fabricante> listaFab;
 	private MarcaRN marcaRN = new MarcaRN();
 	private FabricanteRN fabRN = new FabricanteRN();
+	private Marca marcaFiltro = new Marca();
+	
+	
 	public MarcaBean() {
 		this.marcaRN = new MarcaRN();
 		this.destinoSalvar = "marcas";
@@ -104,6 +107,21 @@ public class MarcaBean {
 
 	public void setDestinoSalvar(String destinoSalvar) {
 		this.destinoSalvar = destinoSalvar;
+	}
+	
+	public Marca getMarcaFiltro() {
+		return marcaFiltro;
+	}
+
+	public void setMarcaFiltro(Marca marcaFiltro) {
+		this.marcaFiltro = marcaFiltro;
+	}
+	
+	public String filtrar() {
+
+		this.lista = marcaRN.listaFiltrada(marcaFiltro.getId_marca(), marcaFiltro.getNome());
+
+		return "/restrito/cliente/clientes";
 	}
 
 }

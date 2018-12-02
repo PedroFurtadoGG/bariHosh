@@ -45,7 +45,6 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-										<h:form>
 											<div class="panel-body">
 												<div class="content-row">
 													<div class="panel panel-default">
@@ -81,24 +80,31 @@
 																			<f:validateLength minimum="11" maximum="11" />
 																		</h:inputText>
 																		<script>
-                                        function mascara(o, f) {
-                                        	obj = o
-                                        	fun = f
-                                        	setTimeout("execmascara()",
-                                        			1)
-                                        }
-                                        function execmascara() {
-                                        	obj.value = fun(obj.value)
-                                        }
-                                        function validaCPF(v) {
-                                        	v = v.replace(/\D/g, "");
-                                        	v = v
-                                        			.replace(
-                                        					/(\d{3})(\d{3})(\d{3})(\d{2})/g,
-                                        					"$1.$2.$3-$4");
-                                        	return v;
-                                        }
-                                      </script>
+																			function mascara(
+																					o,
+																					f) {
+																				obj = o
+																				fun = f
+																				setTimeout(
+																						"execmascara()",
+																						1)
+																			}
+																			function execmascara() {
+																				obj.value = fun(obj.value)
+																			}
+																			function validaCPF(
+																					v) {
+																				v = v
+																						.replace(
+																								/\D/g,
+																								"");
+																				v = v
+																						.replace(
+																								/(\d{3})(\d{3})(\d{3})(\d{2})/g,
+																								"$1.$2.$3-$4");
+																				return v;
+																			}
+																		</script>
 																	</div>
 																	<div class="col-md-2">
 																		<h:commandButton action="#{clienteBean.filtrar()}"
@@ -111,25 +117,21 @@
 													</div>
 												</div>
 											</div>
-										</h:form>
 									</div>
 									<div class="bs-example">
 										<h:form>
-											<ui:insert name="messages">
-												<ui:include src="/restrito/common/messages.xhtml" />
-											</ui:insert>
 											<div class="bs-example">
 												<h:dataTable class="table table-hover"
 													value="#{clienteBean.lista}" var="cliente" rules="row"
 													cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
-                              #{cliente.id_cliente}
-                            </h:column>
+							                              #{cliente.id_cliente}
+							                            </h:column>
 													<h:column>
 														<f:facet name="header">Nome</f:facet>
-                              #{cliente.pessoa.nome}
-                            </h:column>
+							                              #{cliente.pessoa.nome}
+							                            </h:column>
 													<h:column>
 														<f:facet name="header">Data Nascimento</f:facet>
 														<h:outputText value="#{cliente.pessoa.dt_nascimento}">
@@ -138,8 +140,8 @@
 													</h:column>
 													<h:column>
 														<f:facet name="header">Sexo</f:facet>
-                              #{cliente.pessoa.sexo}
-                            </h:column>
+							                              #{cliente.pessoa.sexo}
+							                            </h:column>
 													<h:column>
 														<f:facet name="header">Editar</f:facet>
 														<h:commandLink action="#{clienteBean.editar()}">
