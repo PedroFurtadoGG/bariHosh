@@ -8,6 +8,7 @@ import br.com.bariHosh.daoHibernate.ComandaDAOHibernate;
 import br.com.bariHosh.daoHibernate.ProdutoDAOHibernate;
 import br.com.bariHosh.entidade.Caixa;
 import br.com.bariHosh.entidade.Comanda;
+import br.com.bariHosh.entidade.Produto;
 import br.com.bariHosh.util.ManuseioPublico;
 
 public class DashboardRN extends ManuseioPublico{
@@ -28,6 +29,11 @@ public class DashboardRN extends ManuseioPublico{
 		return "";
 		
 	}
+	
+	public List<Produto> listarProximosVencimentos(){
+		return null;
+	}
+	
 	
 	public List<Caixa> listarUltimasMovimentacoes(String tipoMovimentacao){
 		return null;

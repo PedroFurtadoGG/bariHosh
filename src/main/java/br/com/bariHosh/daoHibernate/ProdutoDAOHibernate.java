@@ -1,12 +1,10 @@
 package br.com.bariHosh.daoHibernate;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-
-import com.mysql.jdbc.PreparedStatement;
 
 import br.com.bariHosh.dao.ProdutoDAO;
 import br.com.bariHosh.entidade.Produto;
@@ -71,6 +69,18 @@ public class ProdutoDAOHibernate extends GenericoDAOHibernate<Produto> implement
 		Query consulta = this.session.createQuery(hql.toString());
 		List<Produto> listaFiltrada = (List<Produto>) consulta.list();
 		return listaFiltrada;
+	}
+
+	@Override
+	public List<Produto> listarProximosVencimentos() {
+		
+		String sql = "select p.nome , p.codigo_barras from Produto p left join fetch p.estoque e"
+				   + " where  e.data_validade_lote < current_date()";
+		
+		Query consulta = this.session.createQuery(sql);
+		List<Produto> listaProximosVencimentos = (List<Produto>) consulta.list();
+		
+		return listaProximosVencimentos;
 	}
 
 
