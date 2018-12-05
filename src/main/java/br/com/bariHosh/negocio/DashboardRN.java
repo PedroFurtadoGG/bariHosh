@@ -26,21 +26,21 @@ public class DashboardRN extends ManuseioPublico{
 	}
 	public String totalClientesRegistrados() {
 		
-		return "";
+		return this.clienteDAO.totalClientesRegistrados();
 		
 	}
 	
 	public List<Produto> listarProximosVencimentos(){
-		return null;
+		return this.produtoDAO.listarProximosVencimentos();
 	}
 	
 	
 	public List<Caixa> listarUltimasMovimentacoes(String tipoMovimentacao){
-		return null;
+		return this.caixaDAO.listarMovimentacoes(tipoMovimentacao);
 	}
 	
-	public List<Comanda> listarComandasAbertas(){
-		return null;
+	public List<Comanda> listarComandasAbertas(boolean status){
+		return this.comandaDAO.listaComandasStatus(status);
 	}
 
 }

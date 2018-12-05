@@ -7,5 +7,6 @@ import br.com.bariHosh.entidade.Caixa;
 public interface CaixaDAO {
 	
 	public List<Caixa> listarMovimentacoes(String tipoMovimentacao);
+	public String totalMovimentacoes(String tipoMovimentacao);
 
 }

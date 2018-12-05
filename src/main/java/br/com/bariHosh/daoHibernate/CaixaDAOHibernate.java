@@ -25,6 +25,17 @@ public class CaixaDAOHibernate extends GenericoDAOHibernate<Caixa> implements Ca
 		List<Caixa> lista = (List<Caixa>)consulta.list();
 		return lista;
 	}
+	@Override
+	public String totalMovimentacoes(String tipoMovimentacao) {
+		StringBuffer hql = new StringBuffer ();
+		
+		hql.append("select sum(c.valor_total) from Caixa c left join fetch c.forma_pagamento fp ");
+		hql.append(" where fp.chave = '" + tipoMovimentacao +"' ");
+		
+		Query consulta = this.session.createQuery(hql.toString());
+		String valorTotal = consulta;
+		return valorTotal;
+	}
 
 	
 	

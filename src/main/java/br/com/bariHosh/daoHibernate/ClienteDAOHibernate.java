@@ -34,7 +34,7 @@ public class ClienteDAOHibernate extends GenericoDAOHibernate<Cliente> implement
 	@Override
 	public String totalClientesRegistrados() {
 	
-		String sql = "SELECT count(c.id) FROM Cliente c WHERE c.id";
+		String sql = "SELECT count(c.id_cliente) FROM Cliente c WHERE c.id_cliente > 0";
 		
 		Query consulta = this.session.createQuery(sql);
 		String resultado = consulta.getMaxResults().toString();
