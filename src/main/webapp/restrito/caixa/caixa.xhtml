@@ -1,191 +1,327 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:jsf="http://xmlns.jcp.org/jsf"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-<h:head>
-	<link rel="shortcut icon"
-		href="#{request.contextPath}/resources/img/favicon.ico" />
-	<link rel="bookmark" href="favicon_16.ico" />
-	<h:outputStylesheet name="css/site.min.css" />
-	<h:outputStylesheet library="webjars"
-		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
-	<link
-		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
-		rel='stylesheet' type='text/css' />
-	<h:outputScript name="js/site.min.js" />
-	<title>Caixa</title>
-</h:head>
-<h:body>
-	<ui:insert name="header">
-		<ui:include src="/restrito/common/top-menu.xhtml" />
-	</ui:insert>
-	<div class="container-fluid">
-		<div class="row row-offcanvas row-offcanvas-left">
-			<ui:insert name="sidebar-menu">
-				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
-			</ui:insert>
-			<div class="col-xs-12 col-sm-9 content">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Caixa</h3>
-					</div>
-					<div class="panel-body">
-						<div class="content-row">
-							<div class="panel panel-default">
-								<div class="panel-heading">
-									<div class="panel-title">
-										<b>Caixa</b>
-									</div>
-								</div>
-								<div class="panel-body">
-									<h:form class="form-horizontal" id="formCaixa">
-										<ui:insert name="messages">
-											<ui:include src="/restrito/common/messages.xhtml" />
-										</ui:insert>
-										<h:inputHidden value="#{comandaBean.comanda.id_comanda}" />
-										<div class="form-group">
-
-											<div class="col-md-3">
-												<label><span style="color: red"> </span>Codigo da
-													Comanda</label>
-												<h:inputText id="buscacomanda"
-													value="#{caixaBean.comanda.id_comanda}" maxlength="12"												
-													size="12" class="form-control"  a:type="number"
-													a:placeholder="Digite o codigo da comanda ">
-														<f:ajax listener="#{caixaBean.buscarComanda()}" 
-														execute="formCaixa" render="@all" event="blur" />
-													<f:validateLength minimum="1" maximum="120" />
-												</h:inputText>
-											</div>
-											<div class="col-md-3">
-												<label><span style="color: red">* </span> Buscar Comanda </label>
-												<h:commandButton id="submit1" class="btn btn-info btn-block" value="Busca Comanda" >
-													<f:ajax listener="#{caixaBean.buscarComanda()}" 
-														execute="formCaixa" render="@all" event="click" />
-												</h:commandButton>
-												
-											</div>
-											<div class="col-md-6">
-												<label><span style="color: red"> * </span>Forma de
-													Pagamento </label>
-												<h:selectOneMenu class="form-control"
-													value="#{caixaBean.pagamento.formaPagamento}"
-													requiredMessage="Valor é obrigatório">
-													<f:selectItem itemLabel="Selecione..." />
-													<f:selectItems value="#{caixaBean.forma_pagamento}"
-														var="forma_pagamento" itemValue="#{forma_pagamento}"
-														itemLabel="#{forma_pagamento.chave}" a:required="true" />
-												</h:selectOneMenu>
-											</div>
-											<div class="col-md-6">
-												<h3>Itens da Compra</h3>
-												<h:dataTable class="table table-hover"
-													value="#{caixaBean.comanda.itensDaComanda}"
-													var="itemComanda" rules="row" cellpadding="5">
-													<h:column>
-														<f:facet name="header">Codigo Produto</f:facet>													
-														 #{itemComanda.produto.id_produto}												
-
-												</h:column>
-													<h:column>
-														<f:facet name="header">Descrição</f:facet>													
-														 #{itemComanda.produto.nome}														
-
-												</h:column>
-													<h:column>
-														<f:facet name="header">Quantidade</f:facet>
-											    	#{itemComanda.quantidade}
-												</h:column>
-													<h:column>
-														<f:facet name="header">Valor Unitario</f:facet>												
-														 #{itemComanda.valorUnitario}
-												</h:column>
-													<h:column>
-														<f:facet name="header">Valor Total</f:facet>													
-														 #{itemComanda.valorTotal}				
-
-												</h:column>
-
-
-												</h:dataTable>
-											</div>
-
-
-
-											<div>
-												<div class="col-md-3">
-													<label><span style="color: red"> * </span>Valor de
-														Desconto</label>
-													<h:inputText id="valorDesconto"
-														value="#{caixaBean.pagamento.desconto}" a:type="number"
-														a:min="0.00" a:max="10000.00" a:step="0.01"
-														a:placeholder="Informe o Valor de Desconto "
-														class="form-control">
-															<f:ajax listener="#{caixaBean.alteraValorTotalPagamento()}" 
-														execute="formCaixa" render="valorTotal" event="keyup" />
-													</h:inputText>
-												</div>
-												<div class="col-md-3">
-													<label><span style="color: red"> * </span>Valor de
-														Acrescimo</label>
-													<h:inputText id="valorAcrescimo"
-														value="#{caixaBean.pagamento.valorAcrescimo}" a:type="number"
-														a:min="0.00" a:max="10000.00" a:step="0.01"
-														a:placeholder="Informe o Valor de Acrescimo "
-														class="form-control">
-														<f:ajax listener="#{caixaBean.alteraValorTotalPagamento()}" 
-														execute="formCaixa" render="valorTotal" event="keyup" />
-													</h:inputText>
-												</div>
-
-												<div class="col-md-3">
-													<label><span style="color: red"> * </span>Valor
-														Total</label>
-													<h:inputText id="valorTotal"
-														value="#{caixaBean.pagamento.valorTotal}" a:type="number"
-														a:min="0.00" a:max="10000.00" a:step="0.01"
-														a:required="true" a:placeholder="Informe o Valor Total "
-														class="form-control">
-													</h:inputText>
-												</div>
-											</div>
-
-										</div>
-										<br />
-										<br />
-										<div class="form-group">
-											<div class="col-md-8">
-												<span style="color: red"> (*) São Campos Obrigatórios</span>
-											</div>
-										</div>
-									</h:form>
-
-									<h:form>
-										<div class="row">
-											<div class="col-md-3">
-												<h:commandButton action="#{caixaBean.finalizarMovimentacaoComanda()}"
-													class="btn btn-info btn-block" value="Finalizar Transação" />
-
-											</div>
-											<div class="col-md-3">
-												<h:commandButton action="#{caixaBean.novo}"
-													class="btn btn-warning btn-block" value="Nova Transação" />
-											</div>
-										</div>
-									</h:form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</h:body>
-<ui:insert name="footer">
-	<ui:include src="/restrito/common/footer.xhtml" />
-</ui:insert>
+   xmlns:h="http://xmlns.jcp.org/jsf/html"
+   xmlns:f="http://xmlns.jcp.org/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:jsf="http://xmlns.jcp.org/jsf"
+   xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+   <h:head>
+      <link rel="shortcut icon"
+         href="#{request.contextPath}/resources/img/favicon.ico" />
+      <link rel="bookmark" href="favicon_16.ico" />
+      <h:outputStylesheet name="css/site.min.css" />
+      <h:outputStylesheet library="webjars"
+         name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+      <link
+         href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
+         rel='stylesheet' type='text/css' />
+      <h:outputScript name="js/site.min.js" />
+      <title>Caixa</title>
+   </h:head>
+   <h:body>
+      <ui:insert name="header">
+         <ui:include src="/restrito/common/top-menu.xhtml" />
+      </ui:insert>
+      <div class="container-fluid">
+         <div class="row row-offcanvas row-offcanvas-left">
+            <ui:insert name="sidebar-menu">
+               <ui:include src="/restrito/common/sidebar-menu.xhtml" />
+            </ui:insert>
+            <div class="col-xs-12 col-sm-9 content">
+               <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <h3 class="panel-title">Caixa</h3>
+                  </div>
+                  <div class="panel-body">
+                     <div class="content-row">
+                        <div class="panel panel-default">
+                           <div class="panel-heading">
+                              <div class="panel-title">
+                                 <b>Abre Caixa</b>
+                              </div>
+                           </div>
+                           <div class="panel-body">
+                              <h:form class="form-horizontal" id="formAbreCaixa">
+                                 <ui:insert name="messages">
+                                    <ui:include src="/restrito/common/messages.xhtml" />
+                                 </ui:insert>
+                                 <h:inputHidden value="#{caixaBean.caixa.id_caixa}" />
+                                 <div class="form-group">
+                                    <div class="col-md-12">
+                                       <h3>Dados para Abertura de Caixa</h3>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <label><span style="color: red"> * </span>Data</label>
+                                       <h:inputText id="validade" a:type="date"
+                                          value="#{caixaBean.caixa.data_abertura}"
+                                          a:required="true" class="form-control">
+                                          <f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
+                                             timeZone="America/Sao_Paulo" />
+                                       </h:inputText>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <label><span style="color: red"> * </span>Valor de
+                                       Abertura</label>
+                                       <h:inputText id="valorAbertura"
+                                          value="#{caixaBean.caixa.valorAbertura}" a:type="number"
+                                          a:min="0.00" a:max="10000.00" a:step="0.01"
+                                          a:required="true"
+                                          requiredMessage="Informe o valor de aquisição do produto"
+                                          a:placeholder="Informe valor Entrada" class="form-control">
+                                       </h:inputText>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                       <label><span style="color: red"> * </span>Funcionário</label>
+                                       <h:inputText id="descricao"
+                                          value="#{caixaBean.caixa.usuarioCaixa.pessoa.nome}" size="50"
+                                          maxlength="80" a:required="true"
+                                          requiredMessage="Informe a descrição do produto"
+                                          class="form-control"
+                                          a:placeholder="Informe a descrição do produto">
+                                          <f:validateLength minimum="1" maximum="80" />
+                                       </h:inputText>
+                                    </div>
+                                 </div>
+                              </h:form>
+                              <h:form>
+                                 <div class="row">
+                                    <div class="col-md-3">
+                                       <h:commandButton
+                                          action="#{caixaBean.finalizarMovimentacaoComanda()}"
+                                          class="btn btn-info btn-block" value="Abre Caixa" id="btnAbreCaixa"/>
+                                    </div>
+                                 </div>
+                              </h:form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  
+                    <div class="panel-body">
+                     <div class="content-row">
+                        <div class="panel panel-default">
+                           <div class="panel-heading">
+                              <div class="panel-title">
+                                 <b>Fecha Caixa</b>
+                              </div>
+                           </div>
+                           <div class="panel-body">
+                              <h:form class="form-horizontal" id="formFechaCaixa">
+                                 <ui:insert name="messages">
+                                    <ui:include src="/restrito/common/messages.xhtml" />
+                                 </ui:insert>
+                                 <h:inputHidden value="#{caixaBean.caixa.id_caixa}" />
+                                 <div class="form-group">
+                                    <div class="col-md-12">
+                                       <h3>Dados para Fechamento de Caixa</h3>
+                                    </div>
+                                    <div class="col-md-4">
+                                       <label><span style="color: red"> * </span>ISSO VAI SER HIDDEN Data</label>
+                                       <h:inputText id="validade" a:type="date"
+                                          value="#{caixaBean.caixa.data_abertura}"
+                                          a:required="true" class="form-control">
+                                          <f:convertDateTime pattern="yyyy-MM-dd" locale="pt_BR"
+                                             timeZone="America/Sao_Paulo" />
+                                       </h:inputText>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <label><span style="color: red"> * </span>Valor de
+                                       FECHAMENTO</label>
+                                       <h:inputText id="valorFechamento"
+                                          value="#{caixaBean.caixa.valorFechamento}" a:type="number"
+                                          a:min="0.00" a:max="10000.00" a:step="0.01"
+                                          a:required="true"
+                                          a:placeholder="Informe valor Fechamento" class="form-control">
+                                       </h:inputText>
+                                    </div>
+                                     <div class="col-md-3">
+                                       <label><span style="color: red"> * </span>Valor Total</label>
+                                       <h:inputText id="valorTotal"
+                                          value="#{caixaBean.caixa.valorTotal}" a:type="number"
+                                          a:min="0.00" a:max="10000.00" a:step="0.01"
+                                          a:required="true"
+                                          requiredMessage="Informe o valor total do caixa"
+                                          a:placeholder="Informe valor Total" class="form-control">
+                                       </h:inputText>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <label><span style="color: red"> * </span>Funcionário</label>
+                                       <h:inputText id="descricao"
+                                          value="#{caixaBean.caixa.usuarioCaixa.pessoa.nome}" size="50"
+                                          maxlength="80" a:required="true"
+                                          requiredMessage="Informe a descrição do produto"
+                                          class="form-control"
+                                          a:placeholder="Informe a descrição do produto">
+                                          <f:validateLength minimum="1" maximum="80" />
+                                       </h:inputText>
+                                    </div>
+                                 </div>
+                              </h:form>
+                              <h:form>
+                                 <div class="row">
+                                    <div class="col-md-3">
+                                       <h:commandButton
+                                          action="#{caixaBean.finalizarMovimentacaoComanda()}"
+                                          class="btn btn-info btn-block" value="Fechar Caixa" id="btnFechaCaixa"/>
+                                    </div>
+                                 </div>
+                              </h:form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  
+                  
+                  
+                  <div class="panel-body">
+                     <div class="content-row">
+                        <div class="panel panel-default">
+                           <div class="panel-heading">
+                              <div class="panel-title">
+                                 <b>Caixa</b>
+                              </div>
+                           </div>
+                           <div class="panel-body">
+                              <h:form class="form-horizontal" id="formCaixa">
+                                 <ui:insert name="messages">
+                                    <ui:include src="/restrito/common/messages.xhtml" />
+                                 </ui:insert>
+                                 <h:inputHidden value="#{comandaBean.comanda.id_comanda}" />
+                                 <div class="form-group">
+                                    <div class="col-md-3">
+                                       <label><span style="color: red"> </span>Codigo da
+                                       Comanda</label>
+                                       <h:inputText id="buscacomanda"
+                                          value="#{caixaBean.comanda.id_comanda}" maxlength="12"
+                                          size="12" class="form-control" a:type="number"
+                                          a:placeholder="Digite o codigo da comanda ">
+                                          <f:ajax listener="#{caixaBean.buscarComanda()}"
+                                             execute="formCaixa" render="@all" event="blur" />
+                                          <f:validateLength minimum="1" maximum="120" />
+                                       </h:inputText>
+                                    </div>
+                                    <div class="col-md-3">
+                                       <label><span style="color: red">* </span> Buscar
+                                       Comanda </label>
+                                       <h:commandButton id="submit1" class="btn btn-info btn-block"
+                                          value="Busca Comanda">
+                                          <f:ajax listener="#{caixaBean.buscarComanda()}"
+                                             execute="formCaixa" render="@all" event="click" />
+                                       </h:commandButton>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <label><span style="color: red"> * </span>Forma de
+                                       Pagamento </label>
+                                       <h:selectOneMenu class="form-control"
+                                          value="#{caixaBean.pagamento.formaPagamento}"
+                                          requiredMessage="Valor é obrigatório">
+                                          <f:selectItem itemLabel="Selecione..." />
+                                          <f:selectItems value="#{caixaBean.forma_pagamento}"
+                                             var="forma_pagamento" itemValue="#{forma_pagamento}"
+                                             itemLabel="#{forma_pagamento.chave}" a:required="true" />
+                                       </h:selectOneMenu>
+                                    </div>
+                                    <div class="col-md-6">
+                                       <h3>Itens da Compra</h3>
+                                       <h:dataTable class="table table-hover"
+                                          value="#{caixaBean.comanda.itensDaComanda}"
+                                          var="itemComanda" rules="row" cellpadding="5">
+                                          <h:column>
+                                             <f:facet name="header">Codigo Produto</f:facet>
+                                             #{itemComanda.produto.id_produto}												
+                                          </h:column>
+                                          <h:column>
+                                             <f:facet name="header">Descrição</f:facet>
+                                             #{itemComanda.produto.nome}														
+                                          </h:column>
+                                          <h:column>
+                                             <f:facet name="header">Quantidade</f:facet>
+                                             #{itemComanda.quantidade}
+                                          </h:column>
+                                          <h:column>
+                                             <f:facet name="header">Valor Unitario</f:facet>
+                                             #{itemComanda.valorUnitario}
+                                          </h:column>
+                                          <h:column>
+                                             <f:facet name="header">Valor Total</f:facet>
+                                             #{itemComanda.valorTotal}				
+                                          </h:column>
+                                       </h:dataTable>
+                                    </div>
+                                    <div>
+                                       <div class="col-md-3">
+                                          <label><span style="color: red"> * </span>Valor de
+                                          Desconto</label>
+                                          <h:inputText id="valorDesconto"
+                                             value="#{caixaBean.pagamento.desconto}" a:type="number"
+                                             a:min="0.00" a:max="10000.00" a:step="0.01"
+                                             a:placeholder="Informe o Valor de Desconto "
+                                             class="form-control">
+                                             <f:ajax
+                                                listener="#{caixaBean.alteraValorTotalPagamento()}"
+                                                execute="formCaixa" render="valorTotal" event="keyup" />
+                                          </h:inputText>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <label><span style="color: red"> * </span>Valor de
+                                          Acrescimo</label>
+                                          <h:inputText id="valorAcrescimo"
+                                             value="#{caixaBean.pagamento.valorAcrescimo}"
+                                             a:type="number" a:min="0.00" a:max="10000.00"
+                                             a:step="0.01"
+                                             a:placeholder="Informe o Valor de Acrescimo "
+                                             class="form-control">
+                                             <f:ajax
+                                                listener="#{caixaBean.alteraValorTotalPagamento()}"
+                                                execute="formCaixa" render="valorTotal" event="keyup" />
+                                          </h:inputText>
+                                       </div>
+                                       <div class="col-md-3">
+                                          <label><span style="color: red"> * </span>Valor
+                                          Total</label>
+                                          <h:inputText id="valorTotal"
+                                             value="#{caixaBean.pagamento.valorTotal}" a:type="number"
+                                             a:min="0.00" a:max="10000.00" a:step="0.01"
+                                             a:required="true" a:placeholder="Informe o Valor Total "
+                                             class="form-control">
+                                          </h:inputText>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <br />
+                                 <br />
+                                 <div class="form-group">
+                                    <div class="col-md-8">
+                                       <span style="color: red"> (*) São Campos Obrigatórios</span>
+                                    </div>
+                                 </div>
+                              </h:form>
+                              <h:form>
+                                 <div class="row">
+                                    <div class="col-md-3">
+                                       <h:commandButton
+                                          action="#{caixaBean.finalizarMovimentacaoComanda()}"
+                                          class="btn btn-info btn-block" value="Finalizar Transação" />
+                                    </div>
+                                    <div class="col-md-3">
+                                       <h:commandButton action="#{caixaBean.novo}"
+                                          class="btn btn-warning btn-block" value="Nova Transação" />
+                                    </div>
+                                 </div>
+                              </h:form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </h:body>
+   <ui:insert name="footer">
+      <ui:include src="/restrito/common/footer.xhtml" />
+   </ui:insert>
 </html>
