@@ -57,20 +57,25 @@
 																<div class="col-md-2">
 																	<h:inputText id="codigo" class="form-control"
 																		a:placeholder="Codigo"
-																		value="#{clienteBean.clienteFiltro.pessoa.id_pessoa}"
+																		value="#{produtoBean.produtoFiltro.id_produto}"
 																		size="30">
 																	</h:inputText>
 																</div>
 																<div class="col-md-5">
 																	<h:inputText id="nome" class="form-control"
-																		a:placeholder="Busca Por Nome do Cliente"
-																		value="#{clienteBean.clienteFiltro.pessoa.nome}"
+																		a:placeholder="Busca Por Nome do Produto"
+																		value="#{produtoBean.produtoFiltro.nome}" size="30">
+																	</h:inputText>
+																</div>
+																<div class="col-md-3">
+																	<h:inputText id="cdbarra" class="form-control"
+																		a:placeholder="Busca Por Cod Barra"
+																		value="#{produtoBean.produtoFiltro.codigo_barras}"
 																		size="30">
 																	</h:inputText>
 																</div>
-																
 																<div class="col-md-2">
-																	<h:commandButton action="#{produtBoean.filtrar()}"
+																	<h:commandButton action="#{produtBean.filtrar()}"
 																		class="btn btn-info btn-block" a:type="submit"
 																		value="Filtrar" />
 																</div>
@@ -83,90 +88,42 @@
 									</div>
 									<div class="bs-example">
 										<h:form>
-											<ui:insert name="messages">
-												<ui:include src="/restrito/common/messages.xhtml" />
-											</ui:insert>
 											<div class="bs-example">
-
-												<div class="form-group">
-													<div class="cold-md-4">
-														<label>Nome</label>
-														<h:inputText id="nome" class="form-control"
-															value="#{produtoBean.produtoFiltro.nome}" size="30">
-														</h:inputText>
-													</div>
-													<div class="cold-md-4">
-														<label>Valor de Entrada</label>
-														<h:inputText id="valorEntrada" class="form-control"
-															value="#{produtoBean.produtoFiltro.valorEntrada}"
-															size="15">
-														</h:inputText>
-													</div>
-													<div class="cold-md-4">
-														<label>Valor de Saida</label>
-														<h:inputText id="valorSaida" class="form-control"
-															value="#{produtoBean.produtoFiltro.valorSaida}" size="15">
-														</h:inputText>
-													</div>
-													<div class="cold-md-4">
-														<label>Código Barras</label>
-														<h:inputText id="codBarras" class="form-control"
-															value="#{produtoBean.produtoFiltro.codigo_barras}"
-															size="30">
-														</h:inputText>
-													</div>
-
-													<div class="row" />
-
-													<h:commandButton action="#{produtoBean.filtrar()}"
-														class="btn btn-info btn-block" a:type="submit"
-														value="Filtrar" />
-												</div>
-
 												<h:dataTable class="table table-hover"
 													value="#{produtoBean.listaProdutos}" var="produto"
 													cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
-		                                             	#{produto.id_produto}
-		                                          	</h:column>
-
+                                             #{produto.id_produto}
+                                          </h:column>
 													<h:column>
 														<f:facet name="header">Nome</f:facet>
-		                                             	#{produto.nome}
-		                                          	</h:column>
-
+                                             #{produto.nome}
+                                          </h:column>
 													<h:column>
 														<f:facet name="header">Valor de Entrada</f:facet>
-		                                             	#{produto.valorEntrada}
-		                                          	</h:column>
-
+                                             #{produto.valorEntrada}
+                                          </h:column>
 													<h:column>
 														<f:facet name="header">Valor de Saída</f:facet>
-		                                             	#{produto.valorSaida}
-		                                          	</h:column>
-
-
+                                             #{produto.valorSaida}
+                                          </h:column>
 													<h:column>
 														<f:facet name="header">Qtde em Estoque</f:facet>
-		                                             	#{produto.estoque.qtd_produto}
-		                                          	</h:column>
-
+                                             #{produto.estoque.qtd_produto}
+                                          </h:column>
 													<h:column>
 														<f:facet name="header">Categoria do Produto</f:facet>
-		                                             	#{produto.categoria.descricao}
-		                                          	</h:column>
-
+                                             #{produto.categoria.descricao}
+                                          </h:column>
 													<h:column>
 														<f:facet name="header">Fornecedor</f:facet>
-		                                             	#{produto.fornecedor.pessoa.nome}
-		                                          	</h:column>
-
+                                             #{produto.fornecedor.pessoa.nome}
+                                          </h:column>
 													<h:column>
 														<f:facet name="header">Marca</f:facet>
-		                                             	#{produto.marca_produto.nome}
-		                                          	</h:column>
-
+                                             #{produto.marca_produto.nome}
+                                          </h:column>
 													<h:column>
 														<f:facet name="header">Editar</f:facet>
 														<h:commandLink action="#{produtoBean.editar()}">
@@ -175,10 +132,8 @@
 																target="#{produtoBean.produto}" value="#{produto}" />
 														</h:commandLink>
 													</h:column>
-
 													<h:column>
 														<f:facet name="header">Excluir</f:facet>
-
 														<h:commandLink action="#{produtoBean.excluir}"
 															onclick="if (!confirm('Confirma a exclusão do produto #{produto.nome}?')) return false;">
 															<i class="fa fa-trash-o"></i>
