@@ -80,11 +80,11 @@
 											<div class="col-md-8">
 												<label><span style="color: red"> * </span>Nome</label>
 												<h:inputText id="nome" value="#{produtoBean.produto.nome}"
-													size="30" maxlength="30" a:required="true"
+													size="60" maxlength="60" a:required="true"
 													requiredMessage="Informe o nome do Produto"
 													class="form-control"
 													a:placeholder="Informe o nome do produto">
-													<f:validateLength minimum="1" maximum="50" />
+													<f:validateLength minimum="3" maximum="60" />
 												</h:inputText>
 											</div>
 											<div class="col-md-4">
@@ -105,12 +105,12 @@
 											<div class="col-md-8">
 												<label><span style="color: red"> * </span>Descrição</label>
 												<h:inputText id="descricao"
-													value="#{produtoBean.produto.descricao}" size="50"
+													value="#{produtoBean.produto.descricao}" size="80"
 													maxlength="80" a:required="true"
 													requiredMessage="Informe a descrição do produto"
 													class="form-control"
 													a:placeholder="Informe a descrição do produto">
-													<f:validateLength minimum="1" maximum="80" />
+													<f:validateLength minimum="3" maximum="80" />
 												</h:inputText>
 											</div>
 											<div class="col-md-4">
@@ -128,12 +128,12 @@
 												<label><span style="color: red"> * </span>Código de
 													Barras</label>
 												<h:inputText id="codigoBarras"
-													value="#{produtoBean.produto.codigo_barras}" maxlength="13"
-													a:required="true"
+													value="#{produtoBean.produto.codigo_barras}" maxlength="13" 
+													a:required="true" size="13"
 													requiredMessage="Informe o numero do codigo de barras"
 													a:placeholder="Informe o Codigo de Barras "
 													class="form-control">
-													<f:validateLength minimum="13" maximum="13" />
+													<f:validateLength minimum="11" maximum="13" />
 												</h:inputText>
 											</div>
 											<div class="col-md-4">
@@ -185,8 +185,11 @@
 													a:min="0.00" a:max="10000.00" a:step="0.01"
 													a:required="true"
 													requiredMessage="Informe o valor de aquisição do produto"
-													a:placeholder="Informe valor Entrada" class="form-control">
+													a:placeholder="Informe valor Entrada" class="form-control"
+													onkeyup="moeda(this);">
 												</h:inputText>
+
+
 											</div>
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Valor de
@@ -196,7 +199,8 @@
 													a:min="0.00" a:max="10000.00" a:step="0.01"
 													a:required="true"
 													requiredMessage="Informe o valor de venda do produto"
-													a:placeholder="Informe o Valor Venda " class="form-control">
+													a:placeholder="Informe o Valor Venda " class="form-control"
+													onkeyup="moeda(this);">
 												</h:inputText>
 											</div>
 										</div>
@@ -216,6 +220,23 @@
 													class="btn btn-warning btn-block" value="Limpar" />
 											</div>
 										</div>
+										<script>
+											function moeda(z) {
+												v = z.value;
+												v = v.replace(/\D/g, "")
+												v = v.replace(/[0-9]{12}/,
+														"inválido")
+												v = v.replace(
+														/(\d{1})(\d{8})$/,
+														"$1.$2")
+												v = v.replace(
+														/(\d{1})(\d{1,2})$/,
+														"$1.$2")
+												//v=v.replace(/(\d{1})(\d{1,2})$/,"$1,$2") //coloca virgula antes dos últimos 2 digitos
+												z.value = v;
+											}
+										</script>
+
 									</h:form>
 
 								</div>
