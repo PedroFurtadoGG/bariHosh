@@ -112,7 +112,7 @@
 													value="#{usuarioBean.usuario.pessoa.rg}" maxlength="12"
 													size="12" required="true" class="form-control"
 													a:placeholder="Insira seu RG" a:required="true">
-													<f:validateLength minimum="12" maximum="12" />
+													<f:validateLength minimum="7" maximum="12" />
 												</h:inputText>
 											</div>
 											<div class="col-md-4">
@@ -150,10 +150,11 @@
 												<label><span style="color: red"> * </span>Telefone </label>
 												<h:inputText id="telefone"
 													value="#{usuarioBean.usuario.pessoa.telefone}"
-													maxlenght="12" size="12" class="form-control"
+													maxlenght="14" size="14" class="form-control"
 													a:placeholder="Informe seu Telefone"
 													onkeyup="mascara(this, validaTelefone);"
 													a:required="true">
+													<f:validateLength minimum="13" maximum="14" />
 												</h:inputText>
 											</div>
 											<script>
@@ -209,8 +210,8 @@
 												<label>Cep </label>
 												<h:inputText id="cep"
 													value="#{usuarioBean.usuario.pessoa.endereco.cep}"
-													size="12" class="form-control" maxlength="12"
-													a:placeholder="Informe seu CEP">
+													size="9" class="form-control" maxlength="9"
+													a:placeholder="Informe seu CEP"
 													onkeyup="mascara(this, validaCep);" a:required="true">
 												</h:inputText>
 											</div>
@@ -238,7 +239,6 @@
 													value="#{usuarioBean.usuario.pessoa.endereco.cidade}"
 													size="30" required="true" maxlength="30"
 													a:placeholder="Informe sua Cidade">
-													class="form-control">
 												</h:inputText>
 											</div>
 											<div class="col-md-3">

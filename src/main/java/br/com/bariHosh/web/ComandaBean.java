@@ -87,8 +87,7 @@ public class ComandaBean implements Serializable {
 
 		if (new EstoqueRN().VerificaEstoque(itemComanda.getProduto(), itemComanda.getQuantidade())) {
 			this.itemComanda.setValorUnitario(this.itemComanda.getProduto().getValorSaida());
-			this.itemComanda
-					.setValorTotal(this.itemComanda.getProduto().getValorSaida() * this.itemComanda.getQuantidade());
+			this.itemComanda.setValorTotal(this.itemComanda.getProduto().getValorSaida() * this.itemComanda.getQuantidade());
 			this.comanda.adicionaItemComanda(this.itemComanda);
 			float valorItem = this.itemComanda.getValorTotal();
 			this.comanda.setValorTotal(this.comanda.getValorTotal() + valorItem);
