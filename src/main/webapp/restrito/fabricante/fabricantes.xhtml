@@ -43,41 +43,41 @@
 								</div>
 								<div class="panel-body">
 									<div class="form-group">
-											<div class="panel-body">
-												<div class="content-row">
-													<div class="panel panel-default">
-														<div class="panel-body">
-															<h:form id="busca" class="form-horizontal" name="busca">
-																<ui:insert name="messages">
-																	<ui:include src="/restrito/common/messages.xhtml" />
-																</ui:insert>
-																<div class="form-group">
-																	<div class="col-md-2">
-																		<h:inputText id="codigo" class="form-control"
-																			a:placeholder="Codigo"
-																			value="#{fabricanteBean.fabricanteFiltro.id_fabricante}"
-																			size="30">
-																		</h:inputText>
-																	</div>
-																	<div class="col-md-5">
-																		<h:inputText id="nome" class="form-control"
-																			a:placeholder="Busca Por Nome dFantasia"
-																			value="#{fabricanteBean.fabricanteFiltro.nomeFantasia}"
-																			size="30">
-																		</h:inputText>
-																	</div>
-																	
-																	<div class="col-md-2">
-																		<h:commandButton action="#{fabricanteBean.filtrar()}"
-																			class="btn btn-info btn-block" a:type="submit"
-																			value="Filtrar" />
-																	</div>
+										<div class="panel-body">
+											<div class="content-row">
+												<div class="panel panel-default">
+													<div class="panel-body">
+														<h:form id="busca" class="form-horizontal" name="busca">
+															<ui:insert name="messages">
+																<ui:include src="/restrito/common/messages.xhtml" />
+															</ui:insert>
+															<div class="form-group">
+																<div class="col-md-2">
+																	<h:inputText id="codigo" class="form-control"
+																		a:placeholder="Codigo"
+																		value="#{fabricanteBean.fabricanteFiltro.id_fabricante}"
+																		size="30">
+																	</h:inputText>
 																</div>
-															</h:form>
-														</div>
+																<div class="col-md-5">
+																	<h:inputText id="nome" class="form-control"
+																		a:placeholder="Busca Por Nome dFantasia"
+																		value="#{fabricanteBean.fabricanteFiltro.nomeFantasia}"
+																		size="30">
+																	</h:inputText>
+																</div>
+
+																<div class="col-md-2">
+																	<h:commandButton action="#{fabricanteBean.filtrar()}"
+																		class="btn btn-info btn-block" a:type="submit"
+																		value="Filtrar" />
+																</div>
+															</div>
+														</h:form>
 													</div>
 												</div>
 											</div>
+										</div>
 									</div>
 									<div class="bs-example">
 										<h:form>
@@ -126,6 +126,11 @@
 												</h:dataTable>
 											</div>
 										</h:form>
+									</div>
+										<div class="col-md-2">
+										<span style="float: left"><a
+											href="#{request.contextPath}/restrito/fabricante/fabricante.jsf"
+											class="btn btn-info btn-block">Novo</a> </span>
 									</div>
 								</div>
 							</div>
