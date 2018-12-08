@@ -9,7 +9,6 @@
 		http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	<http auto-config="true">
 	
-		<intercept-url pattern="/restrito/**" access="ROLE_ADMINISTRADOR, ROLE_USUARIO_CAIXA, ROLE_USUARIO_GARCON, ROLE_USUARIO_VIP" />
 		<intercept-url pattern="/restrito/caixa/**" access="ROLE_ADMINISTRADOR, ROLE_USUARIO_CAIXA" />
 		<intercept-url pattern="/restrito/categoriaProduto/**" access="ROLE_ADMINISTRADOR" />
 		<intercept-url pattern="/restrito/cliente/**" access="ROLE_ADMINISTRADOR" />

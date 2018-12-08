@@ -65,12 +65,12 @@
 											<div class="col-md-8">
 												<label><span style="color: red"> * </span>Nome</label>
 												<h:inputText id="nome"
-													value="#{clienteBean.cliente.pessoa.nome}" size="30"
-													maxlength="30" a:required="true"
+													value="#{clienteBean.cliente.pessoa.nome}" size="70"
+													maxlength="70" a:required="true"
 													requiredMessage="Por Favor informe seu nome"
 													class="form-control"
 													a:placeholder="Informe seu Nome Completo">
-													<f:validateLength minimum="10" maximum="30" />
+													<f:validateLength minimum="10" maximum="70" />
 												</h:inputText>
 											</div>
 											<div class="col-md-4">
@@ -91,6 +91,7 @@
 													validatorMessage="Cpf Invalido">
 													<f:validateRegex
 														pattern="[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}" />
+													<f:validateLength minimum="12" maximum="14" />
 												</h:inputText>
 											</div>
 											<script>
@@ -114,10 +115,13 @@
 											</script>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>RG</label>
+
 												<h:inputText id="rg"
-													value="#{clienteBean.cliente.pessoa.rg}" size="12"
-													required="true" class="form-control"
-													a:placeholder="Insira seu RG" a:required="true" />
+													value="#{clienteBean.cliente.pessoa.rg}" maxlength="12"
+													size="12" required="true" class="form-control"
+													a:placeholder="Insira seu RG" a:required="true">
+													<f:validateLength minimum="7" maximum="12" />
+												</h:inputText>
 											</div>
 											<div class="col-md-4">
 												<label><span style="color: red"> * </span>Data de

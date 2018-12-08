@@ -65,7 +65,7 @@ public class CaixaBean implements Serializable {
 	}
 
 	public String finalizarMovimentacaoComanda() {
-		System.out.println("teste" + this.comanda.getValorTotal());
+		
 		this.destinoSalvar = "caixa?faces-redirect=true";
 		return this.destinoSalvar;
 	}
