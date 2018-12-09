@@ -54,7 +54,7 @@
 										<div class="form-group">
 											<div class="col-md-8">
 												<label><span style="color: red"> * </span>Cliente</label>
-												<h:selectOneMenu class="form-control"
+												<h:selectOneMenu class="form-control" disabled="#{comandaBean.comanda.cliente.id_cliente != null}"
 													value="#{comandaBean.comanda.cliente}"
 													requiredMessage="Informe o CLiente!" required="true"
 													converter="converterCliente">
@@ -75,7 +75,6 @@
 												</h:inputText>
 											</div>
 										</div>
-										<br />
 										<br />
 
 										<div class="form-group">
