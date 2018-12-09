@@ -32,25 +32,64 @@
 						<h3 class="panel-title">
 							<a href="javascript:void(0);" class="toggle-sidebar"><span
 								class="fa fa-angle-double-left" data-toggle="offcanvas"
-								title="Maximize Panel"></span></a> <b>Comanda</b>
+								title="Maximize Panel"></span></a> <b>Comandas</b>
 						</h3>
+
 					</div>
 					<div class="panel-body">
 						<div class="content-row">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<div class="panel-title">
-										<b>Listagem de Comandas Encerradas</b>
-									</div>
-									<div class="panel-options">
-										<a class="bg" data-target="#sample-modal-dialog-1"
-											data-toggle="modal" href="#sample-modal"><i
-											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
-											class="entypo-down-open"></i></a> <a data-rel="close"
-											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
-									</div>
+									<h3 class="panel-title">
+										<a href="javascript:void(0);" class="toggle-sidebar"><span
+											class="fa fa-angle-double-left" data-toggle="offcanvas"
+											title="Maximize Panel"></span></a> <b>Listagem de Comandas
+											Encerradas</b>
+									</h3>
 								</div>
 								<div class="panel-body">
+								<div class="form-group">
+										<h:form>
+											<div class="panel-body">
+												<div class="content-row">
+													<div class="panel panel-default">
+														<div class="panel-body">
+															<h:form id="busca" class="form-horizontal" name="busca">
+																<ui:insert name="messages">
+																	<ui:include src="/restrito/common/messages.xhtml" />
+																</ui:insert>
+																<div class="form-group">
+																	<div class="col-md-2">
+																		<h:inputText id="codigo" class="form-control"
+																			a:placeholder="Codigo"
+																			value="#{comandaBean.comandaFiltro.id_comanda}"
+																			size="30">
+																		</h:inputText>
+																	</div>
+																	<div class="col-md-5">
+																		<h:inputText id="nome" class="form-control"
+																			a:placeholder="Busca Por Nome do Cliente"
+																			value="#{comandaBean.comandaFiltro.cliente.pessoa.nome}"
+																			size="30">
+																		</h:inputText>
+
+
+																	</div>
+
+																	<div class="col-md-2">
+																		<h:commandButton
+																			action="#{comandaBean.filtrarFechadas()}"
+																			class="btn btn-info btn-block" a:type="submit"
+																			value="Filtrar" />
+																	</div>
+																</div>
+															</h:form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</h:form>
+									</div>
 									<div class="bs-example">
 										<h:form>
 											<ui:insert name="messages">
