@@ -27,54 +27,122 @@
 			<ui:insert name="sidebar-menu">
 				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
 			</ui:insert>
+
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">Caixa</h3>
+
 					</div>
 					<div class="panel-body">
 						<div class="content-row">
 							<div class="panel panel-default">
 								<div class="panel-heading">
 									<div class="panel-title">
-										<b>Caixa</b>
+										<h:form>
+											<b>Caixa</b>
+											<h:commandLink actionListener="#{caixaBean.fechaCaixa()}"  style="float: right;"
+												update="formCaixa , formAcessarCaixa">									
+											<i class="fa fa-align-justify" aria-hidden="true"></i>		
+																	
+											</h:commandLink>
+										</h:form>
+
 									</div>
 								</div>
 								<div class="panel-body">
-									<h:form class="form-horizontal" id="formCaixa">
+									<h:form class="form-hotizontal" id="formAcessarCaixa">
+
+										<h:panelGroup id="checkPassword"
+											rendered="#{!caixaBean.painelCaixaRenderizado}">
+											<div class="form-group">
+
+												<div class="col-md-3">
+													<label><span style="color: red"> </span>Usuario do
+														caixa </label>
+													<h:inputText id="ss"
+														value="#{caixaBean.comanda.id_comanda}" maxlength="12"
+														size="12" class="form-control"
+														a:placeholder="Digite o codigo da comanda ">
+
+														<f:validateLength minimum="1" maximum="120" />
+													</h:inputText>
+												</div>
+												<div class="col-md-3">
+													<label><span style="color: red"> </span>Codigo da
+														Comanda</label>
+													<h:inputText id="ab"
+														value="#{caixaBean.comanda.id_comanda}" maxlength="12"
+														size="12" class="form-control" a:type="number"
+														a:placeholder="Digite o codigo da comanda ">
+
+														<f:validateLength minimum="1" maximum="120" />
+													</h:inputText>
+												</div>
+												<div class="col-md-3">
+													<label><span style="color: red"> </span>Codigo da
+														Comanda</label>
+													<h:inputText id="cd"
+														value="#{caixaBean.comanda.id_comanda}" maxlength="12"
+														size="12" class="form-control" a:type="number"
+														a:placeholder="Digite o codigo da comanda ">
+
+														<f:validateLength minimum="1" maximum="120" />
+													</h:inputText>
+												</div>
+											</div>
+											<div class="col-md-3">
+												<label><span style="color: red">* </span> Abrir
+													Caixa </label>
+												<h:commandButton id="sbt1" class="btn btn-info btn-block"
+													value="Busca Comanda" update="formCaixa , formAcessarCaixa">
+													<f:ajax listener="#{caixaBean.abrirCaixa()}"
+														execute="formCaixa,formAcessarCaixa" render="@all"
+														event="click" />
+												</h:commandButton>
+
+											</div>
+
+										</h:panelGroup>
+									</h:form>
+
+									<h:form class="form-horizontal" id="formCaixa"
+										rendered="#{caixaBean.painelCaixaRenderizado}">
 										<ui:insert name="messages">
 											<ui:include src="/restrito/common/messages.xhtml" />
 										</ui:insert>
-										<h:inputHidden value="#{comandaBean.comanda.id_comanda}" />
+										<h:inputHidden value="#{caixaBean.comanda.id_comanda}" />
+										<h:inputHidden value="#{caixaBean.caixa.id_caixa}" />
 										<div class="form-group">
 
 											<div class="col-md-3">
 												<label><span style="color: red"> </span>Codigo da
 													Comanda</label>
 												<h:inputText id="buscacomanda"
-													value="#{caixaBean.comanda.id_comanda}" maxlength="12"												
-													size="12" class="form-control"  a:type="number"
+													value="#{caixaBean.comanda.id_comanda}" maxlength="12"
+													size="12" class="form-control" a:type="number"
 													a:placeholder="Digite o codigo da comanda ">
-														<f:ajax listener="#{caixaBean.buscarComanda()}" 
-														execute="formCaixa" render="@all" event="blur" />
+
 													<f:validateLength minimum="1" maximum="120" />
 												</h:inputText>
 											</div>
 											<div class="col-md-3">
-												<label><span style="color: red">* </span> Buscar Comanda </label>
-												<h:commandButton id="submit1" class="btn btn-info btn-block" value="Busca Comanda" >
-													<f:ajax listener="#{caixaBean.buscarComanda()}" 
-														execute="formCaixa" render="@all" event="click" />
+												<label><span style="color: red">* </span> Buscar
+													Comanda </label>
+												<h:commandButton id="submit1" class="btn btn-info btn-block"
+													value="Busca Comanda" update="formCaixa ,formAction">
+													<f:ajax listener="#{caixaBean.buscarComanda()}"
+														execute="formCaixa ,formAction" render="@form"
+														event="click" />
 												</h:commandButton>
-												
+
 											</div>
 											<div class="col-md-6">
 												<label><span style="color: red"> * </span>Forma de
 													Pagamento </label>
 												<h:selectOneMenu class="form-control"
 													value="#{caixaBean.pagamento.formaPagamento}"
-													requiredMessage="Valor é obrigatório">
-													<f:selectItem itemLabel="Selecione..." />
+													a:required="true" requiredMessage="Valor é obrigatório">
 													<f:selectItems value="#{caixaBean.forma_pagamento}"
 														var="forma_pagamento" itemValue="#{forma_pagamento}"
 														itemLabel="#{forma_pagamento.chave}" a:required="true" />
@@ -124,20 +192,23 @@
 														a:min="0.00" a:max="10000.00" a:step="0.01"
 														a:placeholder="Informe o Valor de Desconto "
 														class="form-control">
-															<f:ajax listener="#{caixaBean.alteraValorTotalPagamento()}" 
-														execute="formCaixa" render="valorTotal" event="keyup" />
+														<f:ajax
+															listener="#{caixaBean.alteraValorTotalPagamento()}"
+															execute="formCaixa" render="valorTotal" event="keyup" />
 													</h:inputText>
 												</div>
 												<div class="col-md-3">
 													<label><span style="color: red"> * </span>Valor de
 														Acrescimo</label>
 													<h:inputText id="valorAcrescimo"
-														value="#{caixaBean.pagamento.valorAcrescimo}" a:type="number"
-														a:min="0.00" a:max="10000.00" a:step="0.01"
+														value="#{caixaBean.pagamento.valorAcrescimo}"
+														a:type="number" a:min="0.00" a:max="10000.00"
+														a:step="0.01"
 														a:placeholder="Informe o Valor de Acrescimo "
 														class="form-control">
-														<f:ajax listener="#{caixaBean.alteraValorTotalPagamento()}" 
-														execute="formCaixa" render="valorTotal" event="keyup" />
+														<f:ajax
+															listener="#{caixaBean.alteraValorTotalPagamento()}"
+															execute="formCaixa" render="valorTotal" event="keyup" />
 													</h:inputText>
 												</div>
 
@@ -163,15 +234,16 @@
 										</div>
 									</h:form>
 
-									<h:form>
+									<h:form id="formAction">
 										<div class="row">
 											<div class="col-md-3">
-												<h:commandButton action="#{caixaBean.finalizarMovimentacaoComanda()}"
+												<h:commandButton
+													actionListener="#{caixaBean.finalizarMovimentacaoComanda()}"
 													class="btn btn-info btn-block" value="Finalizar Transação" />
 
 											</div>
 											<div class="col-md-3">
-												<h:commandButton action="#{caixaBean.novo}"
+												<h:commandButton actionListener="#{caixaBean.novo}"
 													class="btn btn-warning btn-block" value="Nova Transação" />
 											</div>
 										</div>

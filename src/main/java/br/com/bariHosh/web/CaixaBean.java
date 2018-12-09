@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 
 import br.com.bariHosh.entidade.Caixa;
 import br.com.bariHosh.entidade.Comanda;
@@ -24,7 +24,7 @@ import br.com.bariHosh.negocio.ComandaRN;
 import br.com.bariHosh.util.ManuseioPublico;
 
 @ManagedBean(name = "caixaBean")
-@ViewScoped
+@SessionScoped
 public class CaixaBean implements Serializable {
 
 	private static final long serialVersionUID = -6414690959254535730L;
@@ -40,11 +40,32 @@ public class CaixaBean implements Serializable {
 	private Despesa despesa = new Despesa();
 	private Pagamento pagamento = new Pagamento();
 	private Movimentacao movimentacao = new Movimentacao();
+	private boolean painelCaixaRenderizado = false;
+	public CaixaRN getCaixaRN() {
+		return caixaRN;
+	}
+
+	public void setCaixaRN(CaixaRN caixaRN) {
+		this.caixaRN = caixaRN;
+	}
+
+	public boolean isPainelCaixaRenderizado() {
+		return painelCaixaRenderizado;
+	}
+
+	public void setPainelCaixaRenderizado(boolean painelCaixaRenderizado) {
+		this.painelCaixaRenderizado = painelCaixaRenderizado;
+	}
+
 	private List<Movimentacao> movimentacoesCaixa = new ArrayList<Movimentacao>();
 
 	@PostConstruct
 	public void init() {
-        ManuseioPublico.MessagesSucesso("Caixa aberto com sucesso ");
+		System.out.println("entrou construtor");
+		
+		if(this.caixa.getId_caixa()==null) {
+			//abrirCaixa();			
+		}       
 		Comanda comanda_encerrada = this.comandaRN.recuperaComandaParaEdicao("id_comanda_encerrada");
 		if (comanda_encerrada != null) {
 			this.comanda = comanda_encerrada;
@@ -61,21 +82,28 @@ public class CaixaBean implements Serializable {
 		return this.destinoSalvar;
 	}
 
-	public void abrirCaixa() {
+	public String  abrirCaixa() {
+		System.out.println("abriur");
+		this.painelCaixaRenderizado =true;	  
 		this.caixa.setMovimentacaoCaixa(this.movimentacoesCaixa);
 		this.caixa.setData_abertura(new Date());
 		this.caixa.setStatusCaixa(EnumStatusCaixa.ABERTO);
-
+        return "caixa";
 	}
 
 	public void fechaCaixa() {
+		System.out.println("abriur");
+		this.painelCaixaRenderizado =false;
+	    ManuseioPublico.MessagesSucesso("Caixa fechado ");
 		this.caixa.setMovimentacaoCaixa(this.movimentacoesCaixa);
 		this.caixa.setData_fechamento(new Date());
 		this.caixa.setStatusCaixa(EnumStatusCaixa.FECHADO);
-
+		
 	}
+	
+	
 
-	public String finalizarMovimentacaoComanda() {
+	public void finalizarMovimentacaoComanda() {
         this.pagamento.setCompletamenteRecebido(true);
         this.pagamento.setStatusPagamento(EnumStatusPagamento.FINALIZADO);
         this.pagamento.setDespesa(new Despesa());
@@ -87,13 +115,18 @@ public class CaixaBean implements Serializable {
         this.movimentacao.setDataFinalMovimentacao(new Date());
         this.movimentacao.setPagamentoComanda(this.pagamento);       
         this.caixa.adicionaMovimentacao(this.movimentacao);
-        if(this.caixaRN.salvar(caixa)){ 
+        if(this.caixaRN.salvar(caixa)){         	
         	this.comanda.setStatusComanda(EnumStatusComanda.FINALIZADO);
-        	new ComandaRN().atualiza(this.comanda);
-        	this.destinoSalvar = novo();        	
+        	new ComandaRN().atualiza(this.comanda);    
+        	this.comanda = new Comanda();
+        	this.pagamento=new Pagamento();
+        	this.despesa=new Despesa();
+        
+        	ManuseioPublico.MessagesSucesso("Transação concluida com sucesso ");
+        	ManuseioPublico.MessagesSucesso("Caixa Livre  ");
         }       
 		
-		return this.destinoSalvar;
+		
 	}
 
 	public void alteraValorTotalPagamento() {
@@ -102,17 +135,24 @@ public class CaixaBean implements Serializable {
 
 	}
 
-	public void buscarComanda() {
+	public String buscarComanda() {
 		Comanda comandarecuperada = new ComandaRN().carregarComanda(this.comanda.getId_comanda());
 		if (comandarecuperada != null) {
 			this.comanda = comandarecuperada;
 			this.pagamento.setValorTotal(this.comanda.getValorTotal());
 		}
+		return "caixa";
 	}
 
 	@SuppressWarnings("static-access")
 	public FormaPagamento[] getForma_pagamento() {
 		return forma_pagamento.values();
+	}
+	
+
+	@SuppressWarnings("static-access")
+	public FormaPagamento getForma_pagamentosel() {
+		return forma_pagamento.DINHEIRO_VISTA;
 	}
 
 	public void setForma_pagamento(FormaPagamento forma_pagamento) {

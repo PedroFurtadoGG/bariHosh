@@ -3,6 +3,7 @@ package br.com.bariHosh.entidade;
 public enum EnumStatusCaixa {
 	
 	ABERTO("Aberto"),
+	OCUPADO("Ocupado"),
 	FECHADO("Fechado");
 	
 	

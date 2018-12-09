@@ -20,11 +20,10 @@ public class CaixaRN extends ManuseioPublico {
 			caixa.setUsuarioCaixa(usuarioLogado);
 			if (!super.validaObjeto(caixa.getId_caixa())) {
 				new CaixaDAOHibernate().salvar(caixa);
-				super.MessagesSucesso("Caixa salvo com sucesso ");
+				
 				return true;
 			} else {
-				this.caixaDAO.atualizar(caixa);
-				super.MessagesSucesso("Caixa atualizado com sucesso ");
+				new CaixaDAOHibernate().atualizar(caixa);				
 				return true;
 
 			}
