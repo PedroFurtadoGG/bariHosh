@@ -140,6 +140,10 @@ public class ComandaRN extends ManuseioPublico {
 	public List<Comanda> listaFiltrada(Long id_comanda, String nome) {
 		return this.comandaDAO.listaFiltrada(id_comanda, nome);
 	}
+	
+	public List<Comanda> listaFiltradaFechada(Long id_comanda, String nome) {
+		return this.comandaDAO.listaFiltradaFechada(id_comanda, nome);
+	}
 
 	public OrdenadorComanda getOrdenadorComanda() {
 		return ordenadorComanda;

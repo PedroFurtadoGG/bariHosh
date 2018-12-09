@@ -42,27 +42,29 @@ public class ProdutoDAOHibernate extends GenericoDAOHibernate<Produto> implement
 
 		return list;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Produto> listaFiltrada(String nome, String codBarras, Long id_produto) {
-		
+
 		StringBuffer hql = new StringBuffer();
-		hql.append("	select p from Produto p  where p.nome like '%" + nome +"%' ");
-		
-		if(!codBarras.equals("")) {
-			hql.append("	and p.codigo_barras like '%" + codBarras +"%'");
+		hql.append("	select p from Produto p  where 1=1 ");
+
+		if (ManuseioPublico.validaObjeto(nome)) {
+			hql.append(" and p.nome like '%" + nome + "%' ");
 		}
-		
-		if(ManuseioPublico.validaObjeto(id_produto)) {
+
+		if (!codBarras.equals("")) {
+			hql.append("	and p.codigo_barras like '%" + codBarras + "%'");
+		}
+
+		if (ManuseioPublico.validaObjeto(id_produto)) {
 			hql.append("	and p.id_produto = " + id_produto + "");
 		}
-		
+
 		Query consulta = this.session.createQuery(hql.toString());
 		List<Produto> listaFiltrada = (List<Produto>) consulta.list();
 		return listaFiltrada;
 	}
 
-
-	
 }
