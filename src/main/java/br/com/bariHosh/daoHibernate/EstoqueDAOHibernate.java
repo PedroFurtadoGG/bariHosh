@@ -30,8 +30,12 @@ public class EstoqueDAOHibernate extends GenericoDAOHibernate<Estoque> implement
 
 	@Override
 	public Estoque pegaEstoquePeloProduto(Produto produto) {
+		String hql = "select e from Estoque e where e.produto = :idproduto and  e.ativo =1";
+		Query consulta = this.session.createQuery(hql);
+		consulta.setLong("idproduto", produto.getId_produto());		
+	    Estoque estoque = (Estoque) consulta.uniqueResult();
+		return estoque ;	
 		
-		return null;
 	}
 
 	@Override
@@ -62,11 +66,11 @@ public class EstoqueDAOHibernate extends GenericoDAOHibernate<Estoque> implement
 		hql.append(" where p.nome like '%" + nome + "%' ");
 
 		if (!barra.equals("")) {
-			hql.append("and p.codigo_barras = '" + barra + "' ");
+			hql.append("and p.codigo_barras = :" + barra + "");
 		}
 		
 		if (!ManuseioPublico.validaObjeto(id_produto)) {
-			hql.append("and p.id_produto = '" + id_produto + "' ");
+			hql.append("and p.id_produto = :" + id_produto + "");
 		}
 		
 		Query consulta = this.session.createQuery(hql.toString());

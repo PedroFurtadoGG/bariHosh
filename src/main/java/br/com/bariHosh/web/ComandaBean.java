@@ -11,6 +11,7 @@ import javax.faces.bean.ViewScoped;
 
 import br.com.bariHosh.entidade.Cliente;
 import br.com.bariHosh.entidade.Comanda;
+import br.com.bariHosh.entidade.EnumStatusComanda;
 import br.com.bariHosh.entidade.ItemComanda;
 import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Produto;
@@ -91,8 +92,9 @@ public class ComandaBean implements Serializable {
 			this.comanda.adicionaItemComanda(this.itemComanda);
 			float valorItem = this.itemComanda.getValorTotal();
 			this.comanda.setValorTotal(this.comanda.getValorTotal() + valorItem);
-			ManuseioPublico.MessagesSucesso("Item adicionado com Sucesso !");
 			this.itemComanda = new ItemComanda();
+			ManuseioPublico.MessagesSucesso("Item adicionado com Sucesso !");
+			
 		}
 
 	}
@@ -100,9 +102,9 @@ public class ComandaBean implements Serializable {
 	public void excluirItemComanda() {
 		this.comanda.removeItemComanda(this.itemComanda);
 		this.comanda.setValorTotal(this.comanda.getValorTotal() - this.itemComanda.getValorTotal());
-		if (this.comanda.getId_comanda() != null) {
-			//new EstoqueRN().aumentarEstoqueProduto(this.itemComanda.getProduto(), this.itemComanda.getQuantidade());
+		if (this.comanda.getId_comanda() != null) {			
 			new ItemComandaRN().excluirItemComanda(this.itemComanda);
+			this.itemComanda= new ItemComanda();
 			new ComandaRN().atualiza(this.comanda);
 		} else {
 			ManuseioPublico.MessagesSucesso("Item Removido  com Sucesso !");
@@ -149,6 +151,7 @@ public class ComandaBean implements Serializable {
 
 	public String salvarComanda() {
 		this.comandaRN = new ComandaRN();
+		    this.comanda.setStatusComanda(EnumStatusComanda.EM_ABERTO);
 		if (this.comandaRN.salvar(this.comanda)) {
 			this.comanda = new Comanda();
 			this.destinoSalvar = "comandasAberto";

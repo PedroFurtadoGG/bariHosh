@@ -24,6 +24,13 @@ public class EstoqueRN extends ManuseioPublico {
 		this.setLogDAO(new LogEstoqueDAOHibernate());
 		this.produtoDAO = new ProdutoDAOHibernate();
 	}
+	
+	public Estoque carregarEstoque(Long idEstoque) {		
+		return this.estoqueDAO.carregar(Estoque.class,idEstoque);
+	}
+	public Estoque carregarEstoquePorProduto(Produto produto) {
+		return this.estoqueDAO.pegaEstoquePeloProduto(produto);
+	}
 
 	public boolean salvar(Produto produto, Log_Estoque logEstoque, Integer lancamentoQuantia) {
 		try {
@@ -40,7 +47,7 @@ public class EstoqueRN extends ManuseioPublico {
 						Estoque estoque = new Estoque();
 						estoque.setAtivo(true);
 						estoque.setData_criacao(new Date());
-						estoque.setQtd_produto(produto.getEstoque().getQtd_produto() );
+						estoque.setQtd_produto(produto.getEstoque().getQtd_produto());
 						estoque.setData_validade_lote(produto.getEstoque().getData_validade_lote());
 						estoque.setSaldoEstoque(produto.getEstoque().getSaldoEstoque());
 						estoque.setProduto(produto);
@@ -117,36 +124,40 @@ public class EstoqueRN extends ManuseioPublico {
 	}
 
 	public boolean diminuirEstoqueProduto(Produto produto, Integer quantiaRemove) {
-		Integer qtdEstoque = produto.getEstoque().getQtd_produto();
-		if (qtdEstoque < quantiaRemove) {
-			super.MessagesErro("Quantia de Retira Ultrapassa o limite de estoque !");
+		try {
+			Integer qtdEstoque = produto.getEstoque().getQtd_produto();
+			if (qtdEstoque < quantiaRemove) {
+				super.MessagesErro("Quantia de Retira Ultrapassa o limite de estoque !");
+				return false;
+			} else {
+				qtdEstoque = qtdEstoque - quantiaRemove;
+				produto.getEstoque().setQtd_produto(qtdEstoque);
+				this.produtoDAO.atualizar(produto);
+				return true;
+			}
+		} catch (Exception e) {
+			super.MessagesErro("erro "+e.getMessage() );
 			return false;
-		} else {
-			qtdEstoque = qtdEstoque - quantiaRemove;
-			produto.getEstoque().setQtd_produto(qtdEstoque);			
-			this.produtoDAO.atualizar(produto);
-			return true;
 		}
 	}
 
-	public boolean aumentarEstoqueProduto(Produto produto, Integer quantiaAdd) {
-
-		Integer qtdEstoque = produto.getEstoque().getQtd_produto();
-		if (quantiaAdd <= 0) {
-			super.MessagesErro("Quantia de Adição nao reproduz efeito no estoque  !");
-			return false;
-		} else {
-			qtdEstoque = qtdEstoque + quantiaAdd;
-			produto.getEstoque().setQtd_produto(qtdEstoque);
-			new ProdutoDAOHibernate().atualizar(produto);			
-			return true;
-		}
+	public boolean aumentarEstoqueProduto(Produto produto, Integer quantiaAdd) {		
+			Integer qtdEstoque = produto.getEstoque().getQtd_produto();			
+			if (quantiaAdd <= 0) {
+				super.MessagesErro("Quantia de Adição nao reproduz efeito no estoque  !");
+				return false;
+			} else {
+				
+				qtdEstoque = qtdEstoque + quantiaAdd;
+				produto.getEstoque().setQtd_produto(qtdEstoque);
+				this.estoqueDAO.atualizar(produto.getEstoque());
+				return true;
+			}
+		
 
 	}
 	
-	
 
-	
 	public Integer obterTotalProdutosEmEstoqueGeral() {
 		List<Produto> listaProduto = produtoDAO.listar(Produto.class);
 		Integer qtdTOTAL = 0;
@@ -185,5 +196,7 @@ public class EstoqueRN extends ManuseioPublico {
 	public List<Estoque> listaFiltrada(Long id_produto, String nome,String barras){
 		return this.estoqueDAO.listaFiltrada(id_produto, nome, barras);
 	}
+
+	
 
 }

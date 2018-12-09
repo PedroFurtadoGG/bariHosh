@@ -40,11 +40,7 @@ public class Pagamento implements Serializable {
 	private EnumStatusPagamento  statusPagamento;
 	
 	@Column(name = "completamente_recebido", nullable = false)
-	private boolean completamenteRecebido;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_usuario")	
-	private Usuario usuario; 	
+	private boolean completamenteRecebido;	
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_despesa")
@@ -82,13 +78,7 @@ public class Pagamento implements Serializable {
 		this.completamenteRecebido = completamenteRecebido;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+	
 
 	public Despesa getDespesa() {
 		return despesa;
@@ -132,7 +122,6 @@ public class Pagamento implements Serializable {
 		result = prime * result + ((formaPagamento == null) ? 0 : formaPagamento.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((statusPagamento == null) ? 0 : statusPagamento.hashCode());
-		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		result = prime * result + Float.floatToIntBits(valorAcrescimo);
 		return result;
 	}
@@ -166,16 +155,12 @@ public class Pagamento implements Serializable {
 			return false;
 		if (statusPagamento != other.statusPagamento)
 			return false;
-		if (usuario == null) {
-			if (other.usuario != null)
-				return false;
-		} else if (!usuario.equals(other.usuario))
-			return false;
 		if (Float.floatToIntBits(valorAcrescimo) != Float.floatToIntBits(other.valorAcrescimo))
 			return false;
 		return true;
 	}
 
+	
 	
 	
 }

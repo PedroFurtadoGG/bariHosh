@@ -1,16 +1,14 @@
 package br.com.bariHosh.entidade;
 
-public enum EnumStatusCaixa {
-	
-	ABERTO("Aberto"),
-	OCUPADO("Ocupado"),
-	FECHADO("Fechado");
+public enum EnumStatusComanda {
+	EM_ABERTO("Aberto"),
+	FINALIZADO("Fechado");
 	
 	
 	@SuppressWarnings("unused")
 	private String descricao;
 	
-	private EnumStatusCaixa(String descricao) {
+	private EnumStatusComanda(String descricao) {
 		this.setDescricao(descricao);
 	}
 	

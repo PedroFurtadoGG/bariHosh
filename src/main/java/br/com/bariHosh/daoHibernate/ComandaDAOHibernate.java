@@ -57,15 +57,17 @@ public class ComandaDAOHibernate extends GenericoDAOHibernate<Comanda> implement
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Comanda> listaComandasStatus(boolean status) {
-		String hql = "select c from Comanda c JOIN FETCH c.cliente o  where c.ativo = :status ";
-
+	public List<Comanda> listaComandasStatus(boolean status , Enum e) {
+		String hql = "select c from Comanda c JOIN FETCH c.cliente o  where c.ativo = :status and c.statusComanda = :enumstatus";
+			 					
 		Query consulta = this.session.createQuery(hql);
 		consulta.setBoolean("status", status);
+		consulta.setParameter("enumstatus", e);	
 		List<Comanda> list = (List<Comanda>) consulta.list();
 		return list;
 
 	}
+
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -84,5 +86,6 @@ public class ComandaDAOHibernate extends GenericoDAOHibernate<Comanda> implement
 
 		return listaFiltrada;
 	}
+
 
 }
