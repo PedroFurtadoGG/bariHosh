@@ -3,7 +3,7 @@ package br.com.bariHosh.daoHibernate;
 import org.hibernate.Session;
 
 import br.com.bariHosh.dao.PagamentoDAO;
-import br.com.bariHosh.entidade.*;
+import br.com.bariHosh.entidade.Pagamento;
 import br.com.bariHosh.util.DAOFactory;
 
 public class PagamentoDAOHibernate  extends GenericoDAOHibernate<Pagamento> 

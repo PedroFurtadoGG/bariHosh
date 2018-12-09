@@ -26,6 +26,7 @@
 		<mapping class="br.com.bariHosh.entidade.Despesa" />
 		<mapping class="br.com.bariHosh.entidade.Movimentacao" />		
 		<mapping class="br.com.bariHosh.entidade.GrupoProduto" />
+		<mapping class="br.com.bariHosh.entidade.SangriaCaixa" />
 		<mapping class="br.com.bariHosh.entidade.Caixa" />
 	</session-factory>
 </hibernate-configuration>
