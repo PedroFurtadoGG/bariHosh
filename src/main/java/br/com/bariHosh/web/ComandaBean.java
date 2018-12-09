@@ -306,5 +306,13 @@ public class ComandaBean implements Serializable {
 	public void setPessoaFiltro(Pessoa pessoaFiltro) {
 		this.pessoaFiltro = pessoaFiltro;
 	}
+	
+	public String filtrarFechadas() {
+
+		this.comandasAbertas = comandaRN.listaFiltradaFechada(comandaFiltro.getId_comanda(), comandaFiltro.getCliente().getPessoa().getNome());
+
+		return "/restrito/comanda/comandasAberto";
+	}
+	
 
 }

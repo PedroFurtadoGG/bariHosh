@@ -14,7 +14,7 @@ public interface ComandaDAO {
 	public List<Comanda> listaPedidosNaDataAtual(Date data);	
 	public  List<Comanda> listaComandasStatus(boolean status, Enum e);
 	List<Comanda> listaFiltrada(Long id_comanda, String nome);
-
+	List<Comanda> listaFiltradaFechada(Long id_comanda, String nome);
 	
 
 }
