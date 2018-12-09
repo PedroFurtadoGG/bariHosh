@@ -153,4 +153,17 @@ public class ComandaRN extends ManuseioPublico {
 		this.ordenadorComanda = ordenadorComanda;
 	}
 
+	public Comanda carregaComandaStatus(Long id_comanda, EnumStatusComanda emAberto) {
+		   Comanda comanda = this.carregarComanda(id_comanda);
+		   if(comanda.getStatusComanda() == emAberto) {
+			   return comanda ;			   
+		   }else {
+			   super.MessagesErro("Comanda ja finalizada ");
+			   comanda = new Comanda();			   
+		   }
+		return comanda;
+	}
+
+	
+
 }

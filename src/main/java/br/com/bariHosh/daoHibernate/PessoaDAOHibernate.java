@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import br.com.bariHosh.dao.PessoaDAO;
-import br.com.bariHosh.entidade.*;
+import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.util.DAOFactory;
 
 public class PessoaDAOHibernate extends GenericoDAOHibernate<Pessoa> implements PessoaDAO {

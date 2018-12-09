@@ -152,6 +152,7 @@ public class ComandaBean implements Serializable {
 	public String salvarComanda() {
 		this.comandaRN = new ComandaRN();
 		    this.comanda.setStatusComanda(EnumStatusComanda.EM_ABERTO);
+		    this.comanda.setAtivo(true);
 		if (this.comandaRN.salvar(this.comanda)) {
 			this.comanda = new Comanda();
 			this.destinoSalvar = "comandasAberto";

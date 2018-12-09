@@ -31,7 +31,12 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Caixa</h3>
+					<h3 class="panel-title">
+							<a href="javascript:void(0);" class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a> <b>Caixa</b>
+						</h3>
+						
 
 					</div>
 
@@ -226,6 +231,7 @@
 								<div class="panel-body">
 									<h:form class="form-horizontal" id="formAbreCaixa"
 										rendered="#{caixaBean.formAbreCaixaRenderizado}">
+										
 										<div class="form-group">
 											<div class="col-md-12">
 												<h3>Dados para Abertura de Caixa</h3>
@@ -287,6 +293,7 @@
 								<div class="panel-body">
 									<h:form class="form-horizontal" id="formFechaCaixa"
 										rendered="#{caixaBean.formFechaCaixaRenderizado}">
+										
 										<div class="form-group">
 											<div class="col-md-12">
 												<h3>Dados para Fechamento de Caixa</h3>
@@ -317,7 +324,7 @@
 										<div class="row">
 											<div class="col-md-3">
 												<h:commandButton
-													action="#{caixaBean.finalizarMovimentacaoComanda()}"
+													action="#{caixaBean.fechaCaixa()}"
 													class="btn btn-info btn-block" value="Fechar Caixa"
 													id="btnFechaCaixa" />
 											</div>
@@ -347,6 +354,7 @@
 								<div class="panel-body">
 									<h:form class="form-horizontal" id="formSangriaCaixa"
 										rendered="#{caixaBean.formSangriaCaixaRenderizado}">
+										
 										<div class="form-group">
 											<div class="col-md-12">
 												<h3>Dados para Sangria de Caixa</h3>
@@ -355,7 +363,7 @@
 												<label><span style="color: red"> * </span>Valor de
 													Retirada</label>
 												<h:inputText id="valorSangria"
-													value="#{caixaBean.caixa.valorFechamento}" a:type="number"
+													value="#{caixaBean.sangria.valorSangria}" a:type="number"
 													a:min="0.00" a:max="10000.00" a:step="0.01"
 													a:required="true" a:placeholder="Informe valor Retirada"
 													class="form-control">
@@ -363,7 +371,7 @@
 											</div>
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Valor
-													Total</label>
+													Total em Caixa</label>
 												<h:inputText id="valorTotalCaixa" readonly="true"
 													value="#{caixaBean.caixa.valorTotal}" a:type="number"
 													a:min="0.00" a:max="10000.00" a:step="0.01"
@@ -375,7 +383,7 @@
 											<div class="col-md-6">
 												<label><span style="color: red"> * </span>Funcionário</label>
 												<h:inputText id="descricaousuario" readonly="true"
-													value="#{caixaBean.caixa.usuarioCaixa.pessoa.nome}"
+													value="#{caixaBean.sangria.usuario_caixa.pessoa.nome}"
 													size="50" maxlength="80" a:required="true"
 													requiredMessage="Informe o nome do funcionario"
 													class="form-control"
@@ -387,7 +395,7 @@
 										<div class="row">
 											<div class="col-md-3">
 												<h:commandButton
-													action="#{caixaBean.finalizarMovimentacaoComanda()}"
+													action="#{caixaBean.realizarSangriaCaixa}"
 													class="btn btn-info btn-block" value="Realizar Retirada "
 													id="btnSangriaCaixa" />
 											</div>

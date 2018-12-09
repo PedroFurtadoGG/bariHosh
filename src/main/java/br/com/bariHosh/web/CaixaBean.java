@@ -19,9 +19,11 @@ import br.com.bariHosh.entidade.EnumStatusPagamento;
 import br.com.bariHosh.entidade.FormaPagamento;
 import br.com.bariHosh.entidade.Movimentacao;
 import br.com.bariHosh.entidade.Pagamento;
+import br.com.bariHosh.entidade.SangriaCaixa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.CaixaRN;
 import br.com.bariHosh.negocio.ComandaRN;
+import br.com.bariHosh.negocio.SangriaRN;
 import br.com.bariHosh.negocio.UsuarioRN;
 import br.com.bariHosh.util.ManuseioPublico;
 
@@ -37,6 +39,7 @@ public class CaixaBean implements Serializable {
 	private ComandaRN comandaRN = new ComandaRN();
 	private Comanda comanda = new Comanda();
 	private Caixa caixa = new Caixa();
+	private SangriaCaixa sangria = new SangriaCaixa();
 	private CaixaRN caixaRN = new CaixaRN();
 	private Despesa despesa = new Despesa();
 	private Pagamento pagamento = new Pagamento();
@@ -54,7 +57,7 @@ public class CaixaBean implements Serializable {
 		System.out.println("entrou construtor");
 	}
 
-	public  String InicializaCaixa() {
+	public String InicializaCaixa() {
 		Comanda comanda_encerrada = new ComandaRN().recuperaComandaParaEdicao("id_comanda_encerrada");
 		if (comanda_encerrada != null) {
 			this.comanda = comanda_encerrada;
@@ -68,7 +71,7 @@ public class CaixaBean implements Serializable {
 			this.formAbreCaixaRenderizado = false;
 			this.formSangriaCaixaRenderizado = false;
 		} else {
-			Usuario usuarioLogado  = new UsuarioRN().buscarPorUsuarioLogado();
+			Usuario usuarioLogado = new UsuarioRN().buscarPorUsuarioLogado();
 			this.caixa.setUsuarioCaixa(usuarioLogado);
 			this.painelCaixaRenderizado = false;
 			this.formFechaCaixaRenderizado = false;
@@ -81,37 +84,57 @@ public class CaixaBean implements Serializable {
 	}
 
 	public void minimizarFechaCaixa() {
-		if (this.formFechaCaixaRenderizado == false) {
-			this.formFechaCaixaRenderizado = true;
-		} else {
-			this.formFechaCaixaRenderizado = false;
+		if(this.caixa.getId_caixa()!=null) {
+			if (this.formFechaCaixaRenderizado == false) {
+				this.formFechaCaixaRenderizado = true;
+			} else {
+				this.formFechaCaixaRenderizado = false;
+			}	
+			
 		}
+		
 
 	}
 
 	public void minimizarAbreCaixa() {
-		if (this.formAbreCaixaRenderizado == false) {
-			this.formAbreCaixaRenderizado = true;
-		} else {
+		if (this.caixa.getId_caixa() != null) {
 			this.formAbreCaixaRenderizado = false;
+		} else {
+			if (this.formAbreCaixaRenderizado == false) {
+				this.formAbreCaixaRenderizado = true;
+			} else {
+				this.formAbreCaixaRenderizado = false;
+			}
+
 		}
+
 	}
 
 	public void minimizarCaixa() {
-		if (this.painelCaixaRenderizado == false) {
-			this.painelCaixaRenderizado = true;
-		} else {
+		if (this.caixa.getId_caixa() != null) {				
+			if (this.painelCaixaRenderizado == false) {
+				this.painelCaixaRenderizado = true;
+			} else {
+				this.painelCaixaRenderizado = false;
+			}
+		}else{
 			this.painelCaixaRenderizado = false;
 		}
+		
 
 	}
 
 	public void minimizarSangriaCaixa() {
-		if (this.formSangriaCaixaRenderizado == false) {
-			this.formSangriaCaixaRenderizado = true;
-		} else {
-			this.formSangriaCaixaRenderizado = false;
+		if(this.caixa.getId_caixa()!=null) {		
+			this.sangria.setUsuario_caixa(this.caixa.getUsuarioCaixa());
+			if (this.formSangriaCaixaRenderizado == false) {
+				this.formSangriaCaixaRenderizado = true;
+			} else {
+				this.formSangriaCaixaRenderizado = false;
+			}
+			
 		}
+		
 
 	}
 
@@ -125,31 +148,66 @@ public class CaixaBean implements Serializable {
 	}
 
 	public String abrirCaixa() {
-		System.out.println("abriur");		
+
 		this.caixa.setMovimentacaoCaixa(this.movimentacoesCaixa);
 		this.caixa.setData_abertura(new Date());
 		this.caixa.setValorTotal(this.caixa.getValorAbertura());
-		this.caixa.setStatusCaixa(EnumStatusCaixa.ABERTO);		
-		if(new CaixaRN().salvar(this.caixa)) {			
+		this.caixa.setStatusCaixa(EnumStatusCaixa.ABERTO);
+		if (new CaixaRN().salvar(this.caixa)) {
 			this.painelCaixaRenderizado = true;
 			this.formAbreCaixaRenderizado = false;
+			this.destinoSalvar = "caixa";
 		}
-		return "caixa";
+		return this.destinoSalvar;
 	}
 
 	public String fechaCaixa() {
-		System.out.println("fechou");
+
 		this.painelCaixaRenderizado = false;
-		ManuseioPublico.MessagesSucesso("Caixa fechado ");
 		this.caixa.setMovimentacaoCaixa(this.movimentacoesCaixa);
 		this.caixa.setData_fechamento(new Date());
 		this.caixa.setStatusCaixa(EnumStatusCaixa.FECHADO);
-		if(new CaixaRN().salvar(this.caixa)) {			
+		this.caixa.setValorFechamento(this.caixa.getValorTotal());
+		if (new CaixaRN().salvar(this.caixa)) {
 			this.painelCaixaRenderizado = false;
 			this.formAbreCaixaRenderizado = true;
 			this.formFechaCaixaRenderizado = false;
+			this.caixa = new Caixa();
+			this.InicializaCaixa();
+			ManuseioPublico.MessagesSucesso("Caixa fechado com sucesso ");
+			this.destinoSalvar = "caixa";
 		}
-		return "caixa";
+		return this.destinoSalvar;
+	}
+	public String realizarSangriaCaixa() {		   
+		 this.sangria.setCaixa(this.caixa);
+		 this.sangria.setData_sangria(new Date());
+		 this.sangria.setUsuario_caixa(this.getCaixa().getUsuarioCaixa());		
+		 if(new SangriaRN().salvar(sangria)){
+			 this.minimizarSangriaCaixa();		 	
+			 
+			 this.movimentacao.setDataInicialMovimentacao(new Date());
+			 this.movimentacao.setDataFinalMovimentacao(new Date());
+			 this.movimentacao.setTipo_movimento(EnumMovimentoCaixa.SA);
+			 Pagamento pag = new Pagamento();
+			 pag.setCompletamenteRecebido(true);
+			 pag.setFormaPagamento(FormaPagamento.DINHEIRO_VISTA);
+			 pag.setValorTotal(this.sangria.getValorSangria());
+			 Despesa despesa = new Despesa();
+			 despesa.setValorTotalDespesa(this.sangria.getValorSangria());
+			 pag.setDespesa(despesa);
+			 this.movimentacao.setPagamentoComanda(pag);			 
+			 this.caixa.adicionaMovimentacao(movimentacao);
+			 this.caixa.setValorTotal(this.caixa.getValorTotal()-this.sangria.getValorSangria());
+			 if(new CaixaRN().salvar(this.caixa)) {				 
+				 this.movimentacao= new Movimentacao();
+			 }
+			 this.sangria = new SangriaCaixa();			 
+			 this.destinoSalvar = "caixa";	
+			 	 
+		 }		
+		 
+		 return this.destinoSalvar;
 	}
 
 	public void finalizarMovimentacaoComanda() {
@@ -163,10 +221,11 @@ public class CaixaBean implements Serializable {
 		this.movimentacao.setTipo_movimento(EnumMovimentoCaixa.EN);
 		this.movimentacao.setDataFinalMovimentacao(new Date());
 		this.movimentacao.setPagamentoComanda(this.pagamento);
-		this.caixa.setValorTotal(this.caixa.getValorTotal()+this.pagamento.getValorTotal());
-		this.caixa.adicionaMovimentacao(this.movimentacao);		
+		this.caixa.setValorTotal(this.caixa.getValorTotal() + this.pagamento.getValorTotal());
+		this.caixa.adicionaMovimentacao(this.movimentacao);
 		if (this.caixaRN.salvar(caixa)) {
 			this.comanda.setStatusComanda(EnumStatusComanda.FINALIZADO);
+			this.comanda.setAtivo(false);
 			new ComandaRN().atualiza(this.comanda);
 			this.comanda = new Comanda();
 			this.pagamento = new Pagamento();
@@ -184,15 +243,14 @@ public class CaixaBean implements Serializable {
 
 	}
 
-	public String buscarComanda() {
-		Comanda comandarecuperada = new ComandaRN().carregarComanda(this.comanda.getId_comanda());
-		if (comandarecuperada != null) {
-			this.comanda = comandarecuperada;
+	public String buscarComanda() {		
+		Comanda comanda  = new ComandaRN().carregaComandaStatus(this.comanda.getId_comanda(),EnumStatusComanda.EM_ABERTO);
+		if (comanda != null) {
+			this.comanda = comanda;
 			this.pagamento.setValorTotal(this.comanda.getValorTotal());
 		}
-
-		return "caixa";
-
+		 this.destinoSalvar = "caixa";
+		 return this.destinoSalvar;
 	}
 
 	@SuppressWarnings("static-access")
@@ -223,6 +281,14 @@ public class CaixaBean implements Serializable {
 
 	public void setComanda(Comanda comanda) {
 		this.comanda = comanda;
+	}
+
+	public SangriaCaixa getSangria() {
+		return sangria;
+	}
+
+	public void setSangria(SangriaCaixa sangria) {
+		this.sangria = sangria;
 	}
 
 	@SuppressWarnings("static-access")
