@@ -129,11 +129,11 @@
 													Barras</label>
 												<h:inputText id="codigoBarras"
 													value="#{produtoBean.produto.codigo_barras}" maxlength="13" 
-													a:required="true" size="13"
+													a:required="true" size="13" a:type="number"
 													requiredMessage="Informe o numero do codigo de barras"
 													a:placeholder="Informe o Codigo de Barras "
 													class="form-control">
-													<f:validateLength minimum="11" maximum="13" />
+													<f:validateLength minimum="6" maximum="13" />
 												</h:inputText>
 											</div>
 											<div class="col-md-4">

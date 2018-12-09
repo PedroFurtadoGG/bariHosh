@@ -22,11 +22,10 @@ public class ClienteBean {
 	private List<Cliente> lista;
 	private String destinoSalvar;
 	private EnumSexo enumSexo;
-	private ClienteRN clienteRN = new ClienteRN();	
+	private ClienteRN clienteRN = new ClienteRN();
 
 	private Cliente clienteFiltro = new Cliente();
 	private Pessoa pessoaFiltro = new Pessoa();
-	
 
 	public ClienteBean() {
 		this.destinoSalvar = "clientes";
@@ -62,7 +61,7 @@ public class ClienteBean {
 	public String filtrar() {
 
 		this.lista = clienteRN.listaFiltrada(clienteFiltro.getPessoa().getNome(), clienteFiltro.getPessoa().getCpf(),
-				cliente.getPessoa().getId_pessoa());
+				clienteFiltro.getId_cliente());
 
 		return "/restrito/cliente/clientes";
 	}

@@ -146,7 +146,6 @@ public class ProdutoBean {
 		if (this.listaProdutos == null) {
 			this.listaProdutos = produtoRN.listarCompleto();
 		}
-		
 		return this.listaProdutos;
 	}
 	

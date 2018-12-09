@@ -19,9 +19,14 @@ public class FabricanteDAOHibernate extends GenericoDAOHibernate<Fabricante> imp
 		public List<Fabricante> listaFiltrada(Long id_fabricante, String razaoSocial) {
 		
 			StringBuffer hql = new StringBuffer();
-			hql.append("select f from Fabricante f where f.razaoSocial like '%"+ razaoSocial +"%' ");
+			hql.append("select f from Fabricante f where 1=1");
+			
 			if(ManuseioPublico.validaObjeto(id_fabricante)) {
-				hql.append("and f.id_fabricante ='" +id_fabricante+"'");
+				hql.append(" and f.id_fabricante ='" +id_fabricante+"'");
+			}
+			
+			if(ManuseioPublico.validaObjeto(razaoSocial)) {
+				hql.append(" and f.razaoSocial ='" +razaoSocial+"'");
 			}
 			
 			Query consulta = this.session.createQuery(hql.toString());
