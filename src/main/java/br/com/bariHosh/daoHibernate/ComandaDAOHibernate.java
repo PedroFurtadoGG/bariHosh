@@ -72,8 +72,12 @@ public class ComandaDAOHibernate extends GenericoDAOHibernate<Comanda> implement
 	public List<Comanda> listaFiltrada(Long id_comanda, String nome) {
 		StringBuffer hql = new StringBuffer();
 
-		hql.append("select c from Comanda c LEFT JOIN FETCH c.pessoa p  ");
-		hql.append(" where p.nome like '%" + nome + "%' ");
+		hql.append("select c from Comanda c LEFT JOIN FETCH c.pessoa p where 1=1 and c.ativo = 1 ");
+		
+		if (ManuseioPublico.validaObjeto(nome)) {
+			hql.append("and p.nome like '%" + nome + "%1 ");
+		}
+		
 
 		if (!ManuseioPublico.validaObjeto(id_comanda)) {
 			hql.append("and c.id_comanda = " + id_comanda + " ");
