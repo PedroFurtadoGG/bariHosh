@@ -98,7 +98,7 @@
 													<h:column>
 														<f:facet name="header"> Realizar Pagamento</f:facet>
 														<h:commandLink
-															action="/restrito/caixa/caixa?faces-redirect = true">
+															action="#{caixaBean.InicializaCaixa()}">
 															<i class="fa fa-dollar"></i>
 															<f:param name="id_comanda_encerrada"
 																value="#{comanda.id_comanda}" />

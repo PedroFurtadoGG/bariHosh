@@ -26,7 +26,7 @@ public class Movimentacao {
 	private Long id_movimentacao;
 	
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_pagamento", nullable = false)	
+	@JoinColumn(name = "id_pagamento")	
 	private Pagamento pagamentoComanda;
 	
 	@Temporal(TemporalType.DATE)

@@ -48,12 +48,14 @@
 								<div class="panel-body">
 									<div class="bs-example">
 										<h:form>
-										<ui:insert name="messages">
-											<ui:include src="/restrito/common/messages.xhtml" />
-										</ui:insert>
+											<ui:insert name="messages">
+												<ui:include src="/restrito/common/messages.xhtml" />
+											</ui:insert>
 											<div class="bs-example">
-											
-												<h:dataTable class="table table-hover" value="#{categoriaProdutoBean.lista}" var="categoria"  cellpadding="5">
+
+												<h:dataTable class="table table-hover"
+													value="#{categoriaProdutoBean.lista}" var="categoria"
+													cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
 		                                             	#{categoria.id_categoria}
@@ -62,23 +64,25 @@
 														<f:facet name="header">Descrição</f:facet>
 		                                             	#{categoria.descricao}
 		                                          	</h:column>
-		                                          	
-		                                          	<h:column>
+
+													<h:column>
 														<f:facet name="header">Editar</f:facet>
 														<h:commandLink action="#{categoriaProdutoBean.editar()}">
 															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 															<f:setPropertyActionListener
-																target="#{categoriaProdutoBean.categoria}" value="#{categoria}" />
+																target="#{categoriaProdutoBean.categoria}"
+																value="#{categoria}" />
 														</h:commandLink>
 													</h:column>
-		                                          	
+
 													<h:column>
 														<f:facet name="header">Excluir</f:facet>
 														<h:commandLink action="#{categoriaProdutoBean.excluir}"
 															onclick="if (!confirm('Confirma a exclusão da categoria #{categoria.descricao}?')) return false;">
 															<i class="fa fa-trash-o"></i>
 															<f:setPropertyActionListener
-																target="#{categoriaProdutoBean.categoria}" value="#{categoria}" />
+																target="#{categoriaProdutoBean.categoria}"
+																value="#{categoria}" />
 														</h:commandLink>
 													</h:column>
 												</h:dataTable>
@@ -86,7 +90,13 @@
 										</h:form>
 									</div>
 								</div>
+								
 							</div>
+							<div class="col-md-2">
+									<span style="float: left"><a
+										href="#{request.contextPath}/restrito/categoriaProduto/categoriaProduto.jsf"
+										class="btn btn-info btn-block">Novo</a> </span>
+								</div>
 						</div>
 					</div>
 				</div>

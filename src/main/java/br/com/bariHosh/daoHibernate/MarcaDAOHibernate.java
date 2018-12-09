@@ -7,8 +7,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.bariHosh.dao.MarcaDAO;
-import br.com.bariHosh.entidade.*;
+import br.com.bariHosh.entidade.Marca;
+import br.com.bariHosh.entidade.Produto;
 import br.com.bariHosh.util.DAOFactory;
+import br.com.bariHosh.util.ManuseioPublico;
 
 public class MarcaDAOHibernate  extends GenericoDAOHibernate<Marca>  implements MarcaDAO{
 	
@@ -34,5 +36,25 @@ public class MarcaDAOHibernate  extends GenericoDAOHibernate<Marca>  implements 
 		
 		return list;		
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Marca> listaFiltrada(Long id_marca, String nome) {
+		StringBuffer hql = new StringBuffer();
 
+		hql.append("select c from Marca c LEFT JOIN FETCH c.pessoa p  ");
+		hql.append(" where p.nome like '%" + nome + "%' ");
+
+
+
+		if (!ManuseioPublico.validaObjeto(id_marca)) {
+			hql.append(" and c.id_marca = " + id_marca + " ");
+		}
+
+		Query consulta = this.session.createQuery(hql.toString());
+		List<Marca> listaFiltrada = (List<Marca>) consulta.list();
+		
+		return listaFiltrada;
+	}
 }

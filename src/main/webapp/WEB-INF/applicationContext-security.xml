@@ -8,8 +8,17 @@
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	<http auto-config="true">
-		<intercept-url pattern="/restrito/**"
-			access="ROLE_ADMINISTRADOR, ROLE_USUARIO_CAIXA, ROLE_USUARIO_GARCON, ROLE_USUARIO_VIP" />
+	
+		<intercept-url pattern="/restrito/caixa/**" access="ROLE_ADMINISTRADOR, ROLE_USUARIO_CAIXA" />
+		<intercept-url pattern="/restrito/categoriaProduto/**" access="ROLE_ADMINISTRADOR" />
+		<intercept-url pattern="/restrito/cliente/**" access="ROLE_ADMINISTRADOR" />
+		<intercept-url pattern="/restrito/comanda/**" access="ROLE_ADMINISTRADOR, ROLE_USUARIO_GARCON" />
+		<intercept-url pattern="/restrito/estoque/**" access="ROLE_ADMINISTRADOR" />
+		<intercept-url pattern="/restrito/fabricante/**" access="ROLE_ADMINISTRADOR" />
+		<intercept-url pattern="/restrito/marca/**" access="ROLE_ADMINISTRADOR" />
+		<intercept-url pattern="/restrito/produto/**" access="ROLE_ADMINISTRADOR" />
+		<intercept-url pattern="/restrito/usuario**" access="ROLE_ADMINISTRADOR" />
+		
 		<form-login login-page="/publico/login.jsf"
 			always-use-default-target="true"
 			default-target-url="/restrito/index.jsf?login_sucess=1"

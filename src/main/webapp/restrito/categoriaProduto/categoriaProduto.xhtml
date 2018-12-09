@@ -28,7 +28,11 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Categoria de Produtos</h3>
+						<h3 class="panel-title">
+							<a href="javascript:void(0);" class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a> <b>Categoria de Produtos</b>
+						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="content-row">
@@ -36,13 +40,6 @@
 								<div class="panel-heading">
 									<div class="panel-title">
 										<b>Cadastro de Categoria</b>
-									</div>
-									<div class="panel-options">
-										<a class="bg" data-target="#sample-modal-dialog-1"
-											data-toggle="modal" href="#sample-modal"><i
-											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
-											class="entypo-down-open"></i></a> <a data-rel="close"
-											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
 									</div>
 								</div>
 								<div class="panel-body">
@@ -56,11 +53,11 @@
 											<div class="col-md-10">
 												<label><span style="color: red"> * </span>Descrição</label>
 												<h:inputText id="descricao" value="#{categoriaProdutoBean.categoria.descricao}"
-													size="30" maxlength="30" a:required="true"
+													size="100" maxlength="100" a:required="true"
 													requiredMessage="Informe a descrição da categoria!"
 													class="form-control"
 													a:placeholder="Informe a descrição da categoria">
-													<f:validateLength minimum="5" maximum="30" />
+													<f:validateLength minimum="4" maximum="100" />
 												</h:inputText>
 											</div>
 

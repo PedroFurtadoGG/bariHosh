@@ -173,7 +173,7 @@ public class EstoqueRN extends ManuseioPublico {
 		if (estoque.getQtd_produto() >= quantidade) {
 			return true;
 		}
-		super.MessagesErro("Quantidade maior que quantia armazenado em estoque");
+		super.MessagesErro("Não existe estoque para o " + produto.getNome());
 		return false;
 	}
 

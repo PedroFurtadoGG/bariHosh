@@ -6,10 +6,9 @@ import br.com.bariHosh.entidade.Marca;
 import br.com.bariHosh.entidade.Produto;
 
 public interface MarcaDAO {
-	
-	
-	public List<Produto> ListaProdutosVinculados(Long id);
 
+	public List<Produto> ListaProdutosVinculados(Long id);
 	public List<Marca> listaCompleta();
+	public List<Marca> listaFiltrada(Long id_marca, String nome);
 
 }

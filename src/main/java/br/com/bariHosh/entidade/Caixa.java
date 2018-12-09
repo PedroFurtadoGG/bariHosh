@@ -29,22 +29,26 @@ public class Caixa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_caixa;
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "caixa", fetch = FetchType.LAZY)
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "caixa", fetch = FetchType.EAGER)
 	private List<Movimentacao> movimentacaoCaixa = new ArrayList<Movimentacao>();
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuarioCaixa;
 
-	
+	private Float valorAbertura;
+
+	private Float valorFechamento;
+
+	private Float valorTotal;
 
 	@Temporal(TemporalType.DATE)
 	private Date data_abertura;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date data_fechamento;
-	
+
 	@Enumerated(EnumType.STRING)
 	private EnumStatusCaixa statusCaixa;
 	
@@ -76,6 +80,38 @@ public class Caixa implements Serializable {
 		this.movimentacaoCaixa = movimentacaoCaixa;
 	}
 
+	public Usuario getUsuarioCaixa() {
+		return usuarioCaixa;
+	}
+
+	public void setUsuarioCaixa(Usuario usuarioCaixa) {
+		this.usuarioCaixa = usuarioCaixa;
+	}
+
+	public Float getValorAbertura() {
+		return valorAbertura;
+	}
+
+	public void setValorAbertura(Float valorAbertura) {
+		this.valorAbertura = valorAbertura;
+	}
+
+	public Float getValorFechamento() {
+		return valorFechamento;
+	}
+
+	public void setValorFechamento(Float valorFechamento) {
+		this.valorFechamento = valorFechamento;
+	}
+
+	public Float getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(Float valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
 	public Date getData_abertura() {
 		return data_abertura;
 	}
@@ -99,14 +135,6 @@ public class Caixa implements Serializable {
 	public void setStatusCaixa(EnumStatusCaixa statusCaixa) {
 		this.statusCaixa = statusCaixa;
 	}
-	
-	public Usuario getUsuarioCaixa() {
-		return usuarioCaixa;
-	}
-
-	public void setUsuarioCaixa(Usuario usuarioCaixa) {
-		this.usuarioCaixa = usuarioCaixa;
-	}
 
 	@Override
 	public int hashCode() {
@@ -118,6 +146,9 @@ public class Caixa implements Serializable {
 		result = prime * result + ((movimentacaoCaixa == null) ? 0 : movimentacaoCaixa.hashCode());
 		result = prime * result + ((statusCaixa == null) ? 0 : statusCaixa.hashCode());
 		result = prime * result + ((usuarioCaixa == null) ? 0 : usuarioCaixa.hashCode());
+		result = prime * result + ((valorAbertura == null) ? 0 : valorAbertura.hashCode());
+		result = prime * result + ((valorFechamento == null) ? 0 : valorFechamento.hashCode());
+		result = prime * result + ((valorTotal == null) ? 0 : valorTotal.hashCode());
 		return result;
 	}
 
@@ -157,9 +188,23 @@ public class Caixa implements Serializable {
 				return false;
 		} else if (!usuarioCaixa.equals(other.usuarioCaixa))
 			return false;
+		if (valorAbertura == null) {
+			if (other.valorAbertura != null)
+				return false;
+		} else if (!valorAbertura.equals(other.valorAbertura))
+			return false;
+		if (valorFechamento == null) {
+			if (other.valorFechamento != null)
+				return false;
+		} else if (!valorFechamento.equals(other.valorFechamento))
+			return false;
+		if (valorTotal == null) {
+			if (other.valorTotal != null)
+				return false;
+		} else if (!valorTotal.equals(other.valorTotal))
+			return false;
 		return true;
 	}
 
-	
 	
 }

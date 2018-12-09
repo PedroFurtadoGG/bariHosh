@@ -52,4 +52,14 @@ public class CaixaRN extends ManuseioPublico {
 		this.caixaDAO = caixaDAO;
 	}
 
+	public Caixa RecuperaCaixaAberto() {
+		 Caixa caixaAberto = new Caixa();
+		  if(caixaAberto !=null ) {
+			  caixaAberto  = this.caixaDAO.recuperaCaixaAberto();
+			  
+		  }
+		 return caixaAberto;
+		
+	}
+
 }
