@@ -10,4 +10,5 @@ public interface FornecedorDAO {
 	public Fornecedor buscarPorLogin(String login);
 	public List<Fornecedor> listaFornecedores();
 	public List<Produto> ListaProdutosVinculados(Long id);
+	public List<Fornecedor> listaFiltrada(String numInscricao,String ramoAtividade , String razao );
 }

@@ -1,7 +1,9 @@
 package br.com.bariHosh.entidade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -12,7 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,29 +30,40 @@ public class Caixa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_caixa;
 
-	@Enumerated(EnumType.STRING)
-	private FormaPagamento forma_pagamento;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "caixa", fetch = FetchType.EAGER)
+	private List<Movimentacao> movimentacaoCaixa = new ArrayList<Movimentacao>();
 
-	private Double valor_total;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuarioCaixa;
 
-	private Double valor_desconto;
+	private Float valorAbertura;
 
-	private Double valor_acrescimo;
+	private Float valorFechamento;
 
-	private Integer qtd_prestacao;
-
-	private String categoria;
-
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_produto", nullable = false)
-	private Produto produto;
-
-	@Enumerated(EnumType.STRING)
-	private EnumMovimentoCaixa tipo_movimento;
+	private Float valorTotal;
 
 	@Temporal(TemporalType.DATE)
-	private Date data_movimentacao;
+	private Date data_abertura;
 
+	@Temporal(TemporalType.DATE)
+	private Date data_fechamento;
+
+	@Enumerated(EnumType.STRING)
+	private EnumStatusCaixa statusCaixa;
+	
+	
+	public void adicionaMovimentacao(Movimentacao mov) {
+		this.movimentacaoCaixa.add(mov);
+		mov.setCaixa(this);
+
+	}
+
+	public void removeMovimentacao(Movimentacao mov) {		
+			this.movimentacaoCaixa.remove(mov);
+			mov.setCaixa(null);
+
+		}
 	public Long getId_caixa() {
 		return id_caixa;
 	}
@@ -58,92 +72,83 @@ public class Caixa implements Serializable {
 		this.id_caixa = id_caixa;
 	}
 
-	public FormaPagamento getForma_pagamento() {
-		return forma_pagamento;
+	public List<Movimentacao> getMovimentacaoCaixa() {
+		return movimentacaoCaixa;
 	}
 
-	public void setForma_pagamento(FormaPagamento forma_pagamento) {
-		this.forma_pagamento = forma_pagamento;
+	public void setMovimentacaoCaixa(List<Movimentacao> movimentacaoCaixa) {
+		this.movimentacaoCaixa = movimentacaoCaixa;
 	}
 
-	public Double getValor_total() {
-		return valor_total;
+	public Usuario getUsuarioCaixa() {
+		return usuarioCaixa;
 	}
 
-	public void setValor_total(Double valor_total) {
-		this.valor_total = valor_total;
+	public void setUsuarioCaixa(Usuario usuarioCaixa) {
+		this.usuarioCaixa = usuarioCaixa;
 	}
 
-	public Double getValor_desconto() {
-		return valor_desconto;
+	public Float getValorAbertura() {
+		return valorAbertura;
 	}
 
-	public void setValor_desconto(Double valor_desconto) {
-		this.valor_desconto = valor_desconto;
+	public void setValorAbertura(Float valorAbertura) {
+		this.valorAbertura = valorAbertura;
 	}
 
-	public Double getValor_acrescimo() {
-		return valor_acrescimo;
+	public Float getValorFechamento() {
+		return valorFechamento;
 	}
 
-	public void setValor_acrescimo(Double valor_acrescimo) {
-		this.valor_acrescimo = valor_acrescimo;
+	public void setValorFechamento(Float valorFechamento) {
+		this.valorFechamento = valorFechamento;
 	}
 
-	public Integer getQtd_prestacao() {
-		return qtd_prestacao;
+	public Float getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setQtd_prestacao(Integer qtd_prestacao) {
-		this.qtd_prestacao = qtd_prestacao;
+	public void setValorTotal(Float valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
-	public String getCategoria() {
-		return categoria;
+	public Date getData_abertura() {
+		return data_abertura;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setData_abertura(Date data_abertura) {
+		this.data_abertura = data_abertura;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public Date getData_fechamento() {
+		return data_fechamento;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setData_fechamento(Date data_fechamento) {
+		this.data_fechamento = data_fechamento;
 	}
 
-	public EnumMovimentoCaixa getTipo_movimento() {
-		return tipo_movimento;
+	public EnumStatusCaixa getStatusCaixa() {
+		return statusCaixa;
 	}
 
-	public void setTipo_movimento(EnumMovimentoCaixa tipo_movimento) {
-		this.tipo_movimento = tipo_movimento;
-	}
-
-	public Date getData_movimentacao() {
-		return data_movimentacao;
-	}
-
-	public void setData_movimentacao(Date data_movimentacao) {
-		this.data_movimentacao = data_movimentacao;
+	public void setStatusCaixa(EnumStatusCaixa statusCaixa) {
+		this.statusCaixa = statusCaixa;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((categoria == null) ? 0 : categoria.hashCode());
-		result = prime * result + ((data_movimentacao == null) ? 0 : data_movimentacao.hashCode());
-		result = prime * result + ((forma_pagamento == null) ? 0 : forma_pagamento.hashCode());
+		result = prime * result + ((data_abertura == null) ? 0 : data_abertura.hashCode());
+		result = prime * result + ((data_fechamento == null) ? 0 : data_fechamento.hashCode());
 		result = prime * result + ((id_caixa == null) ? 0 : id_caixa.hashCode());
-		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
-		result = prime * result + ((qtd_prestacao == null) ? 0 : qtd_prestacao.hashCode());
-		result = prime * result + ((tipo_movimento == null) ? 0 : tipo_movimento.hashCode());
-		result = prime * result + ((valor_acrescimo == null) ? 0 : valor_acrescimo.hashCode());
-		result = prime * result + ((valor_desconto == null) ? 0 : valor_desconto.hashCode());
-		result = prime * result + ((valor_total == null) ? 0 : valor_total.hashCode());
+		result = prime * result + ((movimentacaoCaixa == null) ? 0 : movimentacaoCaixa.hashCode());
+		result = prime * result + ((statusCaixa == null) ? 0 : statusCaixa.hashCode());
+		result = prime * result + ((usuarioCaixa == null) ? 0 : usuarioCaixa.hashCode());
+		result = prime * result + ((valorAbertura == null) ? 0 : valorAbertura.hashCode());
+		result = prime * result + ((valorFechamento == null) ? 0 : valorFechamento.hashCode());
+		result = prime * result + ((valorTotal == null) ? 0 : valorTotal.hashCode());
 		return result;
 	}
 
@@ -156,51 +161,50 @@ public class Caixa implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Caixa other = (Caixa) obj;
-		if (categoria == null) {
-			if (other.categoria != null)
+		if (data_abertura == null) {
+			if (other.data_abertura != null)
 				return false;
-		} else if (!categoria.equals(other.categoria))
+		} else if (!data_abertura.equals(other.data_abertura))
 			return false;
-		if (data_movimentacao == null) {
-			if (other.data_movimentacao != null)
+		if (data_fechamento == null) {
+			if (other.data_fechamento != null)
 				return false;
-		} else if (!data_movimentacao.equals(other.data_movimentacao))
-			return false;
-		if (forma_pagamento != other.forma_pagamento)
+		} else if (!data_fechamento.equals(other.data_fechamento))
 			return false;
 		if (id_caixa == null) {
 			if (other.id_caixa != null)
 				return false;
 		} else if (!id_caixa.equals(other.id_caixa))
 			return false;
-		if (produto == null) {
-			if (other.produto != null)
+		if (movimentacaoCaixa == null) {
+			if (other.movimentacaoCaixa != null)
 				return false;
-		} else if (!produto.equals(other.produto))
+		} else if (!movimentacaoCaixa.equals(other.movimentacaoCaixa))
 			return false;
-		if (qtd_prestacao == null) {
-			if (other.qtd_prestacao != null)
+		if (statusCaixa != other.statusCaixa)
+			return false;
+		if (usuarioCaixa == null) {
+			if (other.usuarioCaixa != null)
 				return false;
-		} else if (!qtd_prestacao.equals(other.qtd_prestacao))
+		} else if (!usuarioCaixa.equals(other.usuarioCaixa))
 			return false;
-		if (tipo_movimento != other.tipo_movimento)
-			return false;
-		if (valor_acrescimo == null) {
-			if (other.valor_acrescimo != null)
+		if (valorAbertura == null) {
+			if (other.valorAbertura != null)
 				return false;
-		} else if (!valor_acrescimo.equals(other.valor_acrescimo))
+		} else if (!valorAbertura.equals(other.valorAbertura))
 			return false;
-		if (valor_desconto == null) {
-			if (other.valor_desconto != null)
+		if (valorFechamento == null) {
+			if (other.valorFechamento != null)
 				return false;
-		} else if (!valor_desconto.equals(other.valor_desconto))
+		} else if (!valorFechamento.equals(other.valorFechamento))
 			return false;
-		if (valor_total == null) {
-			if (other.valor_total != null)
+		if (valorTotal == null) {
+			if (other.valorTotal != null)
 				return false;
-		} else if (!valor_total.equals(other.valor_total))
+		} else if (!valorTotal.equals(other.valorTotal))
 			return false;
 		return true;
 	}
 
+	
 }

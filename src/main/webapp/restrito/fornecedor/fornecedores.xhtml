@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
 	<h:outputStylesheet name="css/site.min.css" />
 	<h:outputStylesheet library="webjars"
@@ -28,7 +29,11 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Fornecedores</h3>
+						<h3 class="panel-title">
+							<a href="javascript:void(0);" class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a> <b>Fornecedores</b>
+						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="content-row">
@@ -37,24 +42,51 @@
 									<div class="panel-title">
 										<b>Listagem de Fornecedor</b>
 									</div>
-									<div class="panel-options">
-										<a class="bg" data-target="#sample-modal-dialog-1"
-											data-toggle="modal" href="#sample-modal"><i
-											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
-											class="entypo-down-open"></i></a> <a data-rel="close"
-											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
-									</div>
 								</div>
 								<div class="panel-body">
+									<div class="form-group">
+										<div class="panel-body">
+											<div class="content-row">
+												<div class="panel panel-default">
+													<div class="panel-body">
+														<h:form id="busca" class="form-horizontal" name="busca">
+															<ui:insert name="messages">
+																<ui:include src="/restrito/common/messages.xhtml" />
+															</ui:insert>
+															<div class="form-group">
+																<div class="col-md-3">
+																	<h:inputText id="inscricao" class="form-control"
+																		value="#{fornecedorBean.fornecedorFiltro.numInscricao}"
+																		size="30" a:placeholder="Busca por Inscrição" />
+																</div>
+																<div class="col-md-3">
+																	<h:inputText id="ramo" class="form-control"
+																		value="#{fornecedorBean.fornecedorFiltro.ramoAtividade}"
+																		size="15" a:placeholder="Busca por Ramo" />
+																</div>
+																<div class="col-md-3">
+																	<h:inputText id="razao" class="form-control"
+																		value="#{fornecedorBean.fornecedorFiltro.razao}"
+																		size="15" a:placeholder="Busca por Razao" />
+																</div>
+																<div class="col-md-2">
+																	<h:commandButton action="#{clienteBean.filtrar()}"
+																		class="btn btn-info btn-block" a:type="submit"
+																		value="Filtrar" />
+																</div>
+															</div>
+														</h:form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 									<div class="bs-example">
 										<h:form>
-										<ui:insert name="messages">
-											<ui:include src="/restrito/common/messages.xhtml" />
-										</ui:insert>										
 											<div class="bs-example">
 												<h:dataTable class="table table-hover"
-													value="#{fornecedorBean.lista}" var="fornecedor" rules="row"
-													cellpadding="5">
+													value="#{fornecedorBean.lista}" var="fornecedor"
+													rules="row" cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
                                              #{fornecedor.id_fornecedor}
@@ -67,29 +99,27 @@
 														<f:facet name="header">E-Mail</f:facet>
 														<a href="mailto:#{fornecedor.pessoa.email}">#{fornecedor.pessoa.email}</a>
 													</h:column>
-													
 													<h:column>
 														<f:facet name="header">Telefone</f:facet>
 														<a href="mailto:#{fornecedor.pessoa.telefone}">#{fornecedor.pessoa.telefone}</a>
 													</h:column>
-													
 													<h:column>
 														<f:facet name="header">Editar</f:facet>
-
-														<h:commandLink action="#{fornecedorBean.editar()}">															
+														<h:commandLink action="#{fornecedorBean.editar()}">
 															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 															<f:setPropertyActionListener
-																target="#{fornecedorBean.fornecedor}" value="#{fornecedor}" />
+																target="#{fornecedorBean.fornecedor}"
+																value="#{fornecedor}" />
 														</h:commandLink>
 													</h:column>
-														<h:column>
+													<h:column>
 														<f:facet name="header">Excluir</f:facet>
-
 														<h:commandLink action="#{fornecedorBean.excluir}"
 															onclick="if (!confirm('Confirma a exclusão do usuário #{fornecedor.pessoa.nome}?')) return false;">
 															<i class="fa fa-trash-o"></i>
 															<f:setPropertyActionListener
-																target="#{fornecedorBean.fornecedor}" value="#{fornecedor}" />
+																target="#{fornecedorBean.fornecedor}"
+																value="#{fornecedor}" />
 														</h:commandLink>
 													</h:column>
 												</h:dataTable>

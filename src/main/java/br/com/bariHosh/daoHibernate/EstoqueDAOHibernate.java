@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import br.com.bariHosh.dao.EstoqueDAO;
 import br.com.bariHosh.entidade.*;
 import br.com.bariHosh.util.DAOFactory;
+import br.com.bariHosh.util.ManuseioPublico;
 
 public class EstoqueDAOHibernate extends GenericoDAOHibernate<Estoque> implements EstoqueDAO {
 
@@ -29,8 +30,12 @@ public class EstoqueDAOHibernate extends GenericoDAOHibernate<Estoque> implement
 
 	@Override
 	public Estoque pegaEstoquePeloProduto(Produto produto) {
+		String hql = "select e from Estoque e where e.produto = :idproduto and  e.ativo =1";
+		Query consulta = this.session.createQuery(hql);
+		consulta.setLong("idproduto", produto.getId_produto());		
+	    Estoque estoque = (Estoque) consulta.uniqueResult();
+		return estoque ;	
 		
-		return null;
 	}
 
 	@Override
@@ -50,6 +55,28 @@ public class EstoqueDAOHibernate extends GenericoDAOHibernate<Estoque> implement
 
 	public void setSession(Session session) {
 		this.session = session;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Estoque> listaFiltrada(Long id_produto, String nome, String barra) {
+		StringBuffer hql = new StringBuffer();
+
+		hql.append("select e from Estoque e LEFT JOIN FETCH e.produto p  ");
+		hql.append(" where p.nome like '%" + nome + "%' ");
+
+		if (!barra.equals("")) {
+			hql.append("and p.codigo_barras = :" + barra + "");
+		}
+		
+		if (!ManuseioPublico.validaObjeto(id_produto)) {
+			hql.append("and p.id_produto = :" + id_produto + "");
+		}
+		
+		Query consulta = this.session.createQuery(hql.toString());
+		List<Estoque> listaFiltrada = (List<Estoque>) consulta.list();
+		
+		return listaFiltrada;
 	}
 
 }

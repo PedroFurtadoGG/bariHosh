@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
 	<h:outputStylesheet name="css/site.min.css" />
 	<h:outputStylesheet library="webjars"
@@ -34,26 +35,60 @@
 						<div class="content-row">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<div class="panel-title">
-										<b>Listagem de Fabricantes</b>
-									</div>
-									<div class="panel-options">
-										<a class="bg" data-target="#sample-modal-dialog-1"
-											data-toggle="modal" href="#sample-modal"><i
-											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
-											class="entypo-down-open"></i></a> <a data-rel="close"
-											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
-									</div>
+									<h3 class="panel-title">
+										<a href="javascript:void(0);" class="toggle-sidebar"><span
+											class="fa fa-angle-double-left" data-toggle="offcanvas"
+											title="Maximize Panel"></span></a> <b>Fabricantes</b>
+									</h3>
 								</div>
 								<div class="panel-body">
+									<div class="form-group">
+										<div class="panel-body">
+											<div class="content-row">
+												<div class="panel panel-default">
+													<div class="panel-body">
+														<h:form id="busca" class="form-horizontal" name="busca">
+															<ui:insert name="messages">
+																<ui:include src="/restrito/common/messages.xhtml" />
+															</ui:insert>
+															<h3 class="panel-title">
+																<b>Buscar Fabricantes</b>
+															</h3>
+															<br />
+															<div class="form-group">
+																<div class="col-md-2">
+																	<h:inputText id="codigo" class="form-control"
+																		a:placeholder="Codigo"
+																		value="#{fabricanteBean.fabricanteFiltro.id_fabricante}"
+																		size="30">
+																	</h:inputText>
+																</div>
+																<div class="col-md-5">
+																	<h:inputText id="nome" class="form-control"
+																		a:placeholder="Busca Por Nome dFantasia"
+																		value="#{fabricanteBean.fabricanteFiltro.nomeFantasia}"
+																		size="30">
+																	</h:inputText>
+																</div>
+
+																<div class="col-md-2">
+																	<h:commandButton action="#{fabricanteBean.filtrar()}"
+																		class="btn btn-info btn-block" a:type="submit"
+																		value="Filtrar" />
+																</div>
+															</div>
+														</h:form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 									<div class="bs-example">
 										<h:form>
-											<ui:insert name="messages">
-											<ui:include src="/restrito/common/messages.xhtml" />
-										</ui:insert>
 											<div class="bs-example">
-											
-												<h:dataTable class="table table-hover" value="#{fabricanteBean.lista}" var="fab" rules="row"
+
+												<h:dataTable class="table table-hover"
+													value="#{fabricanteBean.lista}" var="fab" rules="row"
 													cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
@@ -63,23 +98,24 @@
 														<f:facet name="header">Razão Social</f:facet>
 														#{fab.razaoSocial}
 		                                          	</h:column>
-		                                          	<h:column>
-		                                          		<f:facet name="header">CNPJ</f:facet>
-		                                          		#{fab.cnpj}
-		                                          	</h:column>
-		                                          	<h:column>
-		                                          		<f:facet name="header">Nome Fantasia</f:facet>
+													<h:column>
+														<f:facet name="header">Nome Fantasia</f:facet>
 		                                          		#{fab.nomeFantasia}
 		                                          	</h:column>
-		                                          	<h:column>
-		                                          	
+													<h:column>
+														<f:facet name="header">CNPJ</f:facet>
+		                                          		#{fab.cnpj}
+		                                          	</h:column>
+
+													<h:column>
+
 														<f:facet name="header">Editar</f:facet>
 														<h:commandLink action="#{fabricanteBean.editar()}">
 															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 															<f:setPropertyActionListener
 																target="#{fabricanteBean.fabricante}" value="#{fab}" />
 														</h:commandLink>
-														
+
 													</h:column>
 													<h:column>
 														<f:facet name="header">Excluir</f:facet>
@@ -90,11 +126,16 @@
 															<f:setPropertyActionListener
 																target="#{fabricanteBean.fabricante}" value="#{fab}" />
 														</h:commandLink>
-														
+
 													</h:column>
 												</h:dataTable>
 											</div>
 										</h:form>
+									</div>
+									<div class="col-md-2">
+										<span style="float: left"><a
+											href="#{request.contextPath}/restrito/fabricante/fabricante.jsf"
+											class="btn btn-info btn-block">Novo</a> </span>
 									</div>
 								</div>
 							</div>

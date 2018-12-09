@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
 	<h:outputStylesheet name="css/site.min.css" />
 	<h:outputStylesheet library="webjars"
@@ -28,7 +29,11 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Usuários</h3>
+						<h3 class="panel-title">
+							<a href="javascript:void(0);" class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a> <b>Usuários</b>
+						</h3>
 					</div>
 
 
@@ -57,7 +62,10 @@
 												<h:dataTable class="table table-hover"
 													value="#{usuarioBean.lista}" var="usuario" rules="row"
 													cellpadding="5">
-
+													<h:column>
+														<f:facet name="header">Nome</f:facet>
+			                                             #{usuario.id_usuario}
+			                                          </h:column>
 													<h:column>
 														<f:facet name="header">Nome</f:facet>
 			                                             #{usuario.pessoa.nome}
@@ -86,6 +94,11 @@
 												</h:dataTable>
 											</div>
 										</h:form>
+									</div>
+									<div class="col-md-2">
+										<span style="float: left"><a
+											href="#{request.contextPath}/restrito/usuario/usuario.jsf"
+											class="btn btn-info btn-block">Novo</a> </span>
 									</div>
 								</div>
 							</div>

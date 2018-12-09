@@ -9,7 +9,6 @@
 		<property name="current_session_context_class">thread</property>
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<property name="hibernate.show_sql">true</property>
-		
 		<mapping class="br.com.bariHosh.entidade.Usuario" />
 		<mapping class="br.com.bariHosh.entidade.Pessoa" />
 		<mapping class="br.com.bariHosh.entidade.Fornecedor" />
@@ -23,7 +22,9 @@
 		<mapping class="br.com.bariHosh.entidade.Log_Estoque" />
 		<mapping class="br.com.bariHosh.entidade.Pagamento" />
 		<mapping class="br.com.bariHosh.entidade.Comanda" />
-		<mapping class="br.com.bariHosh.entidade.Produto" />		
+		<mapping class="br.com.bariHosh.entidade.Produto" />
+		<mapping class="br.com.bariHosh.entidade.Despesa" />
+		<mapping class="br.com.bariHosh.entidade.Movimentacao" />		
 		<mapping class="br.com.bariHosh.entidade.GrupoProduto" />
 		<mapping class="br.com.bariHosh.entidade.Caixa" />
 	</session-factory>

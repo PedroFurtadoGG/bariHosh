@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	<link rel="shortcut icon" href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
 	<link rel="bookmark" href="favicon_16.ico" />
 	<h:outputStylesheet name="css/site.min.css" />
 	<h:outputStylesheet library="webjars"
@@ -28,7 +29,11 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Produtos</h3>
+						<h3 class="panel-title">
+							<a href="javascript:void(0);" class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a> <b>Produtos</b>
+						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="content-row">
@@ -37,65 +42,93 @@
 									<div class="panel-title">
 										<b>Listagem de Produtos</b>
 									</div>
-									<div class="panel-options">
-										<a class="bg" data-target="#sample-modal-dialog-1"
-											data-toggle="modal" href="#sample-modal"><i
-											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
-											class="entypo-down-open"></i></a> <a data-rel="close"
-											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
-									</div>
 								</div>
 								<div class="panel-body">
+									<div class="form-group">
+										<div class="panel-body">
+											<div class="content-row">
+												<div class="panel panel-default">
+													<div class="panel-body">
+														<h:form id="busca" class="form-horizontal" name="busca">
+															<ui:insert name="messages">
+																<ui:include src="/restrito/common/messages.xhtml" />
+															</ui:insert>
+															<h3 class="panel-title">
+																<b>Buscar Produtos</b>
+															</h3>
+															<br />
+															<div class="form-group">
+																<div class="col-md-2">
+																	<h:inputText id="codigo" class="form-control"
+																		a:placeholder="Codigo"
+																		value="#{produtoBean.produtoFiltro.id_produto}"
+																		size="30">
+																	</h:inputText>
+																</div>
+																<div class="col-md-5">
+																	<h:inputText id="nome" class="form-control"
+																		a:placeholder="Busca Por Nome do Produto"
+																		value="#{produtoBean.produtoFiltro.nome}" size="30">
+																	</h:inputText>
+																</div>
+																<div class="col-md-3">
+																	<h:inputText id="cdbarra" class="form-control"
+																		a:placeholder="Busca Por Cod Barra"
+																		value="#{produtoBean.produtoFiltro.codigo_barras}"
+																		size="30">
+																	</h:inputText>
+																</div>
+																<div class="col-md-2">
+																	<h:commandButton action="#{produtoBean.filtrar()}"
+																		class="btn btn-info btn-block" a:type="submit"
+																		value="Filtrar" />
+																</div>
+															</div>
+														</h:form>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 									<div class="bs-example">
 										<h:form>
-										<ui:insert name="messages">
-											<ui:include src="/restrito/common/messages.xhtml" />
-										</ui:insert>
 											<div class="bs-example">
-											
-												<h:dataTable class="table table-hover" value="#{produtoBean.listaProdutos}" var="produto"  cellpadding="5">
+												<h:dataTable class="table table-hover"
+													value="#{produtoBean.listaProdutos}" var="produto"
+													cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
-		                                             	#{produto.id_produto}
-		                                          	</h:column>
-		                                          	
+                                             #{produto.id_produto}
+                                          </h:column>
 													<h:column>
 														<f:facet name="header">Nome</f:facet>
-		                                             	#{produto.nome}
-		                                          	</h:column>
-		                                          	
-		                                          	<h:column>
+                                             #{produto.nome}
+                                          </h:column>
+													<h:column>
 														<f:facet name="header">Valor de Entrada</f:facet>
-		                                             	#{produto.valorEntrada}
-		                                          	</h:column>  
-		                                          	
-		                                          	<h:column>
+                                             #{produto.valorEntrada}
+                                          </h:column>
+													<h:column>
 														<f:facet name="header">Valor de Saída</f:facet>
-		                                             	#{produto.valorSaida}
-		                                          	</h:column>          	
-		                                          	
-		                                          	
-		                                          	<h:column>
+                                             #{produto.valorSaida}
+                                          </h:column>
+													<h:column>
 														<f:facet name="header">Qtde em Estoque</f:facet>
-		                                             	#{produto.estoque.qtd_produto}
-		                                          	</h:column>
-		                                          	
-		                                          	<h:column>
+                                             #{produto.estoque.qtd_produto}
+                                          </h:column>
+													<h:column>
 														<f:facet name="header">Categoria do Produto</f:facet>
-		                                             	#{produto.categoria.descricao}
-		                                          	</h:column>
-		                                          	
-		                                          	<h:column>
+                                             #{produto.categoria.descricao}
+                                          </h:column>
+													<h:column>
 														<f:facet name="header">Fornecedor</f:facet>
-		                                             	#{produto.fornecedor.pessoa.nome}
-		                                          	</h:column>
-		                                          	
-		                                          	<h:column>
+                                             #{produto.fornecedor.pessoa.nome}
+                                          </h:column>
+													<h:column>
 														<f:facet name="header">Marca</f:facet>
-		                                             	#{produto.marca_produto.nome}
-		                                          	</h:column>
-		                                          	
-		                                          	<h:column>
+                                             #{produto.marca_produto.nome}
+                                          </h:column>
+													<h:column>
 														<f:facet name="header">Editar</f:facet>
 														<h:commandLink action="#{produtoBean.editar()}">
 															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -103,10 +136,8 @@
 																target="#{produtoBean.produto}" value="#{produto}" />
 														</h:commandLink>
 													</h:column>
-		                                          	
 													<h:column>
 														<f:facet name="header">Excluir</f:facet>
-
 														<h:commandLink action="#{produtoBean.excluir}"
 															onclick="if (!confirm('Confirma a exclusão do produto #{produto.nome}?')) return false;">
 															<i class="fa fa-trash-o"></i>
@@ -117,6 +148,11 @@
 												</h:dataTable>
 											</div>
 										</h:form>
+									</div>
+									<div class="col-md-2">
+										<span style="float: left"><a
+											href="#{request.contextPath}/restrito/produto/produto.jsf"
+											class="btn btn-info btn-block">Novo</a> </span>
 									</div>
 								</div>
 							</div>

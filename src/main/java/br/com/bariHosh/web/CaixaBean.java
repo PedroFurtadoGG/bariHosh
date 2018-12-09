@@ -1,120 +1,238 @@
 package br.com.bariHosh.web;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
-import br.com.bariHosh.entidade.Cliente;
+import br.com.bariHosh.entidade.Caixa;
 import br.com.bariHosh.entidade.Comanda;
-import br.com.bariHosh.entidade.ItemComanda;
-import br.com.bariHosh.entidade.Produto;
-import br.com.bariHosh.negocio.ClienteRN;
+import br.com.bariHosh.entidade.Despesa;
+import br.com.bariHosh.entidade.EnumMovimentoCaixa;
+import br.com.bariHosh.entidade.EnumStatusCaixa;
+import br.com.bariHosh.entidade.EnumStatusComanda;
+import br.com.bariHosh.entidade.EnumStatusPagamento;
+import br.com.bariHosh.entidade.FormaPagamento;
+import br.com.bariHosh.entidade.Movimentacao;
+import br.com.bariHosh.entidade.Pagamento;
+import br.com.bariHosh.entidade.Usuario;
+import br.com.bariHosh.negocio.CaixaRN;
 import br.com.bariHosh.negocio.ComandaRN;
-import br.com.bariHosh.negocio.ItemComandaRN;
-import br.com.bariHosh.negocio.ProdutoRN;
+import br.com.bariHosh.negocio.UsuarioRN;
+import br.com.bariHosh.util.ManuseioPublico;
 
-@ManagedBean(name = "comandaBean")
-@RequestScoped
-public class CaixaBean {
+@ManagedBean(name = "caixaBean")
+@SessionScoped
+public class CaixaBean implements Serializable {
 
-	private List<Cliente> Clientes ;
-	private List<Produto> Produtos;
-	private List<ItemComanda> itensComanda;
-	private List<Comanda> comandasAbertas;
-	private List<Comanda> comandasEncerradas;
-	
-	private Cliente cliente = new Cliente();
-	private Produto produto = new Produto();
-	private Comanda comanda = new Comanda();
-	private ItemComanda itemComanda = new ItemComanda();
+	private static final long serialVersionUID = -6414690959254535730L;
+
+	private FormaPagamento forma_pagamento;
+	private EnumMovimentoCaixa tipo_movimentacao;
 	private String destinoSalvar;
-	private ClienteRN clienteRN;
-	private ProdutoRN produtoRN;
-	private ComandaRN comandaRN;
-	private ItemComandaRN itemComandaRN;
+	private ComandaRN comandaRN = new ComandaRN();
+	private Comanda comanda = new Comanda();
+	private Caixa caixa = new Caixa();
+	private CaixaRN caixaRN = new CaixaRN();
+	private Despesa despesa = new Despesa();
+	private Pagamento pagamento = new Pagamento();
+	private Movimentacao movimentacao = new Movimentacao();
+	private boolean painelCaixaRenderizado;
+	private boolean formFechaCaixaRenderizado;
+	private boolean formAbreCaixaRenderizado;
+	private boolean formSangriaCaixaRenderizado;
 
-	public CaixaBean() {
-		this.destinoSalvar = "comanda";
-		this.itemComanda = new ItemComanda();
-		this.itemComandaRN = new ItemComandaRN();
-		this.clienteRN = new ClienteRN();
-		this.produtoRN = new ProdutoRN();
-		this.comandaRN = new ComandaRN();
-		this.comanda.setData(new Date());
-	
-		
+	private List<Movimentacao> movimentacoesCaixa = new ArrayList<Movimentacao>();
 
-	}
-	
-	public String editar() {
-		return "/restrito/comanda/comanda";
-		
+	@PostConstruct
+	public void init() {
+		InicializaCaixa();
+		System.out.println("entrou construtor");
 	}
 
-	public String salvar() {
-		  this.destinoSalvar ="comandasAberto";
-		return "/restrito/comanda/comandasAberto2";
+	public  String InicializaCaixa() {
+		Comanda comanda_encerrada = new ComandaRN().recuperaComandaParaEdicao("id_comanda_encerrada");
+		if (comanda_encerrada != null) {
+			this.comanda = comanda_encerrada;
+			this.pagamento.setValorTotal(this.comanda.getValorTotal());
+		}
+		Caixa caixaAberto = new CaixaRN().RecuperaCaixaAberto();
+		if (caixaAberto != null) {
+			this.caixa = caixaAberto;
+			this.painelCaixaRenderizado = true;
+			this.formFechaCaixaRenderizado = false;
+			this.formAbreCaixaRenderizado = false;
+			this.formSangriaCaixaRenderizado = false;
+		} else {
+			Usuario usuarioLogado  = new UsuarioRN().buscarPorUsuarioLogado();
+			this.caixa.setUsuarioCaixa(usuarioLogado);
+			this.painelCaixaRenderizado = false;
+			this.formFechaCaixaRenderizado = false;
+			this.formAbreCaixaRenderizado = true;
+			this.formSangriaCaixaRenderizado = false;
+
+		}
+		return "/restrito/caixa/caixa";
+
 	}
+
+	public void minimizarFechaCaixa() {
+		if (this.formFechaCaixaRenderizado == false) {
+			this.formFechaCaixaRenderizado = true;
+		} else {
+			this.formFechaCaixaRenderizado = false;
+		}
+
+	}
+
+	public void minimizarAbreCaixa() {
+		if (this.formAbreCaixaRenderizado == false) {
+			this.formAbreCaixaRenderizado = true;
+		} else {
+			this.formAbreCaixaRenderizado = false;
+		}
+	}
+
+	public void minimizarCaixa() {
+		if (this.painelCaixaRenderizado == false) {
+			this.painelCaixaRenderizado = true;
+		} else {
+			this.painelCaixaRenderizado = false;
+		}
+
+	}
+
+	public void minimizarSangriaCaixa() {
+		if (this.formSangriaCaixaRenderizado == false) {
+			this.formSangriaCaixaRenderizado = true;
+		} else {
+			this.formSangriaCaixaRenderizado = false;
+		}
+
+	}
+
 	public String novo() {
+		this.pagamento = new Pagamento();
 		this.comanda = new Comanda();
-		this.itemComanda = new ItemComanda();
-		this.cliente = new Cliente();
-		this.destinoSalvar = "comandasAberto";
-		this.itemComandaRN = new ItemComandaRN();
-		this.clienteRN = new ClienteRN();
-		this.produtoRN = new ProdutoRN();
 		this.comandaRN = new ComandaRN();
-		this.itensComanda = new ArrayList<ItemComanda>() ;
-		this.comanda.setData(new Date());
-		this.comanda.setCliente(this.cliente);
-		this.itemComanda.setProduto(this.produto);
-		
-		return null;
-	}
-	public String adicionarItem() {
-		this.itemComanda.setValorUnitario(this.itemComanda.getProduto().getValorSaida());
-		this.itemComanda.setValorTotal(this.itemComanda.getProduto().getValorSaida()*this.itemComanda.getQuantidade());
-		this.comanda.adicionaItemComanda(this.itemComanda);
-		if (this.comandaRN.salvar(this.comanda)) {
-			this.destinoSalvar = "comanda";
-			this.itemComanda = new ItemComanda();
-			this.itensComanda = null;
-			this.getItensComanda();
-		}
+		this.despesa = new Despesa();
+		this.destinoSalvar = "caixa";
 		return this.destinoSalvar;
+	}
+
+	public String abrirCaixa() {
+		System.out.println("abriur");		
+		this.caixa.setMovimentacaoCaixa(this.movimentacoesCaixa);
+		this.caixa.setData_abertura(new Date());
+		this.caixa.setValorTotal(this.caixa.getValorAbertura());
+		this.caixa.setStatusCaixa(EnumStatusCaixa.ABERTO);		
+		if(new CaixaRN().salvar(this.caixa)) {			
+			this.painelCaixaRenderizado = true;
+			this.formAbreCaixaRenderizado = false;
+		}
+		return "caixa";
+	}
+
+	public String fechaCaixa() {
+		System.out.println("fechou");
+		this.painelCaixaRenderizado = false;
+		ManuseioPublico.MessagesSucesso("Caixa fechado ");
+		this.caixa.setMovimentacaoCaixa(this.movimentacoesCaixa);
+		this.caixa.setData_fechamento(new Date());
+		this.caixa.setStatusCaixa(EnumStatusCaixa.FECHADO);
+		if(new CaixaRN().salvar(this.caixa)) {			
+			this.painelCaixaRenderizado = false;
+			this.formAbreCaixaRenderizado = true;
+			this.formFechaCaixaRenderizado = false;
+		}
+		return "caixa";
+	}
+
+	public void finalizarMovimentacaoComanda() {
+		this.pagamento.setCompletamenteRecebido(true);
+		this.pagamento.setStatusPagamento(EnumStatusPagamento.FINALIZADO);
+		this.pagamento.setDespesa(new Despesa());
+		this.pagamento.getDespesa().setValorTotalDespesa(this.comanda.getValorTotal());
+		this.pagamento.getDespesa().setDataCricacaoDespesa(new Date());
+		this.pagamento.getDespesa().setComanda(this.comanda);
+		this.movimentacao.setDataInicialMovimentacao(new Date());
+		this.movimentacao.setTipo_movimento(EnumMovimentoCaixa.EN);
+		this.movimentacao.setDataFinalMovimentacao(new Date());
+		this.movimentacao.setPagamentoComanda(this.pagamento);
+		this.caixa.setValorTotal(this.caixa.getValorTotal()+this.pagamento.getValorTotal());
+		this.caixa.adicionaMovimentacao(this.movimentacao);		
+		if (this.caixaRN.salvar(caixa)) {
+			this.comanda.setStatusComanda(EnumStatusComanda.FINALIZADO);
+			new ComandaRN().atualiza(this.comanda);
+			this.comanda = new Comanda();
+			this.pagamento = new Pagamento();
+			this.despesa = new Despesa();
+
+			ManuseioPublico.MessagesSucesso("Transação concluida com sucesso ");
+			ManuseioPublico.MessagesSucesso("Caixa Livre  ");
+		}
 
 	}
 
-	public String excluir() {
-		try {		
-		this.comanda.removeItemComanda(this.itemComanda);	
-		if (this.comandaRN.salvar(this.comanda)) {
-			this.destinoSalvar = "comanda";
-			this.itemComanda = new ItemComanda();
-			this.itensComanda = null;
-			this.getItensComanda();
-		}
-		System.out.println("testyesssss");
-		}catch (Exception e) {
-		System.out.println(e.getMessage());
-		}
-		return "comandasAberto";
+	public void alteraValorTotalPagamento() {
+		this.pagamento.setValorTotal(
+				this.comanda.getValorTotal() + this.pagamento.getValorAcrescimo() - this.pagamento.getDesconto());
+
 	}
-	
-	public String excluirComanda() {
-			
-		System.out.println("testyesssss");
-		if (this.comandaRN.excluir(this.comanda)) {
-		  	System.out.println("testyesssss22"+this.comanda.getId_comanda());
-			this.itensComanda = null;
-			this.getItensComanda();
+
+	public String buscarComanda() {
+		Comanda comandarecuperada = new ComandaRN().carregarComanda(this.comanda.getId_comanda());
+		if (comandarecuperada != null) {
+			this.comanda = comandarecuperada;
+			this.pagamento.setValorTotal(this.comanda.getValorTotal());
 		}
-		return null;
+
+		return "caixa";
+
 	}
-	
+
+	@SuppressWarnings("static-access")
+	public FormaPagamento[] getForma_pagamento() {
+		return forma_pagamento.values();
+	}
+
+	@SuppressWarnings("static-access")
+	public FormaPagamento getForma_pagamentosel() {
+		return forma_pagamento.DINHEIRO_VISTA;
+	}
+
+	public void setForma_pagamento(FormaPagamento forma_pagamento) {
+		this.forma_pagamento = forma_pagamento;
+	}
+
+	public Caixa getCaixa() {
+		return caixa;
+	}
+
+	public void setCaixa(Caixa caixa) {
+		this.caixa = caixa;
+	}
+
+	public Comanda getComanda() {
+		return this.comanda;
+	}
+
+	public void setComanda(Comanda comanda) {
+		this.comanda = comanda;
+	}
+
+	@SuppressWarnings("static-access")
+	public EnumMovimentoCaixa[] getTipo_movimentacao() {
+		return tipo_movimentacao.values();
+	}
+
+	public void setTipo_movimentacao(EnumMovimentoCaixa tipo_movimentacao) {
+		this.tipo_movimentacao = tipo_movimentacao;
+	}
 
 	public String getDestinoSalvar() {
 		return destinoSalvar;
@@ -124,85 +242,84 @@ public class CaixaBean {
 		this.destinoSalvar = destinoSalvar;
 	}
 
-	public List<Cliente> getClientes() {
-		if (this.Clientes == null ) {
-			this.Clientes = clienteRN.listar();
-		}
-		return Clientes;
+	public ComandaRN getComandaRN() {
+		return comandaRN;
 	}
 
-	public List<Produto> getProdutos() {
-		if (this.Produtos == null) {
-			this.Produtos = this.produtoRN.listar();
-		}
-		return Produtos;
-	}
-	
-	public List<ItemComanda> getItensComanda() {
-		if (this.itensComanda == null) {
-			if (this.comanda.getId_comanda() != null) {
-				this.itensComanda = this.itemComandaRN.listaIntemComandaPorComandaId(this.comanda.getId_comanda());
-			}
-
-		}
-		return this.itensComanda;
-	}
-	
-	public Cliente getCliente() {
-		return cliente;
+	public void setComandaRN(ComandaRN comandaRN) {
+		this.comandaRN = comandaRN;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public Despesa getDespesa() {
+		return despesa;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public void setDespesa(Despesa despesa) {
+		this.despesa = despesa;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public Pagamento getPagamento() {
+		return pagamento;
 	}
 
-	public ItemComanda getItemComanda() {
-		return itemComanda;
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 
-	public void setItemComanda(ItemComanda itemComanda) {
-		this.itemComanda = itemComanda;
+	public Movimentacao getMovimentacao() {
+		return movimentacao;
 	}
 
-	public Comanda getComanda() {
-		return comanda;
+	public void setMovimentacao(Movimentacao movimentacao) {
+		this.movimentacao = movimentacao;
 	}
 
-	public void setComanda(Comanda comanda) {
-		this.comanda = comanda;
+	public List<Movimentacao> getMovimentacoesCaixa() {
+		return movimentacoesCaixa;
 	}
 
-	
-			
-
-	public List<Comanda> getComandasEncerradas() {
-		if (this.comandasEncerradas == null) {
-			this.comandasEncerradas = this.comandaRN.listaComandasStatus(false);
-
-		}
-		return this.comandasEncerradas;
+	public void setMovimentacoesCaixa(List<Movimentacao> movimentacoesCaixa) {
+		this.movimentacoesCaixa = movimentacoesCaixa;
 	}
-	
 
-	public List<Comanda> getComandasAbertas() {
-		if (this.comandasAbertas == null) {
-			this.comandasAbertas = this.comandaRN.listaComandasStatus(true);
-
-		}
-		return this.comandasAbertas;
+	public CaixaRN getCaixaRN() {
+		return caixaRN;
 	}
-	
 
-	
+	public void setCaixaRN(CaixaRN caixaRN) {
+		this.caixaRN = caixaRN;
+	}
 
-	
+	public boolean isFormFechaCaixaRenderizado() {
+		return formFechaCaixaRenderizado;
+	}
 
+	public void setFormFechaCaixaRenderizado(boolean formFechaCaixaRenderizado) {
+		this.formFechaCaixaRenderizado = formFechaCaixaRenderizado;
+	}
+
+	public boolean isFormAbreCaixaRenderizado() {
+		return formAbreCaixaRenderizado;
+	}
+
+	public void setFormAbreCaixaRenderizado(boolean formAbreCaixaRenderizado) {
+		this.formAbreCaixaRenderizado = formAbreCaixaRenderizado;
+	}
+
+	public boolean isPainelCaixaRenderizado() {
+		return painelCaixaRenderizado;
+	}
+
+	public void setPainelCaixaRenderizado(boolean painelCaixaRenderizado) {
+
+		this.painelCaixaRenderizado = painelCaixaRenderizado;
+	}
+
+	public boolean isFormSangriaCaixaRenderizado() {
+		return formSangriaCaixaRenderizado;
+	}
+
+	public void setFormSangriaCaixaRenderizado(boolean formSangriaCaixaRenderizado) {
+		this.formSangriaCaixaRenderizado = formSangriaCaixaRenderizado;
+	}
 }
