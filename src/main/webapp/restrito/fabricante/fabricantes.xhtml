@@ -51,6 +51,10 @@
 															<ui:insert name="messages">
 																<ui:include src="/restrito/common/messages.xhtml" />
 															</ui:insert>
+															<h3 class="panel-title">
+																<b>Buscar Fabricantes</b>
+															</h3>
+															<br />
 															<div class="form-group">
 																<div class="col-md-2">
 																	<h:inputText id="codigo" class="form-control"
@@ -95,13 +99,14 @@
 														#{fab.razaoSocial}
 		                                          	</h:column>
 													<h:column>
-														<f:facet name="header">CNPJ</f:facet>
-		                                          		#{fab.cnpj}
-		                                          	</h:column>
-													<h:column>
 														<f:facet name="header">Nome Fantasia</f:facet>
 		                                          		#{fab.nomeFantasia}
 		                                          	</h:column>
+													<h:column>
+														<f:facet name="header">CNPJ</f:facet>
+		                                          		#{fab.cnpj}
+		                                          	</h:column>
+
 													<h:column>
 
 														<f:facet name="header">Editar</f:facet>
@@ -127,7 +132,7 @@
 											</div>
 										</h:form>
 									</div>
-										<div class="col-md-2">
+									<div class="col-md-2">
 										<span style="float: left"><a
 											href="#{request.contextPath}/restrito/fabricante/fabricante.jsf"
 											class="btn btn-info btn-block">Novo</a> </span>

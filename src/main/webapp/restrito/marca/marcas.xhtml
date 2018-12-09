@@ -32,7 +32,7 @@
 						<h3 class="panel-title">
 							<a href="javascript:void(0);" class="toggle-sidebar"><span
 								class="fa fa-angle-double-left" data-toggle="offcanvas"
-								title="Maximize Panel"></span></a> <b>Fornecedores</b>
+								title="Maximize Panel"></span></a> <b>Marcas</b>
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -55,16 +55,20 @@
 																<ui:insert name="messages">
 																	<ui:include src="/restrito/common/messages.xhtml" />
 																</ui:insert>
+																<h3 class="panel-title">
+																	<b>Buscar Marcas</b>
+																</h3>
+																<br/>
 																<div class="form-group">
 																	<div class="col-md-3">
-																		<h:inputText id="inscricao" class="form-control"
-																			value="#{marcaBean.marcaFiltro.id_marca}"
-																			size="30" a:placeholder="Busca por Codigo" />
+																		<h:inputText id="codigo" class="form-control"
+																			value="#{marcaBean.marcaFiltro.id_marca}" size="30"
+																			a:placeholder="Busca por Codigo" />
 																	</div>
 																	<div class="col-md-3">
-																		<h:inputText id="ramo" class="form-control"
-																			value="#{marcaBean.marcaFiltro.nome}"
-																			size="15" a:placeholder="Busca por Nome" />
+																		<h:inputText id="marca" class="form-control"
+																			value="#{marcaBean.marcaFiltro.nome}" size="15"
+																			a:placeholder="Busca por Nome" />
 																	</div>
 																	<div class="col-md-2">
 																		<h:commandButton action="#{marcaBean.filtrar()}"

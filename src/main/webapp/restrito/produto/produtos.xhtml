@@ -53,6 +53,10 @@
 															<ui:insert name="messages">
 																<ui:include src="/restrito/common/messages.xhtml" />
 															</ui:insert>
+															<h3 class="panel-title">
+																<b>Buscar Produtos</b>
+															</h3>
+															<br />
 															<div class="form-group">
 																<div class="col-md-2">
 																	<h:inputText id="codigo" class="form-control"
@@ -75,7 +79,7 @@
 																	</h:inputText>
 																</div>
 																<div class="col-md-2">
-																	<h:commandButton action="#{produtBean.filtrar()}"
+																	<h:commandButton action="#{produtoBean.filtrar()}"
 																		class="btn btn-info btn-block" a:type="submit"
 																		value="Filtrar" />
 																</div>
@@ -144,6 +148,11 @@
 												</h:dataTable>
 											</div>
 										</h:form>
+									</div>
+									<div class="col-md-2">
+										<span style="float: left"><a
+											href="#{request.contextPath}/restrito/produto/produto.jsf"
+											class="btn btn-info btn-block">Novo</a> </span>
 									</div>
 								</div>
 							</div>

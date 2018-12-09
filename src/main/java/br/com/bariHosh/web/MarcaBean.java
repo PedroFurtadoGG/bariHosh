@@ -121,7 +121,7 @@ public class MarcaBean {
 
 		this.lista = marcaRN.listaFiltrada(marcaFiltro.getId_marca(), marcaFiltro.getNome());
 
-		return "/restrito/cliente/clientes";
+		return "/restrito/marca/marcas";
 	}
 
 }
