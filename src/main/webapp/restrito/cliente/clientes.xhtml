@@ -75,7 +75,7 @@
 																<div class="col-md-3">
 																	<h:inputText id="cpf"
 																		value="#{clienteBean.clienteFiltro.pessoa.cpf}"
-																		maxlength="14" a:required="true" class="form-control"
+																		maxlength="14" class="form-control"
 																		onkeyup="mascara(this, validaCPF);"
 																		a:placeholder="Busca por CPF" name="cpf"
 																		validatorMessage="Cpf Invalido">
@@ -138,6 +138,10 @@
 														<f:facet name="header">Nome</f:facet>
 							                              #{cliente.pessoa.nome}
 							                            </h:column>
+							                          	<h:column>
+														<f:facet name="header">CPF</f:facet>
+							                              #{cliente.pessoa.cpf}
+							                            </h:column>  
 													<h:column>
 														<f:facet name="header">Data Nascimento</f:facet>
 														<h:outputText value="#{cliente.pessoa.dt_nascimento}">

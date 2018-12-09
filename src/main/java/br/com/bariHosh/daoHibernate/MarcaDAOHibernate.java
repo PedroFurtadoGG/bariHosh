@@ -16,6 +16,7 @@ public class MarcaDAOHibernate  extends GenericoDAOHibernate<Marca>  implements 
 	
 	  private Session session  = DAOFactory.PegarSession();
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Produto> ListaProdutosVinculados(Long id) {
 		String hql = "select p from Produto p where p.marca_produto = :idmarca";
@@ -43,13 +44,15 @@ public class MarcaDAOHibernate  extends GenericoDAOHibernate<Marca>  implements 
 	public List<Marca> listaFiltrada(Long id_marca, String nome) {
 		StringBuffer hql = new StringBuffer();
 
-		hql.append("select c from Marca c LEFT JOIN FETCH c.pessoa p  ");
-		hql.append(" where p.nome like '%" + nome + "%' ");
+		hql.append("select m from Marca m where 1=1");
+		
+		if (ManuseioPublico.validaObjeto(nome)) {
+			hql.append(" and m.nome like '%" + nome + "%' ");
+		}
+		
 
-
-
-		if (!ManuseioPublico.validaObjeto(id_marca)) {
-			hql.append(" and c.id_marca = " + id_marca + " ");
+		if (ManuseioPublico.validaObjeto(id_marca)) {
+			hql.append(" and m.id_marca = " + id_marca + " ");
 		}
 
 		Query consulta = this.session.createQuery(hql.toString());
