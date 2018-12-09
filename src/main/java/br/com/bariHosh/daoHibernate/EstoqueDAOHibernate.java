@@ -7,7 +7,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.bariHosh.dao.EstoqueDAO;
-import br.com.bariHosh.entidade.*;
+import br.com.bariHosh.entidade.Estoque;
+import br.com.bariHosh.entidade.GrupoProduto;
+import br.com.bariHosh.entidade.Produto;
 import br.com.bariHosh.util.DAOFactory;
 import br.com.bariHosh.util.ManuseioPublico;
 

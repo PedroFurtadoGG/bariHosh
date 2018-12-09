@@ -152,6 +152,7 @@ public class ComandaBean implements Serializable {
 	public String salvarComanda() {
 		this.comandaRN = new ComandaRN();
 		    this.comanda.setStatusComanda(EnumStatusComanda.EM_ABERTO);
+		    this.comanda.setAtivo(true);
 		if (this.comandaRN.salvar(this.comanda)) {
 			this.comanda = new Comanda();
 			this.destinoSalvar = "comandasAberto";
@@ -306,5 +307,13 @@ public class ComandaBean implements Serializable {
 	public void setPessoaFiltro(Pessoa pessoaFiltro) {
 		this.pessoaFiltro = pessoaFiltro;
 	}
+	
+	public String filtrarFechadas() {
+
+		this.comandasAbertas = comandaRN.listaFiltradaFechada(comandaFiltro.getId_comanda(), comandaFiltro.getCliente().getPessoa().getNome());
+
+		return "/restrito/comanda/comandasAberto";
+	}
+	
 
 }
