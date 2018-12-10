@@ -14,7 +14,7 @@
 		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
 		rel='stylesheet' type='text/css' />
 	<h:outputScript name="js/site.min.js" />
-	<title>Usuários</title>
+	<title>Dashboard</title>
 </h:head>
 <h:body>
 	<ui:insert name="header">
@@ -44,50 +44,37 @@
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
 												<img class="img-rounded"
-													src="https://lasangrealrio.files.wordpress.com/2015/04/sin-tc3adtulo.jpg" />
+													 />
 												<div class="caption text-center">
 													<h3>Clientes Cadastrados</h3>
-													<p>Numero de Clientes</p>
-													<p> 
-													
-													</p>
 													
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded"
-													src="https://ci.memecdn.com/6927068.jpg" />
+												<img class="img-rounded"  />
 												<div class="caption text-center">
 													<h3>Total Recebimentos</h3>
-													<p>recebidos do caixa</p>
-													<p>
-													
-													</p>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
 												<img class="img-rounded"
-													src="https://ci.memecdn.com/6927068.jpg" />
+													 />
 												<div class="caption text-center">
 													<h3>Total Saidas</h3>
-													<p>retirados do caixa</p>
-													<p>
 													
-													</p>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
 												<img class="img-rounded"
-													src="http://www.praxinoscope.jp/jpeg/Georges_artworks/2011Romance2967.jpg" />
+													 />
 												<div class="caption text-center">
 													<h3> Roshs Vendidos</h3>
-													<p>total de rosh vendidos</p>
 													
 												</div>
 											</div>
@@ -96,18 +83,18 @@
 									
 									<div class="bs-example">
 											<h3>Comandas Abertas</h3>
-												<h:dataTable class="table table-hover" value="#{marcaBean.lista}" var="marca"  cellpadding="5">
+												<h:dataTable class="table table-hover" value="#{dashBean.listaComanda}" var="comanda"  cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
-		                                             	#{marca.id_marca}
+		                                             	#{comanda.id_comanda}
 		                                          	</h:column>
 													<h:column>
-														<f:facet name="header">Nome</f:facet>
-		                                             	#{marca.nome}
+														<f:facet name="header">Cliente </f:facet>
+		                                             	#{comanda.cliente.pessoa.nome}
 		                                          	</h:column>
 		                                          	<h:column>
-														<f:facet name="header">Fabricante</f:facet>
-		                                             	#{marca.fabricante.razaoSocial}
+														<f:facet name="header">Valor</f:facet>
+		                                             	#{comanda.valorTotal}
 		                                          	</h:column>            	
 		                                          	
 												</h:dataTable>
@@ -115,57 +102,60 @@
 									
 									<div class="bs-example">
 											<h3>Produtos a Vencer (15 Dias)</h3>
-												<h:dataTable class="table table-hover" value="#{marcaBean.lista}" var="marca"  cellpadding="5">
+												<h:dataTable class="table table-hover" value="#{dashBean.listaProdutosVencendo}" var="produto"  cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
-		                                             	#{marca.id_marca}
+		                                             	#{produto.id_produto}
 		                                          	</h:column>
 													<h:column>
 														<f:facet name="header">Nome</f:facet>
-		                                             	#{marca.nome}
+		                                             	#{produto.nome}
 		                                          	</h:column>
 		                                          	<h:column>
-														<f:facet name="header">Fabricante</f:facet>
-		                                             	#{marca.fabricante.razaoSocial}
-		                                          	</h:column>            	
+														<f:facet name="header">Quantidade/Estoque</f:facet>
+		                                             	#{produto.estoque.qtd_produto}
+		                                          	</h:column>    
+		                                          	<h:column>
+														<f:facet name="header">Data Validade Lote </f:facet>
+		                                             	#{produto.estoque.data_validade_lote}
+		                                          	</h:column> 
+		                                          	        	
 		                                          	
 												</h:dataTable>
 									</div>
 									
 									<div class="bs-example">
-											<h3>Movimentações Recebidas</h3>
-												<h:dataTable class="table table-hover" value="#{marcaBean.lista}" var="marca"  cellpadding="5">
-													<h:column>
+											<h3>Movimentações de Recebimento</h3>
+												<h:dataTable class="table table-hover" value="#{dashBean.listaCaixaEN}" var="caixaEN"  cellpadding="5">
+														<h:column>
 														<f:facet name="header">Código</f:facet>
-		                                             	#{marca.id_marca}
+		                                             	#{caixaEN.id_caixa}
 		                                          	</h:column>
 													<h:column>
-														<f:facet name="header">Nome</f:facet>
-		                                             	#{marca.nome}
+														<f:facet name="header">Valor</f:facet>
+		                                             	#{caixaEN.valor_total}
 		                                          	</h:column>
 		                                          	<h:column>
-														<f:facet name="header">Fabricante</f:facet>
-		                                             	#{marca.fabricante.razaoSocial}
-		                                          	</h:column>            	
-		                                          	
+														<f:facet name="header">Data </f:facet>
+		                                             	#{caixaEN.data_movimentacao}
+		                                          	</h:column>     
 												</h:dataTable>
 									</div>
 									<div class="bs-example">
-											<h3> Movimentações Retiradas)</h3>
-												<h:dataTable class="table table-hover" value="#{marcaBean.lista}" var="marca"  cellpadding="5">
+											<h3> Movimentações de Retiradas</h3>
+												<h:dataTable class="table table-hover" value="#{dashBean.listaCaixaSA}" var="caixaSA"  cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>
-		                                             	#{marca.id_marca}
+		                                             	#{caixaSA.id_caixa}
 		                                          	</h:column>
 													<h:column>
-														<f:facet name="header">Nome</f:facet>
-		                                             	#{marca.nome}
+														<f:facet name="header">Valor</f:facet>
+		                                             	#{caixaSA.valor_total}
 		                                          	</h:column>
 		                                          	<h:column>
-														<f:facet name="header">Fabricante</f:facet>
-		                                             	#{marca.fabricante.razaoSocial}
-		                                          	</h:column>            	
-		                                          	
+														<f:facet name="header">Data </f:facet>
+		                                             	#{caixaSA.data_movimentacao}
+		                                          	</h:column>     
 												</h:dataTable>
 									</div>
 									

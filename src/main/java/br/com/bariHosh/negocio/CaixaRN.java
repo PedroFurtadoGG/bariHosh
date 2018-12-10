@@ -1,5 +1,7 @@
 package br.com.bariHosh.negocio;
 
+import java.util.List;
+
 import br.com.bariHosh.daoHibernate.CaixaDAOHibernate;
 import br.com.bariHosh.entidade.Caixa;
 import br.com.bariHosh.util.ManuseioPublico;
@@ -43,4 +45,11 @@ public class CaixaRN extends ManuseioPublico {
 		this.caixaDAO = caixaDAO;
 	}
 
+	public List<Caixa> listarMovimentacoes(String tipo){
+		return this.caixaDAO.listarMovimentacoes(tipo);
+	}
+	
+	public String totalMovimentacoes(String tipo) {
+		return this.caixaDAO.totalMovimentacoes(tipo);
+	}
 }

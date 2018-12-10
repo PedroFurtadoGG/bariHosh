@@ -17,23 +17,25 @@ public class CaixaDAOHibernate extends GenericoDAOHibernate<Caixa> implements Ca
 	public List<Caixa> listarMovimentacoes(String tipo) {
 		StringBuffer hql = new StringBuffer ();
 		
-		hql.append("select c from Caixa c left join fetch c.forma_pagamento fp ");
-		hql.append(" where fp.chave = '" + tipo +"' ");
-		hql.append(" order by c.data_movimentacao desc ");
+		hql.append("select c from Caixa c left join fetch c.tipo_movimento tm limit 10 ");
+		hql.append(" where tm.chave = '" + tipo +"' ");
+		hql.append(" order by c.data_movimentacao desc");
 		
 		Query consulta = this.session.createQuery(hql.toString());
 		List<Caixa> lista = (List<Caixa>)consulta.list();
 		return lista;
 	}
+	
+	
 	@Override
 	public String totalMovimentacoes(String tipoMovimentacao) {
 		StringBuffer hql = new StringBuffer ();
 		
-		hql.append("select sum(c.valor_total) from Caixa c left join fetch c.forma_pagamento fp ");
-		hql.append(" where fp.chave = '" + tipoMovimentacao +"' ");
+		hql.append("select sum(c.valor_total) from Caixa c left join fetch c.tipo_movimento tm ");
+		hql.append(" where tm.chave = '" + tipoMovimentacao +"' ");
 		
 		Query consulta = this.session.createQuery(hql.toString());
-		String valorTotal = consulta;
+		String valorTotal = consulta.uniqueResult().toString();
 		return valorTotal;
 	}
 

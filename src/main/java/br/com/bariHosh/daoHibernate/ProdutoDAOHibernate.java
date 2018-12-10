@@ -74,10 +74,10 @@ public class ProdutoDAOHibernate extends GenericoDAOHibernate<Produto> implement
 	@Override
 	public List<Produto> listarProximosVencimentos() {
 		
-		String sql = "select p.nome , p.codigo_barras from Produto p left join fetch p.estoque e"
-				   + " where  e.data_validade_lote < current_date()";
-		
+		String sql = "select p from Produto p left join fetch p.estoque e"
+				   + " where 1=1 ";
 		Query consulta = this.session.createQuery(sql);
+		@SuppressWarnings("unchecked")
 		List<Produto> listaProximosVencimentos = (List<Produto>) consulta.list();
 		
 		return listaProximosVencimentos;

@@ -31,6 +31,7 @@ public class DashboardRN extends ManuseioPublico{
 	}
 	
 	public List<Produto> listarProximosVencimentos(){
+		
 		return this.produtoDAO.listarProximosVencimentos();
 	}
 	
