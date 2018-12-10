@@ -60,7 +60,6 @@ public class ComandaDAOHibernate extends GenericoDAOHibernate<Comanda> implement
 			 					
 		Query consulta = this.session.createQuery(hql);
 		consulta.setBoolean("status", status);
-		@SuppressWarnings("unchecked")
 		List<Comanda> list = (List<Comanda>) consulta.list();
 
 		return list;

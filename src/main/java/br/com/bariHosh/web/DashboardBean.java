@@ -45,7 +45,7 @@ public class DashboardBean  {
 	
 	public List<Caixa> getListaCaixaEN() {
 		if(this.listaCaixaEN==null) {
-			this.listaCaixaEN = caixaRN.listarMovimentacoes("EN");
+			this.listaCaixaEN = new CaixaRN().listarMovimentacoes("EN");
 		}
 		return this.listaCaixaEN;
 	}

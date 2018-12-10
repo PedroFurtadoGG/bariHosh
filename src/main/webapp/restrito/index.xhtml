@@ -126,9 +126,9 @@
 									
 									<div class="bs-example">
 											<h3>Movimentações de Recebimento</h3>
-												<h:dataTable class="table table-hover" value="#{dashBean.listaCaixaEN}" var="caixaEN"  cellpadding="5">
+												<h:dataTable  class="table table-hover" value="#{dashBean.listaCaixaEN}" var="caixaEN"  cellpadding="5">
 														<h:column>
-														<f:facet name="header">Código</f:facet>
+														<f:facet name="header">Código Caixa EN</f:facet>
 		                                             	#{caixaEN.id_caixa}
 		                                          	</h:column>
 													<h:column>
@@ -143,9 +143,9 @@
 									</div>
 									<div class="bs-example">
 											<h3> Movimentações de Retiradas</h3>
-												<h:dataTable class="table table-hover" value="#{dashBean.listaCaixaSA}" var="caixaSA"  cellpadding="5">
+												<h:dataTable  class="table table-hover" value="#{dashBean.listaCaixaSA}" var="caixaSA"  cellpadding="5">
 													<h:column>
-														<f:facet name="header">Código</f:facet>
+														<f:facet name="header">Código Caixa SA</f:facet>
 		                                             	#{caixaSA.id_caixa}
 		                                          	</h:column>
 													<h:column>

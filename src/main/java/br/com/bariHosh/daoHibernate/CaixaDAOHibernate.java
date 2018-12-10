@@ -14,14 +14,17 @@ public class CaixaDAOHibernate extends GenericoDAOHibernate<Caixa> implements Ca
 	private Session session = DAOFactory.PegarSession();
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Caixa> listarMovimentacoes(String tipo) {
-		StringBuffer hql = new StringBuffer ();
+	public List<Caixa> listarMovimentacoes(String tipoMovimentacao) {
+		StringBuffer hql = new StringBuffer(); 
 		
-		hql.append("select c from Caixa c left join fetch c.tipo_movimento tm limit 10 ");
-		hql.append(" where tm.chave = '" + tipo +"' ");
-		hql.append(" order by c.data_movimentacao desc");
+		hql.append("select c from Caixa c LEFT JOIN FETCH c.tipo_movimento m where 1=1 ");
+		
+		if(!tipoMovimentacao.equals("")) {
+			hql.append(" and m.chave = :tipoMovimentacao  order by c.data_movimentacao desc");
+		}
 		
 		Query consulta = this.session.createQuery(hql.toString());
+		consulta.setString("tipoMovimentacao", tipoMovimentacao);
 		List<Caixa> lista = (List<Caixa>)consulta.list();
 		return lista;
 	}
