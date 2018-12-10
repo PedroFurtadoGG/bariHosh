@@ -31,16 +31,16 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-					<h3 class="panel-title">
+						<h3 class="panel-title">
 							<a href="javascript:void(0);" class="toggle-sidebar"><span
 								class="fa fa-angle-double-left" data-toggle="offcanvas"
 								title="Maximize Panel"></span></a> <b>Caixa</b>
 						</h3>
-						
+
 
 					</div>
 
-	<!-- painel caixa -->
+					<!-- painel caixa -->
 					<div class="panel-body">
 						<div class="content-row">
 							<div class="panel panel-default">
@@ -140,23 +140,29 @@
 														Desconto</label>
 													<h:inputText id="valorDesconto"
 														value="#{caixaBean.pagamento.desconto}" a:type="number"
-														a:min="0.00" a:max="10000.00" a:step="0.01"
+														a:min="0.00" a:max="99999.00" a:step="0.01"
 														a:placeholder="Informe o Valor de Desconto "
-														class="form-control">
+														class="form-control" onkeyup="moeda(this);">
 														<f:ajax
 															listener="#{caixaBean.alteraValorTotalPagamento()}"
 															execute="formCaixa" render="valorTotal" event="keyup" />
 													</h:inputText>
+
+
+
+
+
+
 												</div>
 												<div class="col-md-3">
 													<label><span style="color: red"> * </span>Valor de
 														Acrescimo</label>
 													<h:inputText id="valorAcrescimo"
 														value="#{caixaBean.pagamento.valorAcrescimo}"
-														a:type="number" a:min="0.00" a:max="10000.00"
+														a:type="number" a:min="0.00" a:max="99999.00"
 														a:step="0.01"
 														a:placeholder="Informe o Valor de Acrescimo "
-														class="form-control">
+														class="form-control" onkeyup="moeda(this);">
 														<f:ajax
 															listener="#{caixaBean.alteraValorTotalPagamento()}"
 															execute="formCaixa" render="valorTotal" event="keyup" />
@@ -168,9 +174,9 @@
 														Total</label>
 													<h:inputText id="valorTotal"
 														value="#{caixaBean.pagamento.valorTotal}" a:type="number"
-														a:min="0.00" a:max="10000.00" a:step="0.01"
+														a:min="0.00" a:max="99999.00" a:step="0.01"
 														a:required="true" a:placeholder="Informe o Valor Total "
-														class="form-control">
+														class="form-control" onkeyup="moeda(this);">
 													</h:inputText>
 												</div>
 
@@ -231,7 +237,7 @@
 								<div class="panel-body">
 									<h:form class="form-horizontal" id="formAbreCaixa"
 										rendered="#{caixaBean.formAbreCaixaRenderizado}">
-										
+
 										<div class="form-group">
 											<div class="col-md-12">
 												<h3>Dados para Abertura de Caixa</h3>
@@ -241,10 +247,11 @@
 													Abertura</label>
 												<h:inputText id="valorAbertura"
 													value="#{caixaBean.caixa.valorAbertura}" a:type="number"
-													a:min="0.00" a:max="10000.00" a:step="0.01"
+													a:min="0.00" a:max="99999.00" a:step="0.01"
 													a:required="true"
 													requiredMessage="Informe o valor inicial do Caixa"
-													a:placeholder="Informe valor Entrada" class="form-control">
+													a:placeholder="Informe valor Entrada" class="form-control"
+													onkeyup="moeda(this);">
 												</h:inputText>
 											</div>
 
@@ -293,20 +300,21 @@
 								<div class="panel-body">
 									<h:form class="form-horizontal" id="formFechaCaixa"
 										rendered="#{caixaBean.formFechaCaixaRenderizado}">
-										
+
 										<div class="form-group">
 											<div class="col-md-12">
 												<h3>Dados para Fechamento de Caixa</h3>
-											</div>											
+											</div>
 											<div class="col-md-3">
 												<label><span style="color: red"> * </span>Valor
 													Total</label>
 												<h:inputText id="valorTotal" readonly="true"
 													value="#{caixaBean.caixa.valorTotal}" a:type="number"
-													a:min="0.00" a:max="10000.00" a:step="0.01"
+													a:min="0.00" a:max="99999.00" a:step="0.01"
 													a:required="true"
 													requiredMessage="Informe o valor total do caixa"
-													a:placeholder="Informe valor Total" class="form-control">
+													a:placeholder="Informe valor Total" class="form-control"
+													onkeyup="moeda(this);">
 												</h:inputText>
 											</div>
 											<div class="col-md-6">
@@ -323,8 +331,7 @@
 										</div>
 										<div class="row">
 											<div class="col-md-3">
-												<h:commandButton
-													action="#{caixaBean.fechaCaixa()}"
+												<h:commandButton action="#{caixaBean.fechaCaixa()}"
 													class="btn btn-info btn-block" value="Fechar Caixa"
 													id="btnFechaCaixa" />
 											</div>
@@ -354,7 +361,7 @@
 								<div class="panel-body">
 									<h:form class="form-horizontal" id="formSangriaCaixa"
 										rendered="#{caixaBean.formSangriaCaixaRenderizado}">
-										
+
 										<div class="form-group">
 											<div class="col-md-12">
 												<h3>Dados para Sangria de Caixa</h3>
@@ -364,9 +371,9 @@
 													Retirada</label>
 												<h:inputText id="valorSangria"
 													value="#{caixaBean.sangria.valorSangria}" a:type="number"
-													a:min="0.00" a:max="10000.00" a:step="0.01"
+													a:min="0.00" a:max="99999.00" a:step="0.01"
 													a:required="true" a:placeholder="Informe valor Retirada"
-													class="form-control">
+													class="form-control" onkeyup="moeda(this);">
 												</h:inputText>
 											</div>
 											<div class="col-md-3">
@@ -374,8 +381,8 @@
 													Total em Caixa</label>
 												<h:inputText id="valorTotalCaixa" readonly="true"
 													value="#{caixaBean.caixa.valorTotal}" a:type="number"
-													a:min="0.00" a:max="10000.00" a:step="0.01"
-													a:required="true"
+													a:min="0.00" a:max="99999.00" a:step="0.01"
+													a:required="true" onkeyup="moeda(this);"
 													requiredMessage="Informe o valor total do caixa"
 													a:placeholder="Saldo Total" class="form-control">
 												</h:inputText>
@@ -394,8 +401,7 @@
 										</div>
 										<div class="row">
 											<div class="col-md-3">
-												<h:commandButton
-													action="#{caixaBean.realizarSangriaCaixa}"
+												<h:commandButton action="#{caixaBean.realizarSangriaCaixa}"
 													class="btn btn-info btn-block" value="Realizar Retirada "
 													id="btnSangriaCaixa" />
 											</div>
@@ -405,7 +411,7 @@
 							</div>
 						</div>
 					</div>
-				
+
 				</div>
 			</div>
 		</div>
@@ -414,4 +420,20 @@
 <ui:insert name="footer">
 	<ui:include src="/restrito/common/footer.xhtml" />
 </ui:insert>
+<script>
+	function moeda(z) {
+		v = z.value;
+		v = v.replace(/\D/g, "")
+		v = v.replace(/[0-9]{12}/,
+				"inválido")
+		v = v.replace(
+				/(\d{1})(\d{8})$/,
+				"$1.$2")
+		v = v.replace(
+				/(\d{1})(\d{1,2})$/,
+				"$1.$2")
+		//v=v.replace(/(\d{1})(\d{1,2})$/,"$1,$2") //coloca virgula antes dos últimos 2 digitos
+		z.value = v;
+	}
+</script>
 </html>
