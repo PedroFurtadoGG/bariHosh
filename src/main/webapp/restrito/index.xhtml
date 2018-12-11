@@ -92,7 +92,12 @@
 		                                          	</h:column>
 		                                          	<h:column>
 														<f:facet name="header">Valor</f:facet>
-		                                             	#{comanda.valorTotal}
+		                                             	
+		                                             	<h:outputText
+															value="#{comanda.valorTotal}">
+															<f:convertNumber currencySymbol="R$" type="currency"/>
+														</h:outputText>
+														
 		                                          	</h:column>            	
 		                                          	
 												</h:dataTable>
@@ -116,7 +121,11 @@
 		                                          	</h:column>    
 		                                          	<h:column>
 														<f:facet name="header">Data Validade Lote </f:facet>
-		                                             	#{produto.estoque.data_validade_lote}
+		                                             	<h:outputText
+															value="#{produto.estoque.data_validade_lote}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+														</h:outputText>
+		                                             	
 		                                          	</h:column> 
 		                                          	        	
 		                                          	
@@ -132,11 +141,21 @@
 		                                          	</h:column>
 													<h:column>
 														<f:facet name="header">Valor</f:facet>
-		                                             	#{caixaEN.valor_total}
+		                                             	
+		                                             	<h:outputText
+															value="#{caixaEN.valor_total}">
+															<f:convertNumber currencySymbol="R$" type="currency"/>
+														</h:outputText>
+		                                             	
 		                                          	</h:column>
 		                                          	<h:column>
 														<f:facet name="header">Data </f:facet>
-		                                             	#{caixaEN.data_movimentacao}
+														
+		                                             	<h:outputText
+															value="#{caixaEN.data_movimentacao}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+															
+														</h:outputText>
 		                                          	</h:column>     
 												</h:dataTable>
 									</div>
@@ -150,11 +169,21 @@
 		                                          	</h:column>
 													<h:column>
 														<f:facet name="header">Valor</f:facet>
-		                                             	#{caixaSA.valor_total}
+														
+		                                             	<h:outputText
+															value="#{caixaSA.valor_total}">
+															<f:convertNumber currencySymbol="R$" type="currency"/>
+														</h:outputText>
+		                                             	
 		                                          	</h:column>
 		                                          	<h:column>
 														<f:facet name="header">Data </f:facet>
-		                                             	#{caixaSA.data_movimentacao}
+		                                             	
+		                                             	<h:outputText
+															value="#{caixaSA.data_movimentacao}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+														</h:outputText>
+														
 		                                          	</h:column>     
 												</h:dataTable>
 									</div>
