@@ -19,9 +19,10 @@ public class CaixaDAOHibernate extends GenericoDAOHibernate<Caixa> implements Ca
 //		String hql = "select c from Caixa c  "
 //					+ "where c.tipo_movimento like '%"+ tipoMovimentacao +"%'";
 		String hql = "SELECT movimentacao.id_movimentacao, movimentacao.id_caixa, movimentacao.tipo_movimento, movimentacao.dataFinalMovimentacao as data_movimentacao, movimentacao.id_pagamento, pagamento.ValorTotal as valor_total, pagamento.completamente_recebido " + 
-				"FROM movimentacao LEFT JOIN pagamento ON pagamento.id = movimentacao.id_pagamento " + 
-				"LEFT JOIN caixa ON caixa.id_caixa = movimentacao.id_caixa " + 
-				"WHERE movimentacao.tipo_movimento = '"+tipoMovimentacao+"'";
+				"				FROM movimentacao LEFT JOIN pagamento ON pagamento.id = movimentacao.id_pagamento " + 
+				"				LEFT JOIN caixa ON caixa.id_caixa = movimentacao.id_caixa " + 
+				"				WHERE movimentacao.tipo_movimento = '"+tipoMovimentacao+"' " +
+				"               ORDER BY movimentacao.dataFinalMovimentacao DESC LIMIT 10";
 		
 //		Query consulta = this.session.createQuery(hql.toString());
 		Query consulta = this.session.createSQLQuery(hql);

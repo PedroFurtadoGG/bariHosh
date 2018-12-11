@@ -54,7 +54,7 @@
 											<div class="thumbnail">
 												<img class="img-rounded" src="#{request.contextPath}/resources/img/arrow-dash-up.png" />
 												<div class="caption text-center">
-													<h3> <h:outputLabel value="#{dashBean.totalMovimentacoesEN}"/> </h3>
+													<h3>R$ <h:outputLabel value="#{dashBean.totalMovimentacoesEN}"/> </h3>
 													<p>Total Recebimentos</p>
 												</div>
 											</div>
@@ -63,7 +63,7 @@
 											<div class="thumbnail">
 												<img class="img-rounded" src="#{request.contextPath}/resources/img/arrow-dash-down.png"/>
 												<div class="caption text-center">
-													<h3> <h:outputLabel value="#{dashBean.totalMovimentacoesSA}"/> </h3>
+													<h3>R$ <h:outputLabel value="#{dashBean.totalMovimentacoesSA}"/> </h3>
 													<p>Total Saidas</p>
 												</div>
 											</div>
@@ -72,8 +72,8 @@
 											<div class="thumbnail">
 												<img class="img-rounded" src="#{request.contextPath}/resources/img/rosh-dash.jpg"/>
 												<div class="caption text-center">
-													<h3> Roshs Vendidos</h3>
-													
+													<h3> Disponiveis</h3>
+													<p>Rosh's Vendidos</p>
 												</div>
 											</div>
 										</div>
@@ -99,7 +99,8 @@
 									</div>
 									
 									<div class="bs-example">
-											<h3>Produtos a Vencer (15 Dias)</h3>
+											<h3>Produtos próximos ao Vencimento</h3>
+												<span style="color: red"> * EM 15 DIAS </span>
 												<h:dataTable class="table table-hover" value="#{dashBean.listaProdutosVencendo}" var="produto"  cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código</f:facet>

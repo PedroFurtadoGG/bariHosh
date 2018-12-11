@@ -74,10 +74,9 @@ public class ProdutoDAOHibernate extends GenericoDAOHibernate<Produto> implement
 	@Override
 	public List<Produto> listarProximosVencimentos() {
 		
-		String sql = "select p from Produto p left join fetch p.estoque e"
-				   + " where 1=1 ";
-		Query consulta = this.session.createQuery(sql);
-		@SuppressWarnings("unchecked")
+		String sql = "SELECT produto.id_produto, produto.nome, estoque.data_validade_lote , estoque.qtd_produto FROM produto LEFT JOIN estoque ON produto.id_estoque_produto = estoque.id_estoque "
+				+ " WHERE (SELECT DATEDIFF(estoque.data_validade_lote , CURRENT_DATE)) <= 15";
+		Query consulta = this.session.createSQLQuery(sql);
 		List<Produto> listaProximosVencimentos = (List<Produto>) consulta.list();
 		
 		return listaProximosVencimentos;
