@@ -3,7 +3,9 @@ package br.com.bariHosh.dao;
 import java.util.Date;
 import java.util.List;
 
-import br.com.bariHosh.entidade.*;
+import br.com.bariHosh.entidade.Cliente;
+import br.com.bariHosh.entidade.Comanda;
+import br.com.bariHosh.entidade.ItemComanda;
 
 public interface ComandaDAO {
 	

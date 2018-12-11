@@ -10,6 +10,7 @@ import br.com.bariHosh.dao.FornecedorDAO;
 import br.com.bariHosh.entidade.Fornecedor;
 import br.com.bariHosh.entidade.Produto;
 import br.com.bariHosh.util.DAOFactory;
+import br.com.bariHosh.util.ManuseioPublico;
 
 public class FornecedorDAOHibernate extends GenericoDAOHibernate<Fornecedor> implements FornecedorDAO {
 
@@ -42,11 +43,16 @@ public class FornecedorDAOHibernate extends GenericoDAOHibernate<Fornecedor> imp
 	public List<Fornecedor> listaFiltrada(String numInscricao, String ramoAtividade, String razao) {
 		StringBuffer hql = new StringBuffer();
 		
-		hql.append("select f from Fornecedor f");
-		hql.append(" where f.ramoAtividade like '%" +ramoAtividade +"%' ");
-		if(!numInscricao.equals("")) {
+		hql.append("select f from Fornecedor f where 1=1 ");
+		
+		if(ManuseioPublico.validaObjeto(ramoAtividade)) {
+			hql.append(" and f.ramoAtividade like '%" +ramoAtividade +"%' ");
+		}
+				
+		if(ManuseioPublico.validaObjeto(numInscricao)) {
 			hql.append("and f.numInscricao ='" + numInscricao +"'");
 		}
+		
 		if(!razao.equals("")) {
 			hql.append(" and f.razao like '%" + razao+ "%'");
 		}
