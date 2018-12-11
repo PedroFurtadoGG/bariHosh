@@ -43,36 +43,34 @@
 									<div class="row">
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded"
-													 />
+												<img class="img-rounded" src="#{request.contextPath}/resources/img/users-dash.png"/>
 												<div class="caption text-center">
-													<h3>Clientes Cadastrados</h3>
-													
+													<h3 ><h:outputLabel value="#{dashBean.clientesCadastrados}"/></h3>
+													<p> Clientes Cadastrados </p>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded"  />
+												<img class="img-rounded" src="#{request.contextPath}/resources/img/arrow-dash-up.png" />
 												<div class="caption text-center">
-													<h3>Total Recebimentos</h3>
+													<h3> <h:outputLabel value="#{dashBean.totalMovimentacoesEN}"/> </h3>
+													<p>Total Recebimentos</p>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded"
-													 />
+												<img class="img-rounded" src="#{request.contextPath}/resources/img/arrow-dash-down.png"/>
 												<div class="caption text-center">
-													<h3>Total Saidas</h3>
-													
+													<h3> <h:outputLabel value="#{dashBean.totalMovimentacoesSA}"/> </h3>
+													<p>Total Saidas</p>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded"
-													 />
+												<img class="img-rounded" src="#{request.contextPath}/resources/img/rosh-dash.jpg"/>
 												<div class="caption text-center">
 													<h3> Roshs Vendidos</h3>
 													
@@ -141,6 +139,7 @@
 		                                          	</h:column>     
 												</h:dataTable>
 									</div>
+									
 									<div class="bs-example">
 											<h3> Movimentações de Retiradas</h3>
 												<h:dataTable  class="table table-hover" value="#{dashBean.listaCaixaSA}" var="caixaSA"  cellpadding="5">

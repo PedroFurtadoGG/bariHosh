@@ -38,14 +38,11 @@ public class DashboardBean  {
 	String totalMovimentacoesEN;
 	String totalMovimentacoesSA;
 	
-	public DashboardBean() {
-		
-		
-	}
+	
 	
 	public List<Caixa> getListaCaixaEN() {
 		if(this.listaCaixaEN==null) {
-			this.listaCaixaEN = new CaixaRN().listarMovimentacoes("EN");
+			this.listaCaixaEN =  caixaRN.listarMovimentacoes("EN");
 		}
 		return this.listaCaixaEN;
 	}

@@ -2,6 +2,7 @@ package br.com.bariHosh.daoHibernate;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -15,16 +16,20 @@ public class CaixaDAOHibernate extends GenericoDAOHibernate<Caixa> implements Ca
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Caixa> listarMovimentacoes(String tipoMovimentacao) {
-		StringBuffer hql = new StringBuffer(); 
+//		String hql = "select c from Caixa c  "
+//					+ "where c.tipo_movimento like '%"+ tipoMovimentacao +"%'";
+		String hql = "SELECT movimentacao.id_movimentacao, movimentacao.id_caixa, movimentacao.tipo_movimento, movimentacao.dataFinalMovimentacao as data_movimentacao, movimentacao.id_pagamento, pagamento.ValorTotal as valor_total, pagamento.completamente_recebido " + 
+				"FROM movimentacao LEFT JOIN pagamento ON pagamento.id = movimentacao.id_pagamento " + 
+				"LEFT JOIN caixa ON caixa.id_caixa = movimentacao.id_caixa " + 
+				"WHERE movimentacao.tipo_movimento = '"+tipoMovimentacao+"'";
 		
-		hql.append("select c from Caixa c LEFT JOIN FETCH c.tipo_movimento m where 1=1 ");
-		
-		if(!tipoMovimentacao.equals("")) {
-			hql.append(" and m.chave = :tipoMovimentacao  order by c.data_movimentacao desc");
-		}
-		
-		Query consulta = this.session.createQuery(hql.toString());
-		consulta.setString("tipoMovimentacao", tipoMovimentacao);
+//		Query consulta = this.session.createQuery(hql.toString());
+		Query consulta = this.session.createSQLQuery(hql);
+//				.addScalar("id_caixa")
+//				.addScalar("valor_total")
+//				.addScalar("data_movimentacao")
+//				;
+		consulta.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		List<Caixa> lista = (List<Caixa>)consulta.list();
 		return lista;
 	}
@@ -32,12 +37,11 @@ public class CaixaDAOHibernate extends GenericoDAOHibernate<Caixa> implements Ca
 	
 	@Override
 	public String totalMovimentacoes(String tipoMovimentacao) {
-		StringBuffer hql = new StringBuffer ();
+		String hql = "SELECT SUM(pagamento.ValorTotal) FROM movimentacao LEFT JOIN pagamento ON movimentacao.id_pagamento = pagamento.id " + 
+				" WHERE " + 
+				" movimentacao.tipo_movimento = '"+tipoMovimentacao+"'";
 		
-		hql.append("select sum(c.valor_total) from Caixa c left join fetch c.tipo_movimento tm ");
-		hql.append(" where tm.chave = '" + tipoMovimentacao +"' ");
-		
-		Query consulta = this.session.createQuery(hql.toString());
+		Query consulta = this.session.createSQLQuery(hql);
 		String valorTotal = consulta.uniqueResult().toString();
 		return valorTotal;
 	}
