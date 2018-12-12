@@ -38,7 +38,7 @@ public class Movimentacao {
 	@Enumerated(EnumType.STRING)
 	private EnumMovimentoCaixa tipo_movimento;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_caixa")
 	private Caixa caixa;
 

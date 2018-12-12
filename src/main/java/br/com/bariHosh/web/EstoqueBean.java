@@ -28,6 +28,7 @@ public class EstoqueBean {
 	private Integer LancamentoQuantia;
 	private Date dataMovimentacao;
 	private Estoque estoqueFiltro = new Estoque();
+	private Produto produtoFiltro = new Produto();
 	
 	private List<Estoque> lista;
 
@@ -35,11 +36,24 @@ public class EstoqueBean {
 	private EnumTipoRegistro enumRegistro;
 
 	public EstoqueBean() {
-		this.produtoRN = new ProdutoRN();
 		this.destinoSalvar = "produtos-estoque";
-		this.produto.setEstoque(this.estoque);
-		// obterTotalProdutosEmEstoqueGeral();
+		this.setProduto(new Produto());
+		this.estoque = new Estoque();
+		this.estoque.setProduto(produto);
+		
+		this.setEstoqueFiltro(new Estoque());
+		this.setEstoqueFiltro(estoqueFiltro);
+		this.setProdutoFiltro(new Produto());
+		this.estoqueFiltro = new Estoque();
+		this.estoqueFiltro.setProduto(produtoFiltro);
 	}
+	
+//	public EstoqueBean() {
+//		this.produtoRN = new ProdutoRN();
+//		this.destinoSalvar = "produtos-estoque";
+//		this.produto.setEstoque(this.estoque);
+//		// obterTotalProdutosEmEstoqueGeral();
+//	}
 
 	public String novo() {
 		this.estoqueRN = new EstoqueRN();
@@ -78,7 +92,7 @@ public class EstoqueBean {
 		this.lista = estoqueRN.listaFiltrada(estoqueFiltro.getProduto().getId_produto(), estoqueFiltro.getProduto().getNome(),
 				estoqueFiltro.getProduto().getCodigo_barras());
 
-		return "/restrito/cliente/clientes";
+		return "/restrito/estoque/produtos-estoque";
 	}
 	
 	public List<Estoque> getLista() {
@@ -192,6 +206,14 @@ public class EstoqueBean {
 
 	public void setEstoqueFiltro(Estoque estoqueFiltro) {
 		this.estoqueFiltro = estoqueFiltro;
+	}
+	
+	public Produto getProdutoFiltro() {
+		return produtoFiltro;
+	}
+
+	public void setProdutoFiltro(Produto produtoFiltro) {
+		this.produtoFiltro = produtoFiltro;
 	}
 
 }
