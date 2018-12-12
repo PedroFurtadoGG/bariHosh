@@ -47,48 +47,48 @@
 								</div>
 								<div class="panel-body">
 									<div class="bs-example">
-										<h:form id="busca" class="form-horizontal" name="busca">
-											<ui:insert name="messages">
-												<ui:include src="/restrito/common/messages.xhtml" />
-											</ui:insert>
-											<h3 class="panel-title">
-												<b>Buscar Clientes</b>
-											</h3>
-											<br />
-											<div class="form-group">
-												<div class="col-md-2">
-													<h:inputText id="codigo" class="form-control"
-														a:placeholder="Codigo"
-														value="#{estoqueBean.estoqueFiltro.produto.id_produto}"
-														size="30">
-													</h:inputText>
-												</div>
+<!-- 										<h:form id="busca" class="form-horizontal" name="busca"> -->
+<!-- 											<ui:insert name="messages"> -->
+<!-- 												<ui:include src="/restrito/common/messages.xhtml" /> -->
+<!-- 											</ui:insert> -->
+<!-- 											<h3 class="panel-title"> -->
+<!-- 												<b>Buscar Clientes</b> -->
+<!-- 											</h3> -->
+<!-- 											<br /> -->
+<!-- 											<div class="form-group"> -->
+<!-- 												<div class="col-md-2"> -->
+<!-- 													<h:inputText id="codigo" class="form-control" -->
+<!-- 														a:placeholder="Codigo" -->
+<!-- 														value="#{estoqueBean.estoqueFiltro.produto.id_produto}" -->
+<!-- 														size="30"> -->
+<!-- 													</h:inputText> -->
+<!-- 												</div> -->
 
-												<div class="col-md-4">
-													<h:inputText id="nome" class="form-control"
-														a:placeholder="nome"
-														value="#{estoqueBean.estoqueFiltro.produto.nome}"
-														size="30">
-													</h:inputText>
-												</div>
+<!-- 												<div class="col-md-4"> -->
+<!-- 													<h:inputText id="nome" class="form-control" -->
+<!-- 														a:placeholder="nome" -->
+<!-- 														value="#{estoqueBean.estoqueFiltro.produto.nome}" -->
+<!-- 														size="30"> -->
+<!-- 													</h:inputText> -->
+<!-- 												</div> -->
 
-												<div class="col-md-4">
-													<h:inputText id="barra" class="form-control"
-														a:placeholder="barra"
-														value="#{estoqueBean.estoqueFiltro.produto.codigo_barras}"
-														size="30">
-													</h:inputText>
-												</div>
+<!-- 												<div class="col-md-4"> -->
+<!-- 													<h:inputText id="barra" class="form-control" -->
+<!-- 														a:placeholder="barra" -->
+<!-- 														value="#{estoqueBean.estoqueFiltro.produto.codigo_barras}" -->
+<!-- 														size="30"> -->
+<!-- 													</h:inputText> -->
+<!-- 												</div> -->
 
 
 
-												<div class="col-md-2">
-													<h:commandButton action="#{estoqueBean.filtrar()}"
-														class="btn btn-info btn-block" a:type="submit"
-														value="Filtrar" />
-												</div>
-											</div>
-										</h:form>
+<!-- 												<div class="col-md-2"> -->
+<!-- 													<h:commandButton action="#{estoqueBean.filtrar()}" -->
+<!-- 														class="btn btn-info btn-block" a:type="submit" -->
+<!-- 														value="Filtrar" /> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</h:form> -->
 										<h:form>
 
 											<div class="bs-example">
