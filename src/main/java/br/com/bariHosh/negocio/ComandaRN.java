@@ -19,14 +19,19 @@ public class ComandaRN extends ManuseioPublico {
 	private OrdenadorComanda ordenadorComanda;
 
 	public Comanda carregarComanda(Long id) {
-		Comanda comanda = new Comanda();
-		comanda = this.comandaDAO.carregar(Comanda.class, id);
-		if (!super.validaObjeto(comanda)) {
-			super.MessagesErro("Comanda não encontrada !");
-			return comanda = new Comanda();
+		try {
+			Comanda comanda = this.comandaDAO.carregar(Comanda.class, id);
+			if (!super.validaObjeto(comanda)) {
+				super.MessagesErro("Comanda não encontrada !");
+				
+			}
+			return comanda;
 
+		} catch (Exception e) {
+			System.out.println("erro carregar" + e.getMessage());
+			return null;
 		}
-		return comanda;
+
 	}
 
 	public boolean salvar(Comanda comanda) {
@@ -36,7 +41,7 @@ public class ComandaRN extends ManuseioPublico {
 				// injetando id usuario
 				comanda.setUsuario(usuarioLogado);
 				if (!super.validaObjeto(comanda.getId_comanda())) {
-				
+
 					this.comandaDAO.salvar(comanda);
 					super.MessagesSucesso("Comanda Salva Com Sucesso ");
 					return true;
@@ -86,12 +91,13 @@ public class ComandaRN extends ManuseioPublico {
 
 	public boolean excluir(Comanda comanda) {
 		try {
-			EstoqueRN estoqueRN = new EstoqueRN();
+		
 			if (super.validaObjeto(comanda.getId_comanda())) {
 
-				for(ItemComanda item : comanda.getItensDaComanda()) {
-				Estoque estoque =	estoqueRN.carregarEstoquePorProduto(item.getProduto());
-				estoqueRN.aumentarEstoqueProduto(estoque.getProduto(), item.getQuantidade());
+				for (ItemComanda item : comanda.getItensDaComanda()) {
+					this.devolverProdutoEstoque(item);
+//					Estoque estoque = estoqueRN.carregarEstoquePorProduto(item.getProduto());
+//					estoqueRN.aumentarEstoqueProduto(estoque.getProduto(), item.getQuantidade());
 				}
 
 				new ComandaDAOHibernate().excluir(comanda);
@@ -124,7 +130,8 @@ public class ComandaRN extends ManuseioPublico {
 	}
 
 	public List<Comanda> listaComandasStatus(boolean status) {
-		OrdenadorComanda listaOrdenada = new OrdenadorComanda(this.comandaDAO.listaComandasStatus(status,EnumStatusComanda.EM_ABERTO));
+		OrdenadorComanda listaOrdenada = new OrdenadorComanda(
+				this.comandaDAO.listaComandasStatus(status, EnumStatusComanda.EM_ABERTO));
 		return listaOrdenada.listagemEmOrdem();
 	}
 
@@ -154,16 +161,41 @@ public class ComandaRN extends ManuseioPublico {
 	}
 
 	public Comanda carregaComandaStatus(Long id_comanda, EnumStatusComanda emAberto) {
-		   Comanda comanda = this.carregarComanda(id_comanda);
-		   if(comanda.getStatusComanda() == emAberto) {
-			   return comanda ;			   
-		   }else {
-			   super.MessagesErro("Comanda ja finalizada ");
-			   comanda = new Comanda();			   
-		   }
+		Comanda comanda = this.carregarComanda(id_comanda);
+		if (comanda != null)
+			if (comanda.getStatusComanda() == emAberto) {
+				return comanda;
+			} else {
+				super.MessagesErro("Comanda ja finalizada ");
+				comanda = new Comanda();
+			}
 		return comanda;
 	}
 
+	public boolean filtrarItensSalvosEDiminuirEstoque(List<ItemComanda> itensDaComanda) {
+		for(ItemComanda item : itensDaComanda) {
+			if(super.validaObjeto(item.getId_itemComanda())) {
+		     	new EstoqueRN().diminuirEstoqueProduto(item.getProduto().getEstoque(), item.getQuantidade());
+			   return true;	
+			}
+			
+		}
+		
+		return false;
+	}
+
+	public boolean retirarProdutoEmEstoque(ItemComanda itemComanda) {
+		
+		if(new EstoqueRN().VerificaEstoque(itemComanda.getProduto().getEstoque(), itemComanda.getQuantidade())) {
+					new EstoqueRN().diminuirEstoqueProduto(itemComanda.getProduto().getEstoque(), itemComanda.getQuantidade());
+					return true;
+		}
+		return false;
+	}
+	public boolean devolverProdutoEstoque(ItemComanda itemComanda) {	
+					new EstoqueRN().aumentarEstoqueProduto(itemComanda.getProduto().getEstoque(), itemComanda.getQuantidade());
+					return true;
 	
+	}
 
 }

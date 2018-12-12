@@ -5,13 +5,20 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import br.com.bariHosh.daoHibernate.UsuarioDAOHibernate;
+import br.com.bariHosh.entidade.Movimentacao;
 import br.com.bariHosh.entidade.Usuario;
 
 public class ManuseioPublico {
@@ -132,6 +139,37 @@ public class ManuseioPublico {
 		context.addMessage(null, facesMessage);
 	}
 	
+	public <T> List<T> FiltroParaTodasListas(List<T> lista , String modelo , Long identificador) {
+		List<T> listafiltrada = new  ArrayList<T>();
+		
+		Map<Integer, String> HOSTING = new HashMap<>();
+        HOSTING.put(1, "linode.com");
+        HOSTING.put(2, "heroku.com");
+        HOSTING.put(3, "digitalocean.com");
+        HOSTING.put(4, "aws.amazon.com");
+        HOSTING.put(5, "aws2.amazon.com");
+		
+		 Map<Integer, String> filteredMap2 = filterByValue(HOSTING, x -> (x.contains("aws") || x.contains("linode")));
+	        System.out.println(filteredMap2);
+		
+		return  listafiltrada;
+	}
+	
+	
+	public static <K, V> Map<K, V> filterByValue(Map<K, V> map, Predicate<V> predicate) {
+        return map.entrySet()
+                .stream()
+                .filter(x -> predicate.test(x.getValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+	
+	
+	public Movimentacao filtro(List<Movimentacao> lista ,Long id) {
+		
+		return 	 lista.stream().filter(x ->id.equals(x.getId_movimentacao())).findAny().orElse(null);
+						
+		
+	}
 	
 	
 	

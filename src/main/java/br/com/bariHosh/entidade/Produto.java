@@ -51,7 +51,7 @@ public class Produto implements Serializable {
 	
 		 
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)  
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)  
 	@JoinColumn(name = "id_estoque_produto")
 	private Estoque estoque;
 
