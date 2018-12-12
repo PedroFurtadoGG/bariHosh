@@ -23,6 +23,7 @@ import br.com.bariHosh.entidade.SangriaCaixa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.CaixaRN;
 import br.com.bariHosh.negocio.ComandaRN;
+import br.com.bariHosh.negocio.MovimentacaoRN;
 import br.com.bariHosh.negocio.SangriaRN;
 import br.com.bariHosh.negocio.UsuarioRN;
 import br.com.bariHosh.util.ManuseioPublico;
@@ -50,7 +51,8 @@ public class CaixaBean implements Serializable {
 	private boolean formSangriaCaixaRenderizado;
 
 	private List<Movimentacao> movimentacoesCaixa = new ArrayList<Movimentacao>();
-
+	
+    
 	@PostConstruct
 	public void init() {
 		InicializaCaixa();
@@ -211,6 +213,7 @@ public class CaixaBean implements Serializable {
 	}
 
 	public void finalizarMovimentacaoComanda() {
+		if(this.comanda.getId_comanda()!=null) {
 		this.pagamento.setCompletamenteRecebido(true);
 		this.pagamento.setStatusPagamento(EnumStatusPagamento.FINALIZADO);
 		this.pagamento.setDespesa(new Despesa());
@@ -234,8 +237,13 @@ public class CaixaBean implements Serializable {
 			ManuseioPublico.MessagesSucesso("Transação concluida com sucesso ");
 			ManuseioPublico.MessagesSucesso("Caixa Livre  ");
 		}
+		}else {
+			ManuseioPublico.MessagesInfo("Nao existe comanda selecionada no caixa ");
+		}
 
 	}
+	
+	
 
 	public void alteraValorTotalPagamento() {
 		this.pagamento.setValorTotal(
@@ -388,4 +396,6 @@ public class CaixaBean implements Serializable {
 	public void setFormSangriaCaixaRenderizado(boolean formSangriaCaixaRenderizado) {
 		this.formSangriaCaixaRenderizado = formSangriaCaixaRenderizado;
 	}
+
+	
 }

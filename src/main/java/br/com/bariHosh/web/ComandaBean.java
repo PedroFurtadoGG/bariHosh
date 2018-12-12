@@ -17,7 +17,6 @@ import br.com.bariHosh.entidade.Pessoa;
 import br.com.bariHosh.entidade.Produto;
 import br.com.bariHosh.negocio.ClienteRN;
 import br.com.bariHosh.negocio.ComandaRN;
-import br.com.bariHosh.negocio.EstoqueRN;
 import br.com.bariHosh.negocio.ItemComandaRN;
 import br.com.bariHosh.negocio.ProdutoRN;
 import br.com.bariHosh.util.ManuseioPublico;
@@ -43,7 +42,7 @@ public class ComandaBean implements Serializable {
 	private ComandaRN comandaRN = new ComandaRN();
 	private ItemComandaRN itemComandaRN = new ItemComandaRN();
 	private Pessoa pessoaFiltro = new Pessoa();
-	
+
 	@PostConstruct
 	public void init() {
 		this.itensComanda = new ArrayList<ItemComanda>();
@@ -58,7 +57,7 @@ public class ComandaBean implements Serializable {
 		if (comanda != null) {
 			this.comanda = comanda;
 		}
-		
+
 		this.setPessoaFiltro(new Pessoa());
 		this.comandaFiltro = new Comanda();
 
@@ -85,8 +84,7 @@ public class ComandaBean implements Serializable {
 	}
 
 	public void adicionarItemComanda() {
-
-		if (new EstoqueRN().VerificaEstoque(itemComanda.getProduto(), itemComanda.getQuantidade())) {
+		if (new ComandaRN().retirarProdutoEmEstoque(this.itemComanda)) {
 			this.itemComanda.setValorUnitario(this.itemComanda.getProduto().getValorSaida());
 			this.itemComanda.setValorTotal(this.itemComanda.getProduto().getValorSaida() * this.itemComanda.getQuantidade());
 			this.comanda.adicionaItemComanda(this.itemComanda);
@@ -94,25 +92,27 @@ public class ComandaBean implements Serializable {
 			this.comanda.setValorTotal(this.comanda.getValorTotal() + valorItem);
 			this.itemComanda = new ItemComanda();
 			ManuseioPublico.MessagesSucesso("Item adicionado com Sucesso !");
-			
+
 		}
 
 	}
 
 	public void excluirItemComanda() {
-		this.comanda.removeItemComanda(this.itemComanda);
-		this.comanda.setValorTotal(this.comanda.getValorTotal() - this.itemComanda.getValorTotal());
-		if (this.comanda.getId_comanda() != null) {			
-			new ItemComandaRN().excluirItemComanda(this.itemComanda);
-			this.itemComanda= new ItemComanda();
-			new ComandaRN().atualiza(this.comanda);
-		} else {
-			ManuseioPublico.MessagesSucesso("Item Removido  com Sucesso !");
+		if (new ComandaRN().devolverProdutoEstoque(this.itemComanda)) {
+			this.comanda.removeItemComanda(this.itemComanda);
+			this.comanda.setValorTotal(this.comanda.getValorTotal() - this.itemComanda.getValorTotal());
+			if (this.comanda.getId_comanda() != null) {
+				new ItemComandaRN().excluirItemComanda(this.itemComanda);
+				this.itemComanda = new ItemComanda();
+				new ComandaRN().atualiza(this.comanda);
+			} else {
+				ManuseioPublico.MessagesSucesso("Item Removido  com Sucesso !");
+			}
 		}
 	}
 
 	public void excluirComanda(Comanda comanda) {
-	     	this.comanda = comanda;
+		this.comanda = comanda;
 		if (new ComandaRN().excluir(this.comanda)) {
 			this.comanda = new Comanda();
 			this.comandasAbertas = null;
@@ -149,14 +149,14 @@ public class ComandaBean implements Serializable {
 
 	}
 
-	public String salvarComanda() {
-		this.comandaRN = new ComandaRN();
-		    this.comanda.setStatusComanda(EnumStatusComanda.EM_ABERTO);
-		    this.comanda.setAtivo(true);
-		if (this.comandaRN.salvar(this.comanda)) {
+	public String salvarComanda() {		
+		this.comanda.setStatusComanda(EnumStatusComanda.EM_ABERTO);
+		this.comanda.setAtivo(true);
+		if (new ComandaRN().salvar(this.comanda)) {
 			this.comanda = new Comanda();
 			this.destinoSalvar = "comandasAberto";
 		}
+
 		return this.destinoSalvar;
 	}
 
@@ -284,7 +284,7 @@ public class ComandaBean implements Serializable {
 	public void setItemComandaRN(ItemComandaRN itemComandaRN) {
 		this.itemComandaRN = itemComandaRN;
 	}
-	
+
 	public Comanda getComandaFiltro() {
 		return comandaFiltro;
 	}
@@ -292,14 +292,15 @@ public class ComandaBean implements Serializable {
 	public void setComandaFiltro(Comanda comandaFiltro) {
 		this.comandaFiltro = comandaFiltro;
 	}
-	
+
 	public String filtrarAbertas() {
 
-		this.comandasAbertas = comandaRN.listaFiltrada(comandaFiltro.getId_comanda(), comandaFiltro.getCliente().getPessoa().getNome());
+		this.comandasAbertas = comandaRN.listaFiltrada(comandaFiltro.getId_comanda(),
+				comandaFiltro.getCliente().getPessoa().getNome());
 
 		return "/restrito/comanda/comandasAberto";
 	}
-	
+
 	public Pessoa getPessoaFiltro() {
 		return pessoaFiltro;
 	}
