@@ -37,6 +37,7 @@ public class DashboardBean  {
 	String clientesCadastrados;
 	String totalMovimentacoesEN;
 	String totalMovimentacoesSA;
+	String roshDisponiveis;
 	
 	
 	
@@ -163,6 +164,18 @@ public class DashboardBean  {
 	public void setComanda(Comanda comanda) {
 		this.comanda = comanda;
 	}
+
+
+	public String getRoshDisponiveis() {
+		return this.produtoRN.roshDisponiveis();
+	}
+
+
+	public void setRoshDisponiveis(String roshDisponiveis) {
+		this.roshDisponiveis = roshDisponiveis;
+	}
+	
+	
 
 
 }

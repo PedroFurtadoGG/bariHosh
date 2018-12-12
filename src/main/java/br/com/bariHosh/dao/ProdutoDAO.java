@@ -13,5 +13,6 @@ public interface ProdutoDAO {
 	public List<Produto> listaCompleta();
 	public List<Produto> listaFiltrada(String nome , Float valorEntrada, Float valorSaida , String codBarras);
 	public List<Produto> listarProximosVencimentos();
+	public String roshDisponiveis();
 	
 }

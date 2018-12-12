@@ -26,6 +26,10 @@ public class ProdutoRN extends ManuseioPublico {
 		this.logDAO= new LogEstoqueDAOHibernate();
 		this.estoqueDAO =  new EstoqueDAOHibernate();
 	}
+    
+    public String roshDisponiveis() {
+    	return this.produtoDAO.roshDisponiveis();
+    }
 
 	public Produto carregar(Long id) {
 		return this.produtoDAO.carregar(Produto.class, id);

@@ -82,6 +82,17 @@ public class ProdutoDAOHibernate extends GenericoDAOHibernate<Produto> implement
 		return listaProximosVencimentos;
 	}
 
+	@Override
+	public String roshDisponiveis() {
+		String resultado;
+		String sql = "SELECT COUNT(produto.id_produto) FROM produto WHERE produto.nome like '%Hosh Completo%' ";
+		
+		Query consulta = this.session.createSQLQuery(sql);
+		resultado = consulta.uniqueResult().toString();
+		
+		return resultado;
+	}
+
 
 	
 }
