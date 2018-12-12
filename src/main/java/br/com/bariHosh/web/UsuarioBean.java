@@ -19,7 +19,9 @@ import br.com.bariHosh.util.ManuseioPublico;
 public class UsuarioBean {
 
 	private Usuario usuario = new Usuario();
+	private Usuario usuarioFiltro = new Usuario();
 	private Pessoa pessoa = new Pessoa();
+	private Pessoa pessoaFiltro = new Pessoa();
 	private Endereco endereco = new Endereco();
 	private String confirmarSenha;
 	private List<Usuario> lista;
@@ -27,20 +29,19 @@ public class UsuarioBean {
 	private EnumPermissao enumpemrmissao;
 	private EnumSexo enumSexo;
 	private UsuarioRN usuarioRN;
-	
 
-
-	public UsuarioBean() {		
+	public UsuarioBean() {
 		this.destinoSalvar = "usuarios";
 		this.usuarioRN = new UsuarioRN();
 		this.endereco = new Endereco();
 		this.pessoa.setEndereco(endereco);
 		this.usuario.setPessoa(pessoa);
 		this.usuario.setAtivo(true);
+		this.usuarioFiltro.setPessoa(pessoaFiltro);
 
 	}
 
-	public String novo() {		
+	public String novo() {
 		this.usuarioRN = new UsuarioRN();
 		this.pessoa = new Pessoa();
 		this.usuario = new Usuario();
@@ -60,18 +61,18 @@ public class UsuarioBean {
 		return "/index";
 	}
 
-	public String editar() {	
+	public String editar() {
 		this.confirmarSenha = this.usuario.getSenha();
 		return "/restrito/usuario/usuario";
 
 	}
 
-	public String salvar() {	
+	public String salvar() {
 		if (!usuario.getSenha().equals(this.confirmarSenha)) {
 			ManuseioPublico.MessagesErro("A senha no foi confirmada corretamente!");
 			return null;
 		}
-		if (usuarioRN.salvar(this.usuario) ) {	
+		if (usuarioRN.salvar(this.usuario)) {
 			return this.destinoSalvar;
 		}
 		return null;
@@ -82,12 +83,12 @@ public class UsuarioBean {
 	}
 
 	public String excluir() {
-		if(usuarioRN.excluir(this.usuario)) {			
+		if (usuarioRN.excluir(this.usuario)) {
 			this.lista = null;
-			return null;			
+			return null;
 		}
 		return null;
-		
+
 	}
 
 	public String ativar() {
@@ -99,7 +100,6 @@ public class UsuarioBean {
 		usuarioRN.salvar(this.usuario);
 		return null;
 	}
-
 
 	public List<Usuario> getLista() {
 		if (this.lista == null) {
@@ -185,10 +185,28 @@ public class UsuarioBean {
 		this.enumSexo = enumSexo;
 	}
 
-	
+	public Usuario getUsuarioFiltro() {
+		return usuarioFiltro;
+	}
 
-	
+	public void setUsuarioFiltro(Usuario usuarioFiltro) {
+		this.usuarioFiltro = usuarioFiltro;
+	}
 
-	
+	public String filtrar() {
+
+		this.lista = usuarioRN.listaFiltrada(usuarioFiltro.getPessoa().getNome(), usuarioFiltro.getId_usuario(),
+				usuarioFiltro.getPessoa().getEmail());
+
+		return "/restrito/usuario/usuarios";
+	}
+
+	public Pessoa getPessoaFiltro() {
+		return pessoaFiltro;
+	}
+
+	public void setPessoaFiltro(Pessoa pessoaFiltro) {
+		this.pessoaFiltro = pessoaFiltro;
+	}
 
 }

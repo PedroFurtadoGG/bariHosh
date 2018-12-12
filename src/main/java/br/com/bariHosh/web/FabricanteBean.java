@@ -45,7 +45,7 @@ public class FabricanteBean {
 	
 	public String filtrar() {
 		
-		this.lista = fabRN.listaFiltrada(fabricanteFiltro.getCnpj(), fabricanteFiltro.getRazaoSocial());
+		this.lista = fabRN.listaFiltrada(fabricanteFiltro.getId_fabricante(), fabricanteFiltro.getRazaoSocial());
 		
 		return "/restrito/fabricante/fabricantes";
 	}

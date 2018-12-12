@@ -2,13 +2,12 @@ package br.com.bariHosh.daoHibernate;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 
 import br.com.bariHosh.dao.ItemComandaDAO;
-import br.com.bariHosh.entidade.*;
+import br.com.bariHosh.entidade.Comanda;
+import br.com.bariHosh.entidade.ItemComanda;
 import br.com.bariHosh.util.DAOFactory;
 
 public class ItemComandaDAOHibernate extends GenericoDAOHibernate<ItemComanda> implements ItemComandaDAO {

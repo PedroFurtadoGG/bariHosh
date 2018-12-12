@@ -14,6 +14,7 @@ import br.com.bariHosh.negocio.CategoriaProdutoRN;
 public class CategoriaProdutoBean {
 	
 	private CategoriaProduto categoria = new CategoriaProduto();
+	private CategoriaProduto categoriaFiltro = new CategoriaProduto();
 	private List<CategoriaProduto> lista;
 	private String destinoSalvar;
 	private CategoriaProdutoRN categoriaRN = new CategoriaProdutoRN();
@@ -68,6 +69,14 @@ public class CategoriaProdutoBean {
 	public void setCategoria(CategoriaProduto categoria) {
 		this.categoria = categoria;
 	}
+	
+	public CategoriaProduto getCategoriaFiltro() {
+		return categoriaFiltro;
+	}
+
+	public void setCategoriaFiltro(CategoriaProduto categoriaFiltro) {
+		this.categoriaFiltro = categoriaFiltro;
+	}
 
 
 
@@ -81,6 +90,13 @@ public class CategoriaProdutoBean {
 
 	public void setDestinoSalvar(String destinoSalvar) {
 		this.destinoSalvar = destinoSalvar;
+	}
+	
+	public String filtrar() {
+
+		this.lista = categoriaRN.listaFiltrada(categoriaFiltro.getDescricao(), categoriaFiltro.getId_categoria());
+
+		return "/restrito/categoriaProduto/categoriaProdutos";
 	}
 	
 	

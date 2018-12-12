@@ -79,7 +79,7 @@ public class ProdutoBean {
 	
 	public String filtrar() {
 		
-		this.listaProdutos = produtoRN.listaFiltrada(produtoFiltro.getNome(), produtoFiltro.getValorEntrada(), produto.getValorSaida(), produtoFiltro.getCodigo_barras());
+		this.listaProdutos = produtoRN.listaFiltrada(produtoFiltro.getNome(), produtoFiltro.getCodigo_barras(), produtoFiltro.getId_produto());
 		
 		return "/restrito/produto/produtos";
 	}
@@ -146,16 +146,13 @@ public class ProdutoBean {
 		if (this.listaProdutos == null) {
 			this.listaProdutos = produtoRN.listarCompleto();
 		}
-//		else {
-//			this.listaProdutos = produtoRN.listaFiltrada(produtoFiltro.getNome(), produtoFiltro.getValorEntrada(), produto.getValorSaida(), produtoFiltro.getCodigo_barras());
-//		}
 		return this.listaProdutos;
 	}
 	
 	public List<Produto> getListaProdutosFiltro() {
 
 		if (this.listaProdutos == null) {
-			this.listaProdutos = produtoRN.listaFiltrada(produtoFiltro.getNome(), produtoFiltro.getValorEntrada(), produto.getValorSaida(), produtoFiltro.getCodigo_barras());
+			this.listaProdutos = produtoRN.listaFiltrada(produtoFiltro.getNome(), produtoFiltro.getCodigo_barras(), produtoFiltro.getId_produto());
 		}
 		
 		return this.listaProdutos;

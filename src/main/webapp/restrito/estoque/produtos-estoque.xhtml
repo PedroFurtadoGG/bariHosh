@@ -29,35 +29,74 @@
 			<div class="col-xs-12 col-sm-9 content">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title">Controle de Estoque</h3>
+						<h3 class="panel-title">
+							<a href="javascript:void(0);" class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a> <b>Controle de Estoque</b>
+						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="content-row">
 							<div class="panel panel-default">
 								<div class="panel-heading">
-									<div class="panel-title">
-										<b>Controle de Estoque</b>
-									</div>
-									<div class="panel-options">
-										<a class="bg" data-target="#sample-modal-dialog-1"
-											data-toggle="modal" href="#sample-modal"><i
-											class="entypo-cog"></i></a> <a data-rel="collapse" href="#"><i
-											class="entypo-down-open"></i></a> <a data-rel="close"
-											href="#!/tasks" ui-sref="Tasks"><i class="entypo-cancel"></i></a>
-									</div>
+									<h3 class="panel-title">
+										<a href="javascript:void(0);" class="toggle-sidebar"><span
+											class="fa fa-angle-double-left" data-toggle="offcanvas"
+											title="Maximize Panel"></span></a> <b>Estoque de Produtos</b>
+									</h3>
 								</div>
 								<div class="panel-body">
 									<div class="bs-example">
+<!-- 										<h:form id="busca" class="form-horizontal" name="busca"> -->
+<!-- 											<ui:insert name="messages"> -->
+<!-- 												<ui:include src="/restrito/common/messages.xhtml" /> -->
+<!-- 											</ui:insert> -->
+<!-- 											<h3 class="panel-title"> -->
+<!-- 												<b>Buscar Clientes</b> -->
+<!-- 											</h3> -->
+<!-- 											<br /> -->
+<!-- 											<div class="form-group"> -->
+<!-- 												<div class="col-md-2"> -->
+<!-- 													<h:inputText id="codigo" class="form-control" -->
+<!-- 														a:placeholder="Codigo" -->
+<!-- 														value="#{estoqueBean.estoqueFiltro.produto.id_produto}" -->
+<!-- 														size="30"> -->
+<!-- 													</h:inputText> -->
+<!-- 												</div> -->
+
+<!-- 												<div class="col-md-4"> -->
+<!-- 													<h:inputText id="nome" class="form-control" -->
+<!-- 														a:placeholder="nome" -->
+<!-- 														value="#{estoqueBean.estoqueFiltro.produto.nome}" -->
+<!-- 														size="30"> -->
+<!-- 													</h:inputText> -->
+<!-- 												</div> -->
+
+<!-- 												<div class="col-md-4"> -->
+<!-- 													<h:inputText id="barra" class="form-control" -->
+<!-- 														a:placeholder="barra" -->
+<!-- 														value="#{estoqueBean.estoqueFiltro.produto.codigo_barras}" -->
+<!-- 														size="30"> -->
+<!-- 													</h:inputText> -->
+<!-- 												</div> -->
+
+
+
+<!-- 												<div class="col-md-2"> -->
+<!-- 													<h:commandButton action="#{estoqueBean.filtrar()}" -->
+<!-- 														class="btn btn-info btn-block" a:type="submit" -->
+<!-- 														value="Filtrar" /> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+<!-- 										</h:form> -->
 										<h:form>
-											<ui:insert name="messages">
-												<ui:include src="/restrito/common/messages.xhtml" />
-											</ui:insert>
+
 											<div class="bs-example">
 												<h:dataTable class="table table-hover"
 													value="#{estoqueBean.listaProdutos}" var="produto"
 													rules="row" cellpadding="5">
 													<h:column>
-														<f:facet name="header">Produto</f:facet>
+														<f:facet name="header">Cod. Produto</f:facet>
 			                                             #{produto.id_produto}
 			                                          </h:column>
 													<h:column>
@@ -79,7 +118,7 @@
 													<h:column>
 														<f:facet name="header">Quantidade Produto Estoque</f:facet>
 														#{produto.estoque.qtd_produto}
-													</h:column>													
+													</h:column>
 													<h:column>
 														<f:facet name="header">Validade Lote</f:facet>
 														<h:outputText

@@ -12,6 +12,7 @@ import br.com.bariHosh.dao.UsuarioDAO;
 import br.com.bariHosh.entidade.EnumPermissao;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.util.DAOFactory;
+import br.com.bariHosh.util.ManuseioPublico;
 
 public class UsuarioDAOHibernate extends GenericoDAOHibernate<Usuario> implements UsuarioDAO {
 
@@ -60,4 +61,31 @@ public class UsuarioDAOHibernate extends GenericoDAOHibernate<Usuario> implement
 		
 		return list;		
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Usuario> listaFiltrada(String nome, Long id_usuario, String email) {
+		StringBuffer hql = new StringBuffer();
+
+		hql.append("select u from Usuario u LEFT JOIN FETCH u.pessoa p where 1=1 ");
+		
+		if(ManuseioPublico.validaObjeto(nome)) {
+			hql.append(" and p.nome like '%" + nome + "%' ");
+		}
+		
+		if(ManuseioPublico.validaObjeto(email)) {
+			hql.append(" and p.email like '%" + email + "%' ");
+		}
+
+
+		if (ManuseioPublico.validaObjeto(id_usuario)) {
+			hql.append("and u.id_usuario = " + id_usuario + " ");
+		}
+
+		Query consulta = this.session.createQuery(hql.toString());
+		List<Usuario> listaFiltrada = (List<Usuario>) consulta.list();
+		
+		return listaFiltrada;
+	}
+
 }

@@ -60,8 +60,8 @@ public class FabricanteRN extends ManuseioPublico{
 		return this.fabricanteDAO.listar(Fabricante.class);
 	}
 	
-	public List<Fabricante> listaFiltrada(String cnpj, String razaoSocial){
-		return this.fabricanteDAO.listaFiltrada(cnpj, razaoSocial);
+	public List<Fabricante> listaFiltrada(Long id_frabricante, String razaoSocial){
+		return this.fabricanteDAO.listaFiltrada(id_frabricante, razaoSocial);
 		
 	}
 
