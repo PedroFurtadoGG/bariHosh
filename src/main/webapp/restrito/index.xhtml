@@ -14,7 +14,7 @@
 		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
 		rel='stylesheet' type='text/css' />
 	<h:outputScript name="js/site.min.js" />
-	<title>Usuários</title>
+	<title>Dashboard</title>
 </h:head>
 <h:body>
 	<ui:insert name="header">
@@ -43,99 +43,152 @@
 									<div class="row">
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded"
-													src="https://lasangrealrio.files.wordpress.com/2015/04/sin-tc3adtulo.jpg" />
+												<img class="img-rounded" src="#{request.contextPath}/resources/img/users-dash.png"/>
 												<div class="caption text-center">
-													<h3>Produtos Vendidos</h3>
-													<p>832746</p>
-													<p>
-														<a href="#" class="btn btn-warning" role="button">Button</a>
-														<a href="#" class="btn btn-default" role="button">Button</a>
-													</p>
+													<h3 ><h:outputLabel value="#{dashBean.clientesCadastrados}"/></h3>
+													<p> Clientes Cadastrados </p>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded"
-													src="https://ci.memecdn.com/6927068.jpg" />
+												<img class="img-rounded" src="#{request.contextPath}/resources/img/arrow-dash-up.png" />
 												<div class="caption text-center">
-													<h3>Algum dado</h3>
-													<p>Cr12132</p>
-													<p>
-														<a href="#" class="btn btn-warning" role="button">Button</a>
-														<a href="#" class="btn btn-default" role="button">Button</a>
-													</p>
+													<h3>R$ <h:outputLabel value="#{dashBean.totalMovimentacoesEN}"/> </h3>
+													<p>Total Recebimentos</p>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded"
-													src="http://www.htv.jp/weblog/itonaga/images/kiyama.jpg" />
+												<img class="img-rounded" src="#{request.contextPath}/resources/img/arrow-dash-down.png"/>
 												<div class="caption text-center">
-													<h3>Clientes no Bar</h3>
-													<p>123123.</p>
-													<p>
-														<a href="#" class="btn btn-warning" role="button">Button</a>
-														<a href="#" class="btn btn-default" role="button">Button</a>
-													</p>
+													<h3>R$ <h:outputLabel value="#{dashBean.totalMovimentacoesSA}"/> </h3>
+													<p>Total Saidas</p>
 												</div>
 											</div>
 										</div>
 										<div class="col-sm-6 col-md-3">
 											<div class="thumbnail">
-												<img class="img-rounded"
-													src="http://www.praxinoscope.jp/jpeg/Georges_artworks/2011Romance2967.jpg" />
+												<img class="img-rounded" src="#{request.contextPath}/resources/img/rosh-dash.jpg"/>
 												<div class="caption text-center">
-													<h3>Quantidade de Roshs</h3>
-													<p>12</p>
-													<p>
-														<a href="#" class="btn btn-warning" role="button">Button</a>
-														<a href="#" class="btn btn-default" role="button">Button</a>
-													</p>
+													<h3> <h:outputLabel value="#{dashBean.roshDisponiveis}"/> </h3>
+													<p>Rosh's Disponivéis</p>
 												</div>
 											</div>
 										</div>
 									</div>
-									<h2 class="content-row-title">Produtos mais vendidos</h2>
+									
 									<div class="bs-example">
-										<table class="table table-hover">
-											<thead>
-												<tr>
-													<th>#</th>
-													<th>First Name</th>
-													<th>Last Name</th>
-													<th>Username</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>1</td>
-													<td>Mark</td>
-													<td>Otto</td>
-													<td>@mdo</td>
-												</tr>
-												<tr>
-													<td>2</td>
-													<td>Jacob</td>
-													<td>Thornton</td>
-													<td>@fat</td>
-												</tr>
-												<tr>
-													<td>3</td>
-													<td colspan="2">Larry the Bird</td>
-													<td>@twitter</td>
-												</tr>
-											</tbody>
-										</table>
+											<h3>Comandas Abertas</h3>
+												<h:dataTable class="table table-hover" value="#{dashBean.listaComanda}" var="comanda"  cellpadding="5">
+													<h:column>
+														<f:facet name="header">Código</f:facet>
+		                                             	#{comanda.id_comanda}
+		                                          	</h:column>
+													<h:column>
+														<f:facet name="header">Cliente </f:facet>
+		                                             	#{comanda.cliente.pessoa.nome}
+		                                          	</h:column>
+		                                          	<h:column>
+														<f:facet name="header">Valor</f:facet>
+		                                             	
+		                                             	<h:outputText
+															value="#{comanda.valorTotal}">
+															<f:convertNumber currencySymbol="R$" type="currency"/>
+														</h:outputText>
+														
+		                                          	</h:column>            	
+		                                          	
+												</h:dataTable>
 									</div>
-
-
+									
+									<div class="bs-example">
+											<h3>Produtos próximos ao Vencimento</h3>
+												<span style="color: red"> * EM 15 DIAS </span>
+												<h:dataTable class="table table-hover" value="#{dashBean.listaProdutosVencendo}" var="produto"  cellpadding="5">
+													<h:column>
+														<f:facet name="header">Código</f:facet>
+		                                             	#{produto.id_produto}
+		                                          	</h:column>
+													<h:column>
+														<f:facet name="header">Nome</f:facet>
+		                                             	#{produto.nome}
+		                                          	</h:column>
+		                                          	<h:column>
+														<f:facet name="header">Quantidade/Estoque</f:facet>
+		                                             	#{produto.estoque.qtd_produto}
+		                                          	</h:column>    
+		                                          	<h:column>
+														<f:facet name="header">Data Validade Lote </f:facet>
+		                                             	<h:outputText
+															value="#{produto.estoque.data_validade_lote}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+														</h:outputText>
+		                                             	
+		                                          	</h:column> 
+		                                          	        	
+		                                          	
+												</h:dataTable>
+									</div>
+									
+									<div class="bs-example">
+											<h3>Movimentações de Recebimento</h3>
+												<h:dataTable  class="table table-hover" value="#{dashBean.listaCaixaEN}" var="caixaEN"  cellpadding="5">
+														<h:column>
+														<f:facet name="header">Código Caixa EN</f:facet>
+		                                             	#{caixaEN.id_caixa}
+		                                          	</h:column>
+													<h:column>
+														<f:facet name="header">Valor</f:facet>
+		                                             	
+		                                             	<h:outputText
+															value="#{caixaEN.valor_total}">
+															<f:convertNumber currencySymbol="R$" type="currency"/>
+														</h:outputText>
+		                                             	
+		                                          	</h:column>
+		                                          	<h:column>
+														<f:facet name="header">Data </f:facet>
+														
+		                                             	<h:outputText
+															value="#{caixaEN.data_movimentacao}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+															
+														</h:outputText>
+		                                          	</h:column>     
+												</h:dataTable>
+									</div>
+									
+									<div class="bs-example">
+											<h3> Movimentações de Retiradas</h3>
+												<h:dataTable  class="table table-hover" value="#{dashBean.listaCaixaSA}" var="caixaSA"  cellpadding="5">
+													<h:column>
+														<f:facet name="header">Código Caixa SA</f:facet>
+		                                             	#{caixaSA.id_caixa}
+		                                          	</h:column>
+													<h:column>
+														<f:facet name="header">Valor</f:facet>
+														
+		                                             	<h:outputText
+															value="#{caixaSA.valor_total}">
+															<f:convertNumber currencySymbol="R$" type="currency"/>
+														</h:outputText>
+		                                             	
+		                                          	</h:column>
+		                                          	<h:column>
+														<f:facet name="header">Data </f:facet>
+		                                             	
+		                                             	<h:outputText
+															value="#{caixaSA.data_movimentacao}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+														</h:outputText>
+														
+		                                          	</h:column>     
+												</h:dataTable>
+									</div>
+									
 								</div>
-
-
-
 							</div>
 						</div>
 					</div>

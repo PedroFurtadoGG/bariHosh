@@ -1,5 +1,6 @@
 package br.com.bariHosh.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.bariHosh.entidade.Produto;

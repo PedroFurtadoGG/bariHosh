@@ -6,6 +6,7 @@ public interface CaixaDAO {
 
 	public Caixa recuperaCaixaAberto();
 	
-	
+	public List<Caixa> listarMovimentacoes(String tipoMovimentacao);
+	public String totalMovimentacoes(String tipoMovimentacao);
 
 }

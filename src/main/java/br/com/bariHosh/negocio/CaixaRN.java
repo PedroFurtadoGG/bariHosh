@@ -1,5 +1,7 @@
 package br.com.bariHosh.negocio;
 
+import java.util.List;
+
 import br.com.bariHosh.daoHibernate.CaixaDAOHibernate;
 import br.com.bariHosh.entidade.Caixa;
 import br.com.bariHosh.entidade.Usuario;
