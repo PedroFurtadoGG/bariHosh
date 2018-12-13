@@ -86,7 +86,7 @@ public class ComandaBean implements Serializable {
 			this.comanda.setValorTotal(this.comanda.getValorTotal() + valorItem);
 			this.itemComanda = new ItemComanda();
 			ManuseioPublico.MessagesSucesso("Item adicionado com Sucesso !");
-
+            
 		}
 
 	}
