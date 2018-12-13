@@ -1,5 +1,6 @@
 package br.com.bariHosh.daoHibernate;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -67,4 +68,28 @@ public class ProdutoDAOHibernate extends GenericoDAOHibernate<Produto> implement
 		return listaFiltrada;
 	}
 
+	@Override
+	public List<Produto> listarProximosVencimentos() {
+		
+		String sql = "SELECT produto.id_produto, produto.nome, estoque.data_validade_lote , estoque.qtd_produto FROM produto LEFT JOIN estoque ON produto.id_estoque_produto = estoque.id_estoque "
+				+ " WHERE (SELECT DATEDIFF(estoque.data_validade_lote , CURRENT_DATE)) <= 15";
+		Query consulta = this.session.createSQLQuery(sql);
+		List<Produto> listaProximosVencimentos = (List<Produto>) consulta.list();
+		
+		return listaProximosVencimentos;
+	}
+
+	@Override
+	public String roshDisponiveis() {
+		String resultado;
+		String sql = "SELECT COUNT(produto.id_produto) FROM produto WHERE produto.nome like '%Hosh Completo%' ";
+		
+		Query consulta = this.session.createSQLQuery(sql);
+		resultado = consulta.uniqueResult().toString();
+		
+		return resultado;
+	}
+
+
+	
 }
