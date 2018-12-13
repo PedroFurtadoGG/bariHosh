@@ -23,8 +23,7 @@ public class ItemComandaRN extends ManuseioPublico {
 	}
 
 	public boolean excluirItemComanda(ItemComanda model) {
-		try {			 
-		   
+		try {		   
 			 estoqueRN.aumentarEstoqueProduto(model.getProduto().getEstoque(), model.getQuantidade());			
 			itemComandaDAO.excluir(model);
 			super.MessagesSucesso("Item Removido Com Sucesso ");

@@ -23,7 +23,6 @@ import br.com.bariHosh.entidade.SangriaCaixa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.CaixaRN;
 import br.com.bariHosh.negocio.ComandaRN;
-import br.com.bariHosh.negocio.MovimentacaoRN;
 import br.com.bariHosh.negocio.SangriaRN;
 import br.com.bariHosh.negocio.UsuarioRN;
 import br.com.bariHosh.util.ManuseioPublico;
@@ -60,13 +59,14 @@ public class CaixaBean implements Serializable {
 	}
 
 	public String InicializaCaixa() {
-		Comanda comanda_encerrada = new ComandaRN().recuperaComandaParaEdicao("id_comanda_encerrada");
-		if (comanda_encerrada != null) {
-			this.comanda = comanda_encerrada;
-			this.pagamento.setValorTotal(this.comanda.getValorTotal());
-		}
+		
 		Caixa caixaAberto = new CaixaRN().RecuperaCaixaAberto();
-		if (caixaAberto != null) {
+		if (caixaAberto != null) {			
+			Comanda comanda_encerrada = new ComandaRN().recuperaComandaParaEdicao("id_comanda_encerrada");
+			if (comanda_encerrada != null) {
+				this.comanda = comanda_encerrada;
+				this.pagamento.setValorTotal(this.comanda.getValorTotal());
+			}
 			this.caixa = caixaAberto;
 			this.painelCaixaRenderizado = true;
 			this.formFechaCaixaRenderizado = false;

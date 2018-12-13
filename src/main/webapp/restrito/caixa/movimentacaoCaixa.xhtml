@@ -15,7 +15,7 @@
 		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
 		rel='stylesheet' type='text/css' />
 	<h:outputScript name="js/site.min.js" />
-	<title>Comandas</title>
+	<title>Movimentações</title>
 </h:head>
 <h:body>
 	<ui:insert name="header">
@@ -57,27 +57,56 @@
 																<ui:insert name="messages">
 																	<ui:include src="/restrito/common/messages.xhtml" />
 																</ui:insert>
+																<h3 class="panel-title">
+																	<b>Buscar Movimentações</b>
+																</h3>
+																<br />
 																<div class="form-group">
 																	<div class="col-md-2">
 																		<h:inputText id="codigo" class="form-control"
-																			a:placeholder="Codigo"
-																			value="#{movimentacaoBean.codigomovimentacao}"
+																			a:placeholder="Codigo "
+																			value="#{movimentacaoBean.movimentacaoFiltro.id_movimentacao}"
 																			size="30">
 																		</h:inputText>
 																	</div>
 																	<div class="col-md-2">
 																		<h:inputText id="CodigoCaixa" class="form-control"
-																			a:placeholder="Busca Por Caixa"
-																			value="#{movimentacaoBean.nome}"
+																			a:placeholder="Codigo Caixa"
+																			value="#{movimentacaoBean.movimentacaoFiltro.caixa.id_caixa}"
 																			size="30">
 																		</h:inputText>
 																	</div>
 
+																	<div class="col-md-3">
+
+																		<h:inputText id="dti" a:type="date" a:maxlength="10"
+																			value="#{movimentacaoBean.movimentacaoFiltro.dataInicialMovimentacao}"
+																			 class="form-control">
+																			<f:convertDateTime pattern="yyyy-MM-dd"
+																				locale="pt_BR" timeZone="America/Sao_Paulo" />
+																			<f:validateLength minimum="10" />
+																		</h:inputText>
+																		<label for=""><span style="color: red">
+																				* </span>Periodo Inicial </label>
+																	</div>
+
+																	<div class="col-md-3">
+
+																		<h:inputText id="dtf" a:type="date" a:maxlength="10"
+																			value="#{movimentacaoBean.movimentacaoFiltro.dataFinalMovimentacao}"
+																			 class="form-control">
+																			<f:convertDateTime pattern="yyyy-MM-dd"
+																				locale="pt_BR" timeZone="America/Sao_Paulo" />
+																			<f:validateLength minimum="10" />
+																		</h:inputText>
+																		<label><span style="color: red"> * </span>Periodo  
+																			Final </label>
+																	</div>
+
 																	<div class="col-md-2">
 																		<h:commandButton
-																			actionListener="#{movimentacaoBean.filtrarMovimentacao()}"
-																			class="btn btn-info btn-block" 
-																			value="Filtrar" />
+																			actionListener="#{movimentacaoBean.filtrar()}"
+																			class="btn btn-info btn-block" value="Filtrar" />
 																	</div>
 																</div>
 															</h:form>
@@ -92,19 +121,19 @@
 
 											<div class="bs-example">
 												<h:dataTable class="table table-hover"
-													value="#{movimentacaoBean.listamovimentacoesCaixa}" var="mov"
-													rules="row" cellpadding="5">
+													value="#{movimentacaoBean.listamovimentacoesCaixa}"
+													var="mov" rules="row" cellpadding="5">
 													<h:column>
 														<f:facet name="header">Código da Movimentacão</f:facet>
                                              #{mov.id_movimentacao}
                                           </h:column>
-													
-												
-                                          	<h:column>
+
+
+													<h:column>
 														<f:facet name="header">Usuario Movimentador </f:facet>
                                              #{mov.caixa.usuarioCaixa.pessoa.nome}
                                           </h:column>
-                                          	<h:column>
+													<h:column>
 														<f:facet name="header">Caixa</f:facet>
                                              #{mov.caixa.id_caixa}
                                           </h:column>
@@ -149,7 +178,7 @@
 															onclick="if (!confirm('Confirma a exclusão do Comanda #{comanda.id_comanda}?')) return false;">
 															<i class="fa fa-trash-o"></i>
 														</h:commandLink>
-													</h:column>												
+													</h:column>
 
 
 												</h:dataTable>

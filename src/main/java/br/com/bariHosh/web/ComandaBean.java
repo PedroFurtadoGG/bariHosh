@@ -3,7 +3,6 @@ package br.com.bariHosh.web;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -76,12 +75,7 @@ public class ComandaBean implements Serializable {
 		return "comanda";
 	}
 
-	public List<Cliente> buscaPeloNome(String nome) {
-		List<Cliente> clientes = new ClienteRN().listar();
-		clientes.stream().filter(c -> c.getPessoa().getNome().contains(nome)).collect(Collectors.toList());
-		return clientes;
-
-	}
+	
 
 	public void adicionarItemComanda() {
 		if (new ComandaRN().retirarProdutoEmEstoque(this.itemComanda)) {
@@ -99,14 +93,15 @@ public class ComandaBean implements Serializable {
 
 	public void excluirItemComanda() {
 		if (new ComandaRN().devolverProdutoEstoque(this.itemComanda)) {
-			this.comanda.removeItemComanda(this.itemComanda);
+			this.comanda.removeItemComanda(this.itemComanda);			
 			this.comanda.setValorTotal(this.comanda.getValorTotal() - this.itemComanda.getValorTotal());
-			if (this.comanda.getId_comanda() != null) {
+			if (this.comanda.getId_comanda() != null) {	
+				this.comanda.getItensDaComanda();
 				new ItemComandaRN().excluirItemComanda(this.itemComanda);
-				this.itemComanda = new ItemComanda();
 				new ComandaRN().atualiza(this.comanda);
-			} else {
-				ManuseioPublico.MessagesSucesso("Item Removido  com Sucesso !");
+				this.comanda =  new ComandaRN().carregarComanda(this.comanda.getId_comanda());
+				this.itemComanda = new ItemComanda();
+				
 			}
 		}
 	}

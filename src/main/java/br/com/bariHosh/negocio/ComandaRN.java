@@ -47,6 +47,7 @@ public class ComandaRN extends ManuseioPublico {
 					return true;
 				} else {
 					super.MessagesSucesso("Comanda Atualizada  Com Sucesso ");
+					
 					this.comandaDAO.atualizar(comanda);
 					return true;
 				}
