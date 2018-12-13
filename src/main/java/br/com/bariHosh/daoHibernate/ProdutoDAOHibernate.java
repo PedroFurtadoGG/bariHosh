@@ -82,14 +82,13 @@ public class ProdutoDAOHibernate extends GenericoDAOHibernate<Produto> implement
 	@Override
 	public String roshDisponiveis() {
 		String resultado;
-		String sql = "SELECT COUNT(produto.id_produto) FROM produto WHERE produto.nome like '%Hosh Completo%' ";
-		
+		String sql = "SELECT estoque.qtd_produto FROM produto INNER JOIN estoque on estoque.id_estoque = produto.id_produto inner join log_estoque on log_estoque.id_log_estoque = estoque.id_estoque WHERE produto.nome like '%Hosh Completo%'";
+
 		Query consulta = this.session.createSQLQuery(sql);
 		resultado = consulta.uniqueResult().toString();
-		
+
 		return resultado;
 	}
-
 
 	
 }

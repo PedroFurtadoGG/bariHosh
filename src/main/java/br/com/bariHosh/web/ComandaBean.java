@@ -86,7 +86,8 @@ public class ComandaBean implements Serializable {
 	public void adicionarItemComanda() {
 		if (new ComandaRN().retirarProdutoEmEstoque(this.itemComanda)) {
 			this.itemComanda.setValorUnitario(this.itemComanda.getProduto().getValorSaida());
-			this.itemComanda.setValorTotal(this.itemComanda.getProduto().getValorSaida() * this.itemComanda.getQuantidade());
+			this.itemComanda
+					.setValorTotal(this.itemComanda.getProduto().getValorSaida() * this.itemComanda.getQuantidade());
 			this.comanda.adicionaItemComanda(this.itemComanda);
 			float valorItem = this.itemComanda.getValorTotal();
 			this.comanda.setValorTotal(this.comanda.getValorTotal() + valorItem);
@@ -102,11 +103,12 @@ public class ComandaBean implements Serializable {
 			this.comanda.removeItemComanda(this.itemComanda);
 			this.comanda.setValorTotal(this.comanda.getValorTotal() - this.itemComanda.getValorTotal());
 			if (this.comanda.getId_comanda() != null) {
+				this.comanda.getItensDaComanda();
 				new ItemComandaRN().excluirItemComanda(this.itemComanda);
-				this.itemComanda = new ItemComanda();
 				new ComandaRN().atualiza(this.comanda);
-			} else {
-				ManuseioPublico.MessagesSucesso("Item Removido  com Sucesso !");
+				this.comanda = new ComandaRN().carregarComanda(this.comanda.getId_comanda());
+				this.itemComanda = new ItemComanda();
+
 			}
 		}
 	}
@@ -149,7 +151,7 @@ public class ComandaBean implements Serializable {
 
 	}
 
-	public String salvarComanda() {		
+	public String salvarComanda() {
 		this.comanda.setStatusComanda(EnumStatusComanda.EM_ABERTO);
 		this.comanda.setAtivo(true);
 		if (new ComandaRN().salvar(this.comanda)) {
@@ -308,13 +310,13 @@ public class ComandaBean implements Serializable {
 	public void setPessoaFiltro(Pessoa pessoaFiltro) {
 		this.pessoaFiltro = pessoaFiltro;
 	}
-	
+
 	public String filtrarFechadas() {
 
-		this.comandasAbertas = comandaRN.listaFiltradaFechada(comandaFiltro.getId_comanda(), comandaFiltro.getCliente().getPessoa().getNome());
+		this.comandasAbertas = comandaRN.listaFiltradaFechada(comandaFiltro.getId_comanda(),
+				comandaFiltro.getCliente().getPessoa().getNome());
 
 		return "/restrito/comanda/comandasAberto";
 	}
-	
 
 }

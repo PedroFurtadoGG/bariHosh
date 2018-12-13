@@ -33,7 +33,7 @@ public class CaixaDAOHibernate extends GenericoDAOHibernate<Caixa> implements Ca
 	
 	@Override
 	public String totalMovimentacoes(String tipoMovimentacao) {
-		String hql = "SELECT SUM(pagamento.ValorTotal) FROM movimentacao LEFT JOIN pagamento ON movimentacao.id_pagamento = pagamento.id " + 
+		String hql = "SELECT  ROUND(SUM(pagamento.ValorTotal), 2) FROM movimentacao LEFT JOIN pagamento ON movimentacao.id_pagamento = pagamento.id " + 
 				" WHERE " + 
 				" movimentacao.tipo_movimento = '"+tipoMovimentacao+"'";
 		

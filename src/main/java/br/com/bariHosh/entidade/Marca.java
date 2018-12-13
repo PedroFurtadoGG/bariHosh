@@ -13,18 +13,17 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "marca")
-public class Marca implements Serializable  {
+public class Marca implements Serializable {
 
 	private static final long serialVersionUID = 8539535248560042148L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_marca;
 	private String nome;
-	
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_fabricante", nullable = false)	
+	@JoinColumn(name = "id_fabricante", nullable = false)
 	private Fabricante fabricante;
 
 	public Long getId_marca() {
@@ -87,9 +86,5 @@ public class Marca implements Serializable  {
 			return false;
 		return true;
 	}
-
-	
-	
-
 
 }
