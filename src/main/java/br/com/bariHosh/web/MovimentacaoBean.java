@@ -1,6 +1,7 @@
 package br.com.bariHosh.web;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +75,15 @@ public class MovimentacaoBean implements Serializable {
 	public void excluirMovimentacao(Movimentacao mov) {
 
 	}
+
+//	public void filtrarMovimentacao() {
+//		
+//		System.out.println("tachegando");
+//		this.listamovimentacoesCaixa  = new MovimentacaoRN().listaDeMovimentacoes();
+//		this.listamovimentacoesCaixa.stream().filter(c -> c.getCaixa().getUsuarioCaixa().getPessoa().getNome().contains("")).collect(Collectors.toList());
+//		;
+//
+//	}
 	
 
 	public List<Movimentacao> getListamovimentacoesCaixa() {	
