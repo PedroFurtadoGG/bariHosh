@@ -1,6 +1,7 @@
 package br.com.bariHosh.negocio;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.bariHosh.daoHibernate.MovimentacaoDAOHibernate;
@@ -29,6 +30,12 @@ public class MovimentacaoRN extends ManuseioPublico{
 		System.out.println("erro consulta"+e.getMessage());
 		}
 		return listamov;
+	}
+
+	public List<Movimentacao> listaFiltrada(Long id_movimentacao, Long id_caixa, Date dataInicialMovimentacao,
+			Date dataFinalMovimentacao) {
+		return this.movimentacaoDAO.listaFiltrada(id_movimentacao, id_caixa, dataInicialMovimentacao,
+				dataFinalMovimentacao);
 	}
 	
 
