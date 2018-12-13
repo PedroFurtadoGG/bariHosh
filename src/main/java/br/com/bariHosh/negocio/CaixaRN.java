@@ -22,10 +22,10 @@ public class CaixaRN extends ManuseioPublico {
 			caixa.setUsuarioCaixa(usuarioLogado);
 			if (!super.validaObjeto(caixa.getId_caixa())) {
 				new CaixaDAOHibernate().salvar(caixa);
-				
+
 				return true;
 			} else {
-				new CaixaDAOHibernate().atualizar(caixa);				
+				new CaixaDAOHibernate().atualizar(caixa);
 				return true;
 
 			}
@@ -54,11 +54,21 @@ public class CaixaRN extends ManuseioPublico {
 		this.caixaDAO = caixaDAO;
 	}
 
-	public List<Caixa> listarMovimentacoes(String tipo){
+	public List<Caixa> listarMovimentacoes(String tipo) {
 		return this.caixaDAO.listarMovimentacoes(tipo);
 	}
-	
+
 	public String totalMovimentacoes(String tipo) {
 		return this.caixaDAO.totalMovimentacoes(tipo);
+	}
+
+	public Caixa RecuperaCaixaAberto() {
+		Caixa caixaAberto = new Caixa();
+		if (caixaAberto != null) {
+			caixaAberto = this.caixaDAO.recuperaCaixaAberto();
+
+		}
+		return caixaAberto;
+
 	}
 }

@@ -41,7 +41,7 @@ public class DashboardRN extends ManuseioPublico{
 	}
 	
 	public List<Comanda> listarComandasAbertas(boolean status){
-		return this.comandaDAO.listaComandasStatus(status);
+		return this.comandaDAO.listaComandasStatus(status, null);
 	}
 
 }

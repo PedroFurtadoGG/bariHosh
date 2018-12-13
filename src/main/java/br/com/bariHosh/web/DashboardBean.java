@@ -106,7 +106,6 @@ public class DashboardBean  {
 
 
 	public String getTotalMovimentacoesEN() {
-//		return this.totalMovimentacoesEN = new CaixaRN().totalMovimentacoes("EN");
 		return this.totalMovimentacoesEN = caixaRN.totalMovimentacoes("EN");
 	}
 
@@ -117,7 +116,6 @@ public class DashboardBean  {
 
 
 	public String getTotalMovimentacoesSA() {
-//		return this.totalMovimentacoesSA = new CaixaRN().totalMovimentacoes("SA");
 		return this.totalMovimentacoesEN = caixaRN.totalMovimentacoes("SA");
 	}
 
