@@ -20,8 +20,8 @@ public class ClienteDAOHibernate extends GenericoDAOHibernate<Cliente> implement
 		StringBuffer hql = new StringBuffer();
 
 		hql.append("select c from Cliente c LEFT JOIN FETCH c.pessoa p where 1=1 ");
-		
-		if(ManuseioPublico.validaObjeto(nome)) {
+
+		if (ManuseioPublico.validaObjeto(nome)) {
 			hql.append(" and p.nome like '%" + nome + "%' ");
 		}
 
@@ -35,8 +35,18 @@ public class ClienteDAOHibernate extends GenericoDAOHibernate<Cliente> implement
 
 		Query consulta = this.session.createQuery(hql.toString());
 		List<Cliente> listaFiltrada = (List<Cliente>) consulta.list();
-		
+
 		return listaFiltrada;
+	}
+
+	public String totalClientesRegistrados() {
+
+		String sql = "SELECT count(c.id_cliente) FROM Cliente c WHERE 1=1";
+
+		Query consulta = this.session.createQuery(sql);
+		String resultado = consulta.uniqueResult().toString();
+
+		return resultado;
 	}
 
 }

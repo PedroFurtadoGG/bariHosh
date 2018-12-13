@@ -113,6 +113,19 @@ public class ComandaDAOHibernate extends GenericoDAOHibernate<Comanda> implement
 		return listaFiltrada;
 	}
 
+	@SuppressWarnings("unchecked")
+    @Override
+    public List<Comanda> listaComandasStatus(boolean status) {
+        String hql = "select c from Comanda c JOIN FETCH c.cliente o  where c.ativo = :status ";
+                               
+        Query consulta = this.session.createQuery(hql);
+        consulta.setBoolean("status", status);
+        List<Comanda> list = (List<Comanda>) consulta.list();
+ 
+        return list;
+ 
+    }
+
 
 
 

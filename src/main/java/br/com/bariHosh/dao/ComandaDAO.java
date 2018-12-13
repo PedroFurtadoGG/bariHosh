@@ -18,5 +18,5 @@ public interface ComandaDAO {
 	List<Comanda> listaFiltrada(Long id_comanda, String nome);
 	List<Comanda> listaFiltradaFechada(Long id_comanda, String nome);
 	
-
+    public List<Comanda> listaComandasStatus(boolean status);
 }

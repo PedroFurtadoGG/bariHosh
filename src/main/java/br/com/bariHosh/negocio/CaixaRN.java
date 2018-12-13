@@ -63,5 +63,13 @@ public class CaixaRN extends ManuseioPublico {
 		 return caixaAberto;
 		
 	}
+	
+	public String totalMovimentacoes(String tipo) {
+		return this.caixaDAO.totalMovimentacoes(tipo);
+	}
+	
+	public List<Caixa> listarMovimentacoes(String tipo){
+		return this.caixaDAO.listarMovimentacoes(tipo);
+	}
 
 }
