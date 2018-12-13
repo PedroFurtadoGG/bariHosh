@@ -23,6 +23,7 @@ import br.com.bariHosh.entidade.SangriaCaixa;
 import br.com.bariHosh.entidade.Usuario;
 import br.com.bariHosh.negocio.CaixaRN;
 import br.com.bariHosh.negocio.ComandaRN;
+import br.com.bariHosh.negocio.MovimentacaoRN;
 import br.com.bariHosh.negocio.SangriaRN;
 import br.com.bariHosh.negocio.UsuarioRN;
 import br.com.bariHosh.util.ManuseioPublico;

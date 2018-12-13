@@ -80,7 +80,8 @@ public class ComandaBean implements Serializable {
 	public void adicionarItemComanda() {
 		if (new ComandaRN().retirarProdutoEmEstoque(this.itemComanda)) {
 			this.itemComanda.setValorUnitario(this.itemComanda.getProduto().getValorSaida());
-			this.itemComanda.setValorTotal(this.itemComanda.getProduto().getValorSaida() * this.itemComanda.getQuantidade());
+			this.itemComanda
+					.setValorTotal(this.itemComanda.getProduto().getValorSaida() * this.itemComanda.getQuantidade());
 			this.comanda.adicionaItemComanda(this.itemComanda);
 			float valorItem = this.itemComanda.getValorTotal();
 			this.comanda.setValorTotal(this.comanda.getValorTotal() + valorItem);
@@ -302,6 +303,14 @@ public class ComandaBean implements Serializable {
 
 	public void setPessoaFiltro(Pessoa pessoaFiltro) {
 		this.pessoaFiltro = pessoaFiltro;
+	}
+
+	public String filtrarFechadas() {
+
+		this.comandasAbertas = comandaRN.listaFiltradaFechada(comandaFiltro.getId_comanda(),
+				comandaFiltro.getCliente().getPessoa().getNome());
+
+		return "/restrito/comanda/comandasAberto";
 	}
 
 }

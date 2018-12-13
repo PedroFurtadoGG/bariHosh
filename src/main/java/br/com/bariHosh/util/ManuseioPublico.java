@@ -105,6 +105,18 @@ public class ManuseioPublico {
 		
 	}
 	
+	public static boolean CalcularProximosVencimentos(Date data) {
+		Calendar dateOfBirth = new GregorianCalendar();
+		dateOfBirth.setTime(data);
+		Calendar today = Calendar.getInstance();
+		Integer tempoData = today.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+		dateOfBirth.add(Calendar.YEAR, tempoData);
+		if (today.before(dateOfBirth)) {
+			tempoData--;		}
+		return tempoData <= 15;
+		
+	}
+	
 	
 	public static boolean CalcularDataValidadeProduto(Date data) {				
 		   return  CalcularData(data)<=0;

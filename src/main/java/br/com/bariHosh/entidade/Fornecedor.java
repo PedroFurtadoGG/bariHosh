@@ -33,7 +33,6 @@ public class Fornecedor implements Serializable {
 	@OneToMany(mappedBy="fornecedor",fetch=FetchType.LAZY  ,targetEntity = Produto.class)
     private List<Produto> produtos = new ArrayList<Produto>();
 	 
-	
 
 	private boolean ativo;
 	private String ramoAtividade;

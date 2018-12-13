@@ -26,6 +26,10 @@ public class ProdutoRN extends ManuseioPublico {
 		this.logDAO= new LogEstoqueDAOHibernate();
 		this.estoqueDAO =  new EstoqueDAOHibernate();
 	}
+    
+    public String roshDisponiveis() {
+    	return this.produtoDAO.roshDisponiveis();
+    }
 
 	public Produto carregar(Long id) {
 		return this.produtoDAO.carregar(Produto.class, id);
@@ -142,6 +146,10 @@ public class ProdutoRN extends ManuseioPublico {
 	
 	public List<Produto> listaFiltrada(String nome, String codBarras, Long id_produto){
 		return this.produtoDAO.listaFiltrada(nome, codBarras, id_produto);
+	}
+	
+	public List<Produto> listarProximosVencimentos(){
+		return this.produtoDAO.listarProximosVencimentos();
 	}
 
 	public Log_Estoque getLogEstoque() {

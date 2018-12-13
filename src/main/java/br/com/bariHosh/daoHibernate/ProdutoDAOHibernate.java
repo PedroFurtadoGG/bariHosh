@@ -1,5 +1,6 @@
 package br.com.bariHosh.daoHibernate;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -42,27 +43,52 @@ public class ProdutoDAOHibernate extends GenericoDAOHibernate<Produto> implement
 
 		return list;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Produto> listaFiltrada(String nome, String codBarras, Long id_produto) {
-		
+
 		StringBuffer hql = new StringBuffer();
-		hql.append("	select p from Produto p  where p.nome like '%" + nome +"%' ");
-		
-		if(!codBarras.equals("")) {
-			hql.append("	and p.codigo_barras like '%" + codBarras +"%'");
+		hql.append("	select p from Produto p  where 1=1 ");
+
+		if (ManuseioPublico.validaObjeto(nome)) {
+			hql.append(" and p.nome like '%" + nome + "%' ");
 		}
-		
-		if(ManuseioPublico.validaObjeto(id_produto)) {
+
+		if (!codBarras.equals("")) {
+			hql.append("	and p.codigo_barras like '%" + codBarras + "%'");
+		}
+
+		if (ManuseioPublico.validaObjeto(id_produto)) {
 			hql.append("	and p.id_produto = " + id_produto + "");
 		}
-		
+
 		Query consulta = this.session.createQuery(hql.toString());
 		List<Produto> listaFiltrada = (List<Produto>) consulta.list();
 		return listaFiltrada;
 	}
 
+	@Override
+	public List<Produto> listarProximosVencimentos() {
+		
+		String sql = "SELECT produto.id_produto, produto.nome, estoque.data_validade_lote , estoque.qtd_produto FROM produto LEFT JOIN estoque ON produto.id_estoque_produto = estoque.id_estoque "
+				+ " WHERE (SELECT DATEDIFF(estoque.data_validade_lote , CURRENT_DATE)) <= 15";
+		Query consulta = this.session.createSQLQuery(sql);
+		List<Produto> listaProximosVencimentos = (List<Produto>) consulta.list();
+		
+		return listaProximosVencimentos;
+	}
+
+	@Override
+	public String roshDisponiveis() {
+		String resultado;
+		String sql = "SELECT estoque.qtd_produto FROM produto INNER JOIN estoque on estoque.id_estoque = produto.id_produto inner join log_estoque on log_estoque.id_log_estoque = estoque.id_estoque WHERE produto.nome like '%Hosh Completo%'";
+
+		Query consulta = this.session.createSQLQuery(sql);
+		resultado = consulta.uniqueResult().toString();
+
+		return resultado;
+	}
 
 	
 }
