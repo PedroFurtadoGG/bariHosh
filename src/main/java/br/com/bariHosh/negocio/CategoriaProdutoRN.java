@@ -71,6 +71,13 @@ public class CategoriaProdutoRN extends ManuseioPublico{
 		return this.categoriaProdutoDao.listar(CategoriaProduto.class);
 		
 	}
+
+
+	public List<CategoriaProduto> listaFiltrada(String descricao, Long id_categoria) {
+		return categoriaProdutoDao.listaFiltrada(descricao, id_categoria);
+	}
+	
+	
 	
 	
 

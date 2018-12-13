@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<link rel="shortcut icon"
+		href="#{request.contextPath}/resources/img/favicon.ico" />
+	<link rel="bookmark" href="favicon_16.ico" />
+	<h:outputStylesheet name="css/site.min.css" />
+	<h:outputStylesheet library="webjars"
+		name="font-awesome/4.5.0/css/font-awesome.min-jsf.css" />
+	<link
+		href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic'
+		rel='stylesheet' type='text/css' />
+	<h:outputScript name="js/site.min.js" />
+	<title>Comandas</title>
+</h:head>
+<h:body>
+	<ui:insert name="header">
+		<ui:include src="/restrito/common/top-menu.xhtml" />
+	</ui:insert>
+	<div class="container-fluid">
+		<div class="row row-offcanvas row-offcanvas-left">
+			<ui:insert name="sidebar-menu">
+				<ui:include src="/restrito/common/sidebar-menu.xhtml" />
+			</ui:insert>
+			<div class="col-xs-12 col-sm-9 content">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<a href="javascript:void(0);" class="toggle-sidebar"><span
+								class="fa fa-angle-double-left" data-toggle="offcanvas"
+								title="Maximize Panel"></span></a> <b>Movimentações</b>
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="content-row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<a href="javascript:void(0);" class="toggle-sidebar"><span
+											class="fa fa-angle-double-left" data-toggle="offcanvas"
+											title="Maximize Panel"></span></a> <b>Listagem de
+											Movimentacão de Caixa</b>
+									</h3>
+								</div>
+								<div class="panel-body">
+									<div class="form-group">
+										<h:form>
+											<div class="panel-body">
+												<div class="content-row">
+													<div class="panel panel-default">
+														<div class="panel-body">
+															<h:form id="busca" class="form-horizontal" name="busca">
+																<ui:insert name="messages">
+																	<ui:include src="/restrito/common/messages.xhtml" />
+																</ui:insert>
+																<div class="form-group">
+																	<div class="col-md-2">
+																		<h:inputText id="codigo" class="form-control"
+																			a:placeholder="Codigo"
+																			value="#{movimentacaoBean.codigomovimentacao}"
+																			size="30">
+																		</h:inputText>
+																	</div>
+																	<div class="col-md-2">
+																		<h:inputText id="CodigoCaixa" class="form-control"
+																			a:placeholder="Busca Por Caixa"
+																			value="#{movimentacaoBean.nome}"
+																			size="30">
+																		</h:inputText>
+																	</div>
+
+																	<div class="col-md-2">
+																		<h:commandButton
+																			actionListener="#{movimentacaoBean.filtrarMovimentacao()}"
+																			class="btn btn-info btn-block" 
+																			value="Filtrar" />
+																	</div>
+																</div>
+															</h:form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</h:form>
+									</div>
+									<div class="bs-example">
+										<h:form id="formMovimentacao">
+
+											<div class="bs-example">
+												<h:dataTable class="table table-hover"
+													value="#{movimentacaoBean.listamovimentacoesCaixa}" var="mov"
+													rules="row" cellpadding="5">
+													<h:column>
+														<f:facet name="header">Código da Movimentacão</f:facet>
+                                             #{mov.id_movimentacao}
+                                          </h:column>
+													
+												
+                                          	<h:column>
+														<f:facet name="header">Usuario Movimentador </f:facet>
+                                             #{mov.caixa.usuarioCaixa.pessoa.nome}
+                                          </h:column>
+                                          	<h:column>
+														<f:facet name="header">Caixa</f:facet>
+                                             #{mov.caixa.id_caixa}
+                                          </h:column>
+
+													<h:column>
+														<f:facet name="header">Valor Total Pagamento</f:facet>
+                                             #{mov.pagamentoComanda.valorTotal}
+                                          </h:column>
+													<h:column>
+														<f:facet name="header">Pagamento</f:facet>
+                                             #{mov.pagamentoComanda.statusPagamento}
+                                          </h:column>
+													<h:column>
+														<f:facet name="header">Data Cricação</f:facet>
+														<h:outputText value="#{mov.dataInicialMovimentacao}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+														</h:outputText>
+													</h:column>
+													<h:column>
+														<f:facet name="header">Data Finalização</f:facet>
+														<h:outputText value="#{mov.dataFinalMovimentacao}">
+															<f:convertDateTime pattern="dd/MM/yyyy" />
+														</h:outputText>
+													</h:column>
+
+													<h:column>
+														<f:facet name="header">Editar</f:facet>
+														<h:commandLink
+															action="#{movimentacaoBean.visualizarMovimentacao(mov)}">
+															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+															<f:param name="id_comanda_aberta"
+																value="#{comanda.id_comanda}" />
+
+														</h:commandLink>
+													</h:column>
+
+													<h:column>
+														<f:facet name="header">Excluir</f:facet>
+
+														<h:commandLink
+															action="#{movimentacaoBean.excluirMovimentacao(comanda)}"
+															onclick="if (!confirm('Confirma a exclusão do Comanda #{comanda.id_comanda}?')) return false;">
+															<i class="fa fa-trash-o"></i>
+														</h:commandLink>
+													</h:column>												
+
+
+												</h:dataTable>
+											</div>
+										</h:form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+<ui:insert name="footer">
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	<ui:include src="/restrito/common/footer.xhtml" />
+</ui:insert>
+</html>

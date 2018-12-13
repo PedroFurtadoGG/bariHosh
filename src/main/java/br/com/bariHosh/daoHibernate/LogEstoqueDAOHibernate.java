@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import br.com.bariHosh.dao.LogEstoqueDAO;
-import br.com.bariHosh.entidade.*;
+import br.com.bariHosh.entidade.Log_Estoque;
 import br.com.bariHosh.util.DAOFactory;
 
 public class LogEstoqueDAOHibernate extends GenericoDAOHibernate<Log_Estoque>  

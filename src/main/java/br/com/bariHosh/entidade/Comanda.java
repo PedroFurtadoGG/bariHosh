@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,8 +47,13 @@ public class Comanda implements Serializable {
 	@Column(nullable = false, precision = 10, scale = 2)
 	@NotNull
 	private Date data;
+	
+	@Enumerated(EnumType.STRING)
+	private EnumStatusComanda statusComanda;
+	
+	
 
-	private float desconto;
+	
 	private float valorTotal;
 	private boolean ativo = true;
 
@@ -124,20 +131,21 @@ public class Comanda implements Serializable {
 		this.itensDaComanda = itensDaComanda;
 	}
 
-	public float getDesconto() {
-		return desconto;
-	}
-
-	public void setDesconto(float desconto) {
-		this.desconto = desconto;
-	}
-
+	
 	public float getValorTotal() {
 		return valorTotal;
 	}
 
 	public void setValorTotal(float valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+
+	public EnumStatusComanda getStatusComanda() {
+		return statusComanda;
+	}
+
+	public void setStatusComanda(EnumStatusComanda statusComanda) {
+		this.statusComanda = statusComanda;
 	}
 
 	@Override
@@ -147,9 +155,9 @@ public class Comanda implements Serializable {
 		result = prime * result + (ativo ? 1231 : 1237);
 		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
 		result = prime * result + ((data == null) ? 0 : data.hashCode());
-		result = prime * result + Float.floatToIntBits(desconto);
 		result = prime * result + ((id_comanda == null) ? 0 : id_comanda.hashCode());
 		result = prime * result + ((itensDaComanda == null) ? 0 : itensDaComanda.hashCode());
+		result = prime * result + ((statusComanda == null) ? 0 : statusComanda.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		result = prime * result + Float.floatToIntBits(valorTotal);
 		return result;
@@ -176,8 +184,6 @@ public class Comanda implements Serializable {
 				return false;
 		} else if (!data.equals(other.data))
 			return false;
-		if (Float.floatToIntBits(desconto) != Float.floatToIntBits(other.desconto))
-			return false;
 		if (id_comanda == null) {
 			if (other.id_comanda != null)
 				return false;
@@ -187,6 +193,8 @@ public class Comanda implements Serializable {
 			if (other.itensDaComanda != null)
 				return false;
 		} else if (!itensDaComanda.equals(other.itensDaComanda))
+			return false;
+		if (statusComanda != other.statusComanda)
 			return false;
 		if (usuario == null) {
 			if (other.usuario != null)
@@ -198,11 +206,7 @@ public class Comanda implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Comanda [id_comanda=" + id_comanda + ", cliente=" + cliente + ", usuario=" + usuario
-				+ ", itensDaComanda=" + itensDaComanda + ", data=" + data + ", desconto=" + desconto + ", valorTotal="
-				+ valorTotal + ", ativo=" + ativo + "]";
-	}
+	
+	
 
 }

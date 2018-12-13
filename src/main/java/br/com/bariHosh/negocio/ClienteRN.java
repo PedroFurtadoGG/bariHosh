@@ -83,8 +83,8 @@ public class ClienteRN  extends ManuseioPublico{
 		return this.clienteDAO.listar(Cliente.class);
 	}
 	
-	public List<Cliente> listaFiltrada(String nome, String cpf){
-		return this.clienteDAO.listaFiltrada(nome, cpf);
+	public List<Cliente> listaFiltrada(String nome, String cpf,Long id_cliente){
+		return this.clienteDAO.listaFiltrada(nome, cpf, id_cliente);
 	}
 	
 	public String totalClientesRegistrados() {
